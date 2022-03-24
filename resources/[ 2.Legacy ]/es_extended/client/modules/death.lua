@@ -1,16 +1,15 @@
-Citizen.CreateThread(function()
+CreateThread(function()
 	local isDead = false
 
 	while true do
-		Citizen.Wait(0)
-		local letSleep = 0
+		local sleep = 1500
 		local player = PlayerId()
 
 		if NetworkIsPlayerActive(player) then
 			local playerPed = PlayerPedId()
 
 			if IsPedFatallyInjured(playerPed) and not isDead then
-				letSleep = false
+				sleep = 0
 				isDead = true
 
 				local killerEntity, deathCause = GetPedSourceOfDeath(playerPed), GetPedCauseOfDeath(playerPed)
@@ -23,13 +22,11 @@ Citizen.CreateThread(function()
 				end
 
 			elseif not IsPedFatallyInjured(playerPed) and isDead then
-				letSleep = false
+				sleep = 0
 				isDead = false
 			end
 		end
-		if letSleep then
-			Citizen.Wait(500)
-		end
+	Wait(sleep)
 	end
 end)
 
