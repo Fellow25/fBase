@@ -1,6 +1,6 @@
 local playerIdentity = {}
 local alreadyRegistered = {}
-local multichar = ESX.GetConfig().Multichar
+local multichar = false -- fBase doesn't support multichar :(
 
 if Config.UseDeferrals then
 	AddEventHandler('playerConnecting', function(playerName, setKickReason, deferrals)
