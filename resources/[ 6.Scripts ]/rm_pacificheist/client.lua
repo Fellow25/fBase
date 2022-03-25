@@ -23,16 +23,16 @@ ClientDoors = {}
 
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent("esx:getSharedObject", function(library) 
 			ESX = library 
 		end)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for k, v in pairs(Config['PacificHeist']['startHeist']['peds']) do
         loadModel(v['ped'])
         PacificHeist['startPeds'][k] = CreatePed(4, GetHashKey(v['ped']), v['pos']['x'], v['pos']['y'], v['pos']['z'] - 0.95, v['heading'], false, true)
@@ -59,7 +59,7 @@ AddEventHandler('pacificheist:client:policeAlert', function(targetCoords)
     SetBlipAsShortRange(pacificBlip, true)
 
     while alpha ~= 0 do
-        Citizen.Wait(500)
+        Wait(500)
         alpha = alpha - 1
         SetBlipAlpha(pacificBlip, alpha)
 
@@ -84,16 +84,16 @@ function StartHeist()
     end)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         for k, v in pairs(Config['PacificSetup']['freezeDoorList']) do
             ClientDoors[k] = GetClosestObjectOfType(v['pos'], 5.0, v['model'], 0, 0, 0)
         end
-        Citizen.Wait(1000)
+        Wait(1000)
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local ped = PlayerPedId()
         local pedCo = GetEntityCoords(ped)
@@ -144,7 +144,7 @@ Citizen.CreateThread(function()
                 end
             end
         end
-        Citizen.Wait(sleep)
+        Wait(sleep)
     end
 end)
 
@@ -174,7 +174,7 @@ end
 RegisterNetEvent('pacificheist:client:vaultLoop')
 AddEventHandler('pacificheist:client:vaultLoop', function()
     vaultLoop = true
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while vaultLoop do
             local ped = PlayerPedId()
             local pedCo = GetEntityCoords(ped)
@@ -217,7 +217,7 @@ AddEventHandler('pacificheist:client:vaultLoop', function()
                     end
                 end
             end
-            Citizen.Wait(1)
+            Wait(1)
         end
     end)
 end)
@@ -284,7 +284,7 @@ end)
 RegisterNetEvent('pacificheist:client:extendedLoop')
 AddEventHandler('pacificheist:client:extendedLoop', function()
     extendedLoop = true
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while extendedLoop do
             local ped = PlayerPedId()
             local pedCo = GetEntityCoords(ped)
@@ -351,7 +351,7 @@ AddEventHandler('pacificheist:client:extendedLoop', function()
                     end
                 end
             end
-            Citizen.Wait(sleep)
+            Wait(sleep)
         end
     end)
 end)
@@ -526,7 +526,7 @@ RegisterNetEvent('pacificheist:client:openVault')
 AddEventHandler('pacificheist:client:openVault', function(index)
     if index == 1 then
         local vault = GetClosestObjectOfType(253.92, 224.56, 101.88, 2.0, GetHashKey('v_ilev_bk_vaultdoor'), 0, 0, 0)
-        Citizen.CreateThread(function()
+        CreateThread(function()
             repeat
                 SetEntityHeading(vault, GetEntityHeading(vault) - 0.15)
                 Wait(10)
@@ -534,7 +534,7 @@ AddEventHandler('pacificheist:client:openVault', function(index)
         end)
     else
         local vault = GetClosestObjectOfType(256.518, 240.101, 101.701, 2.0, GetHashKey('ch_prop_ch_vaultdoor01x'), 0, 0, 0)
-        Citizen.CreateThread(function()
+        CreateThread(function()
             repeat
                 SetEntityHeading(vault, GetEntityHeading(vault) + 0.15)
                 Wait(10)
@@ -645,7 +645,7 @@ function Trolly(index)
             bag = CreateObject(GetHashKey("hei_p_m_bag_var22_arm_s"), pedCo, true, true, false)
 
             while not NetworkHasControlOfEntity(sceneObject) do
-                Citizen.Wait(1)
+                Wait(1)
                 NetworkRequestControlOfEntity(sceneObject)
             end
 
@@ -700,9 +700,9 @@ function CashAppear(grabModel)
     AttachEntityToEntity(grabobj, ped, GetPedBoneIndex(ped, 60309), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 0, true)
     local startedGrabbing = GetGameTimer()
 
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while GetGameTimer() - startedGrabbing < 37000 do
-            Citizen.Wait(1)
+            Wait(1)
             DisableControlAction(0, 73, true)
             if HasAnimEventFired(ped, GetHashKey("CASH_APPEAR")) then
                 if not IsEntityVisible(grabobj) then
@@ -1061,7 +1061,7 @@ function PlantingAnim(type, index, pos, rot)
                 busy = false
                 if not remoteLoop then
                     remoteLoop = true
-                    Citizen.CreateThread(function()
+                    CreateThread(function()
                         pressed = false
                         repeat
                             if not nearCellGates() then
@@ -1079,7 +1079,7 @@ function PlantingAnim(type, index, pos, rot)
                                     remoteLoop = false
                                 end
                             end
-                            Citizen.Wait(1)
+                            Wait(1)
                         until pressed == true
                     end)
                 end
@@ -1354,14 +1354,14 @@ end
 function loadPtfxAsset(dict)
     while not HasNamedPtfxAssetLoaded(dict) do
         RequestNamedPtfxAsset(dict)
-        Citizen.Wait(50)
+        Wait(50)
 	end
 end
 
 function loadAnimDict(dict)
     while not HasAnimDictLoaded(dict) do
         RequestAnimDict(dict)
-        Citizen.Wait(50)
+        Wait(50)
     end
 end
 
@@ -1373,7 +1373,7 @@ function loadModel(model)
     end
     while not HasModelLoaded(model) do
         RequestModel(model)
-        Citizen.Wait(0)
+        Wait(0)
     end
 end
 

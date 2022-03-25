@@ -1,15 +1,15 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 
 local playerPed = PlayerPedId()
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if fDrugs.jeveuxbliplsd then
         local blip = AddBlipForCoord(fDrugs.lsd.recolte.position.x, fDrugs.lsd.recolte.position.y, fDrugs.lsd.recolte.position.z)
         SetBlipSprite(blip, 57)
@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
     end
 end)  
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if fDrugs.jeveuxbliplsd then
         local blip = AddBlipForCoord(fDrugs.lsd.traitement.position.x, fDrugs.lsd.traitement.position.y, fDrugs.lsd.traitement.position.z)
         SetBlipSprite(blip, 57)
@@ -39,13 +39,13 @@ function fLSDRecolte()
     local fLSDR = RageUI.CreateMenu("LSD", "Récolte")
       RageUI.Visible(fLSDR, not RageUI.Visible(fLSDR))
               while fLSDR do
-                  Citizen.Wait(0)
+                  Wait(0)
                       RageUI.IsVisible(fLSDR, true, true, true, function()
 
                         RageUI.ButtonWithStyle("Récolter de la LSD", nil, {}, true, function(Hovered, Active, Selected)
                             if (Selected) then  
                                 TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_GARDENER_PLANT', 0, true)
-                                Citizen.Wait(100)     
+                                Wait(100)     
                                 recoltelsd()
                                 ClearPedTasksImmediately(playerPed)
                                 RageUI.CloseAll()
@@ -63,13 +63,13 @@ function fLSDTraitement()
     local fLSDT = RageUI.CreateMenu("LSD", "Traitement")
         RageUI.Visible(fLSDT, not RageUI.Visible(fLSDT))
                 while fLSDT do
-                    Citizen.Wait(0)
+                    Wait(0)
                         RageUI.IsVisible(fLSDT, true, true, true, function()
 
                         RageUI.ButtonWithStyle("Mettre de la LSD en sachet", nil, {}, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
-                                Citizen.Wait(100)
+                                Wait(100)
                                 traitementlsd()
                                 ClearPedTasksImmediately(playerPed)
                                 RageUI.CloseAll()
@@ -87,7 +87,7 @@ function fLSDTraitement()
 
     ---------------------------------------- Position du Menu --------------------------------------------
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -109,7 +109,7 @@ Citizen.CreateThread(function()
     end    
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
@@ -125,12 +125,12 @@ Citizen.CreateThread(function()
                             fLSDRecolte()
                     end   
                 end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 -------------------------------------------------------------------------------
 local traitementpossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -152,7 +152,7 @@ Citizen.CreateThread(function()
     end    
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
@@ -168,7 +168,7 @@ Citizen.CreateThread(function()
                             fLSDTraitement()
                     end   
                 end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -182,7 +182,7 @@ function recoltelsd()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-            Citizen.Wait(2000)
+            Wait(2000)
             TriggerServerEvent('rlsd')
     end
     else
@@ -194,7 +194,7 @@ function traitementlsd()
     if not traitementpossible then
         traitementpossible = true
     while traitementpossible do
-            Citizen.Wait(2000)
+            Wait(2000)
             TriggerServerEvent('tlsd')
     end
     else

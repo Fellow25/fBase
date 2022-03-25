@@ -1,9 +1,9 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(100)
+		Wait(100)
 	end
 end)
 
@@ -15,7 +15,7 @@ AddEventHandler("solde:argent", function(money, cash)
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for i=1, #rBank.position, 1 do
        local blip = AddBlipForCoord(rBank.position[i].x, rBank.position[i].y, rBank.position[i].z)
        SetBlipSprite(blip, 207)
@@ -40,7 +40,7 @@ function MenuBanque()
     MbankReti:SetRectangleBanner(255, 0, 0, 255)
         RageUI.Visible(Mbank, not RageUI.Visible(Mbank))
             while Mbank do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Mbank, true, true, true, function()
                 RageUI.Separator('~b~Bienvenue '..GetPlayerName(PlayerId()))
                 RageUI.ButtonWithStyle("Déposer de l'argent", nil,  {RightLabel = "→"}, true, function(Hovered, Active, Selected)
@@ -144,7 +144,7 @@ function MenuATM()
     MbankReti:SetRectangleBanner(255, 0, 0, 255)
         RageUI.Visible(Mbank, not RageUI.Visible(Mbank))
             while Mbank do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Mbank, true, true, true, function()
                 RageUI.Separator('~b~Bienvenue '..GetPlayerName(PlayerId()))
                 RageUI.ButtonWithStyle("Déposer de l'argent", nil,  {RightLabel = "→"}, true, function(Hovered, Active, Selected)
@@ -269,12 +269,12 @@ end
 
 function playAnim(animDict, animName, duration)
 	RequestAnimDict(animDict)
-	while not HasAnimDictLoaded(animDict) do Citizen.Wait(0) end
+	while not HasAnimDictLoaded(animDict) do Wait(0) end
 	TaskPlayAnim(PlayerPedId(), animDict, animName, 1.0, -1.0, duration, 49, 1, false, false, false)
 	RemoveAnimDict(animDict)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             for i=1, #rBank.position, 1 do
@@ -289,19 +289,19 @@ Citizen.CreateThread(function()
                         RageUI.Text({ message = "Appuyez sur ~g~[E]~s~ pour parler avec le banquier", time_display = 1 })
                         if IsControlJustPressed(1,51) then
                             playAnim('mp_common', 'givetake1_a', 2500)
-                            Citizen.Wait(2500)
+                            Wait(2500)
                             rBank.GetPlayerMoney()
                             MenuBanque()
         
                     end  
                 end 
                 end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         for i=1, #rBank.posatm, 1 do
@@ -316,13 +316,13 @@ Citizen.CreateThread(function()
                     RageUI.Text({ message = "Appuyez sur ~g~[E]~s~ pour accéder a l'ATM", time_display = 1 })
                     if IsControlJustPressed(1,51) then
                         playAnim('mp_common', 'givetake2_a', 2500)
-                        Citizen.Wait(2500)
+                        Wait(2500)
                         rBank.GetPlayerMoney()
                         MenuATM()
                 end  
             end 
             end 
-    Citizen.Wait(Timer)   
+    Wait(Timer)   
 end
 end)
 
@@ -334,16 +334,16 @@ function KeyboardInput(TextEntry, ExampleText, MaxStringLenght)
     blockinput = true
 
     while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do 
-        Citizen.Wait(0)
+        Wait(0)
     end
         
     if UpdateOnscreenKeyboard() ~= 2 then
         local result = GetOnscreenKeyboardResult() 
-        Citizen.Wait(500) 
+        Wait(500) 
         blockinput = false
         return result 
     else
-        Citizen.Wait(500) 
+        Wait(500) 
         blockinput = false 
         return nil 
     end

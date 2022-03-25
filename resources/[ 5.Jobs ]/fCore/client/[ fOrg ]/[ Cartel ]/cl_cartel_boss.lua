@@ -14,16 +14,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -56,7 +56,7 @@ function Bosscartel()
     RageUI.Visible(fcartel, not RageUI.Visible(fcartel))
 
             while fcartel do
-                Citizen.Wait(0)
+                Wait(0)
                     RageUI.IsVisible(fcartel, true, true, true, function()
 
                     if societycartelmoney ~= nil then
@@ -137,7 +137,7 @@ end
 
 ---------------------------------------------
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' and ESX.PlayerData.job2.grade_name == 'boss' then
@@ -157,7 +157,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -194,7 +194,7 @@ end
 function Deposerargentsale()
     ESX.TriggerServerCallback('cartel:getPlayerInventoryBlack', function(inventory)
         while DepositBlackCartel do
-            Citizen.Wait(0)
+            Wait(0)
         end
     end)
 end
@@ -202,7 +202,7 @@ end
 function Retirerargentsale()
 	ESX.TriggerServerCallback('cartel:getBlackMoneySociety', function(inventory)
 	    while StockBlackCartel do
-		    Citizen.Wait(0)
+		    Wait(0)
 	    end
     end)
 end

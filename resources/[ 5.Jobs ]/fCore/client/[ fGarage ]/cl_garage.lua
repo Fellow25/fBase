@@ -1,10 +1,10 @@
 ESX = nil
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(100)
+		Wait(100)
 	end
 end)
 
@@ -15,7 +15,7 @@ fellowgarage = {
 
 
 --blip garage
-Citizen.CreateThread(function()
+CreateThread(function()
      for k,v in pairs(garagepublic.zone) do
         local blip = AddBlipForCoord(v.sortie.x, v.sortie.y, v.sortie.z)
         SetBlipSprite(blip, 290)
@@ -34,7 +34,7 @@ function ouvrirpublicgar()
     local OuvrirGarage = RageUI.CreateMenu("Garage", "Public")
       RageUI.Visible(OuvrirGarage, not RageUI.Visible(OuvrirGarage))
           while OuvrirGarage do
-              Citizen.Wait(0)
+              Wait(0)
                 RageUI.IsVisible(OuvrirGarage, true, true, true, function()
                     for i = 1, #fellowgarage.listevoiture, 1 do
                     local hashvoiture = fellowgarage.listevoiture[i].vehicle.model
@@ -118,7 +118,7 @@ function etatrangervoiture(vehicle, vehicleProps)
 end
 
     --ouvrir menu sortir véhicule
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
             local Timer = 500
             for k,v in pairs(garagepublic.zone) do
@@ -139,12 +139,12 @@ end
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
     --ranger voiture bouton
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
             local Timer = 500
             for k,v in pairs(garagepublic.zone) do
@@ -162,7 +162,7 @@ end)
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -171,7 +171,7 @@ function Reparaisvoiture()
     ESX.TriggerServerCallback('fellow_garage:verifsous', function(suffisantsous)
         RageUI.Visible(Rgarage, not RageUI.Visible(Rgarage))
             while Rgarage do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Rgarage, true, true, true, function()
 
                 RageUI.ButtonWithStyle("Réparer le véhicule",nil, {RightLabel = garagepublic.cleanveh.." $"}, true, function(Hovered, Active, Selected)

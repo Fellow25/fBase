@@ -338,7 +338,7 @@ AddEventHandler('playerConnecting', function (playerName,setKickReason)
 
 	--Si Banlist pas chargée
 	if (Banlist == {}) then
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 
     if steamID == "n/a" and Config.ForceSteam then

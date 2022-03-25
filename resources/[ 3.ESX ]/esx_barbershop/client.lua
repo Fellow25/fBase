@@ -5,21 +5,21 @@ local viewangle = false
 local cost = 0
 local cam = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj)ESX = obj end)
-        Citizen.Wait(0)
+        Wait(0)
     end
     barber = GetHashKey("s_f_m_fembarber")
     if not HasModelLoaded(barber) then
         RequestModel(barber)
-        Citizen.Wait(200)
+        Wait(200)
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
-        Citizen.Wait(19)
+        Wait(19)
         local coords = GetEntityCoords(GetPlayerPed(-1))
         if (GetDistanceBetweenCoords(coords, 133.55, -1708.86, 29.29, true) < 0.5) then
             AddTextEntry(GetCurrentResourceName(), _U('started'))
@@ -39,7 +39,7 @@ Citizen.CreateThread(function()
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     local blip = AddBlipForCoord(vector3(136.8, -1708.4, 28.3))
     SetBlipSprite(blip, 71)
     SetBlipColour(blip, 51)
@@ -56,14 +56,14 @@ function readyCutHair()
     TaskPedSlideToCoord(PlayerPedId(), 137.12, -1709.45, 29.3, 205.75, 1.0)
     DoScreenFadeOut(1000)
     while not IsScreenFadedOut() do
-        Citizen.Wait(0)
+        Wait(0)
     end
     SetEntityCoords(PlayerPedId(), 137.72, -1710.64, 28.60)
     SetEntityHeading(PlayerPedId(), 237.22)
     ClearPedTasks(GetPlayerPed(-1))
     BehindPlayer = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 0 - 0.5, -0.5);
     TaskStartScenarioAtPosition(GetPlayerPed(-1), "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER", BehindPlayer['x'], BehindPlayer['y'], BehindPlayer['z'], GetEntityHeading(PlayerPedId()), 0, 1, false)
-    Citizen.Wait(1300)
+    Wait(1300)
     DoScreenFadeIn(5000)
 end
 
@@ -74,7 +74,7 @@ function createBarber()
     SetEntityInvincible(Ped, true)
     SetBlockingOfNonTemporaryEvents(Ped, true)
     TaskPedSlideToCoord(Ped, 137.15, -1710.50, 29.3, 205.75, 1.0)-- 讓npc移動到指定位置
-    Citizen.Wait(10000)
+    Wait(10000)
     FreezeEntityPosition(GetPlayerPed(-1), true)
     started = true
     TriggerEvent('barbershop:start')
@@ -83,9 +83,9 @@ end
 
 RegisterNetEvent('barbershop:start')
 AddEventHandler('barbershop:start', function()
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while started do
-            Citizen.Wait(0)
+            Wait(0)
             AddTextEntry(GetCurrentResourceName(), _U('buttom_Help', Config.hairCost, Config.eyebrowCost, Config.beardCost, cost))
             DisplayHelpTextThisFrame(GetCurrentResourceName(), false)
             if (IsControlJustPressed(0, 215)) then
@@ -98,9 +98,9 @@ AddEventHandler('barbershop:start', function()
                 SetEntityHeading(PlayerPedId(), 237.22)
                 ClearPedTasks(GetPlayerPed(-1))
                 TriggerServerEvent('barbershop:pay', GetPlayerServerId(PlayerId()), cost)
-                Citizen.Wait(500)
+                Wait(500)
                 TaskPedSlideToCoord(Ped, 141.48, -1705.59, 29.29 - 0.95, 123.37, 1.0)
-                Citizen.Wait(2000)
+                Wait(2000)
                 DeletePed(Ped)
                 cost = 0
             elseif (IsControlJustPressed(0, 112) or IsControlJustPressed(0, 107) or IsControlJustPressed(0, 117)) then
@@ -122,9 +122,9 @@ end)
 
 RegisterNetEvent('barbershop:viewangle')
 AddEventHandler('barbershop:viewangle', function()
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while viewangle do
-            Citizen.Wait(0)
+            Wait(0)
             AddTextEntry(GetCurrentResourceName(), _U('angle'))
             DisplayHelpTextThisFrame(GetCurrentResourceName(), false)
             if (IsControlJustPressed(0, 89)) then
@@ -158,9 +158,9 @@ end
 
 RegisterNetEvent('barbershop:disableUI')
 AddEventHandler('barbershop:disableUI', function()
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while disableUI do
-            Citizen.Wait(0)
+            Wait(0)
             HideHudComponentThisFrame(19)
             DisableControlAction(2, 37, true)
             DisablePlayerFiring(GetPlayerPed(-1), true)
@@ -279,7 +279,7 @@ barberMenu = function(style)
         viewangle = false
         RequestAnimDict("misshair_shop@barbers")
         while not HasAnimDictLoaded("misshair_shop@barbers") do
-            Citizen.Wait(0)
+            Wait(0)
         end
         TriggerEvent('skinchanger:getSkin', function(skin)
             TriggerServerEvent('esx_skin:save', skin)
@@ -288,7 +288,7 @@ barberMenu = function(style)
         TriggerEvent('skinchanger:getSkin', function(getSkin)
             skin = getSkin
         end)
-        Citizen.Wait(11500)
+        Wait(11500)
         if style == 'beardstyle' then
             cost = cost + Config.beardCost
         elseif style == 'eyebrowstyle' then

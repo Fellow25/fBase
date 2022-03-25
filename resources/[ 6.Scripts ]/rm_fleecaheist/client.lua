@@ -5,16 +5,16 @@ FleecaHeist = {
 grabNow = false
 
 ESX = nil
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent("esx:getSharedObject", function(library) 
 			ESX = library 
 		end)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for k, v in pairs(Config['FleecaHeist']) do
         local ped = v['scenePed']
         loadModel(ped['model'])
@@ -25,7 +25,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local ped = PlayerPedId()
         local pedCo = GetEntityCoords(ped)
@@ -41,7 +41,7 @@ Citizen.CreateThread(function()
                 end
             end
         end
-        Citizen.Wait(sleep)
+        Wait(sleep)
     end
 end)
 
@@ -125,7 +125,7 @@ AddEventHandler('fleecaheist:client:policeAlert', function(targetCoords)
     SetBlipAsShortRange(nappingBlip, true)
 
     while alpha ~= 0 do
-        Citizen.Wait(500)
+        Wait(500)
         alpha = alpha - 1
         SetBlipAlpha(nappingBlip, alpha)
 
@@ -386,7 +386,7 @@ function GrabTrolly(index, k)
             bag = CreateObject(GetHashKey("hei_p_m_bag_var22_arm_s"), pedCo, true, false, false)
 
             while not NetworkHasControlOfEntity(sceneObject) do
-                Citizen.Wait(1)
+                Wait(1)
                 NetworkRequestControlOfEntity(sceneObject)
             end
 
@@ -443,9 +443,9 @@ function CashAppear(grabModel)
     AttachEntityToEntity(grabobj, ped, GetPedBoneIndex(ped, 60309), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 0, true)
     local startedGrabbing = GetGameTimer()
 
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while GetGameTimer() - startedGrabbing < 37000 do
-            Citizen.Wait(1)
+            Wait(1)
             DisableControlAction(0, 73, true)
             if HasAnimEventFired(ped, GetHashKey("CASH_APPEAR")) then
                 if not IsEntityVisible(grabobj) then
@@ -557,7 +557,7 @@ end
 function loadAnimDict(dict)
     while not HasAnimDictLoaded(dict) do
         RequestAnimDict(dict)
-        Citizen.Wait(50)
+        Wait(50)
     end
 end
 
@@ -569,7 +569,7 @@ function loadModel(model)
     end
     while not HasModelLoaded(model) do
         RequestModel(model)
-        Citizen.Wait(0)
+        Wait(0)
     end
 end
 

@@ -141,7 +141,7 @@ AddEventHandler('blanchisseur:argentsale', function(argent)
 	if argent > 0 and xPlayer.getAccount('black_money').money >= argent then
 		xPlayer.removeAccountMoney('black_money', argent)
 		TriggerClientEvent('esx:showAdvancedNotification', xPlayer.source, 'Information', 'Blanchiement', 'Attend ~r~10 secondes', 'CHAR_MP_FM_CONTACT', 8)
-		Citizen.Wait(10000)
+		Wait(10000)
 		
 		TriggerClientEvent('esx:showAdvancedNotification', xPlayer.source, 'Information', 'Blanchiement', 'Tu as reçu : ' .. ESX.Math.GroupDigits(Total) .. ' ~g~$', 'CHAR_MP_FM_CONTACT', 8)
 		xPlayer.addMoney(Total)

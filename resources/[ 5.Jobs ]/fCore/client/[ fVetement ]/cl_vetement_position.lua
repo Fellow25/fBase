@@ -17,7 +17,7 @@ position = {
     {-1108.441, 2708.923, 19.107},
 }
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for _,v in pairs(position) do
         local blip = AddBlipForCoord(v[1], v[2], v[3])
         SetBlipSprite (blip, 73)
@@ -31,7 +31,7 @@ Citizen.CreateThread(function()
     end    
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         for _,v in pairs(position) do
@@ -50,6 +50,6 @@ Citizen.CreateThread(function()
                     end   
                 end
             end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)

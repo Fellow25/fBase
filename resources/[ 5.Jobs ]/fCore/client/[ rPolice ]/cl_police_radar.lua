@@ -99,7 +99,7 @@ function POLICE_radar()
             end
             TaskPlayAnim(GetPlayerPed(-1), "anim@apt_trans@garage", "gar_open_1_left", 1.0, -1.0, 5000, 0, 1, true, true, true) 
        
-            Citizen.Wait(2000) 
+            Wait(2000) 
        
             SetEntityAsMissionEntity(Radar, false, false)
            
@@ -124,14 +124,14 @@ function POLICE_radar()
             AddTextComponentString("~r~Vous n'êtes pas à coté de votre Radar !")
             DrawSubtitleTimed(3000, 1)
            
-            Citizen.Wait(1500) 
+            Wait(1500) 
        
         end
    
     else 
         maxSpeed = radarSetSpeed("50")
        
-        Citizen.Wait(200) 
+        Wait(200) 
         RadarPos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0, 1.5, 0)
         RadarAng = GetEntityRotation(GetPlayerPed(-1))
        
@@ -143,7 +143,7 @@ function POLICE_radar()
             end
             TaskPlayAnim(GetPlayerPed(-1), "anim@apt_trans@garage", "gar_open_1_left", 1.0, -1.0, 5000, 0, 1, true, true, true) -- animation
            
-            Citizen.Wait(1500)
+            Wait(1500)
            
             RequestModel("prop_cctv_pole_01a")
             while not HasModelLoaded("prop_cctv_pole_01a") do
@@ -171,7 +171,7 @@ function POLICE_radar()
     end
 end
  
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         Wait(0)
  

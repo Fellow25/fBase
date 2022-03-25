@@ -3,14 +3,14 @@ ESX = nil
 local timing, isPlayerWhitelisted = math.ceil(Config.Timer * 60000), false
 local streetName, playerGender
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 
 	while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
 	end
 
 	ESX.PlayerData = ESX.GetPlayerData()
@@ -29,9 +29,9 @@ AddEventHandler('esx:setJob', function(job)
 	isPlayerWhitelisted = refreshPlayerWhitelisted()
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(100)
+		Wait(100)
 
 		if NetworkIsSessionStarted() then
 			DecorRegister('isOutlaw', 3)
@@ -44,9 +44,9 @@ end)
 
 -- Gets the player's current street.
 -- Aaalso get the current player gender
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(3000)
+		Wait(3000)
 
 		local playerCoords = GetEntityCoords(PlayerPedId())
 		streetName,_ = GetStreetNameAtCoord(playerCoords.x, playerCoords.y, playerCoords.z)
@@ -85,20 +85,20 @@ AddEventHandler('esx_outlawalert:outlawNotify', function(type, data, length)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(2000)
+		Wait(2000)
 
 		if DecorGetInt(PlayerPedId(), 'isOutlaw') == 2 then
-			Citizen.Wait(timing)
+			Wait(timing)
 			DecorSetInt(PlayerPedId(), 'isOutlaw', 1)
 		end
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		local playerPed = PlayerPedId()
 		local playerCoords = GetEntityCoords(playerPed)
@@ -106,7 +106,7 @@ Citizen.CreateThread(function()
 		-- is jackin'
 		if (IsPedTryingToEnterALockedVehicle(playerPed) or IsPedJacking(playerPed)) and Config.CarJackingAlert then
 
-			Citizen.Wait(3000)
+			Wait(3000)
 			local vehicle = GetVehiclePedIsIn(playerPed, true)
 
 			if vehicle and ((isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted) then
@@ -131,7 +131,7 @@ Citizen.CreateThread(function()
 			-- is in combat
 		elseif IsPedInMeleeCombat(playerPed) and Config.MeleeAlert then
 
-			Citizen.Wait(3000)
+			Wait(3000)
 
 			if (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
 				DecorSetInt(playerPed, 'isOutlaw', 2)
@@ -145,7 +145,7 @@ Citizen.CreateThread(function()
 			-- is shootin'
 		elseif IsPedShooting(playerPed) and not IsPedCurrentWeaponSilenced(playerPed) and Config.GunshotAlert then
 
-			Citizen.Wait(3000)
+			Wait(3000)
 
 			if (isPlayerWhitelisted and Config.ShowCopsMisbehave) or not isPlayerWhitelisted then
 				DecorSetInt(playerPed, 'isOutlaw', 2)
@@ -177,7 +177,7 @@ AddEventHandler('esx_outlawalert:carJackInProgress', function(targetCoords)
 			SetBlipAsShortRange(thiefBlip, true)
 
 			while alpha ~= 0 do
-				Citizen.Wait(Config.BlipJackingTime * 4)
+				Wait(Config.BlipJackingTime * 4)
 				alpha = alpha - 1
 				SetBlipAlpha(thiefBlip, alpha)
 
@@ -203,7 +203,7 @@ AddEventHandler('esx_outlawalert:gunshotInProgress', function(targetCoords)
 		SetBlipAsShortRange(gunshotBlip, true)
 
 		while alpha ~= 0 do
-			Citizen.Wait(Config.BlipGunTime * 4)
+			Wait(Config.BlipGunTime * 4)
 			alpha = alpha - 1
 			SetBlipAlpha(gunshotBlip, alpha)
 
@@ -227,7 +227,7 @@ AddEventHandler('esx_outlawalert:combatInProgress', function(targetCoords)
 		SetBlipAsShortRange(meleeBlip, true)
 
 		while alpha ~= 0 do
-			Citizen.Wait(Config.BlipMeleeTime * 4)
+			Wait(Config.BlipMeleeTime * 4)
 			alpha = alpha - 1
 			SetBlipAlpha(meleeBlip, alpha)
 

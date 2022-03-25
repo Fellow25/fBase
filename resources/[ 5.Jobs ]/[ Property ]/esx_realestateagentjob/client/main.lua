@@ -6,7 +6,7 @@ function OpenRealestateAgentMenu()
     local MRealestateAgent = RageUI.CreateMenu("Agent Immobilier", " ")
         RageUI.Visible(MRealestateAgent, not RageUI.Visible(MRealestateAgent))
             while MRealestateAgent do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(MRealestateAgent, true, true, true, function()
 
                     RageUI.ButtonWithStyle(_U('properties'), nil, {RightLabel = "→→"}, true, function(Hovered, Active, Selected)
@@ -253,7 +253,7 @@ AddEventHandler('esx_realestateagentjob:hasExitedMarker', function(zone)
 end)
 
 -- Create Blips
-Citizen.CreateThread(function()
+CreateThread(function()
 	local blip = AddBlipForCoord(Config.Zones.OfficeEnter.Pos.x, Config.Zones.OfficeEnter.Pos.y, Config.Zones.OfficeEnter.Pos.z)
 
 	SetBlipSprite (blip, 357)
@@ -268,9 +268,9 @@ Citizen.CreateThread(function()
 end)
 
 -- Display markers
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		local coords = GetEntityCoords(PlayerPedId())
 
@@ -283,9 +283,9 @@ Citizen.CreateThread(function()
 end)
 
 -- Enter / Exit marker events
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		local coords      = GetEntityCoords(PlayerPedId())
 		local isInMarker  = false
@@ -312,9 +312,9 @@ Citizen.CreateThread(function()
 end)
 
 -- Key controls
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		if CurrentAction then
 			ESX.ShowHelpNotification(CurrentActionMsg)
@@ -327,13 +327,13 @@ Citizen.CreateThread(function()
 				CurrentAction = nil
 			end
 		else
-			Citizen.Wait(500)
+			Wait(500)
 		end
 	end
 end)
 
 -- Load IPLS
-Citizen.CreateThread(function()
+CreateThread(function()
 	RequestIpl('ex_dt1_02_office_02c')
 end)
 
@@ -487,7 +487,7 @@ function MenuF6Immo()
 	rImmoF6:SetRectangleBanner(200, 0, 0, 254)
     RageUI.Visible(rImmoF6, not RageUI.Visible(rImmoF6))
     while rImmoF6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(rImmoF6, true, true, true, function()
 
                 RageUI.Separator("↓ Facture ↓")
@@ -558,7 +558,7 @@ function aProperty()
         Property = true
 		RageUI.Visible(RMenu:Get('Property', 'create'), true)
 
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			while Property do
 				RageUI.IsVisible(RMenu:Get("Property",'create'),true,true,true,function()
                     local pos = GetEntityCoords(PlayerPedId())
@@ -741,7 +741,7 @@ function aProperty()
                                     else 	
                                        TriggerServerEvent('mrw_prop:Save', name, label, entering, exit, inside, outside, ipl, isSingle, isRoom, isGateway, roommenu, price)
 
-                                       Citizen.Wait(15)
+                                       Wait(15)
                                        SetEntityCoords(PlayerPedId(), PedPosition.x, PedPosition.y, PedPosition.z)
                                     end
                                 end  
@@ -768,11 +768,11 @@ function OpenKeyboard(type, labelText)
 	DisplayOnscreenKeyboard(1, "FMMC_KEY_TIP1", "", "", "", "", "", 25)
 	blockinput = true
 	while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
-		Citizen.Wait(0)
+		Wait(0)
 	end
 	if UpdateOnscreenKeyboard() ~= 2 then
 		local result = GetOnscreenKeyboardResult() 
-		Citizen.Wait(500) 
+		Wait(500) 
 		blockinput = false 
 		if type == "name" then 
 			ESX.ShowNotification("Nom assigné : ~b~"..noSpace(result))
@@ -789,13 +789,13 @@ function OpenKeyboard(type, labelText)
 		    return tonumber(result)
 		end
 	else
-		Citizen.Wait(500)
+		Wait(500)
 		blockinput = false 
 		return nil
 	end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 0
 		if ESX.PlayerData.job and ESX.PlayerData.job.name == 'realestateagent' then
@@ -803,7 +803,7 @@ Citizen.CreateThread(function()
 			MenuF6Immo()
         end
 	end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -813,16 +813,16 @@ local function AgentImmoKeyboardInput(TextEntry, ExampleText, MaxStringLenght)
     blockinput = true
 
     while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do 
-        Citizen.Wait(0)
+        Wait(0)
     end
         
     if UpdateOnscreenKeyboard() ~= 2 then
         local result = GetOnscreenKeyboardResult() 
-        Citizen.Wait(500) 
+        Wait(500) 
         blockinput = false
         return result 
     else
-        Citizen.Wait(500) 
+        Wait(500) 
         blockinput = false 
         return nil 
     end
@@ -841,7 +841,7 @@ function MenuDpropriete()
 	local Dpropriete = RageUI.CreateMenu("Demande de propriété", " ")
 	RageUI.Visible(Dpropriete, not RageUI.Visible(Dpropriete))
 	while Dpropriete do
-		Citizen.Wait(0)
+		Wait(0)
 		RageUI.IsVisible(Dpropriete, true, true, true, function()
 			local posped = GetEntityCoords(PlayerPedId())
 

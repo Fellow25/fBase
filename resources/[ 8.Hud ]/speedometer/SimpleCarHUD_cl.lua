@@ -47,7 +47,7 @@ local locationText = ""
 local currentFuel = 0.0
 
 -- Main thread
-Citizen.CreateThread(function()
+CreateThread(function()
     -- Initialize local variable
     local currSpeed = 0.0
     local cruiseSpeed = 999.0
@@ -63,7 +63,7 @@ Citizen.CreateThread(function()
             wait = 0
         end
         -- Loop forever and update HUD every frame
-        Citizen.Wait(wait)
+        Wait(wait)
 
         -- Get player PED, position and vehicle and save to locals
         local player = GetPlayerPed(-1)
@@ -118,7 +118,7 @@ Citizen.CreateThread(function()
                     if (vehIsMovingFwd and (prevSpeed > (seatbeltEjectSpeed/2.237)) and (vehAcc > (seatbeltEjectAccel*9.81))) then
                         SetEntityCoords(player, position.x, position.y, position.z - 0.47, true, true, true)
                         SetEntityVelocity(player, prevVelocity.x, prevVelocity.y, prevVelocity.z)
-                        Citizen.Wait(1)
+                        Wait(1)
                         SetPedToRagdoll(player, 1000, 1000, 0, 0, 0, 0)
                     else
                         -- Update previous velocity for ejecting player

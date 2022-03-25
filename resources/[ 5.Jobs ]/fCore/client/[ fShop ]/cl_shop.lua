@@ -1,9 +1,9 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(0)
+        Wait(0)
     end
 end)
 
@@ -33,7 +33,7 @@ function OpenShop()
 
   
   while Shop do
-      Citizen.Wait(0)
+      Wait(0)
       RageUI.IsVisible(Shop, true, true, true, function()
  
             RageUI.ButtonWithStyle("Nourritures", nil,  {}, true, function(Hovered, Active, Selected)
@@ -109,7 +109,7 @@ local position = {
         {x = 967.74,  y = -1867.96,  z = 31.3}
     }    
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for k, v in pairs(position) do
         local blip = AddBlipForCoord(v.x, v.y, v.z)
         SetBlipSprite(blip, 52)
@@ -122,7 +122,7 @@ Citizen.CreateThread(function()
     end
 end)    
     
- Citizen.CreateThread(function()
+ CreateThread(function()
     while true do
         local sleep = 500
             for k in pairs(position) do
@@ -136,6 +136,6 @@ end)
                     end
                 end
             end
-        Citizen.Wait(sleep)
+        Wait(sleep)
     end
 end)

@@ -1,15 +1,15 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 
 local playerPed = PlayerPedId()
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if fDrugs.jeveuxblipopium then
         local blip = AddBlipForCoord(fDrugs.opium.recolte.position.x, fDrugs.opium.recolte.position.y, fDrugs.opium.recolte.position.z)
         SetBlipSprite(blip, 766)
@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
     end
 end)  
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if fDrugs.jeveuxblipopium then
         local blip = AddBlipForCoord(fDrugs.opium.traitement.position.x, fDrugs.opium.traitement.position.y, fDrugs.opium.traitement.position.z)
         SetBlipSprite(blip, 766)
@@ -39,13 +39,13 @@ function fOpiumRecolte()
     local fOR = RageUI.CreateMenu("Opium", "Récolte")
       RageUI.Visible(fOR, not RageUI.Visible(fOR))
               while fOR do
-                  Citizen.Wait(0)
+                  Wait(0)
                       RageUI.IsVisible(fOR, true, true, true, function()
 
                         RageUI.ButtonWithStyle("Récolter de la opium", nil, {}, true, function(Hovered, Active, Selected)
                             if (Selected) then   
                                 TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_GARDENER_PLANT', 0, true)
-                                Citizen.Wait(100)           
+                                Wait(100)           
                                 recolteopium()
                                 ClearPedTasksImmediately(playerPed)
                                 RageUI.CloseAll()
@@ -63,13 +63,13 @@ function fOpiumTraitement()
     local fOT = RageUI.CreateMenu("Opium", "Traitement")
         RageUI.Visible(fOT, not RageUI.Visible(fOT))
                 while fOT do
-                    Citizen.Wait(0)
+                    Wait(0)
                         RageUI.IsVisible(fOT, true, true, true, function()
 
                         RageUI.ButtonWithStyle("Mettre de la opium en sachet", nil, {}, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
-                                Citizen.Wait(100)
+                                Wait(100)
                                 traitementopium()
                                 ClearPedTasksImmediately(playerPed)
                                 RageUI.CloseAll()
@@ -87,7 +87,7 @@ function fOpiumTraitement()
 
     ---------------------------------------- Position du Menu --------------------------------------------
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -109,7 +109,7 @@ Citizen.CreateThread(function()
     end    
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
@@ -125,12 +125,12 @@ Citizen.CreateThread(function()
                             fOpiumRecolte()
                     end   
                 end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 -------------------------------------------------------------------------------
 local traitementpossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -152,7 +152,7 @@ Citizen.CreateThread(function()
     end    
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
@@ -168,7 +168,7 @@ Citizen.CreateThread(function()
                             fOpiumTraitement()
                     end   
                 end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -182,7 +182,7 @@ function recolteopium()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-            Citizen.Wait(2000)
+            Wait(2000)
             TriggerServerEvent('ropium')
     end
     else
@@ -194,7 +194,7 @@ function traitementopium()
     if not traitementpossible then
         traitementpossible = true
     while traitementpossible do
-            Citizen.Wait(2000)
+            Wait(2000)
             TriggerServerEvent('topium')
     end
     else

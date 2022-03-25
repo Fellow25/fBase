@@ -12,16 +12,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -48,7 +48,7 @@ function OpenBennysKit()
     RageUI.Visible(BennysKit, not RageUI.Visible(BennysKit))
     
     while BennysKit do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(BennysKit, true, true, true, function()
                 RageUI.ButtonWithStyle("Fabriquer un kit de réparation", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -65,7 +65,7 @@ function OpenBennysKit()
     end
 
 local transformationpossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -92,7 +92,7 @@ function kitdereparation()
         transformationpossible = true
     while transformationpossible do
         TriggerServerEvent('fBennys:Fabriquerkit')
-        Citizen.Wait(3000)
+        Wait(3000)
         TriggerServerEvent('kit')
     end
     else
@@ -100,7 +100,7 @@ function kitdereparation()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
@@ -118,6 +118,6 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)

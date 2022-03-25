@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -28,7 +28,7 @@ AddEventHandler('esx:setJob2', function(job2)
     ESX.PlayerData.job2 = job2
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 if marabunta.jeveuxblips then
     local maramap = AddBlipForCoord(marabunta.pos.blips.position.x, marabunta.pos.blips.position.y, marabunta.pos.blips.position.z)
 
@@ -49,7 +49,7 @@ function GarageMarabunta()
   local GMarabunta = RageUI.CreateMenu("Garage", "Marabunta")
     RageUI.Visible(GMarabunta, not RageUI.Visible(GMarabunta))
         while GMarabunta do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GMarabunta, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -64,7 +64,7 @@ function GarageMarabunta()
                     for k,v in pairs(GMarabuntavoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarMarabunta(v.modele)
                             RageUI.CloseAll()
                             end
@@ -78,7 +78,7 @@ function GarageMarabunta()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'marabunta' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'marabunta' then 
@@ -96,7 +96,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -106,7 +106,7 @@ function spawnuniCarMarabunta(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
     local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -141,7 +141,7 @@ function CoffreMarabunta()
 	local CMarabunta = RageUI.CreateMenu("Coffre", "Marabunta")
         RageUI.Visible(CMarabunta, not RageUI.Visible(CMarabunta))
             while CMarabunta do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(CMarabunta, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -183,7 +183,7 @@ function CoffreMarabunta()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'marabunta' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'marabunta' then  
@@ -201,7 +201,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -213,7 +213,7 @@ function MarabuntaRetirerobjet()
 	end)
 	RageUI.Visible(StockMarabunta, not RageUI.Visible(StockMarabunta))
         while StockMarabunta do
-		    Citizen.Wait(0)
+		    Wait(0)
 		        RageUI.IsVisible(StockMarabunta, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -240,7 +240,7 @@ function MarabuntaDeposerobjet()
 	ESX.TriggerServerCallback('marabunta:getPlayerInventory', function(inventory)
         RageUI.Visible(DepositMarabunta, not RageUI.Visible(DepositMarabunta))
     while DepositMarabunta do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositMarabunta, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

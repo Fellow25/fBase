@@ -75,10 +75,10 @@ AddEventHandler('loffe_robbery:rob', function(store)
     TriggerClientEvent('loffe_robbery:resetStore', -1, store)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         for i = 1, #deadPeds do TriggerClientEvent('loffe_robbery:pedDead', -1, i) end -- update dead peds
-        Citizen.Wait(500)
+        Wait(500)
     end
 end)
 

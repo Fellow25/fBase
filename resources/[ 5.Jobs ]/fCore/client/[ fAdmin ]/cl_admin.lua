@@ -16,14 +16,14 @@ end
 
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 	ESX.TriggerServerCallback('fAdmin:getUsergroup', function(group)
         playergroup = group
@@ -46,7 +46,7 @@ local onlinePlayers = GetNumberOfPlayers()
 local gamerTags = {}
 local spectating = false
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         Wait(500)
         for k,v in pairs(GetActivePlayers()) do
@@ -63,9 +63,9 @@ Citizen.CreateThread(function()
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(200)
+		Wait(200)
 
 		if invisible then
 			SetEntityVisible(GetPlayerPed(-1), 0, 0)
@@ -105,7 +105,7 @@ function defESX()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     defESX()
 end)
 
@@ -520,7 +520,7 @@ function fAdminMenu()
                             if ModelName and IsModelValid(ModelName) and IsModelAVehicle(ModelName) then
                                 RequestModel(ModelName)
                                 while not HasModelLoaded(ModelName) do
-                                    Citizen.Wait(0)
+                                    Wait(0)
                                 end
                                     --local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)), true, true)
                                     --TaskWarpPedIntoVehicle(GetPlayerPed(IdSelected), veh, -1)
@@ -634,7 +634,7 @@ function fAdminMenu()
 						if ModelName and IsModelValid(ModelName) and IsModelAVehicle(ModelName) then
 							RequestModel(ModelName)
 							while not HasModelLoaded(ModelName) do
-								Citizen.Wait(0)
+								Wait(0)
 							end
 								local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)), true, true)
 								TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
@@ -710,7 +710,7 @@ function fAdminMenu()
 								if ModelName and IsModelValid(ModelName) and IsModelAVehicle(ModelName) then
 									RequestModel(ModelName)
 									while not HasModelLoaded(ModelName) do
-										Citizen.Wait(0)
+										Wait(0)
 									end
 										--local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)), true, true)
 										TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
@@ -1289,7 +1289,7 @@ Keys.Register('F10', 'fAdmin', 'Ouvrir le menu F10', function()
 end)
 
 -- Coords
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
     	if Admin.showcoords then
             x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
@@ -1304,7 +1304,7 @@ Citizen.CreateThread(function()
         if Admin.showcrosshair then
             DrawTxt('+', 0.495, 0.484, 1.0, 0.3, MainColor)
         end
-    	Citizen.Wait(0)
+    	Wait(0)
     end
 end)
 
@@ -1422,7 +1422,7 @@ function getPosition()
     return noclip
   end
   
-  Citizen.CreateThread(function()
+  CreateThread(function()
       while true do
         local Timer = 500
         if noclip then
@@ -1450,7 +1450,7 @@ function getPosition()
     
           SetEntityCoordsNoOffset(ped,x,y,z,true,true,true)
         end
-        Citizen.Wait(Timer)
+        Wait(Timer)
       end
     end)
 
@@ -1472,7 +1472,7 @@ local voituregive = {}
 function give_vehi(veh)
     local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
     
-    Citizen.Wait(10)
+    Wait(10)
     ESX.Game.SpawnVehicle(veh, {x = plyCoords.x+2 ,y = plyCoords.y, z = plyCoords.z+2}, 313.4216, function (vehicle)
             local plate = GeneratePlate()
             table.insert(voituregive, vehicle)        
@@ -1490,7 +1490,7 @@ local voituregivejoueur = {}
 function give_vehijoueur(veh, IdSelected)
     local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
     
-    Citizen.Wait(10)
+    Wait(10)
     ESX.Game.SpawnVehicle(veh, {x = plyCoords.x+2 ,y = plyCoords.y, z = plyCoords.z+2}, 313.4216, function (vehicle)
             local plate = GeneratePlate()
             table.insert(voituregivejoueur, vehicle)        
@@ -1579,20 +1579,20 @@ AddEventHandler('fAdmin:sendAnnounce', function(text, author)
     author = '~r~ ' .. author.. ' ~w~'
 
     local text = text;
-    Citizen.CreateThread(function()
+    CreateThread(function()
         local show = true;
         PlaySoundFrontend(-1, "5s_To_Event_Start_Countdown", "GTAO_FM_Events_Soundset", 1)
 
-        Citizen.CreateThread(function()
+        CreateThread(function()
             while show do
                 DrawRect(0.494, 0.200, 5.185, 0.050, 0, 0, 0, 150);
                 DrawAdvancedTextCNN(0.588, 0.14, 0.005, 0.0028, 0.8, author, 255, 255, 255, 255, 1, 0);
                 DrawAdvancedTextCNN(0.586, 0.199, 0.005, 0.0028, 0.6, text, 255, 255, 255, 255, 7, 0);
-                Citizen.Wait(1);
+                Wait(1);
             end
         end)
         
-        Citizen.Wait(5000);
+        Wait(5000);
         show = false;
     end)
 end)
@@ -1660,9 +1660,9 @@ function StopDrawPlayerInfo()
     drawTarget = 0
 end
 
-Citizen.CreateThread( function()
+CreateThread( function()
     while true do
-        Citizen.Wait(0)
+        Wait(0)
         if drawInfo then
             local text = {}
             local targetPed = GetPlayerPed(drawTarget)

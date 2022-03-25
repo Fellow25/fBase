@@ -13,16 +13,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -51,7 +51,7 @@ function BossConcessMoto()
     RageUI.Visible(BConcessMoto, not RageUI.Visible(BConcessMoto))
 
             while BConcessMoto do
-                Citizen.Wait(0)
+                Wait(0)
                     RageUI.IsVisible(BConcessMoto, true, true, true, function()
 
                     if societymotodealermoney ~= nil then
@@ -101,7 +101,7 @@ end
 
 ---------------------------------------------
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'motodealer' and ESX.PlayerData.job.grade_name == 'boss' then
@@ -120,7 +120,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 

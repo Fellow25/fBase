@@ -58,7 +58,7 @@ function RemoveOwnedProperty(name, owner, noPay)
 end
 
 MySQL.ready(function()
-	Citizen.Wait(1500)
+	Wait(1500)
 
 	MySQL.Async.fetchAll('SELECT * FROM `properties`', {}, function(properties)
 

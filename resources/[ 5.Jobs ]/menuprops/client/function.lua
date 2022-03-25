@@ -4,7 +4,7 @@ Matricule = nil
 NomDeLagent = ""
 
 function PriseService(status)
-    Citizen.CreateThread(function()
+    CreateThread(function()
         if not status then
             service = status
         elseif status then
@@ -35,7 +35,7 @@ function SpawnObj(obj)
     PlaceObjectOnGroundProperly(Ent)
     local placed = false
     while not placed do
-        Citizen.Wait(1)
+        Wait(1)
         local coords, forward = GetEntityCoords(playerPed), GetEntityForwardVector(playerPed)
         local objectCoords = (coords + forward * 2.0)
         SetEntityCoords(Ent, objectCoords, 0.0, 0.0, 0.0, 0)
@@ -58,7 +58,7 @@ end
 
 
 function RemoveObj(id, k)
-    Citizen.CreateThread(function()
+    CreateThread(function()
         SetNetworkIdCanMigrate(id, true)
         local entity = NetworkGetEntityFromNetworkId(id)
         NetworkRequestControlOfEntity(entity)
@@ -102,7 +102,7 @@ end
 function SpawnObject(model, coords, cb)
 	local model = GetHashKey(model)
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		RequestModels(model)
         Wait(1)
 		local obj = CreateObject(model, coords.x, coords.y, coords.z, true, false, true)
@@ -119,7 +119,7 @@ function RequestModels(modelHash)
 		RequestModel(modelHash)
 
         while not HasModelLoaded(modelHash) do
-			Citizen.Wait(1)
+			Wait(1)
 		end
 	end
 end

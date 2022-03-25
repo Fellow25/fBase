@@ -9,13 +9,13 @@ function DrawSub(msg, time)
 end
 
 function ShowLoadingPromt(msg, time, type)
-	Citizen.CreateThread(function()
-		Citizen.Wait(0)
+	CreateThread(function()
+		Wait(0)
 
 		BeginTextCommandBusyspinnerOn('STRING')
 		AddTextComponentSubstringPlayerName(msg)
 		EndTextCommandBusyspinnerOn(type)
-		Citizen.Wait(time)
+		Wait(time)
 
 		BusyspinnerOff()
 	end)
@@ -95,7 +95,7 @@ function Menuf6Taxi()
     local fTaxif6 = RageUI.CreateMenu("Taxi", "Interactions")
     RageUI.Visible(fTaxif6, not RageUI.Visible(fTaxif6))
     while fTaxif6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fTaxif6, true, true, true, function()
 
                 RageUI.ButtonWithStyle("Facture",nil, {RightLabel = "→"}, true, function(_,_,s)
@@ -212,7 +212,7 @@ function GarageTaxi()
 	local GTaxi = RageUI.CreateMenu("Garage", "Taxi")
 	  RageUI.Visible(GTaxi, not RageUI.Visible(GTaxi))
 		  while GTaxi do
-			  Citizen.Wait(0)
+			  Wait(0)
 				  RageUI.IsVisible(GTaxi, true, true, true, function()
 					  RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
 						  if (Selected) then   
@@ -227,7 +227,7 @@ function GarageTaxi()
 					  for k,v in pairs(fTaxi.AuthorizedVehicles) do
 					  RageUI.ButtonWithStyle(v.label, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
 						  if (Selected) then
-						  Citizen.Wait(1)  
+						  Wait(1)  
 							  spawnuniCaTaxi(v.model)
 							  RageUI.CloseAll()
 							  end
@@ -241,7 +241,7 @@ function GarageTaxi()
 	  end
   end
   
-  Citizen.CreateThread(function()
+  CreateThread(function()
 		  while true do
 			  local Timer = 500
 			  if ESX.PlayerData.job and ESX.PlayerData.job.name == 'taxi' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'taxi' then 
@@ -259,7 +259,7 @@ function GarageTaxi()
 					  end   
 				  end
 			  end 
-		  Citizen.Wait(Timer)
+		  Wait(Timer)
 	   end
   end)
   
@@ -269,7 +269,7 @@ function GarageTaxi()
 	  RequestModel(car)
 	  while not HasModelLoaded(car) do
 		  RequestModel(car)
-		  Citizen.Wait(0)
+		  Wait(0)
 	  end
   
 	  local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -315,7 +315,7 @@ function CoffreTaxi()
 	local CTaxi = RageUI.CreateMenu("Coffre", "Taxi")
         RageUI.Visible(CTaxi, not RageUI.Visible(CTaxi))
             while CTaxi do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(CTaxi, true, true, true, function()
 
                 RageUI.Separator("↓ Objet ↓")
@@ -357,7 +357,7 @@ function CoffreTaxi()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'taxi' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'taxi' then  
@@ -375,7 +375,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -386,7 +386,7 @@ function TaxiRetirerobjet()
 	itemstock = items
 	RageUI.Visible(StockTaxi, not RageUI.Visible(StockTaxi))
         while StockTaxi do
-		    Citizen.Wait(0)
+		    Wait(0)
 		        RageUI.IsVisible(StockTaxi, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -414,7 +414,7 @@ function TaxiDeposerobjet()
     ESX.TriggerServerCallback('taxi:getPlayerInventory', function(inventory)
         RageUI.Visible(DepositTaxi, not RageUI.Visible(DepositTaxi))
     while DepositTaxi do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositTaxi, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -482,7 +482,7 @@ AddEventHandler('esx_phone:loaded', function(phoneNumber, contacts)
 end)
 
 -- Create Blips
-Citizen.CreateThread(function()
+CreateThread(function()
 	if fTaxi.jeveuxblips then
 	local blip = AddBlipForCoord(fTaxi.pos.blip.position.x, fTaxi.pos.blip.position.y, fTaxi.pos.blip.position.z)
 
@@ -499,10 +499,10 @@ Citizen.CreateThread(function()
 end)
 
 -- Taxi Job
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 
-		Citizen.Wait(0)
+		Wait(0)
 		local playerPed = PlayerPedId()
 
 		if OnJob then
@@ -513,7 +513,7 @@ Citizen.CreateThread(function()
 					local waitUntil = GetGameTimer() + GetRandomIntInRange(30000, 45000)
 
 					while OnJob and waitUntil > GetGameTimer() do
-						Citizen.Wait(0)
+						Wait(0)
 					end
 
 					if OnJob and IsPedInAnyVehicle(playerPed, false) and GetEntitySpeed(playerPed) > 0 then
@@ -595,7 +595,7 @@ Citizen.CreateThread(function()
 							targetCoords = fTaxi.JobLocations[GetRandomIntInRange(1, #fTaxi.JobLocations)]
 							local distance = #(playerCoords - targetCoords)
 							while distance < fTaxi.MinimumDistance do
-								Citizen.Wait(5)
+								Wait(5)
 
 								targetCoords = fTaxi.JobLocations[GetRandomIntInRange(1, #fTaxi.JobLocations)]
 								distance = #(playerCoords - targetCoords)
@@ -660,14 +660,14 @@ Citizen.CreateThread(function()
 				end
 			end
 		else
-			Citizen.Wait(500)
+			Wait(500)
 		end
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while onJob do
-		Citizen.Wait(10000)
+		Wait(10000)
 		if ESX.PlayerData.job ~= nil and ESX.PlayerData.job.grade < 3 then
 			if not IsInAuthorizedVehicle() then
 				ClearCurrentMission()

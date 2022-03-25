@@ -83,7 +83,7 @@ function RageUI.Button(Label, Description, Style, Enabled, Action, Submenu)
                     local Audio = RageUI.Settings.Audio
                     RageUI.PlaySound(Audio[Audio.Use].Select.audioName, Audio[Audio.Use].Select.audioRef)
                     if (Action.onSelected ~= nil) then
-                        Citizen.CreateThread(function()
+                        CreateThread(function()
                             Action.onSelected();
                         end)
                     end

@@ -57,7 +57,7 @@ function MenufVetements()
     f_vetementsmenu:SetRectangleBanner(255, 165, 0)
         RageUI.Visible(f_vetementsmenu, not RageUI.Visible(f_vetementsmenu))
     while f_vetementsmenu do
-        Citizen.Wait(1)
+        Wait(1)
             RageUI.IsVisible(f_vetementsmenu, true, true, true, function()
               if PlayerClothe == nil or #PlayerClothe == 0 then 
                 RageUI.ButtonWithStyle("Aucune tenue enregistrée", nil, {}, true, function(Hovered, Active, Selected)

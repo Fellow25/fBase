@@ -6,7 +6,7 @@ if Config.UseDeferrals then
 	AddEventHandler('playerConnecting', function(playerName, setKickReason, deferrals)
 		deferrals.defer()
 		local playerId, identifier = source, ESX.GetIdentifier(source)
-		Citizen.Wait(100)
+		Wait(100)
 	
 		if identifier then
 			MySQL.Async.fetchAll('SELECT firstname, lastname, dateofbirth, sex, height FROM users WHERE identifier = @identifier', {
@@ -89,7 +89,7 @@ if Config.UseDeferrals then
 				saveIdentityToDatabase(xPlayer.identifier, currentIdentity)
 			end
 
-			Citizen.Wait(5)
+			Wait(5)
 			alreadyRegistered[xPlayer.identifier] = true
 			TriggerClientEvent('esx_identity:alreadyRegistered', xPlayer.source)
 	
@@ -104,7 +104,7 @@ elseif not Config.UseDeferrals then
 		AddEventHandler('playerConnecting', function(playerName, setKickReason, deferrals)
 			deferrals.defer()
 			local playerId, identifier = source, ESX.GetIdentifier(source)
-			Citizen.Wait(40)
+			Wait(40)
 
 			if identifier then
 				MySQL.Async.fetchAll('SELECT firstname, lastname, dateofbirth, sex, height FROM users WHERE identifier = @identifier', {
@@ -141,10 +141,10 @@ elseif not Config.UseDeferrals then
 
 		AddEventHandler('onResourceStart', function(resource)
 			if resource == GetCurrentResourceName() then
-				Citizen.Wait(300)
+				Wait(300)
 
 				while not ESX do
-					Citizen.Wait(10)
+					Wait(10)
 				end
 
 				local xPlayers = ESX.GetExtendedPlayers()
@@ -172,7 +172,7 @@ elseif not Config.UseDeferrals then
 					saveIdentityToDatabase(xPlayer.identifier, currentIdentity)
 				end
 
-				Citizen.Wait(10)
+				Wait(10)
 				TriggerClientEvent('esx_identity:alreadyRegistered', xPlayer.source)
 
 				playerIdentity[xPlayer.identifier] = nil
@@ -287,7 +287,7 @@ if Config.EnableCommands then
 		if xPlayer and xPlayer.getName() then
 			if Config.UseDeferrals then
 				xPlayer.kick(_('deleted_identity'))
-				Citizen.Wait(1500)
+				Wait(1500)
 				deleteIdentity(xPlayer)
 				xPlayer.showNotification(_U('deleted_character'))
 				playerIdentity[xPlayer.identifier] = nil

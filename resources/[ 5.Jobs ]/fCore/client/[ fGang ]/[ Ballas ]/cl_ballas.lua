@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -28,7 +28,7 @@ AddEventHandler('esx:setJob2', function(job2)
     ESX.PlayerData.job2 = job2
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 if ballas.jeveuxblips then
     local ballasmap = AddBlipForCoord(ballas.pos.blips.position.x, ballas.pos.blips.position.y, ballas.pos.blips.position.z)
 
@@ -48,7 +48,7 @@ function GarageBallas()
   local GBallas = RageUI.CreateMenu("Garage", "Ballas")
     RageUI.Visible(GBallas, not RageUI.Visible(GBallas))
         while GBallas do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GBallas, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -63,7 +63,7 @@ function GarageBallas()
                     for k,v in pairs(GBallasvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarBallas(v.modele)
                             RageUI.CloseAll()
                             end
@@ -77,7 +77,7 @@ function GarageBallas()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ballas' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'ballas' then 
@@ -95,7 +95,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -105,7 +105,7 @@ function spawnuniCarBallas(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
     local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -140,7 +140,7 @@ function CoffreBallas()
 	local CBallas = RageUI.CreateMenu("Coffre", "Ballas")
         RageUI.Visible(CBallas, not RageUI.Visible(CBallas))
             while CBallas do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(CBallas, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -182,7 +182,7 @@ function CoffreBallas()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ballas' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'ballas' then  
@@ -200,7 +200,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -211,7 +211,7 @@ function BallasRetirerobjet()
 	itemstock = items
 	RageUI.Visible(StockBallas, not RageUI.Visible(StockBallas))
         while StockBallas do
-		    Citizen.Wait(0)
+		    Wait(0)
 		        RageUI.IsVisible(StockBallas, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -239,7 +239,7 @@ function BallasDeposerobjet()
     ESX.TriggerServerCallback('ballas:getPlayerInventory', function(inventory)
         RageUI.Visible(DepositBallas, not RageUI.Visible(DepositBallas))
     while DepositBallas do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositBallas, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

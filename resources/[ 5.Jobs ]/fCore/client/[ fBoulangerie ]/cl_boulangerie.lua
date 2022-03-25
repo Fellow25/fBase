@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -23,7 +23,7 @@ AddEventHandler('esx:setJob', function(job)
 	ESX.PlayerData.job = job
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if boulangerie.jeveuxblips then
     local boulangeriemap = AddBlipForCoord(boulangerie.pos.blips.position.x, boulangerie.pos.blips.position.y, boulangerie.pos.blips.position.z)
 
@@ -43,7 +43,7 @@ function Menuf6Boulangerie()
     local Boulangerief6sub = RageUI.CreateSubMenu(Boulangerief6, "Boulangerie", "Interactions")
     RageUI.Visible(Boulangerief6, not RageUI.Visible(Boulangerief6))
     while Boulangerief6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(Boulangerief6, true, true, true, function()
 
                 RageUI.Separator("↓ Facture ↓")
@@ -152,7 +152,7 @@ function Coffreboulangerie()
     local Cboulangerie = RageUI.CreateMenu("Coffre", "Boulangerie")
         RageUI.Visible(Cboulangerie, not RageUI.Visible(Cboulangerie))
             while Cboulangerie do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cboulangerie, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -195,7 +195,7 @@ function Coffreboulangerie()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'boulangerie' then
@@ -213,7 +213,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -222,7 +222,7 @@ function Garageboulangerie()
     local Gboulangerie = RageUI.CreateMenu("Garage", "Boulangerie")
       RageUI.Visible(Gboulangerie, not RageUI.Visible(Gboulangerie))
           while Gboulangerie do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Gboulangerie, true, true, true, function()
                       RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then   
@@ -237,7 +237,7 @@ function Garageboulangerie()
                       for k,v in pairs(Gboulangerievoiture) do
                       RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then
-                          Citizen.Wait(1)  
+                          Wait(1)  
                               spawnuniCarboulangerie(v.modele)
                               RageUI.CloseAll()
                               end
@@ -251,7 +251,7 @@ function Garageboulangerie()
       end
   end
   
-  Citizen.CreateThread(function()
+  CreateThread(function()
           while true do
               local Timer = 500
               if ESX.PlayerData.job and ESX.PlayerData.job.name == 'boulangerie' then
@@ -269,7 +269,7 @@ function Garageboulangerie()
                       end   
                   end
               end 
-          Citizen.Wait(Timer)
+          Wait(Timer)
        end
   end)
   
@@ -279,7 +279,7 @@ function Garageboulangerie()
       RequestModel(car)
       while not HasModelLoaded(car) do
           RequestModel(car)
-          Citizen.Wait(0)
+          Wait(0)
       end
   
       local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -320,7 +320,7 @@ function boulangerieRetirerobjet()
     itemstock = items
     RageUI.Visible(StockBoulangerie, not RageUI.Visible(StockBoulangerie))
         while StockBoulangerie do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(StockBoulangerie, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -348,7 +348,7 @@ function boulangerieDeposerobjet()
     ESX.TriggerServerCallback('boulangerie:getPlayerInventory', function(inventory)
         RageUI.Visible(DepositBoulangerie, not RageUI.Visible(DepositBoulangerie))
     while DepositBoulangerie do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositBoulangerie, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

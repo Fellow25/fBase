@@ -14,19 +14,19 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     ESX.TriggerServerCallback('blanchisseur:getBlackMoneySociety', function(inventory)
         argent = inventory
     end)
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -59,7 +59,7 @@ function BossBlanchisseur()
     RageUI.Visible(BBlanchisseur, not RageUI.Visible(BBlanchisseur))
 
             while BBlanchisseur do
-                Citizen.Wait(0)
+                Wait(0)
                     RageUI.IsVisible(BBlanchisseur, true, true, true, function()
 
                     if societyblanchisseurmoney ~= nil then
@@ -139,7 +139,7 @@ end
 
 ---------------------------------------------
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'blanchisseur' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'blanchisseur' and ESX.PlayerData.job2.grade_name == 'boss' then
@@ -159,7 +159,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -196,7 +196,7 @@ end
 function Deposerargentsale()
     ESX.TriggerServerCallback('blanchisseur:getPlayerInventoryBlack', function(inventory)
         while DepositBlackBlanchisseur do
-            Citizen.Wait(0)
+            Wait(0)
         end
     end)
 end
@@ -204,7 +204,7 @@ end
 function Retirerargentsaleblanchisseur()
 	ESX.TriggerServerCallback('blanchisseur:getBlackMoneySociety', function(inventory)
 	    while StockBlackBlanchisseur do
-		    Citizen.Wait(0)
+		    Wait(0)
 	    end
     end)
 end

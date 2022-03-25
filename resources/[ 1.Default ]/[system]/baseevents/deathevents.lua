@@ -1,4 +1,4 @@
-Citizen.CreateThread(function()
+CreateThread(function()
     local isDead = false
     local hasBeenDead = false
 	local diedAt

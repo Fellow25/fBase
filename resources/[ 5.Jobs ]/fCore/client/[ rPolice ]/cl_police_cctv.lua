@@ -46,10 +46,10 @@ CCTVCamLocations = {
 
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 	  TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-	  Citizen.Wait(200)
+	  Wait(200)
 	  PlayerData = ESX.GetPlayerData()
 	end
 end)
@@ -92,7 +92,7 @@ AddEventHandler("cctv:startcamera", function(camNumber)
 	SetTimecycleModifierStrength(1.0)
 	local scaleform = RequestScaleformMovie("TRAFFIC_CAM")
 	while not HasScaleformMovieLoaded(scaleform) do
-		Citizen.Wait(200)
+		Wait(200)
 	end
 
 	local lPed = GetPlayerPed(-1)
@@ -114,7 +114,7 @@ AddEventHandler("cctv:startcamera", function(camNumber)
 		PushScaleformMovieFunctionParameterFloat(GetCamRot(cctvCam, 2).z)
 		PopScaleformMovieFunctionVoid()
 		DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
-		Citizen.Wait(1)
+		Wait(1)
 	end
 	ClearFocus()
 	ClearTimecycleModifier()
@@ -126,9 +126,9 @@ AddEventHandler("cctv:startcamera", function(camNumber)
 
 end)
 
-Citizen.CreateThread(function ()
+CreateThread(function ()
 	while true do
-		Citizen.Wait(200)
+		Wait(200)
 		if inCam then
 
 			local rota = GetCamRot(cctvCam, 2)

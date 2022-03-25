@@ -633,7 +633,7 @@ AddEventHandler('gcPhone:allUpdate', function()
     local xPlayer = ESX.GetPlayerFromId(_source)
     while xPlayer == nil do
         xPlayer = ESX.GetPlayerFromId(_source)
-        Citizen.Wait(10000)
+        Wait(10000)
     end
     local identifier = xPlayer.identifier
     local num = getNumberPhone(identifier)

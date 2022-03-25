@@ -12,16 +12,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000)  
+	Wait(5000)  
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -48,7 +48,7 @@ function OpenVigneronRecolte()
     RageUI.Visible(VigneronRecolte, not RageUI.Visible(VigneronRecolte))
     
     while VigneronRecolte do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(VigneronRecolte, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de raisin", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -65,7 +65,7 @@ function OpenVigneronRecolte()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -91,7 +91,7 @@ function recolteraisin()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('raisin')
     end
     else
@@ -99,7 +99,7 @@ function recolteraisin()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'vigneron' then
@@ -117,6 +117,6 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)

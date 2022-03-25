@@ -12,7 +12,7 @@ AddEventHandler('rlUpdateNames', function()
     TriggerServerEvent('rlUpdateNamesResult', names)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		Wait(0)
 

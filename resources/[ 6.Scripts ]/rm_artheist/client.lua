@@ -10,16 +10,16 @@ ArtHeist = {
     ['painting'] = {}
 }
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent("esx:getSharedObject", function(library) 
 			ESX = library 
 		end)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for k, v in pairs(Config['ArtHeist']['startHeist']['peds']) do
         loadModel(v['ped'])
         ArtHeist['startPeds'][k] = CreatePed(4, GetHashKey(v['ped']), v['pos']['x'], v['pos']['y'], v['pos']['z'] - 0.95, v['heading'], false, true)
@@ -36,7 +36,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local ped = PlayerPedId()
         local pedCo = GetEntityCoords(ped)
@@ -79,7 +79,7 @@ Citizen.CreateThread(function()
                 end
             end
         end
-        Citizen.Wait(sleep)
+        Wait(sleep)
     end
 end)
 
@@ -95,7 +95,7 @@ AddEventHandler('artheist:client:policeAlert', function(targetCoords)
     SetBlipAsShortRange(artheistBlip, true)
 
     while alpha ~= 0 do
-        Citizen.Wait(125)
+        Wait(125)
         alpha = alpha - 1
         SetBlipAlpha(artheistBlip, alpha)
 
@@ -280,14 +280,14 @@ end
 function loadAnimDict(dict)
     while not HasAnimDictLoaded(dict) do
         RequestAnimDict(dict)
-        Citizen.Wait(50)
+        Wait(50)
     end
 end
 
 function loadModel(model)
     while not HasModelLoaded(GetHashKey(model)) do
         RequestModel(GetHashKey(model))
-        Citizen.Wait(50)
+        Wait(50)
     end
 end
 

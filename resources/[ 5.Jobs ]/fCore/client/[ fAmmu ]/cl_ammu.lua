@@ -1,9 +1,9 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(0)
+        Wait(0)
     end
 end)
 
@@ -20,7 +20,7 @@ function OpenAmmu()
   RageUI.Visible(Ammu, not RageUI.Visible(Ammu))
 
   while Ammu do
-      Citizen.Wait(0)
+      Wait(0)
       RageUI.IsVisible(Ammu, true, true, true, function()
         for k,v in pairs(Arme) do
             RageUI.ButtonWithStyle(v.Label, nil, {RightLabel = "~g~"..(v.Price).."€"}, true, function(Hovered, Active, Selected)
@@ -47,7 +47,7 @@ local position = {
         {x = -662.1, y = -935.3, z = 21.8}
     }    
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for k, v in pairs(position) do
         local blip = AddBlipForCoord(v.x, v.y, v.z)
         SetBlipSprite(blip, 110)
@@ -60,7 +60,7 @@ Citizen.CreateThread(function()
     end
 end)    
     
- Citizen.CreateThread(function()
+ CreateThread(function()
     while true do
         local sleep = 500
             for k in pairs(position) do
@@ -74,6 +74,6 @@ end)
                     end
                 end
             end
-        Citizen.Wait(sleep)
+        Wait(sleep)
     end
 end)

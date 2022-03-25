@@ -3,9 +3,9 @@ local isEnteringVehicle = false
 local currentVehicle = 0
 local currentSeat = 0
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		local ped = PlayerPedId()
 
@@ -44,7 +44,7 @@ Citizen.CreateThread(function()
 				currentSeat = 0
 			end
 		end
-		Citizen.Wait(50)
+		Wait(50)
 	end
 end)
 

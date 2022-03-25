@@ -19,14 +19,14 @@ local sortirvoitureacheter = {}
 local CurrentAction, CurrentActionMsg, LastZone, currentDisplayVehicle, CurrentVehicleData
 local CurrentActionData, Vehicles, Categories = {}, {}, {}
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -47,7 +47,7 @@ function fCatalogueMenu()
 RageUI.Visible(catalogue, not RageUI.Visible(catalogue))
 
 while catalogue do
-	Citizen.Wait(0)
+	Wait(0)
 	RageUI.IsVisible(catalogue, true, true, true, function()
 
 		
@@ -101,7 +101,7 @@ while catalogue do
 	  end
   end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local Timer = 500
 		local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
@@ -120,7 +120,7 @@ Citizen.CreateThread(function()
 						fCatalogueMenu()
 				end   
 			end
-	Citizen.Wait(Timer)   
+	Wait(Timer)   
 end
 end)
 ----------------------------------------------------------
@@ -134,7 +134,7 @@ function fCatalogueMotoMenu()
 RageUI.Visible(cataloguemoto, not RageUI.Visible(cataloguemoto))
 
 while cataloguemoto do
-	Citizen.Wait(0)
+	Wait(0)
 	RageUI.IsVisible(cataloguemoto, true, true, true, function()
 
 		
@@ -188,7 +188,7 @@ while cataloguemoto do
 	  end
   end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local Timer = 500
 		local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
@@ -207,7 +207,7 @@ Citizen.CreateThread(function()
 						fCatalogueMotoMenu()
 				end   
 			end
-	Citizen.Wait(Timer)   
+	Wait(Timer)   
 end
 end)
 function spawnuniCarCatalogue(car)
@@ -215,7 +215,7 @@ function spawnuniCarCatalogue(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
     local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
     local vehicle = CreateVehicle(car, -899.62, -3298.74, 13.94, 58.0, true, false)

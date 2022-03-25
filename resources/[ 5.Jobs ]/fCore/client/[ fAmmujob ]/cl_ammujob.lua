@@ -12,16 +12,16 @@ ESX = nil
 	RegisterNetEvent('esx:setJob')
 	AddEventHandler('esx:setJob', function(job)  
 		PlayerData.job = job  
-		Citizen.Wait(5000) 
+		Wait(5000) 
 	end)
 	
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while ESX == nil do
 			TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-			Citizen.Wait(10)
+			Wait(10)
 		end
 		while ESX.GetPlayerData().job == nil do
-			Citizen.Wait(10)
+			Wait(10)
 		end
 		if ESX.IsPlayerLoaded() then
 	
@@ -46,7 +46,7 @@ ESX = nil
 		ESX.PlayerData.job2 = job2
 	end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     local ammumap = AddBlipForCoord(Ammujob.pos.blips.position.x, Ammujob.pos.blips.position.y, Ammujob.pos.blips.position.z)
     SetBlipSprite(ammumap, 313)
     SetBlipColour(ammumap, 1)
@@ -61,7 +61,7 @@ function Menuf6Ammu()
     local fAmmuf5 = RageUI.CreateMenu("Ammu-Nation", "Interactions")
     RageUI.Visible(fAmmuf5, not RageUI.Visible(fAmmuf5))
     while fAmmuf5 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fAmmuf5, true, true, true, function()
 
                 RageUI.ButtonWithStyle("Facture",nil, {RightLabel = "→"}, true, function(_,_,s)
@@ -198,7 +198,7 @@ function Coffreammu()
     local Cammu = RageUI.CreateMenu("Coffre", "Ammu-Nation")
         RageUI.Visible(Cammu, not RageUI.Visible(Cammu))
             while Cammu do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cammu, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -224,7 +224,7 @@ function Coffreammu()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
@@ -242,7 +242,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -253,7 +253,7 @@ function GarageAmmu()
   local GAmmu = RageUI.CreateMenu("Garage", "Ammu-Nation")
     RageUI.Visible(GAmmu, not RageUI.Visible(GAmmu))
         while GAmmu do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GAmmu, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -268,7 +268,7 @@ function GarageAmmu()
                     for k,v in pairs(GAmmuvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarAmmu(v.modele)
                             RageUI.CloseAll()
                             end
@@ -282,7 +282,7 @@ function GarageAmmu()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
@@ -300,7 +300,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -310,7 +310,7 @@ function spawnuniCarAmmu(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
     local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -331,7 +331,7 @@ function ARetirerobjet()
    
     RageUI.Visible(Stockammu, not RageUI.Visible(Stockammu))
         while Stockammu do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockammu, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -359,7 +359,7 @@ function ADeposerobjet()
     ESX.TriggerServerCallback('fammu:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -390,7 +390,7 @@ function TheorieAmmu()
     local TAmmu = RageUI.CreateMenu("Craft Théorie", "Ammu-Nation")
       RageUI.Visible(TAmmu, not RageUI.Visible(TAmmu))
           while TAmmu do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(TAmmu, true, true, true, function()
                     for k,v in pairs(Ammujob.craft) do
                         RageUI.ButtonWithStyle(v.name, nil, {RightLabel = "?"},true, function(Hovered, Active, Selected)
@@ -419,7 +419,7 @@ function TheorieAmmu()
       end
   end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
@@ -437,7 +437,7 @@ while true do
             end   
         end
     end 
-Citizen.Wait(Timer)
+Wait(Timer)
 end
 end)
 
@@ -451,7 +451,7 @@ function MenuCraftAmmu()
     choixnblev = 0
       RageUI.Visible(CraftAmmu, not RageUI.Visible(CraftAmmu))
           while CraftAmmu do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(CraftAmmu, true, true, true, function()
                     for v = 1, #inventory.items, 1 do
                         if inventory.items[v].name == "metaux" or inventory.items[v].name == "canon" or inventory.items[v].name == "meche" or inventory.items[v].name == "levier" then
@@ -620,7 +620,7 @@ function MenuCraftAmmu()
     end)
   end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
@@ -638,7 +638,7 @@ while true do
             end   
         end
     end 
-Citizen.Wait(Timer)
+Wait(Timer)
 end
 end)
 
@@ -648,7 +648,7 @@ function AmmuRecolteMetaux()
     RageUI.Visible(ARM, not RageUI.Visible(ARM))
     
     while ARM do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARM, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de métaux", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -665,7 +665,7 @@ function AmmuRecolteMetaux()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -691,7 +691,7 @@ function recoltemetaux()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('metaux')
     end
     else
@@ -699,7 +699,7 @@ function recoltemetaux()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
@@ -717,7 +717,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 ------------------------------------
@@ -727,7 +727,7 @@ function AmmuRecolteCanon()
     RageUI.Visible(ARC, not RageUI.Visible(ARC))
     
     while ARC do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARC, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de canon", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -744,7 +744,7 @@ function AmmuRecolteCanon()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -770,7 +770,7 @@ function recoltecanon()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('canon')
     end
     else
@@ -778,7 +778,7 @@ function recoltecanon()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
@@ -796,7 +796,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -807,7 +807,7 @@ function AmmuRecolteMeche()
     RageUI.Visible(ARM, not RageUI.Visible(ARM))
     
     while ARM do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARM, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de mèche", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -824,7 +824,7 @@ function AmmuRecolteMeche()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -850,7 +850,7 @@ function recoltemeche()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('meche')
     end
     else
@@ -858,7 +858,7 @@ function recoltemeche()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
@@ -876,7 +876,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -887,7 +887,7 @@ function AmmuRecolteLevier()
     RageUI.Visible(ARL, not RageUI.Visible(ARL))
     
     while ARL do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARL, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de levier", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -904,7 +904,7 @@ function AmmuRecolteLevier()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -930,7 +930,7 @@ function recoltelevier()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('levier')
     end
     else
@@ -938,7 +938,7 @@ function recoltelevier()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
@@ -956,7 +956,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 

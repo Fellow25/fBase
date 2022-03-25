@@ -12,16 +12,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -53,7 +53,7 @@ function defESX()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     defESX()
 end)
 
@@ -69,7 +69,7 @@ local nombre = {}
 local max = 10
 Numbers = {}
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for i = 1, max do
         table.insert(Numbers, i)
     end
@@ -84,7 +84,7 @@ local function getInfoReport()
     end)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if mcdonalds.jeveuxblips then
     local mcdonaldsmap = AddBlipForCoord(mcdonalds.pos.blips.position.x, mcdonalds.pos.blips.position.y, mcdonalds.pos.blips.position.z)
 
@@ -105,7 +105,7 @@ function Frigomcdonalds()
     RageUI.Visible(frigomcdo, not RageUI.Visible(frigomcdo))
   
     while frigomcdo do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(frigomcdo, true, true, true, function()
    
             for k,v in pairs(Frigo) do
@@ -125,7 +125,7 @@ function Frigomcdonalds()
       end
   end
 
-  Citizen.CreateThread(function()
+  CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mcdonalds' then
@@ -143,7 +143,7 @@ function Frigomcdonalds()
                 end   
             end
         end 
-    Citizen.Wait(Timer)
+    Wait(Timer)
  end
 end)
 
@@ -154,14 +154,14 @@ function Cuisinemcdonalds()
     RageUI.Visible(cuisinemcdo, not RageUI.Visible(cuisinemcdo))
   
     while cuisinemcdo do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(cuisinemcdo, true, true, true, function()
    
             RageUI.ButtonWithStyle("Préparer un double cheese", "~r~Requis : ~w~Steak", {RightLabel = ""}, true, function(Hovered, Active, Selected)
                 if Selected then
                     local playerPed = PlayerPedId()
                     TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_BBQ', 0, true)
-                    Citizen.Wait(20000)
+                    Wait(20000)
                     TriggerServerEvent('craft:cheese')
                     ClearPedTasksImmediately(playerPed)
                 end
@@ -171,7 +171,7 @@ function Cuisinemcdonalds()
                 if Selected then
                     local playerPed = PlayerPedId()
                     TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_BBQ', 0, true)
-                    Citizen.Wait(20000)
+                    Wait(20000)
                     TriggerServerEvent('craft:nuggets')
                     ClearPedTasksImmediately(playerPed)
                 end
@@ -181,7 +181,7 @@ function Cuisinemcdonalds()
                 if Selected then
                     local playerPed = PlayerPedId()
                     TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_BBQ', 0, true)
-                    Citizen.Wait(20000)
+                    Wait(20000)
                     TriggerServerEvent('craft:galette')
                     ClearPedTasksImmediately(playerPed)
                 end
@@ -191,7 +191,7 @@ function Cuisinemcdonalds()
                 if Selected then
                     local playerPed = PlayerPedId()
                     TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_BBQ', 0, true)
-                    Citizen.Wait(20000)
+                    Wait(20000)
                     TriggerServerEvent('craft:potatos')
                     ClearPedTasksImmediately(playerPed)
                 end
@@ -201,7 +201,7 @@ function Cuisinemcdonalds()
                 if Selected then
                     local playerPed = PlayerPedId()
                     TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_BBQ', 0, true)
-                    Citizen.Wait(20000)
+                    Wait(20000)
                     TriggerServerEvent('craft:frites')
                     ClearPedTasksImmediately(playerPed)
                 end
@@ -217,7 +217,7 @@ function Cuisinemcdonalds()
       end
   end
 
-  Citizen.CreateThread(function()
+  CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mcdonalds' then
@@ -235,7 +235,7 @@ function Cuisinemcdonalds()
                 end   
             end
         end 
-    Citizen.Wait(Timer)
+    Wait(Timer)
  end
 end)
 -------------------------------------------------------------
@@ -246,7 +246,7 @@ function Drivemcdonalds()
     RageUI.Visible(drivemcdo, not RageUI.Visible(drivemcdo))
   
     while drivemcdo do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(drivemcdo, true, true, true, function()
 
             RageUI.Separator("~y~↓ ~s~Notre menu ~y~↓")
@@ -277,7 +277,7 @@ function Drivemcdonalds()
       end
   end
 
-  Citizen.CreateThread(function()
+  CreateThread(function()
     while true do
         local Timer = 500
 
@@ -294,7 +294,7 @@ function Drivemcdonalds()
                     Drivemcdonalds()
                 end   
             end
-    Citizen.Wait(Timer)
+    Wait(Timer)
  end
 end)
 --------------------------------------------------------------------
@@ -309,7 +309,7 @@ function Menuf6McDonalds()
     defESX()
     RageUI.Visible(McDonaldsf6, not RageUI.Visible(McDonaldsf6))
     while McDonaldsf6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(McDonaldsf6, true, true, true, function()
 
                 RageUI.Separator("~y~↓ ~s~Facture ~y~↓")
@@ -446,7 +446,7 @@ function Coffremcdonalds()
     Cmcdonalds:SetRectangleBanner(255, 0, 0)
         RageUI.Visible(Cmcdonalds, not RageUI.Visible(Cmcdonalds))
             while Cmcdonalds do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cmcdonalds, true, true, true, function()
 
                 RageUI.Separator("~y~↓ ~s~Objet ~y~↓")
@@ -489,7 +489,7 @@ function Coffremcdonalds()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mcdonalds' then
@@ -507,7 +507,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -517,7 +517,7 @@ function Garagemcdonalds()
     Gmcdonalds:SetRectangleBanner(255, 0, 0)
       RageUI.Visible(Gmcdonalds, not RageUI.Visible(Gmcdonalds))
           while Gmcdonalds do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Gmcdonalds, true, true, true, function()
                       RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then   
@@ -532,7 +532,7 @@ function Garagemcdonalds()
                       for k,v in pairs(Gmcdonaldsvoiture) do
                       RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then
-                          Citizen.Wait(1)  
+                          Wait(1)  
                               spawnuniCarmcdonalds(v.modele)
                               RageUI.CloseAll()
                               end
@@ -546,7 +546,7 @@ function Garagemcdonalds()
       end
   end
   
-  Citizen.CreateThread(function()
+  CreateThread(function()
           while true do
               local Timer = 500
               if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mcdonalds' then
@@ -564,7 +564,7 @@ function Garagemcdonalds()
                       end   
                   end
               end 
-          Citizen.Wait(Timer)
+          Wait(Timer)
        end
   end)
   
@@ -574,7 +574,7 @@ function Garagemcdonalds()
       RequestModel(car)
       while not HasModelLoaded(car) do
           RequestModel(car)
-          Citizen.Wait(0)
+          Wait(0)
       end
   
       local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -616,7 +616,7 @@ function VRetirerobjet()
     itemstock = items
     RageUI.Visible(Stockmcdonalds, not RageUI.Visible(Stockmcdonalds))
         while Stockmcdonalds do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockmcdonalds, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -645,7 +645,7 @@ function VDeposerobjet()
     ESX.TriggerServerCallback('mcdonalds:getPlayerInventory', function(inventory)
         RageUI.Visible(Depositmcdonalds, not RageUI.Visible(Depositmcdonalds))
     while Depositmcdonalds do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(Depositmcdonalds, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

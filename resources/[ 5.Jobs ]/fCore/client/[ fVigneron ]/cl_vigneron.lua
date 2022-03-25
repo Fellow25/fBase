@@ -13,16 +13,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -48,7 +48,7 @@ AddEventHandler('esx:setJob2', function(job2)
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if vigneron.jeveuxblips then
     local vigneronmap = AddBlipForCoord(vigneron.pos.blips.position.x, vigneron.pos.blips.position.y, vigneron.pos.blips.position.z)
 
@@ -67,7 +67,7 @@ function Menuf6Vigneron()
     local Vigneronf6 = RageUI.CreateMenu("Vigneron", "Interactions")
     RageUI.Visible(Vigneronf6, not RageUI.Visible(Vigneronf6))
     while Vigneronf6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(Vigneronf6, true, true, true, function()
 
                 RageUI.ButtonWithStyle("Passer une facture",nil, {RightLabel = "→"}, true, function(_,_,s)
@@ -201,7 +201,7 @@ function Coffrevigneron()
     local Cvigneron = RageUI.CreateMenu("Coffre", "Vigneron")
         RageUI.Visible(Cvigneron, not RageUI.Visible(Cvigneron))
             while Cvigneron do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cvigneron, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -244,7 +244,7 @@ function Coffrevigneron()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'vigneron' then
@@ -262,7 +262,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -271,7 +271,7 @@ function Garagevigneron()
     local Gvigneron = RageUI.CreateMenu("Garage", "Vigneron")
       RageUI.Visible(Gvigneron, not RageUI.Visible(Gvigneron))
           while Gvigneron do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Gvigneron, true, true, true, function()
                       RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then   
@@ -286,7 +286,7 @@ function Garagevigneron()
                       for k,v in pairs(Gvigneronvoiture) do
                       RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then
-                          Citizen.Wait(1)  
+                          Wait(1)  
                               spawnuniCarvigneron(v.modele)
                               RageUI.CloseAll()
                               end
@@ -300,7 +300,7 @@ function Garagevigneron()
       end
   end
   
-  Citizen.CreateThread(function()
+  CreateThread(function()
           while true do
               local Timer = 500
               if ESX.PlayerData.job and ESX.PlayerData.job.name == 'vigneron' then
@@ -318,7 +318,7 @@ function Garagevigneron()
                       end   
                   end
               end 
-          Citizen.Wait(Timer)
+          Wait(Timer)
        end
   end)
   
@@ -328,7 +328,7 @@ function Garagevigneron()
       RequestModel(car)
       while not HasModelLoaded(car) do
           RequestModel(car)
-          Citizen.Wait(0)
+          Wait(0)
       end
   
       local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -369,7 +369,7 @@ function VigneronRetirerobjet()
     itemstock = items
     RageUI.Visible(StockVigneron, not RageUI.Visible(StockVigneron))
         while StockVigneron do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(StockVigneron, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -397,7 +397,7 @@ function VigneronDeposerobjet()
     ESX.TriggerServerCallback('vigneron:getPlayerInventory', function(inventory)
         RageUI.Visible(DepositVigneron, not RageUI.Visible(DepositVigneron))
     while DepositVigneron do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositVigneron, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

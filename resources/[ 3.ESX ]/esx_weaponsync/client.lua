@@ -19,10 +19,10 @@ for name,item in pairs(Config.AmmoTypes) do
   AmmoTypes[GetHashKey(name)] = item
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
   while ESX == nil do
     TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-    Citizen.Wait(200)
+    Wait(200)
   end
 end)
 
@@ -52,7 +52,7 @@ end
 function RebuildLoadout()
   
   while not PlayerData do
-    Citizen.Wait(200)
+    Wait(200)
   end
   
   local playerPed = GetPlayerPed(-1)
@@ -126,7 +126,7 @@ end)
 
 RegisterNetEvent('esx:addInventoryItem')
 AddEventHandler('esx:addInventoryItem', function(name, count)
-  Citizen.Wait(1) -- Wait a tick to make sure ESX has updated PlayerData
+  Wait(1) -- Wait a tick to make sure ESX has updated PlayerData
   PlayerData = ESX.GetPlayerData()
   RebuildLoadout()
   if CurrentWeapon then
@@ -136,7 +136,7 @@ end)
 
 RegisterNetEvent('esx:removeInventoryItem')
 AddEventHandler('esx:removeInventoryItem', function(name, count)
-  Citizen.Wait(1) -- Wait a tick to make sure ESX has updated PlayerData
+  Wait(1) -- Wait a tick to make sure ESX has updated PlayerData
   PlayerData = ESX.GetPlayerData()
   RebuildLoadout()
   if CurrentWeapon then
@@ -144,9 +144,9 @@ AddEventHandler('esx:removeInventoryItem', function(name, count)
   end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
   while true do
-    Citizen.Wait(200)
+    Wait(200)
     
     local playerPed = GetPlayerPed(-1)
 

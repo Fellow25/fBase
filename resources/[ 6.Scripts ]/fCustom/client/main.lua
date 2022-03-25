@@ -148,10 +148,10 @@ local interiorColorOld = nil
 local interiorColorNew = nil
 local partsCart = {}
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 
@@ -688,7 +688,7 @@ function DeleteFromCart(k, modType)
 end
 
 -- Activate menu when player is inside marker
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local Timer = 500
 		local playerPed = PlayerPedId()
@@ -1600,7 +1600,7 @@ Citizen.CreateThread(function()
 			vehPedIsIn = nil
 			terminatePurchase()
 		end
-		Citizen.Wait(Timer)
+		Wait(Timer)
 	end
 end)
 
@@ -1621,9 +1621,9 @@ AddEventHandler('fpwn_customs:pasdej', function()
 end)
 
 -- Prevent Free Tunning Bug
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 		if lsMenuIsShowed then
 			DisableControlAction(2, 288, true)
 			DisableControlAction(2, 289, true)
@@ -1634,7 +1634,7 @@ Citizen.CreateThread(function()
 			DisableControlAction(0, 75, true)  -- Disable exit vehicle
 			DisableControlAction(27, 75, true) -- Disable exit vehicle
 		else
-			Citizen.Wait(500)
+			Wait(500)
 		end
 	end
 end)

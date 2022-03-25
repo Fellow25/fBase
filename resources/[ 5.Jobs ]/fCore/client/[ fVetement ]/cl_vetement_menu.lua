@@ -4,10 +4,10 @@ if ESX_READY == true then
 
   ESX = nil 
 
-  Citizen.CreateThread(function()
+  CreateThread(function()
     while ESX == nil do
       TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-      Citizen.Wait(0)
+      Wait(0)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -79,7 +79,7 @@ function OpenKeyboard()
   DisplayOnscreenKeyboard(1, "FMMC_MPM_NA", "", "", "", "", "", 100)
   while (UpdateOnscreenKeyboard() == 0) do
    DisableAllControlActions(0);
-   Citizen.Wait(1)
+   Wait(1)
   end
   if (GetOnscreenKeyboardResult()) then
     result = GetOnscreenKeyboardResult()
@@ -195,7 +195,7 @@ end
  RageUI.Visible(f_vetements, not RageUI.Visible(f_vetements))
 
   while f_vetements do
-      Citizen.Wait(0)
+      Wait(0)
       RageUI.IsVisible(f_vetements, true, true, true, function()
 
           RageUI.ButtonWithStyle("T-shirt" , nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
@@ -665,10 +665,10 @@ function LoadClothe(clothe)
 		end
     end
 
-    Citizen.CreateThread(function()
+    CreateThread(function()
 	    RequestAnimDict('clothingtie')
 	    while not HasAnimDictLoaded('clothingtie') do
-	      Citizen.Wait(1)
+	      Wait(1)
 	    end
 	    TaskPlayAnim(PlayerPedId(), 'clothingtie', 'try_tie_neutral_a', 1.0, -1.0, 2667, 0, 1, true, true, true)
     end)

@@ -259,9 +259,9 @@ RegisterCommand('time', function(source, args, rawCommand)
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Wait(0)
         local newBaseTime = os.time(os.date("!*t"))/2 + 360
         if freezeTime then
             timeOffset = timeOffset + baseTime - newBaseTime			
@@ -270,24 +270,24 @@ Citizen.CreateThread(function()
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
-        Citizen.Wait(5000)
+        Wait(5000)
         TriggerClientEvent('vSync:updateTime', -1, baseTime, timeOffset, freezeTime)
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
-        Citizen.Wait(300000)
+        Wait(300000)
         TriggerClientEvent('vSync:updateWeather', -1, CurrentWeather, blackout)
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         newWeatherTimer = newWeatherTimer - 1
-        Citizen.Wait(60000)
+        Wait(60000)
         if newWeatherTimer == 0 then
             if Config.DynamicWeather then
                 NextWeatherStage()

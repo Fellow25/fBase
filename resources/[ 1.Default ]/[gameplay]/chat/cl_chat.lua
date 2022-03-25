@@ -248,7 +248,7 @@ if not isRDR then
   end, false)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
   SetTextChatEnabled(false)
   SetNuiFocus(false)
 

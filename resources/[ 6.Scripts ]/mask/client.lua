@@ -18,10 +18,10 @@ local Keys = {
 
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
       TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-      Citizen.Wait(0)
+      Wait(0)
     end
 end)
 
@@ -259,9 +259,9 @@ local watoda = {
 
 MaskTab = {}
 local TenueTable = {}
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
-      Citizen.Wait(0)
+      Wait(0)
       for k in pairs(listClotheshop) do
 
         local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
@@ -833,16 +833,16 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                         local myPed = PlayerPedId()
                         RequestAnimDict(dict)
                         while not HasAnimDictLoaded(dict) do
-                            Citizen.Wait(0)
+                            Wait(0)
                         end
                         local animation = ''
                         local flags = 0 -- only play the animation on the upper body
                         animation = 'takeoff_mask'
                         TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
-                        Citizen.Wait(1000)
+                        Wait(1000)
                         SetEntityCollision(GetPlayerPed(-1), true, true)
                         playerPed = GetPlayerPed(-1)
-                        Citizen.Wait(200)
+                        Wait(200)
                         SetPedComponentVariation(GetPlayerPed(-1), 1, 0, 0, 2)
                         ClearPedTasks(playerPed)
                     elseif Index == 2 then
@@ -851,18 +851,18 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                         RequestAnimDict(dict)
 
                         while not HasAnimDictLoaded(dict) do
-                            Citizen.Wait(0)
+                            Wait(0)
                         end
 
                         local animation = ''
                         local flags = 0 -- only play the animation on the upper body
                         animation = 'put_on_hat'
                         TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
-                        Citizen.Wait(1000)
+                        Wait(1000)
                         SetEntityCollision(GetPlayerPed(-1), true, true)
                         playerPed = GetPlayerPed(-1)
                         SetPedPropIndex(playerPed, 0, k.mask_1, k.mask_2, 2)
-                        Citizen.Wait(200)
+                        Wait(200)
                         ClearPedProp(GetPlayerPed(-1), 0)
                         ClearPedTasks(playerPed)
                     elseif Index == 3 then
@@ -871,17 +871,17 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                         RequestAnimDict(dict)
 
                         while not HasAnimDictLoaded(dict) do
-                            Citizen.Wait(0)
+                            Wait(0)
                         end
 
                         local animation = ''
                         local flags = 0 -- only play the animation on the upper body
                         animation = 'try_glasses_positive_a'
                         TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
-                        Citizen.Wait(1000)
+                        Wait(1000)
                         SetEntityCollision(GetPlayerPed(-1), true, true)
                         playerPed = GetPlayerPed(-1)
-                        Citizen.Wait(200)
+                        Wait(200)
                         ClearPedProp(GetPlayerPed(-1), 1)
                         ClearPedTasks(playerPed)
                     elseif Index == 4 then
@@ -890,17 +890,17 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                         RequestAnimDict(dict)
 
                         while not HasAnimDictLoaded(dict) do
-                            Citizen.Wait(0)
+                            Wait(0)
                         end
 
                         local animation = ''
                         local flags = 0 -- only play the animation on the upper body
                         animation = 'takeoff_earsdefenders_idle'
                         TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
-                        Citizen.Wait(1000)
+                        Wait(1000)
                         SetEntityCollision(GetPlayerPed(-1), true, true)
                         playerPed = GetPlayerPed(-1)
-                        Citizen.Wait(200)
+                        Wait(200)
                         ClearPedProp(GetPlayerPed(-1), 2)
                         ClearPedTasks(playerPed)
                     end
@@ -932,18 +932,18 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                                     RequestAnimDict(dict)
     
                                     while not HasAnimDictLoaded(dict) do
-                                        Citizen.Wait(0)
+                                        Wait(0)
                                     end
     
                                     local animation = ''
                                     local flags = 0 -- only play the animation on the upper body
                                     animation = 'takeoff_mask'
                                     TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
-                                    Citizen.Wait(1000)
+                                    Wait(1000)
                                     SetEntityCollision(GetPlayerPed(-1), true, true)
                                     playerPed = GetPlayerPed(-1)
                                     SetPedComponentVariation(playerPed, 1, k.mask_1, k.mask_2, 2)
-                                    Citizen.Wait(200)
+                                    Wait(200)
                                     ClearPedTasks(playerPed)
                                 end
                             elseif typos == "Lunette" then
@@ -954,18 +954,18 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                                     RequestAnimDict(dict)
     
                                     while not HasAnimDictLoaded(dict) do
-                                        Citizen.Wait(0)
+                                        Wait(0)
                                     end
     
                                     local animation = ''
                                     local flags = 0 -- only play the animation on the upper body
                                     animation = 'try_glasses_positive_a'
                                     TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
-                                    Citizen.Wait(1000)
+                                    Wait(1000)
                                     SetEntityCollision(GetPlayerPed(-1), true, true)
                                     playerPed = GetPlayerPed(-1)
                                     SetPedPropIndex(playerPed, 1, k.mask_1, k.mask_2, 2)
-                                    Citizen.Wait(200)
+                                    Wait(200)
                                     ClearPedTasks(playerPed)
                                 end
     
@@ -977,18 +977,18 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                                     RequestAnimDict(dict)
     
                                     while not HasAnimDictLoaded(dict) do
-                                        Citizen.Wait(0)
+                                        Wait(0)
                                     end
     
                                     local animation = ''
                                     local flags = 0 -- only play the animation on the upper body
                                     animation = 'put_on_hat'
                                     TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
-                                    Citizen.Wait(1000)
+                                    Wait(1000)
                                     SetEntityCollision(GetPlayerPed(-1), true, true)
                                     playerPed = GetPlayerPed(-1)
                                     SetPedPropIndex(playerPed, 0, k.mask_1, k.mask_2, 2)
-                                    Citizen.Wait(200)
+                                    Wait(200)
                                     ClearPedTasks(playerPed)
                                 end
                             elseif typos == "Boucle" then
@@ -999,18 +999,18 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                                     RequestAnimDict(dict)
     
                                     while not HasAnimDictLoaded(dict) do
-                                        Citizen.Wait(0)
+                                        Wait(0)
                                     end
     
                                     local animation = ''
                                     local flags = 0 -- only play the animation on the upper body
                                     animation = 'takeoff_earsdefenders_idle'
                                     TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
-                                    Citizen.Wait(1000)
+                                    Wait(1000)
                                     SetEntityCollision(GetPlayerPed(-1), true, true)
                                     playerPed = GetPlayerPed(-1)
                                     SetPedPropIndex(playerPed, 2, k.mask_1, k.mask_2, 2)
-                                    Citizen.Wait(200)
+                                    Wait(200)
                                     ClearPedTasks(playerPed)
                                 end
     
@@ -1086,7 +1086,7 @@ local blips = {
 	{title="Magasin d'accèssoires", colour=8, id=102, x = -1336.73, y = -1277.44, z = 4.88}
 }
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for _, info in pairs(blips) do
         info.blip = AddBlipForCoord(info.x, info.y, info.z)
         SetBlipSprite(info.blip, info.id)
@@ -1103,13 +1103,13 @@ end)
 function loadAnimDict(dict)
 	while (not HasAnimDictLoaded(dict)) do
 		RequestAnimDict(dict)
-		Citizen.Wait(5)
+		Wait(5)
 	end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-	  Citizen.Wait(0)
+	  Wait(0)
       if IsControlJustPressed(0, 47) then
         ESX.TriggerServerCallback("dqp:getMask", function(result)
             MaskTab = result

@@ -9,16 +9,16 @@ TrainHeist = {
 }
 
 ESX = nil
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent("esx:getSharedObject", function(library) 
 			ESX = library 
 		end)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for k, v in pairs(Config['TrainHeist']['startHeist']['peds']) do
         loadModel(v['ped'])
         TrainHeist['startPeds'][k] = CreatePed(4, GetHashKey(v['ped']), v['pos']['x'], v['pos']['y'], v['pos']['z'] - 0.95, v['heading'], false, true)
@@ -28,7 +28,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local ped = PlayerPedId()
         local pedCo = GetEntityCoords(ped)
@@ -41,7 +41,7 @@ Citizen.CreateThread(function()
                 StartTrainHeist()
             end
         end
-        Citizen.Wait(sleep)
+        Wait(sleep)
     end
 end)
 
@@ -80,7 +80,7 @@ AddEventHandler('trainheist:client:policeAlert', function(targetCoords)
     SetBlipAsShortRange(trainAlert, true)
 
     while alpha ~= 0 do
-        Citizen.Wait(500)
+        Wait(500)
         alpha = alpha - 1
         SetBlipAlpha(trainAlert, alpha)
 
@@ -408,14 +408,14 @@ end
 function loadPtfxAsset(dict)
     while not HasNamedPtfxAssetLoaded(dict) do
         RequestNamedPtfxAsset(dict)
-        Citizen.Wait(50)
+        Wait(50)
 	end
 end
 
 function loadAnimDict(dict)
     while not HasAnimDictLoaded(dict) do
         RequestAnimDict(dict)
-        Citizen.Wait(50)
+        Wait(50)
     end
 end
 
@@ -427,7 +427,7 @@ function loadModel(model)
     end
     while not HasModelLoaded(model) do
         RequestModel(model)
-        Citizen.Wait(0)
+        Wait(0)
     end
 end
 

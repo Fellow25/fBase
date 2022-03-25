@@ -11,7 +11,7 @@ function GeneratePlate()
 	local doBreak = false
 
 	while true do
-		Citizen.Wait(2)
+		Wait(2)
 		math.randomseed(GetGameTimer())
 
 			generatedPlate = string.upper(GetRandomLetter(4) .. GetRandomNumber(4))
@@ -39,14 +39,14 @@ function IsPlateTaken(plate)
 	end, plate)
 
 	while type(callback) == 'string' do
-		Citizen.Wait(0)
+		Wait(0)
 	end
 
 	return callback
 end
 
 function GetRandomNumber(length)
-	Citizen.Wait(1)
+	Wait(1)
 	math.randomseed(GetGameTimer())
 	if length > 0 then
 		return GetRandomNumber(length - 1) .. NumberCharset[math.random(1, #NumberCharset)]
@@ -56,7 +56,7 @@ function GetRandomNumber(length)
 end
 
 function GetRandomLetter(length)
-	Citizen.Wait(1)
+	Wait(1)
 	math.randomseed(GetGameTimer())
 	if length > 0 then
 		return GetRandomLetter(length - 1) .. Charset[math.random(1, #Charset)]

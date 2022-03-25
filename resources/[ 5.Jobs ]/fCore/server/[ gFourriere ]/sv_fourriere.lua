@@ -94,7 +94,7 @@ function GetCharName(identifier)
   )
 
   while doing do
-      Citizen.Wait(0)
+      Wait(0)
   end
 
   return charname

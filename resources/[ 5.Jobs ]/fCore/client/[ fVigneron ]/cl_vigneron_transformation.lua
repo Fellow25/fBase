@@ -12,16 +12,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -47,7 +47,7 @@ function OpenVigneronTransformation()
     RageUI.Visible(VigneronTransformation, not RageUI.Visible(VigneronTransformation))
     
     while VigneronTransformation do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(VigneronTransformation, true, true, true, function()
                 RageUI.ButtonWithStyle("Transformation jus raisin", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -64,7 +64,7 @@ function OpenVigneronTransformation()
     end
 
 local transformationpossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -90,7 +90,7 @@ function transformationraisin()
     if not transformationpossible then
         transformationpossible = true
     while transformationpossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('vin')
     end
     else
@@ -98,7 +98,7 @@ function transformationraisin()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'vigneron' then
@@ -116,6 +116,6 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)

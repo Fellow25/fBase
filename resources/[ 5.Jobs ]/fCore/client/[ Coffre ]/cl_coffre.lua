@@ -1,7 +1,7 @@
 local inTrunk = false
 
 ESX = nil
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         Wait(0)
         if inTrunk then
@@ -44,7 +44,7 @@ Citizen.CreateThread(function()
     end
 end)   
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end) Wait(0) end
     while not NetworkIsSessionStarted() or ESX.GetPlayerData().job == nil do Wait(0) end
     while true do

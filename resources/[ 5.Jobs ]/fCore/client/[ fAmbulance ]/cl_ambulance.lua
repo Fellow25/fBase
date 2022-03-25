@@ -28,12 +28,12 @@ AddEventHandler('esx:onPlayerSpawn', function()
 
 		if Ambulance.AntiCombatLog then
 			while not ESX.PlayerLoaded do
-				Citizen.Wait(1000)
+				Wait(1000)
 			end
 
 			ESX.TriggerServerCallback('esx_ambulancejob:getDeathStatus', function(shouldDie)
 				if shouldDie then
-					Citizen.Wait(5000)
+					Wait(5000)
 					SetEntityHealth(PlayerPedId(), 0)
 				end
 			end)
@@ -42,9 +42,9 @@ AddEventHandler('esx:onPlayerSpawn', function()
 end)
 
 -- Disable most inputs when dead
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(200)
+		Wait(200)
 
 		if isDead then
 			DisableAllControlActions(0)
@@ -52,21 +52,21 @@ Citizen.CreateThread(function()
 			EnableControlAction(0, 245, true)
 			EnableControlAction(0, 38, true)
 		else
-			Citizen.Wait(500)
+			Wait(500)
 		end
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(200)
+		Wait(200)
 		if isDead and isSearched then
 			local playerPed = PlayerPedId()
 			local ped = GetPlayerPed(GetPlayerFromServerId(medic))
 			isSearched = false
 
 			AttachEntityToEntity(playerPed, ped, 11816, 0.54, 0.54, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
-			Citizen.Wait(1000)
+			Wait(1000)
 			DetachEntity(playerPed, true, false)
 			ClearPedTasksImmediately(playerPed)
 		end
@@ -104,11 +104,11 @@ function OnPlayerDeath()
 end
 
 function StartDistressSignal()
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		local timer = Ambulance.BleedoutTimer
 
 		while timer > 0 and isDead do
-			Citizen.Wait(0)
+			Wait(0)
 			timer = timer - 30
 
 			SetTextFont(4)
@@ -184,10 +184,10 @@ function StartDeathTimer()
 	local earlySpawnTimer = ESX.Math.Round(Ambulance.EarlyRespawnTimer / 1000)
 	local bleedoutTimer = ESX.Math.Round(Ambulance.BleedoutTimer / 1000)
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		-- early respawn timer
 		while earlySpawnTimer > 0 and isDead do
-			Citizen.Wait(1000)
+			Wait(1000)
 
 			if earlySpawnTimer > 0 then
 				earlySpawnTimer = earlySpawnTimer - 1
@@ -196,7 +196,7 @@ function StartDeathTimer()
 
 		-- bleedout timer
 		while bleedoutTimer > 0 and isDead do
-			Citizen.Wait(1000)
+			Wait(1000)
 
 			if bleedoutTimer > 0 then
 				bleedoutTimer = bleedoutTimer - 1
@@ -204,12 +204,12 @@ function StartDeathTimer()
 		end
 	end)
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		local text, timeHeld
 
 		-- early respawn timer
 		while earlySpawnTimer > 0 and isDead do
-			Citizen.Wait(0)
+			Wait(0)
 			text = ('réanimation possible dans ~b~%s minutes %s secondes~s~'):format(secondsToClock(earlySpawnTimer))
 
 			DrawGenericTextThisFrame()
@@ -221,7 +221,7 @@ function StartDeathTimer()
 
 		-- bleedout timer
 		while bleedoutTimer > 0 and isDead do
-			Citizen.Wait(0)
+			Wait(0)
 			text = ('vous allez souffrir d\'une hémorragie dans ~b~%s minutes %s secondes~s~\n'):format(secondsToClock(bleedoutTimer))
 
 			if not Ambulance.EarlyRespawnFine then
@@ -263,11 +263,11 @@ end
 function RemoveItemsAfterRPDeath()
 	TriggerServerEvent('esx_ambulancejob:setDeathStatus', false)
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		DoScreenFadeOut(800)
 
 		while not IsScreenFadedOut() do
-			Citizen.Wait(10)
+			Wait(10)
 		end
 
 		ESX.TriggerServerCallback('esx_ambulancejob:removeItemsAfterRPDeath', function()
@@ -321,7 +321,7 @@ AddEventHandler('esx_ambulancejob:revive', function()
 	DoScreenFadeOut(800)
 
 	while not IsScreenFadedOut() do
-		Citizen.Wait(50)
+		Wait(50)
 	end
 
 	local formattedCoords = {

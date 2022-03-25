@@ -1,15 +1,15 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 
 local playerPed = PlayerPedId()
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if fDrugs.jeveuxblipmeth then
         local blip = AddBlipForCoord(fDrugs.meth.recolte.position.x, fDrugs.meth.recolte.position.y, fDrugs.meth.recolte.position.z)
         SetBlipSprite(blip, 570)
@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
     end
 end)  
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if fDrugs.jeveuxblipmeth then
         local blip = AddBlipForCoord(fDrugs.meth.traitement.position.x, fDrugs.meth.traitement.position.y, fDrugs.meth.traitement.position.z)
         SetBlipSprite(blip, 570)
@@ -39,13 +39,13 @@ function fMethRecolte()
     local fMR = RageUI.CreateMenu("Meth", "Récolte")
       RageUI.Visible(fMR, not RageUI.Visible(fMR))
               while fMR do
-                  Citizen.Wait(0)
+                  Wait(0)
                       RageUI.IsVisible(fMR, true, true, true, function()
 
                         RageUI.ButtonWithStyle("Récolter de la meth", nil, {}, true, function(Hovered, Active, Selected)
                             if (Selected) then  
                                 TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_GARDENER_PLANT', 0, true)
-                                Citizen.Wait(100)            
+                                Wait(100)            
                                 recoltemeth()
                                 ClearPedTasksImmediately(playerPed)
                                 RageUI.CloseAll()
@@ -63,13 +63,13 @@ function fMethTraitement()
     local fMT = RageUI.CreateMenu("Meth", "Traitement")
         RageUI.Visible(fMT, not RageUI.Visible(fMT))
                 while fMT do
-                    Citizen.Wait(0)
+                    Wait(0)
                         RageUI.IsVisible(fMT, true, true, true, function()
 
                         RageUI.ButtonWithStyle("Mettre de la meth en sachet", nil, {}, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
-                                Citizen.Wait(100)
+                                Wait(100)
                                 traitementmeth()
                                 ClearPedTasksImmediately(playerPed)
                                 RageUI.CloseAll()
@@ -87,7 +87,7 @@ function fMethTraitement()
 
     ---------------------------------------- Position du Menu --------------------------------------------
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -109,7 +109,7 @@ Citizen.CreateThread(function()
     end    
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
@@ -125,12 +125,12 @@ Citizen.CreateThread(function()
                             fMethRecolte()
                     end   
                 end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 -------------------------------------------------------------------------------
 local traitementpossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -152,7 +152,7 @@ Citizen.CreateThread(function()
     end    
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
@@ -168,7 +168,7 @@ Citizen.CreateThread(function()
                             fMethTraitement()
                     end   
                 end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -182,7 +182,7 @@ function recoltemeth()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-            Citizen.Wait(2000)
+            Wait(2000)
             TriggerServerEvent('rmeth')
     end
     else
@@ -194,7 +194,7 @@ function traitementmeth()
     if not traitementpossible then
         traitementpossible = true
     while traitementpossible do
-            Citizen.Wait(2000)
+            Wait(2000)
             TriggerServerEvent('tmeth')
     end
     else

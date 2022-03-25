@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -23,7 +23,7 @@ AddEventHandler('esx:setJob', function(job)
 	ESX.PlayerData.job = job
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if AutoEcole.jeveuxblips then
         local drivingschool = AddBlipForCoord(-41.51, -215.29, 45.80)
     
@@ -49,7 +49,7 @@ function GarageAutoEcole()
   local GAutoEcole = RageUI.CreateMenu("Garage", "Auto-École")
     RageUI.Visible(GAutoEcole, not RageUI.Visible(GAutoEcole))
         while GAutoEcole do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GAutoEcole, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -63,7 +63,7 @@ function GarageAutoEcole()
                     for k,v in pairs(GAutoEcolevoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarAutoEcole(v.modele)
                             RageUI.CloseAll()
                             end
@@ -77,7 +77,7 @@ function GarageAutoEcole()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'driving' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'driving' then 
@@ -95,7 +95,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -105,7 +105,7 @@ function spawnuniCarAutoEcole(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
     local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -139,7 +139,7 @@ function CoffreAutoEcole()
 	local CAutoEcole = RageUI.CreateMenu("Coffre", "Auto-École")
         RageUI.Visible(CAutoEcole, not RageUI.Visible(CAutoEcole))
             while CAutoEcole do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(CAutoEcole, true, true, true, function()
 
                 RageUI.Separator("↓ Objet ↓")
@@ -165,7 +165,7 @@ function CoffreAutoEcole()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'driving' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'driving' then  
@@ -183,7 +183,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -194,7 +194,7 @@ function AutoEcoleRetirerobjet()
 	itemstock = items
 	RageUI.Visible(StockAutoEcole, not RageUI.Visible(StockAutoEcole))
         while StockAutoEcole do
-		    Citizen.Wait(0)
+		    Wait(0)
 		        RageUI.IsVisible(StockAutoEcole, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -222,7 +222,7 @@ function AutoEcoleDeposerobjet()
     ESX.TriggerServerCallback('driving:getPlayerInventory', function(inventory)
         RageUI.Visible(DepositAutoEcole, not RageUI.Visible(DepositAutoEcole))
     while DepositAutoEcole do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositAutoEcole, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -255,7 +255,7 @@ function VestiaireAutoEcole()
 	local VAutoEcole = RageUI.CreateMenu("Vestiaire", "Auto-École")
         RageUI.Visible(VAutoEcole, not RageUI.Visible(VAutoEcole))
             while VAutoEcole do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(VAutoEcole, true, true, true, function()
 
                     RageUI.Separator("↓ Vêtements ↓")
@@ -281,7 +281,7 @@ function VestiaireAutoEcole()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'driving' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'driving' then  
@@ -299,7 +299,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 

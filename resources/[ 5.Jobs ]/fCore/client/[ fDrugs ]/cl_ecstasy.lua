@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if fDrugs.jeveuxblipecstasy then
         local blip = AddBlipForCoord(fDrugs.ecstasy.recolte.position.x, fDrugs.ecstasy.recolte.position.y, fDrugs.ecstasy.recolte.position.z)
         SetBlipSprite(blip, 501)
@@ -20,7 +20,7 @@ Citizen.CreateThread(function()
     end
 end)  
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if fDrugs.jeveuxblipecstasy then
         local blip = AddBlipForCoord(fDrugs.ecstasy.traitement.position.x, fDrugs.ecstasy.traitement.position.y, fDrugs.ecstasy.traitement.position.z)
         SetBlipSprite(blip, 501)
@@ -37,13 +37,13 @@ function fEcstasyRecolte()
     local fER = RageUI.CreateMenu("Ecstasy", "Récolte")
       RageUI.Visible(fER, not RageUI.Visible(fER))
               while fER do
-                  Citizen.Wait(0)
+                  Wait(0)
                       RageUI.IsVisible(fER, true, true, true, function()
 
                         RageUI.ButtonWithStyle("Récolter de la ecstasy", nil, {}, true, function(Hovered, Active, Selected)
                             if (Selected) then      
                                 TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_GARDENER_PLANT', 0, true)
-                                Citizen.Wait(100)        
+                                Wait(100)        
                                 recolteecstasy()
                                 ClearPedTasksImmediately(playerPed)
                                 RageUI.CloseAll()
@@ -61,13 +61,13 @@ function fEcstasyTraitement()
     local fET = RageUI.CreateMenu("Ecstasy", "Traitement")
         RageUI.Visible(fET, not RageUI.Visible(fET))
                 while fET do
-                    Citizen.Wait(0)
+                    Wait(0)
                         RageUI.IsVisible(fET, true, true, true, function()
 
                         RageUI.ButtonWithStyle("Mettre de la ecstasy en sachet", nil, {}, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
-                                Citizen.Wait(100)
+                                Wait(100)
                                 traitementecstasy()
                                 ClearPedTasksImmediately(playerPed)
                                 RageUI.CloseAll()
@@ -85,7 +85,7 @@ function fEcstasyTraitement()
 
     ---------------------------------------- Position du Menu --------------------------------------------
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -107,7 +107,7 @@ Citizen.CreateThread(function()
     end    
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
@@ -123,12 +123,12 @@ Citizen.CreateThread(function()
                             fEcstasyRecolte()
                     end   
                 end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 -------------------------------------------------------------------------------
 local traitementpossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -151,7 +151,7 @@ Citizen.CreateThread(function()
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
@@ -167,7 +167,7 @@ Citizen.CreateThread(function()
                             fEcstasyTraitement()
                     end   
                 end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -181,7 +181,7 @@ function recolteecstasy()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-            Citizen.Wait(2000)
+            Wait(2000)
             TriggerServerEvent('recstasy')
     end
     else
@@ -193,7 +193,7 @@ function traitementecstasy()
     if not traitementpossible then
         traitementpossible = true
     while traitementpossible do
-            Citizen.Wait(2000)
+            Wait(2000)
             TriggerServerEvent('tecstasy')
     end
     else

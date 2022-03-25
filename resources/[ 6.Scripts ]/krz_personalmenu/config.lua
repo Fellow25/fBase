@@ -457,14 +457,14 @@ Config.Admin = {
 			local waypointHandle = GetFirstBlipInfoId(8)
 
 			if DoesBlipExist(waypointHandle) then
-				Citizen.CreateThread(function()
+				CreateThread(function()
 					local waypointCoords = GetBlipInfoIdCoord(waypointHandle)
 					local foundGround, zCoords, zPos = false, -500.0, 0.0
 
 					while not foundGround do
 						zCoords = zCoords + 10.0
 						RequestCollisionAtCoord(waypointCoords.x, waypointCoords.y, zCoords)
-						Citizen.Wait(0)
+						Wait(0)
 						foundGround, zPos = GetGroundZFor_3dCoord(waypointCoords.x, waypointCoords.y, zCoords)
 
 						if not foundGround and zCoords >= 2000.0 then
@@ -504,7 +504,7 @@ Config.Admin = {
 		groups = {'_dev', 'owner', 'admin'},
 		command = function()
 			RageUI.CloseAll()
-			Citizen.Wait(100)
+			Wait(100)
 			TriggerEvent('esx_skin:openSaveableMenu')
 		end
 	},

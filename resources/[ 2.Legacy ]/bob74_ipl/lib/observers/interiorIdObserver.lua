@@ -1,7 +1,7 @@
 
 local _scanDelay = 500
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         -- /!\ To do: Find a more reliable way to get the current interior ID
         Global.currentInteriorId = GetInteriorAtCoords(GetEntityCoords(GetPlayerPed(-1)))

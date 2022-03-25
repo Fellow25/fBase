@@ -3,7 +3,7 @@ local loadingScreenFinished = false
 RegisterNetEvent('esx_identity:alreadyRegistered')
 AddEventHandler('esx_identity:alreadyRegistered', function()
 	while not loadingScreenFinished do
-		Citizen.Wait(100)
+		Wait(100)
 	end
 
 	TriggerEvent('esx_skin:playerRegistered')
@@ -55,9 +55,9 @@ if not Config.UseDeferrals then
 		end, data)
 	end)
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
-			Citizen.Wait(5)
+			Wait(5)
 
 			if guiEnabled then
 				DisableControlAction(0, 1,   true) -- LookLeftRight

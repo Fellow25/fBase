@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -68,7 +68,7 @@ function MenuFouille()
     local fFouilleSub = RageUI.CreateSubMenu(fFouille, "Menu Fouille", "Interactions")
         RageUI.Visible(fFouille, not RageUI.Visible(fFouille))
             while fFouille do
-                Citizen.Wait(0)
+                Wait(0)
                     RageUI.IsVisible(fFouille, true, true, true, function()
 
             local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
@@ -100,7 +100,7 @@ function MenuFouille()
                     local target_id = GetPlayerServerId(target)
                     if closestPlayer ~= -1 and closestDistance <= 3.0 then  
                     ESX.ShowNotification("Recherche en cours...")
-                    Citizen.Wait(2000)
+                    Wait(2000)
                     carteidentite(closestPlayer)
             else
                 ESX.ShowNotification('Aucun joueurs à proximité')
@@ -236,7 +236,7 @@ function carteidentite(player)
     ESX.TriggerServerCallback('fFouille:getOtherPlayerData', function(data)
     RageUI.Visible(StockFouille, not RageUI.Visible(StockFouille))
         while StockFouille do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(StockFouille, true, true, true, function()
                             RageUI.ButtonWithStyle("Prenom & Nom : ", nil, {RightLabel = data.name}, true, function(Hovered, Active, Selected)
                                 if Selected then
@@ -289,16 +289,16 @@ function KeyboardInput(TextEntry, ExampleText, MaxStringLenght)
     blockinput = true
 
     while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do 
-        Citizen.Wait(0)
+        Wait(0)
     end
         
     if UpdateOnscreenKeyboard() ~= 2 then
         local result = GetOnscreenKeyboardResult() 
-        Citizen.Wait(500) 
+        Wait(500) 
         blockinput = false
         return result 
     else
-        Citizen.Wait(500) 
+        Wait(500) 
         blockinput = false 
         return nil 
     end
@@ -312,13 +312,13 @@ AddEventHandler('fellow:handcuff', function()
   IsHandcuffed    = not IsHandcuffed;
   local playerPed = GetPlayerPed(-1)
 
-  Citizen.CreateThread(function()
+  CreateThread(function()
 
     if IsHandcuffed then
 
         RequestAnimDict('mp_arresting')
         while not HasAnimDictLoaded('mp_arresting') do
-            Citizen.Wait(100)
+            Wait(100)
         end
 
       TaskPlayAnim(playerPed, 'mp_arresting', 'idle', 8.0, -8, -1, 49, 0, 0, 0, 0)
@@ -353,7 +353,7 @@ AddEventHandler('fellow:drag', function(cop)
   CopPed = tonumber(cop)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
   while true do
     Wait(0)
     if IsHandcuffed then
@@ -412,7 +412,7 @@ AddEventHandler('fellow:OutVehicle', function(t)
 end)
 
 -- Handcuff
-Citizen.CreateThread(function()
+CreateThread(function()
   while true do
     Wait(0)
     if IsHandcuffed then

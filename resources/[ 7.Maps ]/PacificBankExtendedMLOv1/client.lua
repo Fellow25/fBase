@@ -1,4 +1,4 @@
-Citizen.CreateThread(function()
+CreateThread(function()
 	RequestIpl("k4mb1_ornate_bank_milo_")
 	
 -- Pacific

@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -23,7 +23,7 @@ AddEventHandler('esx:setJob', function(job)
 	ESX.PlayerData.job = job
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if Split.jeveuxblips then
     local splitmap = AddBlipForCoord(Split.pos.blips.position.x, Split.pos.blips.position.y, Split.pos.blips.position.z)
     SetBlipSprite(splitmap, 93)
@@ -41,7 +41,7 @@ function Menuf6Split()
     fSplitf6:SetRectangleBanner(5, 0, 0)
     RageUI.Visible(fSplitf6, not RageUI.Visible(fSplitf6))
     while fSplitf6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fSplitf6, true, true, true, function()
 
                 RageUI.Separator("↓ Facture ↓")
@@ -135,7 +135,7 @@ function OpenPrendreMenuSplit()
     PrendreMenu:SetRectangleBanner(5, 0, 0)
         RageUI.Visible(PrendreMenu, not RageUI.Visible(PrendreMenu))
     while PrendreMenu do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(PrendreMenu, true, true, true, function()
             for k,v in pairs(Split.Bar.item) do
             RageUI.ButtonWithStyle(v.Label.. ' Prix: ' .. v.Price .. '€', nil, { }, true, function(Hovered, Active, Selected)
@@ -154,7 +154,7 @@ function OpenPrendreMenuSplit()
 end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'split' then
@@ -172,7 +172,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -183,7 +183,7 @@ function Coffresplit()
     Csplit:SetRectangleBanner(5, 0, 0)
         RageUI.Visible(Csplit, not RageUI.Visible(Csplit))
             while Csplit do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Csplit, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -209,7 +209,7 @@ function Coffresplit()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'split' then
@@ -227,7 +227,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -239,7 +239,7 @@ function GarageSplit()
   GSplit:SetRectangleBanner(5, 0, 0)
     RageUI.Visible(GSplit, not RageUI.Visible(GSplit))
         while GSplit do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GSplit, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -254,7 +254,7 @@ function GarageSplit()
                     for k,v in pairs(GSplitvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarSplit(v.modele)
                             RageUI.CloseAll()
                             end
@@ -268,7 +268,7 @@ function GarageSplit()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'split' then
@@ -286,7 +286,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -296,7 +296,7 @@ function spawnuniCarSplit(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
     local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -318,7 +318,7 @@ function SplitRetirerobjet()
    
     RageUI.Visible(Stocksplit, not RageUI.Visible(Stocksplit))
         while Stocksplit do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stocksplit, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -347,7 +347,7 @@ function SplitDeposerobjet()
     ESX.TriggerServerCallback('fsplit:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

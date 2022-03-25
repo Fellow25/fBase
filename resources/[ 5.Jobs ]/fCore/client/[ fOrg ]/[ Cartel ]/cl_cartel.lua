@@ -12,16 +12,16 @@ ESX = nil
 	RegisterNetEvent('esx:setJob')
 	AddEventHandler('esx:setJob', function(job)  
 		PlayerData.job = job  
-		Citizen.Wait(5000) 
+		Wait(5000) 
 	end)
 	
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while ESX == nil do
 			TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-			Citizen.Wait(10)
+			Wait(10)
 		end
 		while ESX.GetPlayerData().job == nil do
-			Citizen.Wait(10)
+			Wait(10)
 		end
 		if ESX.IsPlayerLoaded() then
 	
@@ -46,7 +46,7 @@ ESX = nil
 		ESX.PlayerData.job2 = job2
 	end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if Cartel.jeveuxblips then
         local cartelmap = AddBlipForCoord(Cartel.pos.blips.position.x, Cartel.pos.blips.position.y, Cartel.pos.blips.position.z)
     
@@ -64,7 +64,7 @@ function Coffrecartel()
     local Ccartel = RageUI.CreateMenu("Coffre", "Cartel")
         RageUI.Visible(Ccartel, not RageUI.Visible(Ccartel))
             while Ccartel do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Ccartel, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -90,7 +90,7 @@ function Coffrecartel()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
@@ -108,7 +108,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -119,7 +119,7 @@ function Garagecartel()
   local Gcartel = RageUI.CreateMenu("Garage", "Cartel")
     RageUI.Visible(Gcartel, not RageUI.Visible(Gcartel))
         while Gcartel do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Gcartel, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -134,7 +134,7 @@ function Garagecartel()
                     for k,v in pairs(Gcartelvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarcartel(v.modele)
                             RageUI.CloseAll()
                             end
@@ -148,7 +148,7 @@ function Garagecartel()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
@@ -166,7 +166,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -176,7 +176,7 @@ function spawnuniCarcartel(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
     local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -198,7 +198,7 @@ function CartelRetirerobjet()
    
     RageUI.Visible(Stockcartel, not RageUI.Visible(Stockcartel))
         while Stockcartel do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockcartel, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -226,7 +226,7 @@ function CartelDeposerobjet()
     ESX.TriggerServerCallback('fcartel:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -263,7 +263,7 @@ function Theoriecartel()
     local Tcartel = RageUI.CreateMenu("Craft Théorie", "Cartel")
       RageUI.Visible(Tcartel, not RageUI.Visible(Tcartel))
           while Tcartel do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Tcartel, true, true, true, function()
                     for k,v in pairs(Cartel.craft) do
                         RageUI.ButtonWithStyle(v.name, nil, {RightLabel = "?"},true, function(Hovered, Active, Selected)
@@ -292,7 +292,7 @@ function Theoriecartel()
       end
   end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
@@ -310,7 +310,7 @@ while true do
             end   
         end
     end 
-Citizen.Wait(Timer)
+Wait(Timer)
 end
 end)
 
@@ -324,7 +324,7 @@ function MenuCraftcartel()
     choixnbruban = 0
       RageUI.Visible(Craftcartel, not RageUI.Visible(Craftcartel))
           while Craftcartel do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Craftcartel, true, true, true, function()
                     for v = 1, #inventory.items, 1 do
                         if inventory.items[v].name == "metaux" or inventory.items[v].name == "poudre" or inventory.items[v].name == "meche" or inventory.items[v].name == "ruban" then
@@ -481,7 +481,7 @@ function MenuCraftcartel()
     end)
   end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
@@ -499,7 +499,7 @@ while true do
             end   
         end
     end 
-Citizen.Wait(Timer)
+Wait(Timer)
 end
 end)
 
@@ -509,7 +509,7 @@ function cartelRecolteMetaux()
     RageUI.Visible(ARM, not RageUI.Visible(ARM))
     
     while ARM do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARM, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de métaux", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -526,7 +526,7 @@ function cartelRecolteMetaux()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -552,7 +552,7 @@ function recoltemetaux()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('metaux')
     end
     else
@@ -560,7 +560,7 @@ function recoltemetaux()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
@@ -578,7 +578,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 ------------------------------------
@@ -588,7 +588,7 @@ function cartelRecoltepoudre()
     RageUI.Visible(ARC, not RageUI.Visible(ARC))
     
     while ARC do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARC, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de poudre à canon", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -605,7 +605,7 @@ function cartelRecoltepoudre()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -631,7 +631,7 @@ function recoltepoudre()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('poudre')
     end
     else
@@ -639,7 +639,7 @@ function recoltepoudre()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
@@ -657,7 +657,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -668,7 +668,7 @@ function cartelRecolteMeche()
     RageUI.Visible(ARM, not RageUI.Visible(ARM))
     
     while ARM do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARM, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de mèche", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -685,7 +685,7 @@ function cartelRecolteMeche()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -711,7 +711,7 @@ function recoltemeche()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('meche')
     end
     else
@@ -719,7 +719,7 @@ function recoltemeche()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
@@ -737,7 +737,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -748,7 +748,7 @@ function cartelRecolteruban()
     RageUI.Visible(ARL, not RageUI.Visible(ARL))
     
     while ARL do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARL, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de ruban adhésif", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -765,7 +765,7 @@ function cartelRecolteruban()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -791,7 +791,7 @@ function recolteruban()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('ruban')
     end
     else
@@ -799,7 +799,7 @@ function recolteruban()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
@@ -817,7 +817,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 

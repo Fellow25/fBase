@@ -13,16 +13,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -48,7 +48,7 @@ AddEventHandler('esx:setJob2', function(job2)
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if tabac.jeveuxblips then
     local tabacmap = AddBlipForCoord(tabac.pos.blips.position.x, tabac.pos.blips.position.y, tabac.pos.blips.position.z)
 
@@ -67,7 +67,7 @@ function Menuf6tabac()
     local fTabacf6 = RageUI.CreateMenu("Tabac", "Interactions")
     RageUI.Visible(fTabacf6, not RageUI.Visible(fTabacf6))
     while fTabacf6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fTabacf6, true, true, true, function()
 
                 RageUI.ButtonWithStyle("Passer une facture",nil, {RightLabel = "→"}, true, function(_,_,s)
@@ -202,7 +202,7 @@ function Coffretabac()
     local Ctabac = RageUI.CreateMenu("Coffre", "Tabac")
         RageUI.Visible(Ctabac, not RageUI.Visible(Ctabac))
             while Ctabac do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Ctabac, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -245,7 +245,7 @@ function Coffretabac()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tabac' then
@@ -263,7 +263,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -272,7 +272,7 @@ function Garagetabac()
     local Gtabac = RageUI.CreateMenu("Garage", "Tabac")
       RageUI.Visible(Gtabac, not RageUI.Visible(Gtabac))
           while Gtabac do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Gtabac, true, true, true, function()
                       RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then   
@@ -287,7 +287,7 @@ function Garagetabac()
                       for k,v in pairs(Gtabacvoiture) do
                       RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then
-                          Citizen.Wait(1)  
+                          Wait(1)  
                               spawnuniCartabac(v.modele)
                               RageUI.CloseAll()
                               end
@@ -301,7 +301,7 @@ function Garagetabac()
       end
   end
   
-  Citizen.CreateThread(function()
+  CreateThread(function()
           while true do
               local Timer = 500
               if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tabac' then
@@ -319,7 +319,7 @@ function Garagetabac()
                       end   
                   end
               end 
-          Citizen.Wait(Timer)
+          Wait(Timer)
        end
   end)
   
@@ -329,7 +329,7 @@ function Garagetabac()
       RequestModel(car)
       while not HasModelLoaded(car) do
           RequestModel(car)
-          Citizen.Wait(0)
+          Wait(0)
       end
   
       local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
@@ -371,7 +371,7 @@ function TabacRetirerobjet()
    
     RageUI.Visible(Stocktabac, not RageUI.Visible(Stocktabac))
         while Stocktabac do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stocktabac, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -399,7 +399,7 @@ function TabacDeposerobjet()
     ESX.TriggerServerCallback('ftabac:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -434,7 +434,7 @@ end)
 function SmokeAnimation()
 	local playerPed = GetPlayerPed(-1)
 	
-	Citizen.CreateThread(function()
+	CreateThread(function()
         TaskStartScenarioInPlace(playerPed, "WORLD_HUMAN_SMOKING", 0, true)               
 	end)
 end

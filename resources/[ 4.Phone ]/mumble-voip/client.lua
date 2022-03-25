@@ -200,10 +200,10 @@ function CheckVoiceSetting(varName, msg)
 	if setting == 0 then
 		SendNUIMessage({ warningId = varName, warningMsg = msg })
 
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			local varName = varName
 			while GetConvarInt(varName, -1) == 0 do
-				Citizen.Wait(1000)
+				Wait(1000)
 			end
 
 			SendNUIMessage({ warningId = varName })
@@ -292,7 +292,7 @@ AddEventHandler("onClientResourceStart", function(resName) -- Initialises the sc
 
 	DebugMsg("Initialising")
 
-	Citizen.Wait(1000)
+	Wait(1000)
 
 	if mumbleConfig.useExternalServer then
 		MumbleSetServerAddress(mumbleConfig.externalAddress, mumbleConfig.externalPort)
@@ -305,18 +305,18 @@ AddEventHandler("onClientResourceStart", function(resName) -- Initialises the sc
 		SendNUIMessage({ warningId = "mumble_is_connected", warningMsg = "Not connected to mumble" })
 
 		while not MumbleIsConnected() do
-			Citizen.Wait(250)
+			Wait(250)
 		end
 
 		SendNUIMessage({ warningId = "mumble_is_connected" })
 	end
 
-	Citizen.Wait(1000)
+	Wait(1000)
 
 	MumbleClearVoiceTarget(voiceTarget) -- Reset voice target
 	MumbleSetVoiceTarget(voiceTarget)
 
-	Citizen.Wait(1000)
+	Wait(1000)
 
 	voiceData[playerServerId] = {
 		mode = 2,
@@ -753,9 +753,9 @@ AddEventHandler("mumble:RemoveVoiceData", function(player)
 end)
 
 -- Simulate PTT when radio is active
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		if initialised then
 			local playerData = voiceData[playerServerId]
@@ -817,9 +817,9 @@ Citizen.CreateThread(function()
 							end
 							mumbleConfig.controls.radio.pressed = true
 
-							Citizen.CreateThread(function()
+							CreateThread(function()
 								while IsControlPressed(0, mumbleConfig.controls.radio.key) do
-									Citizen.Wait(0)
+									Wait(0)
 								end
 
 								SetVoiceData("radioActive", false)
@@ -862,7 +862,7 @@ Citizen.CreateThread(function()
 end)
 
 -- UI
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if initialised then
 			local playerId = PlayerId()
@@ -892,22 +892,22 @@ Citizen.CreateThread(function()
 				speaker = playerCallSpeaker,
 			})
 
-			Citizen.Wait(200)
+			Wait(200)
 		else
-			Citizen.Wait(0)
+			Wait(0)
 		end
 	end
 end)
 
 -- Manage Grid Target Channels
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if initialised then
 			if not MumbleIsConnected() then
 				SendNUIMessage({ warningId = "mumble_is_connected", warningMsg = "Not connected to mumble" })
 
 				while not MumbleIsConnected() do
-					Citizen.Wait(250)
+					Wait(250)
 				end
 
 				SendNUIMessage({ warningId = "mumble_is_connected" })
@@ -920,15 +920,15 @@ Citizen.CreateThread(function()
 			
 			SetGridTargets(playerCoords, resetTargets)
 
-			Citizen.Wait(2500)
+			Wait(2500)
 		else
-			Citizen.Wait(0)
+			Wait(0)
 		end
 	end
 end)
 
 -- Manage hearing nearby players on call
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if initialised then
 			if mumbleConfig.callSpeakerEnabled then
@@ -1004,15 +1004,15 @@ Citizen.CreateThread(function()
 				end
 			end
 
-			Citizen.Wait(1000)
+			Wait(1000)
 		else
-			Citizen.Wait(0)
+			Wait(0)
 		end
 	end
 end)
 
 -- Set vehicle passengers to 2D voice and ignore distance checks
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		if initialised then
 			if mumbleConfig.use2dAudioInVehicles then
@@ -1103,9 +1103,9 @@ Citizen.CreateThread(function()
 				end
 			end
 
-			Citizen.Wait(1000)
+			Wait(1000)
 		else
-			Citizen.Wait(0)
+			Wait(0)
 		end
 	end
 end)

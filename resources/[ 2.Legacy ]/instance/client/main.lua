@@ -2,10 +2,10 @@ local instance, instancedPlayers, registeredInstanceTypes, playersToHide = {}, {
 local instanceInvite, insideInstance
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 
@@ -136,8 +136,8 @@ AddEventHandler('instance:onInvite', function(_instance, type, data)
 		data = data
 	}
 
-	Citizen.CreateThread(function()
-		Citizen.Wait(10000)
+	CreateThread(function()
+		Wait(10000)
 
 		if instanceInvite then
 			ESX.ShowNotification(_U('invite_expired'))
@@ -149,9 +149,9 @@ end)
 RegisterInstanceType('default')
 
 -- Controls for invite
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		if instanceInvite then
 			ESX.ShowHelpNotification(_U('press_to_enter'))
@@ -162,15 +162,15 @@ Citizen.CreateThread(function()
 				instanceInvite = nil
 			end
 		else
-			Citizen.Wait(500)
+			Wait(500)
 		end
 	end
 end)
 
 -- Instance players
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(1000)
+		Wait(1000)
 		playersToHide = {}
 
 		if instance.host then
@@ -191,9 +191,9 @@ Citizen.CreateThread(function()
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(10)
+		Wait(10)
 		local playerPed = PlayerPedId()
 
 		-- Hide all these players
@@ -209,14 +209,14 @@ Citizen.CreateThread(function()
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	TriggerEvent('instance:loaded')
 end)
 
 -- Fix vehicles randomly spawning nearby the player inside an instance
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0) -- must be run every frame
+		Wait(0) -- must be run every frame
 
 		if insideInstance then
 			SetVehicleDensityMultiplierThisFrame(0.0)
@@ -225,7 +225,7 @@ Citizen.CreateThread(function()
 			local pos = GetEntityCoords(PlayerPedId())
 			RemoveVehiclesFromGeneratorsInArea(pos.x - 900.0, pos.y - 900.0, pos.z - 900.0, pos.x + 900.0, pos.y + 900.0, pos.z + 900.0)
 		else
-			Citizen.Wait(500)
+			Wait(500)
 		end
 	end
 end)

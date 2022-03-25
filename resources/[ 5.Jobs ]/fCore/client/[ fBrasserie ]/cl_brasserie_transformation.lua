@@ -12,16 +12,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -48,7 +48,7 @@ function OpenBrasserieTransformation()
     RageUI.Visible(BrasserieTransformation, not RageUI.Visible(BrasserieTransformation))
     
     while BrasserieTransformation do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(BrasserieTransformation, true, true, true, function()
                 RageUI.ButtonWithStyle("Transformer malt", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -65,7 +65,7 @@ function OpenBrasserieTransformation()
     end
 
 local transformationpossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
@@ -91,7 +91,7 @@ function transformationmalt()
     if not transformationpossible then
         transformationpossible = true
     while transformationpossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('biere')
     end
     else
@@ -99,7 +99,7 @@ function transformationmalt()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'brasserie' then
@@ -117,6 +117,6 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)

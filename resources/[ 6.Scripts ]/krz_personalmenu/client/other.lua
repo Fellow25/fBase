@@ -17,9 +17,9 @@ local function stopPointing()
 	ClearPedSecondaryTask(plyPed)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 		DisableControlAction(1, Config.Controls.Crouch.keyboard, true)
 
 		if IsDisabledControlJustReleased(1, Config.Controls.Crouch.keyboard) and IsInputDisabled(2) then
