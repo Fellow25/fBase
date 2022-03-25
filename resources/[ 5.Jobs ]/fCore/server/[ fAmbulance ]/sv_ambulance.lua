@@ -55,7 +55,7 @@ AddEventHandler('esx:onPlayerDeath', function(data)
 	TriggerClientEvent('esx_ambulancejob:setDeadPlayers', -1, deadPlayers)
 end)
 
-RegisterServerEvent('esx_ambulancejob:svsearch')
+RegisterNetEvent('esx_ambulancejob:svsearch')
 AddEventHandler('esx_ambulancejob:svsearch', function()
   TriggerClientEvent('esx_ambulancejob:clsearch', -1, source)
 end)
@@ -246,7 +246,7 @@ AddEventHandler('fAmbulance:getStockItem', function(itemName, count)
 	end)
 end)
 
-RegisterServerEvent('AmbulanceDispo')
+RegisterNetEvent('AmbulanceDispo')
 AddEventHandler('AmbulanceDispo', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -257,7 +257,7 @@ AddEventHandler('AmbulanceDispo', function()
 	end
 end)
 
-RegisterServerEvent('AmbulancePasDispo')
+RegisterNetEvent('AmbulancePasDispo')
 AddEventHandler('AmbulancePasDispo', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -268,7 +268,7 @@ AddEventHandler('AmbulancePasDispo', function()
 	end
 end)
 
-RegisterServerEvent('AmbulanceRecrutement')
+RegisterNetEvent('AmbulanceRecrutement')
 AddEventHandler('AmbulanceRecrutement', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -298,7 +298,7 @@ ESX.RegisterServerCallback('fAmbulance:infoReport', function(source, cb)
     cb(appelTable)
 end)
 
-RegisterServerEvent("fAmbulance:emsAppel")
+RegisterNetEvent("fAmbulance:emsAppel")
 AddEventHandler("fAmbulance:emsAppel", function()
     local xPlayers    = ESX.GetPlayers()
     for i=1, #xPlayers, 1 do
@@ -309,7 +309,7 @@ AddEventHandler("fAmbulance:emsAppel", function()
 end
 end)
 
-RegisterServerEvent("fAmbulance:CloseReport")
+RegisterNetEvent("fAmbulance:CloseReport")
 AddEventHandler("fAmbulance:CloseReport", function(nom, raison)
     local xPlayers    = ESX.GetPlayers()
     for i=1, #xPlayers, 1 do

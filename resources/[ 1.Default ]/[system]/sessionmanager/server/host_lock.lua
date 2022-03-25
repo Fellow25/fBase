@@ -1,6 +1,6 @@
 -- whitelist c2s events
-RegisterServerEvent('hostingSession')
-RegisterServerEvent('hostedSession')
+RegisterNetEvent('hostingSession')
+RegisterNetEvent('hostedSession')
 
 -- event handler for pre-session 'acquire'
 local currentHosting

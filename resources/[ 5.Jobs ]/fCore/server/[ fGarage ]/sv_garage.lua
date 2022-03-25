@@ -20,7 +20,7 @@ ESX.RegisterServerCallback('fellow_garage:listevoiture', function(source, cb)
 end)
 
 --état sortie véhicule
-RegisterServerEvent('fellow_garage:etatvehiculesortie')
+RegisterNetEvent('fellow_garage:etatvehiculesortie')
 AddEventHandler('fellow_garage:etatvehiculesortie', function(plate, state)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -79,7 +79,7 @@ ESX.RegisterServerCallback('fellow_garage:verifsous', function(source, cb)
 end)
 
 --fait payer joueur pour fourriere
-RegisterServerEvent('fellow_garage:payechacal')
+RegisterNetEvent('fellow_garage:payechacal')
 AddEventHandler('fellow_garage:payechacal', function()
     local xPlayer = ESX.GetPlayerFromId(source)
     xPlayer.removeMoney(garagepublic.cleanveh)

@@ -79,7 +79,7 @@ AddEventHandler('fUnicorn:bar', function(item,price)
 end)
 
 
-RegisterServerEvent('fUnicorn:Ouvert')
+RegisterNetEvent('fUnicorn:Ouvert')
 AddEventHandler('fUnicorn:Ouvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -90,7 +90,7 @@ AddEventHandler('fUnicorn:Ouvert', function()
 	end
 end)
 
-RegisterServerEvent('fUnicorn:Fermer')
+RegisterNetEvent('fUnicorn:Fermer')
 AddEventHandler('fUnicorn:Fermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -101,7 +101,7 @@ AddEventHandler('fUnicorn:Fermer', function()
 	end
 end)
 
-RegisterServerEvent('fUnicorn:Perso')
+RegisterNetEvent('fUnicorn:Perso')
 AddEventHandler('fUnicorn:Perso', function(msg)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -122,7 +122,7 @@ ESX.RegisterServerCallback('unicorn:getPlayerInventoryBlack', function(source, c
 	})
   end)
 
-RegisterServerEvent('unicorn:putblackmoney')
+RegisterNetEvent('unicorn:putblackmoney')
 AddEventHandler('unicorn:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -159,7 +159,7 @@ end)
   
   end)
 
-  RegisterServerEvent('unicorn:getItem')
+  RegisterNetEvent('unicorn:getItem')
   AddEventHandler('unicorn:getItem', function(type, item, count)
   
     local _source      = source

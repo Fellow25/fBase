@@ -89,14 +89,14 @@ MySQL.ready(function()
 	StartPayCheck()
 end)
 
-RegisterServerEvent('esx:clientLog')
+RegisterNetEvent('esx:clientLog')
 AddEventHandler('esx:clientLog', function(msg)
 	if Config.EnableDebug then
 		print(('[^2TRACE^7] %s^7'):format(msg))
 	end
 end)
 
-RegisterServerEvent('esx:triggerServerCallback')
+RegisterNetEvent('esx:triggerServerCallback')
 AddEventHandler('esx:triggerServerCallback', function(name, requestId, ...)
 	local playerId = source
 

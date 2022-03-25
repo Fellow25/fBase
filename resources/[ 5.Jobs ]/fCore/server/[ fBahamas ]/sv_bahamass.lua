@@ -79,7 +79,7 @@ AddEventHandler('fBahamas:bar', function(item,price)
 end)
 
 
-RegisterServerEvent('fBahamas:Ouvert')
+RegisterNetEvent('fBahamas:Ouvert')
 AddEventHandler('fBahamas:Ouvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -90,7 +90,7 @@ AddEventHandler('fBahamas:Ouvert', function()
 	end
 end)
 
-RegisterServerEvent('fBahamas:Fermer')
+RegisterNetEvent('fBahamas:Fermer')
 AddEventHandler('fBahamas:Fermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -101,7 +101,7 @@ AddEventHandler('fBahamas:Fermer', function()
 	end
 end)
 
-RegisterServerEvent('fBahamas:Perso')
+RegisterNetEvent('fBahamas:Perso')
 AddEventHandler('fBahamas:Perso', function(msg)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -122,7 +122,7 @@ ESX.RegisterServerCallback('bahamas:getPlayerInventoryBlack', function(source, c
 	})
   end)
 
-RegisterServerEvent('bahamas:putblackmoney')
+RegisterNetEvent('bahamas:putblackmoney')
 AddEventHandler('bahamas:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -159,7 +159,7 @@ end)
   
   end)
 
-  RegisterServerEvent('bahamas:getItem')
+  RegisterNetEvent('bahamas:getItem')
   AddEventHandler('bahamas:getItem', function(type, item, count)
   
     local _source      = source

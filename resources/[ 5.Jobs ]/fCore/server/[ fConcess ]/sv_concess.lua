@@ -101,7 +101,7 @@ ESX.RegisterServerCallback('fellow_concess:verifierplaquedispo', function (sourc
     end)
 end)
 
-RegisterServerEvent('fellow_concess:vendrevoiturejoueur')
+RegisterNetEvent('fellow_concess:vendrevoiturejoueur')
 AddEventHandler('fellow_concess:vendrevoiturejoueur', function (playerId, vehicleProps, prix, nom)
     local xPlayer = ESX.GetPlayerFromId(playerId) 
 	local levendeur = ESX.GetPlayerFromId(source)
@@ -119,7 +119,7 @@ AddEventHandler('fellow_concess:vendrevoiturejoueur', function (playerId, vehicl
     end)
 end)
 
-RegisterServerEvent('shop:vehicule')
+RegisterNetEvent('shop:vehicule')
 AddEventHandler('shop:vehicule', function(vehicleProps, prix, nom)
     local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -146,7 +146,7 @@ ESX.RegisterServerCallback('fellow_concess:verifsousconcess', function(source, c
     end)
 end)
 
-RegisterServerEvent('fConcess:Ouvert')
+RegisterNetEvent('fConcess:Ouvert')
 AddEventHandler('fConcess:Ouvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -157,7 +157,7 @@ AddEventHandler('fConcess:Ouvert', function()
 	end
 end)
 
-RegisterServerEvent('fConcess:Fermer')
+RegisterNetEvent('fConcess:Fermer')
 AddEventHandler('fConcess:Fermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -168,7 +168,7 @@ AddEventHandler('fConcess:Fermer', function()
 	end
 end)
 
-RegisterServerEvent('fConcess:Perso')
+RegisterNetEvent('fConcess:Perso')
 AddEventHandler('fConcess:Perso', function(msg)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -249,7 +249,7 @@ ESX.RegisterServerCallback('ddx_vehiclelock:mykey', function(source, cb, plate)
 end)
 
 
-RegisterServerEvent('ddx_vehiclelock:registerkey')
+RegisterNetEvent('ddx_vehiclelock:registerkey')
 AddEventHandler('ddx_vehiclelock:registerkey', function(plate, target)
 local _source = source
 local xPlayer = nil

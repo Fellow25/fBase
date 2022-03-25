@@ -3,7 +3,7 @@ ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 
-RegisterServerEvent("dqp:SetNewMasque")
+RegisterNetEvent("dqp:SetNewMasque")
 AddEventHandler("dqp:SetNewMasque", function(mask,variation,type,label)
   maskx = {mask_1=mask,mask_2=variation}
   local _source = source
@@ -30,7 +30,7 @@ else
   TriggerClientEvent('esx:showNotification', _source, 'Pas assez d\'argent (50$)')
 end
 end)
-RegisterServerEvent('dqp:GiveAccessories')
+RegisterNetEvent('dqp:GiveAccessories')
 AddEventHandler('dqp:GiveAccessories', function(target,id,label)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -52,7 +52,7 @@ AddEventHandler('dqp:GiveAccessories', function(target,id,label)
 end)
 
 
-RegisterServerEvent('dqp:Delclo')
+RegisterNetEvent('dqp:Delclo')
 AddEventHandler('dqp:Delclo', function(id,label,data)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -75,7 +75,7 @@ AddEventHandler('dqp:Delclo', function(id,label,data)
 
 end)
 
-RegisterServerEvent("dqp:RenameMasque")
+RegisterNetEvent("dqp:RenameMasque")
 AddEventHandler("dqp:RenameMasque", function(id,txt,type)
   MySQL.Async.execute(
     'UPDATE user_accessories SET label = @label WHERE id=@id',
@@ -123,7 +123,7 @@ ESX.RegisterServerCallback('dqp:getMask', function(source, cb)
   
   end)
 
-  RegisterServerEvent('esx_accessories:save')
+  RegisterNetEvent('esx_accessories:save')
 AddEventHandler('esx_accessories:save', function(skin, accessory)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

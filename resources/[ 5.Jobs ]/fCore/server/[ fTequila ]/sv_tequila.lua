@@ -79,7 +79,7 @@ AddEventHandler('fTequila:bar', function(item,price)
 end)
 
 
-RegisterServerEvent('fTequila:Ouvert')
+RegisterNetEvent('fTequila:Ouvert')
 AddEventHandler('fTequila:Ouvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -90,7 +90,7 @@ AddEventHandler('fTequila:Ouvert', function()
 	end
 end)
 
-RegisterServerEvent('fTequila:Fermer')
+RegisterNetEvent('fTequila:Fermer')
 AddEventHandler('fTequila:Fermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -101,7 +101,7 @@ AddEventHandler('fTequila:Fermer', function()
 	end
 end)
 
-RegisterServerEvent('fTequila:Perso')
+RegisterNetEvent('fTequila:Perso')
 AddEventHandler('fTequila:Perso', function(msg)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -122,7 +122,7 @@ ESX.RegisterServerCallback('tequila:getPlayerInventoryBlack', function(source, c
 	})
   end)
 
-RegisterServerEvent('tequila:putblackmoney')
+RegisterNetEvent('tequila:putblackmoney')
 AddEventHandler('tequila:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -159,7 +159,7 @@ end)
   
   end)
 
-  RegisterServerEvent('tequila:getItem')
+  RegisterNetEvent('tequila:getItem')
   AddEventHandler('tequila:getItem', function(type, item, count)
   
     local _source      = source

@@ -104,7 +104,7 @@ local function getDate()
     return os.date("*t", os.time()).day.."/"..os.date("*t", os.time()).month.."/"..os.date("*t", os.time()).year.." à "..os.date("*t", os.time()).hour.."h"..os.date("*t", os.time()).min
 end
 
-RegisterServerEvent('gfourriere:ajoutreport')
+RegisterNetEvent('gfourriere:ajoutreport')
 AddEventHandler('gfourriere:ajoutreport', function(motif, agent, plaque, numeroreport, nomvoituretexte)
     MySQL.Async.execute('INSERT INTO fourriere_report (motif, agent, numeroreport, plaque, date, vehicle) VALUES (@motif, @agent, @numeroreport, @plaque, @date, @vehicle)', {
         ['@motif'] = motif,
@@ -139,14 +139,14 @@ ESX.RegisterServerCallback('gfourriere:affichereport', function(source, cb, plat
     end)
 end)
 
-RegisterServerEvent('gfourriere:supprimereport')
+RegisterNetEvent('gfourriere:supprimereport')
 AddEventHandler('gfourriere:supprimereport', function(supprimer)
     MySQL.Async.execute('DELETE FROM fourriere_report WHERE id = @id', {
             ['@id'] = supprimer
     })
 end)
 
-RegisterServerEvent('gfourriere:ouvert')
+RegisterNetEvent('gfourriere:ouvert')
 AddEventHandler('gfourriere:ouvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -157,7 +157,7 @@ AddEventHandler('gfourriere:ouvert', function()
 	end
 end)
 
-RegisterServerEvent('gfourriere:ferme')
+RegisterNetEvent('gfourriere:ferme')
 AddEventHandler('gfourriere:ferme', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

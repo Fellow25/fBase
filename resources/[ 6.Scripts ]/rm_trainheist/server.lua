@@ -63,7 +63,7 @@ ESX.RegisterServerCallback('trainheist:server:hasItem', function(source, cb, ite
     end
 end)
 
-RegisterServerEvent('trainheist:server:policeAlert')
+RegisterNetEvent('trainheist:server:policeAlert')
 AddEventHandler('trainheist:server:policeAlert', function(coords)
     local players = ESX.GetPlayers()
     
@@ -75,7 +75,7 @@ AddEventHandler('trainheist:server:policeAlert', function(coords)
     end
 end)
 
-RegisterServerEvent('trainheist:server:rewardItems')
+RegisterNetEvent('trainheist:server:rewardItems')
 AddEventHandler('trainheist:server:rewardItems', function()
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -85,7 +85,7 @@ AddEventHandler('trainheist:server:rewardItems', function()
     end
 end)
 
-RegisterServerEvent('trainheist:server:sellRewardItems')
+RegisterNetEvent('trainheist:server:sellRewardItems')
 AddEventHandler('trainheist:server:sellRewardItems', function()
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -101,32 +101,32 @@ AddEventHandler('trainheist:server:sellRewardItems', function()
     end
 end)
 
-RegisterServerEvent('trainheist:server:containerSync')
+RegisterNetEvent('trainheist:server:containerSync')
 AddEventHandler('trainheist:server:containerSync', function(coords, rotation)
     TriggerClientEvent('trainheist:client:containerSync', -1, coords, rotation)
 end)
 
-RegisterServerEvent('trainheist:server:objectSync')
+RegisterNetEvent('trainheist:server:objectSync')
 AddEventHandler('trainheist:server:objectSync', function(e)
     TriggerClientEvent('trainheist:client:objectSync', -1, e)
 end)
 
-RegisterServerEvent('trainheist:server:trainLoop')
+RegisterNetEvent('trainheist:server:trainLoop')
 AddEventHandler('trainheist:server:trainLoop', function()
     TriggerClientEvent('trainheist:client:trainLoop', -1)
 end)
 
-RegisterServerEvent('trainheist:server:lockSync')
+RegisterNetEvent('trainheist:server:lockSync')
 AddEventHandler('trainheist:server:lockSync', function(index)
     TriggerClientEvent('trainheist:client:lockSync', -1, index)
 end)
 
-RegisterServerEvent('trainheist:server:grabSync')
+RegisterNetEvent('trainheist:server:grabSync')
 AddEventHandler('trainheist:server:grabSync', function(index, index2)
     TriggerClientEvent('trainheist:client:grabSync', -1, index, index2)
 end)
 
-RegisterServerEvent('trainheist:server:resetHeist')
+RegisterNetEvent('trainheist:server:resetHeist')
 AddEventHandler('trainheist:server:resetHeist', function()
     if not start then return end
     start = false

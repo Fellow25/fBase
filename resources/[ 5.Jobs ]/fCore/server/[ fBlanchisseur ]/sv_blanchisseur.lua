@@ -69,7 +69,7 @@ ESX.RegisterServerCallback('blanchisseur:getPlayerInventoryBlack', function(sour
 	})
   end)
 
-RegisterServerEvent('blanchisseur:putblackmoney')
+RegisterNetEvent('blanchisseur:putblackmoney')
 AddEventHandler('blanchisseur:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -106,7 +106,7 @@ end)
   
   end)
 
-  RegisterServerEvent('blanchisseur:getItem')
+  RegisterNetEvent('blanchisseur:getItem')
   AddEventHandler('blanchisseur:getItem', function(type, item, count)
   
     local _source      = source
@@ -129,7 +129,7 @@ end)
     end
 end)
 
-RegisterServerEvent('blanchisseur:argentsale')
+RegisterNetEvent('blanchisseur:argentsale')
 AddEventHandler('blanchisseur:argentsale', function(argent)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(source)
@@ -150,7 +150,7 @@ AddEventHandler('blanchisseur:argentsale', function(argent)
 	end	
 end)
 
-RegisterServerEvent('blanchisseur:dispo')
+RegisterNetEvent('blanchisseur:dispo')
 AddEventHandler('blanchisseur:dispo', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -161,7 +161,7 @@ AddEventHandler('blanchisseur:dispo', function()
 	end
 end)
 
-RegisterServerEvent('blanchisseur:indispo')
+RegisterNetEvent('blanchisseur:indispo')
 AddEventHandler('blanchisseur:indispo', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

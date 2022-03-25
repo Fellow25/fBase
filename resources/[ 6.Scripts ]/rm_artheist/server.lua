@@ -31,22 +31,22 @@ AddEventHandler('artheist:server:policeAlert', function(coords)
     end
 end)
 
-RegisterServerEvent('artheist:server:syncHeistStart')
+RegisterNetEvent('artheist:server:syncHeistStart')
 AddEventHandler('artheist:server:syncHeistStart', function()
     TriggerClientEvent('artheist:client:syncHeistStart', -1)
 end)
 
-RegisterServerEvent('artheist:server:syncPainting')
+RegisterNetEvent('artheist:server:syncPainting')
 AddEventHandler('artheist:server:syncPainting', function(x)
     TriggerClientEvent('artheist:client:syncPainting', -1, x)
 end)
 
-RegisterServerEvent('artheist:server:syncAllPainting')
+RegisterNetEvent('artheist:server:syncAllPainting')
 AddEventHandler('artheist:server:syncAllPainting', function()
     TriggerClientEvent('artheist:client:syncAllPainting', -1)
 end)
 
-RegisterServerEvent('artheist:server:rewardItem')
+RegisterNetEvent('artheist:server:rewardItem')
 AddEventHandler('artheist:server:rewardItem', function(scene)
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -57,7 +57,7 @@ AddEventHandler('artheist:server:rewardItem', function(scene)
     end
 end)
 
-RegisterServerEvent('artheist:server:finishHeist')
+RegisterNetEvent('artheist:server:finishHeist')
 AddEventHandler('artheist:server:finishHeist', function()
     local src = source
     local player = ESX.GetPlayerFromId(src)

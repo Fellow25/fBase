@@ -1,7 +1,7 @@
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 do
-	local origRegisterServerEvent = RegisterServerEvent
+	local origRegisterNetEvent = RegisterNetEvent
 	local origEsxRegisterServerCallback = ESX.RegisterServerCallback
 
 	--[[
@@ -19,13 +19,13 @@ do
 		Please update the event names prefix from `KorioZ-PersonalMenu` to `krz_personalmenu`.
 	]]
 
-	RegisterServerEvent = function(eventName, ...)
+	RegisterNetEvent = function(eventName, ...)
 		local endIdx = ('krz_personalmenu:'):len()
 
 		if eventName:sub(1, endIdx) == 'krz_personalmenu' then
 			local oldEventName = ('KorioZ-PersonalMenu:%s'):format(eventName:sub(endIdx + 1))
 
-			origRegisterServerEvent(oldEventName)
+			origRegisterNetEvent(oldEventName)
 			AddEventHandler(oldEventName, function()
 				DropPlayer(source,
 					(
@@ -42,7 +42,7 @@ do
 			end)
 		end
 
-		return origRegisterServerEvent(eventName, ...)
+		return origRegisterNetEvent(eventName, ...)
 	end
 
 	ESX.RegisterServerCallback = function(eventName, ...)
@@ -135,7 +135,7 @@ local function makeTargetedEventFunction(fn)
 end
 
 -- Weapon Menu --
-RegisterServerEvent('krz_personalmenu:Weapon_addAmmoToPedS')
+RegisterNetEvent('krz_personalmenu:Weapon_addAmmoToPedS')
 AddEventHandler('krz_personalmenu:Weapon_addAmmoToPedS', makeTargetedEventFunction(function(target, value, quantity)
 	if #(GetEntityCoords(source, false) - GetEntityCoords(target, false)) <= 3.0 then
 		TriggerClientEvent('krz_personalmenu:Weapon_addAmmoToPedC', target, value, quantity)
@@ -143,7 +143,7 @@ AddEventHandler('krz_personalmenu:Weapon_addAmmoToPedS', makeTargetedEventFuncti
 end))
 
 -- Admin Menu --
-RegisterServerEvent('krz_personalmenu:Admin_BringS')
+RegisterNetEvent('krz_personalmenu:Admin_BringS')
 AddEventHandler('krz_personalmenu:Admin_BringS', makeTargetedEventFunction(function(playerId, target)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local plyGroup = xPlayer.getGroup()
@@ -153,7 +153,7 @@ AddEventHandler('krz_personalmenu:Admin_BringS', makeTargetedEventFunction(funct
 	end
 end))
 
-RegisterServerEvent('krz_personalmenu:Admin_giveCash')
+RegisterNetEvent('krz_personalmenu:Admin_giveCash')
 AddEventHandler('krz_personalmenu:Admin_giveCash', function(amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local plyGroup = xPlayer.getGroup()
@@ -164,7 +164,7 @@ AddEventHandler('krz_personalmenu:Admin_giveCash', function(amount)
 	end
 end)
 
-RegisterServerEvent('krz_personalmenu:Admin_giveBank')
+RegisterNetEvent('krz_personalmenu:Admin_giveBank')
 AddEventHandler('krz_personalmenu:Admin_giveBank', function(amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local plyGroup = xPlayer.getGroup()
@@ -175,7 +175,7 @@ AddEventHandler('krz_personalmenu:Admin_giveBank', function(amount)
 	end
 end)
 
-RegisterServerEvent('krz_personalmenu:Admin_giveDirtyMoney')
+RegisterNetEvent('krz_personalmenu:Admin_giveDirtyMoney')
 AddEventHandler('krz_personalmenu:Admin_giveDirtyMoney', function(amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local plyGroup = xPlayer.getGroup()
@@ -187,7 +187,7 @@ AddEventHandler('krz_personalmenu:Admin_giveDirtyMoney', function(amount)
 end)
 
 -- Grade Menu --
-RegisterServerEvent('krz_personalmenu:Boss_promouvoirplayer')
+RegisterNetEvent('krz_personalmenu:Boss_promouvoirplayer')
 AddEventHandler('krz_personalmenu:Boss_promouvoirplayer', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob = sourceXPlayer.getJob()
@@ -215,7 +215,7 @@ AddEventHandler('krz_personalmenu:Boss_promouvoirplayer', makeTargetedEventFunct
 	end
 end))
 
-RegisterServerEvent('krz_personalmenu:Boss_destituerplayer')
+RegisterNetEvent('krz_personalmenu:Boss_destituerplayer')
 AddEventHandler('krz_personalmenu:Boss_destituerplayer', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob = sourceXPlayer.getJob()
@@ -243,7 +243,7 @@ AddEventHandler('krz_personalmenu:Boss_destituerplayer', makeTargetedEventFuncti
 	end
 end))
 
-RegisterServerEvent('krz_personalmenu:Boss_recruterplayer')
+RegisterNetEvent('krz_personalmenu:Boss_recruterplayer')
 AddEventHandler('krz_personalmenu:Boss_recruterplayer', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob = sourceXPlayer.getJob()
@@ -257,7 +257,7 @@ AddEventHandler('krz_personalmenu:Boss_recruterplayer', makeTargetedEventFunctio
 	end
 end))
 
-RegisterServerEvent('krz_personalmenu:Boss_virerplayer')
+RegisterNetEvent('krz_personalmenu:Boss_virerplayer')
 AddEventHandler('krz_personalmenu:Boss_virerplayer', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob = sourceXPlayer.getJob()
@@ -278,7 +278,7 @@ AddEventHandler('krz_personalmenu:Boss_virerplayer', makeTargetedEventFunction(f
 	end
 end))
 
-RegisterServerEvent('krz_personalmenu:Boss_promouvoirplayer2')
+RegisterNetEvent('krz_personalmenu:Boss_promouvoirplayer2')
 AddEventHandler('krz_personalmenu:Boss_promouvoirplayer2', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob2 = sourceXPlayer.getJob2()
@@ -306,7 +306,7 @@ AddEventHandler('krz_personalmenu:Boss_promouvoirplayer2', makeTargetedEventFunc
 	end
 end))
 
-RegisterServerEvent('krz_personalmenu:Boss_destituerplayer2')
+RegisterNetEvent('krz_personalmenu:Boss_destituerplayer2')
 AddEventHandler('krz_personalmenu:Boss_destituerplayer2', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob2 = sourceXPlayer.getJob2()
@@ -334,7 +334,7 @@ AddEventHandler('krz_personalmenu:Boss_destituerplayer2', makeTargetedEventFunct
 	end
 end))
 
-RegisterServerEvent('krz_personalmenu:Boss_recruterplayer2')
+RegisterNetEvent('krz_personalmenu:Boss_recruterplayer2')
 AddEventHandler('krz_personalmenu:Boss_recruterplayer2', makeTargetedEventFunction(function(target, grade2)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob2 = sourceXPlayer.getJob2()
@@ -348,7 +348,7 @@ AddEventHandler('krz_personalmenu:Boss_recruterplayer2', makeTargetedEventFuncti
 	end
 end))
 
-RegisterServerEvent('krz_personalmenu:Boss_virerplayer2')
+RegisterNetEvent('krz_personalmenu:Boss_virerplayer2')
 AddEventHandler('krz_personalmenu:Boss_virerplayer2', makeTargetedEventFunction(function(target)
 	local sourceXPlayer = ESX.GetPlayerFromId(source)
 	local sourceJob2 = sourceXPlayer.getJob2()

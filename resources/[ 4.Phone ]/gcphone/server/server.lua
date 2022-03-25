@@ -49,7 +49,7 @@ end)
 --====================================================================================
 
 --[[
-RegisterServerEvent('gcPhone:useSimCard')
+RegisterNetEvent('gcPhone:useSimCard')
 AddEventHandler('gcPhone:useSimCard', function(source, identifier)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -193,7 +193,7 @@ function notifyContactChange(source, identifier)
     end
 end
 
-RegisterServerEvent('gcPhone:addContact')
+RegisterNetEvent('gcPhone:addContact')
 AddEventHandler('gcPhone:addContact', function(display, phoneNumber)
     local _source = source
     local sourcePlayer = tonumber(_source)
@@ -202,7 +202,7 @@ AddEventHandler('gcPhone:addContact', function(display, phoneNumber)
     addContact(sourcePlayer, identifier, phoneNumber, display)
 end)
 
-RegisterServerEvent('gcPhone:updateContact')
+RegisterNetEvent('gcPhone:updateContact')
 AddEventHandler('gcPhone:updateContact', function(id, display, phoneNumber)
     local _source = source
     local sourcePlayer = tonumber(_source)
@@ -211,7 +211,7 @@ AddEventHandler('gcPhone:updateContact', function(id, display, phoneNumber)
     updateContact(sourcePlayer, identifier, id, phoneNumber, display)
 end)
 
-RegisterServerEvent('gcPhone:deleteContact')
+RegisterNetEvent('gcPhone:deleteContact')
 AddEventHandler('gcPhone:deleteContact', function(id)
     local _source = source
     local sourcePlayer = tonumber(_source)
@@ -231,7 +231,7 @@ function getMessages(identifier)
     --return MySQLQueryTimeStamp("SELECT phone_messages.* FROM phone_messages LEFT JOIN users ON users.identifier = @identifier WHERE phone_messages.receiver = users.phone_number", {['@identifier'] = identifier})
 end
 
-RegisterServerEvent('gcPhone:_internalAddMessage')
+RegisterNetEvent('gcPhone:_internalAddMessage')
 AddEventHandler('gcPhone:_internalAddMessage', function(transmitter, receiver, message, owner, cb)
     cb(_internalAddMessage(transmitter, receiver, message, owner))
 end)
@@ -320,7 +320,7 @@ function deleteAllMessage(identifier)
     })
 end
 
-RegisterServerEvent('gcPhone:sendMessage')
+RegisterNetEvent('gcPhone:sendMessage')
 AddEventHandler('gcPhone:sendMessage', function(phoneNumber, message, gpsData)
     local _source = source
     local sourcePlayer = tonumber(_source)
@@ -329,12 +329,12 @@ AddEventHandler('gcPhone:sendMessage', function(phoneNumber, message, gpsData)
     addMessage(sourcePlayer, identifier, phoneNumber, message, gpsData)
 end)
 
-RegisterServerEvent('gcPhone:deleteMessage')
+RegisterNetEvent('gcPhone:deleteMessage')
 AddEventHandler('gcPhone:deleteMessage', function(msgId)
     deleteMessage(msgId)
 end)
 
-RegisterServerEvent('gcPhone:deleteMessageNumber')
+RegisterNetEvent('gcPhone:deleteMessageNumber')
 AddEventHandler('gcPhone:deleteMessageNumber', function(number)
     local _source = source
     local sourcePlayer = tonumber(_source)
@@ -344,7 +344,7 @@ AddEventHandler('gcPhone:deleteMessageNumber', function(number)
     -- TriggerClientEvent("gcphone:allMessage", sourcePlayer, getMessages(identifier))
 end)
 
-RegisterServerEvent('gcPhone:deleteAllMessage')
+RegisterNetEvent('gcPhone:deleteAllMessage')
 AddEventHandler('gcPhone:deleteAllMessage', function()
     local _source = source
 	xPlayer = ESX.GetPlayerFromId(_source)
@@ -352,7 +352,7 @@ AddEventHandler('gcPhone:deleteAllMessage', function()
     deleteAllMessage(identifier)
 end)
 
-RegisterServerEvent('gcPhone:setReadMessageNumber')
+RegisterNetEvent('gcPhone:setReadMessageNumber')
 AddEventHandler('gcPhone:setReadMessageNumber', function(num)
     local _source = source
 	xPlayer = ESX.GetPlayerFromId(_source)
@@ -360,7 +360,7 @@ AddEventHandler('gcPhone:setReadMessageNumber', function(num)
     setReadMessageNumber(identifier, num)
 end)
 
-RegisterServerEvent('gcPhone:deleteALL')
+RegisterNetEvent('gcPhone:deleteALL')
 AddEventHandler('gcPhone:deleteALL', function()
     local _source = source
     local sourcePlayer = tonumber(_source)
@@ -426,7 +426,7 @@ function notifyNewAppelsHisto (src, num)
     sendHistoriqueCall(src, num)
 end
 
-RegisterServerEvent('gcPhone:getHistoriqueCall')
+RegisterNetEvent('gcPhone:getHistoriqueCall')
 AddEventHandler('gcPhone:getHistoriqueCall', function()
     local _source = source
     local sourcePlayer = tonumber(_source)
@@ -436,13 +436,13 @@ AddEventHandler('gcPhone:getHistoriqueCall', function()
     sendHistoriqueCall(sourcePlayer, num)
 end)
 
-RegisterServerEvent('gcPhone:register_FixePhone')
+RegisterNetEvent('gcPhone:register_FixePhone')
 AddEventHandler('gcPhone:register_FixePhone', function(phone_number, coords)
 	Config.FixePhone[phone_number] = {name = _U('phone_booth'), coords = {x = coords.x, y = coords.y, z = coords.z}}
 	TriggerClientEvent('gcPhone:register_FixePhone', -1, phone_number, Config.FixePhone[phone_number])
 end)
 
-RegisterServerEvent('gcPhone:internal_startCall')
+RegisterNetEvent('gcPhone:internal_startCall')
 AddEventHandler('gcPhone:internal_startCall', function(source, phone_number, rtcOffer, extraData)
     if Config.FixePhone[phone_number] ~= nil then
         onCallFixePhone(source, phone_number, rtcOffer, extraData)
@@ -515,13 +515,13 @@ AddEventHandler('gcPhone:internal_startCall', function(source, phone_number, rtc
     end
 end)
 
-RegisterServerEvent('gcPhone:startCall')
+RegisterNetEvent('gcPhone:startCall')
 AddEventHandler('gcPhone:startCall', function(phone_number, rtcOffer, extraData)
     local _source = source
     TriggerEvent('gcPhone:internal_startCall',_source, phone_number, rtcOffer, extraData)
 end)
 
-RegisterServerEvent('gcPhone:candidates')
+RegisterNetEvent('gcPhone:candidates')
 AddEventHandler('gcPhone:candidates', function (callId, candidates)
     -- print('send cadidate', callId, candidates)
     if AppelsEnCours[callId] ~= nil then
@@ -535,7 +535,7 @@ AddEventHandler('gcPhone:candidates', function (callId, candidates)
     end
 end)
 
-RegisterServerEvent('gcPhone:acceptCall')
+RegisterNetEvent('gcPhone:acceptCall')
 AddEventHandler('gcPhone:acceptCall', function(infoCall, rtcAnswer)
     local id = infoCall.id
     if AppelsEnCours[id] ~= nil then
@@ -556,7 +556,7 @@ AddEventHandler('gcPhone:acceptCall', function(infoCall, rtcAnswer)
     end
 end)
 
-RegisterServerEvent('gcPhone:rejectCall')
+RegisterNetEvent('gcPhone:rejectCall')
 AddEventHandler('gcPhone:rejectCall', function (infoCall)
     local _source = source
     local id = infoCall.id
@@ -580,7 +580,7 @@ AddEventHandler('gcPhone:rejectCall', function (infoCall)
     end
 end)
 
-RegisterServerEvent('gcPhone:appelsDeleteHistorique')
+RegisterNetEvent('gcPhone:appelsDeleteHistorique')
 AddEventHandler('gcPhone:appelsDeleteHistorique', function (numero)
     local _source = source
     local sourcePlayer = tonumber(_source)
@@ -600,7 +600,7 @@ function appelsDeleteAllHistorique(srcIdentifier)
     })
 end
 
-RegisterServerEvent('gcPhone:appelsDeleteAllHistorique')
+RegisterNetEvent('gcPhone:appelsDeleteAllHistorique')
 AddEventHandler('gcPhone:appelsDeleteAllHistorique', function ()
     local _source = source
     local sourcePlayer = tonumber(_source)
@@ -626,7 +626,7 @@ AddEventHandler('esx:playerLoaded',function(playerId, xPlayer)
     end)
 end)
 
-RegisterServerEvent('gcPhone:allUpdate')
+RegisterNetEvent('gcPhone:allUpdate')
 AddEventHandler('gcPhone:allUpdate', function()
     local _source = source
     local sourcePlayer = tonumber(_source)
@@ -734,7 +734,7 @@ end
 -- to send by money by phone number and allows for the target player to be both
 -- online and offline. See original code from the new_banking resource here:
 -- https://github.com/jacobwi/new_banking/blob/7dbc64d77b5c6a83fc04cc2d164a92977d796d7d/server.lua#L53
-RegisterServerEvent('gcPhone:bankTransferByPhoneNumber')
+RegisterNetEvent('gcPhone:bankTransferByPhoneNumber')
 AddEventHandler('gcPhone:bankTransferByPhoneNumber', function(phoneNumber, amountStr)
 	local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)

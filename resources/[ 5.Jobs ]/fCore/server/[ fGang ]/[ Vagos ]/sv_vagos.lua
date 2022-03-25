@@ -69,7 +69,7 @@ ESX.RegisterServerCallback('vagos:getPlayerInventoryBlack', function(source, cb)
 	})
   end)
 
-RegisterServerEvent('vagos:putblackmoney')
+RegisterNetEvent('vagos:putblackmoney')
 AddEventHandler('vagos:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -106,7 +106,7 @@ end)
   
   end)
 
-  RegisterServerEvent('vagos:getItem')
+  RegisterNetEvent('vagos:getItem')
   AddEventHandler('vagos:getItem', function(type, item, count)
   
     local _source      = source

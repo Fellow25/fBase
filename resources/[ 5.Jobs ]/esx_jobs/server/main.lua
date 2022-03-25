@@ -72,7 +72,7 @@ CreateThread(function()
 	end
 end)
 
-RegisterServerEvent('esx_jobs:startWork')
+RegisterNetEvent('esx_jobs:startWork')
 AddEventHandler('esx_jobs:startWork', function(zoneIndex, zoneKey)
 	if not playersWorking[source] then
 		local xPlayer = ESX.GetPlayerFromId(source)
@@ -96,7 +96,7 @@ AddEventHandler('esx_jobs:startWork', function(zoneIndex, zoneKey)
 	end
 end)
 
-RegisterServerEvent('esx_jobs:stopWork')
+RegisterNetEvent('esx_jobs:stopWork')
 AddEventHandler('esx_jobs:stopWork', function()
 	if playersWorking[source] then
 		playersWorking[source] = nil

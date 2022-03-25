@@ -101,7 +101,7 @@ AddEventHandler('taxi:putStockItems', function(itemName, count)
 end)
 
 
-RegisterServerEvent('fTaxi:Ouvert')
+RegisterNetEvent('fTaxi:Ouvert')
 AddEventHandler('fTaxi:Ouvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -112,7 +112,7 @@ AddEventHandler('fTaxi:Ouvert', function()
 	end
 end)
 
-RegisterServerEvent('fTaxi:Fermer')
+RegisterNetEvent('fTaxi:Fermer')
 AddEventHandler('fTaxi:Fermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -123,7 +123,7 @@ AddEventHandler('fTaxi:Fermer', function()
 	end
 end)
 
-RegisterServerEvent('fTaxi:Recrute')
+RegisterNetEvent('fTaxi:Recrute')
 AddEventHandler('fTaxi:Recrute', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

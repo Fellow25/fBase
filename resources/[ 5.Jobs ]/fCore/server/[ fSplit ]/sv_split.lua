@@ -79,7 +79,7 @@ AddEventHandler('fSplit:bar', function(item,price)
 end)
 
 
-RegisterServerEvent('fSplit:Ouvert')
+RegisterNetEvent('fSplit:Ouvert')
 AddEventHandler('fSplit:Ouvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -90,7 +90,7 @@ AddEventHandler('fSplit:Ouvert', function()
 	end
 end)
 
-RegisterServerEvent('fSplit:Fermer')
+RegisterNetEvent('fSplit:Fermer')
 AddEventHandler('fSplit:Fermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -101,7 +101,7 @@ AddEventHandler('fSplit:Fermer', function()
 	end
 end)
 
-RegisterServerEvent('fSplit:Soire')
+RegisterNetEvent('fSplit:Soire')
 AddEventHandler('fSplit:Soire', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -113,7 +113,7 @@ AddEventHandler('fSplit:Soire', function()
 end)
 
 
-RegisterServerEvent('fSplit:Perso')
+RegisterNetEvent('fSplit:Perso')
 AddEventHandler('fSplit:Perso', function(msg)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -134,7 +134,7 @@ ESX.RegisterServerCallback('split:getPlayerInventoryBlack', function(source, cb)
 	})
   end)
 
-RegisterServerEvent('split:putblackmoney')
+RegisterNetEvent('split:putblackmoney')
 AddEventHandler('split:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -171,7 +171,7 @@ end)
   
   end)
 
-  RegisterServerEvent('split:getItem')
+  RegisterNetEvent('split:getItem')
   AddEventHandler('split:getItem', function(type, item, count)
   
     local _source      = source

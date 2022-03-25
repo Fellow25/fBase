@@ -63,7 +63,7 @@ ESX.RegisterServerCallback('pacificheist:server:hasItem', function(source, cb, i
     end
 end)
 
-RegisterServerEvent('pacificheist:server:policeAlert')
+RegisterNetEvent('pacificheist:server:policeAlert')
 AddEventHandler('pacificheist:server:policeAlert', function(coords)
     local players = ESX.GetPlayers()
     
@@ -75,7 +75,7 @@ AddEventHandler('pacificheist:server:policeAlert', function(coords)
     end
 end)
 
-RegisterServerEvent('pacificheist:server:rewardItem')
+RegisterNetEvent('pacificheist:server:rewardItem')
 AddEventHandler('pacificheist:server:rewardItem', function(item, count, type)
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -121,7 +121,7 @@ AddEventHandler('pacificheist:server:rewardItem', function(item, count, type)
     end
 end)
 
-RegisterServerEvent('pacificheist:server:removeItem')
+RegisterNetEvent('pacificheist:server:removeItem')
 AddEventHandler('pacificheist:server:removeItem', function(item)
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -131,7 +131,7 @@ AddEventHandler('pacificheist:server:removeItem', function(item)
     end
 end)
 
-RegisterServerEvent('pacificheist:server:sellRewardItems')
+RegisterNetEvent('pacificheist:server:sellRewardItems')
 AddEventHandler('pacificheist:server:sellRewardItems', function()
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -170,77 +170,77 @@ AddEventHandler('pacificheist:server:sellRewardItems', function()
     end
 end)
 
-RegisterServerEvent('pacificheist:server:startHeist')
+RegisterNetEvent('pacificheist:server:startHeist')
 AddEventHandler('pacificheist:server:startHeist', function()
     TriggerClientEvent('pacificheist:client:startHeist', -1)
 end)
 
-RegisterServerEvent('pacificheist:server:resetHeist')
+RegisterNetEvent('pacificheist:server:resetHeist')
 AddEventHandler('pacificheist:server:resetHeist', function()
     TriggerClientEvent('pacificheist:client:resetHeist', -1)
 end)
 
-RegisterServerEvent('pacificheist:server:sceneSync')
+RegisterNetEvent('pacificheist:server:sceneSync')
 AddEventHandler('pacificheist:server:sceneSync', function(model, animDict, animName, pos, rotation)
     TriggerClientEvent('pacificheist:client:sceneSync', -1, model, animDict, animName, pos, rotation)
 end)
 
-RegisterServerEvent('pacificheist:server:particleFx')
+RegisterNetEvent('pacificheist:server:particleFx')
 AddEventHandler('pacificheist:server:particleFx', function(pos)
     TriggerClientEvent('pacificheist:client:particleFx', -1, pos)
 end)
 
-RegisterServerEvent('pacificheist:server:modelSwap')
+RegisterNetEvent('pacificheist:server:modelSwap')
 AddEventHandler('pacificheist:server:modelSwap', function(pos, radius, model, newModel)
     TriggerClientEvent('pacificheist:client:modelSwap', -1, pos, radius, model, newModel)
 end)
 
-RegisterServerEvent('pacificheist:server:globalObject')
+RegisterNetEvent('pacificheist:server:globalObject')
 AddEventHandler('pacificheist:server:globalObject', function(object, item)
     TriggerClientEvent('pacificheist:client:globalObject', -1, object, item)
 end)
 
-RegisterServerEvent('pacificheist:server:someoneVault')
+RegisterNetEvent('pacificheist:server:someoneVault')
 AddEventHandler('pacificheist:server:someoneVault', function(action)
     TriggerClientEvent('pacificheist:client:someoneVault', -1, action)
 end)
 
-RegisterServerEvent('pacificheist:server:openVault')
+RegisterNetEvent('pacificheist:server:openVault')
 AddEventHandler('pacificheist:server:openVault', function(index)
     TriggerClientEvent('pacificheist:client:openVault', -1, index)
 end)
 
-RegisterServerEvent('pacificheist:server:vaultLoop')
+RegisterNetEvent('pacificheist:server:vaultLoop')
 AddEventHandler('pacificheist:server:vaultLoop', function()
     TriggerClientEvent('pacificheist:client:vaultLoop', -1)
 end)
 
-RegisterServerEvent('pacificheist:server:extendedLoop')
+RegisterNetEvent('pacificheist:server:extendedLoop')
 AddEventHandler('pacificheist:server:extendedLoop', function()
     TriggerClientEvent('pacificheist:client:extendedLoop', -1)
 end)
 
-RegisterServerEvent('pacificheist:server:vaultSync')
+RegisterNetEvent('pacificheist:server:vaultSync')
 AddEventHandler('pacificheist:server:vaultSync', function(action, index)
     TriggerClientEvent('pacificheist:client:vaultSync', -1, action, index)
 end)
 
-RegisterServerEvent('pacificheist:server:extendedSync')
+RegisterNetEvent('pacificheist:server:extendedSync')
 AddEventHandler('pacificheist:server:extendedSync', function(action, index)
     TriggerClientEvent('pacificheist:client:extendedSync', -1, action, index)
 end)
 
-RegisterServerEvent('pacificheist:server:doorSync')
+RegisterNetEvent('pacificheist:server:doorSync')
 AddEventHandler('pacificheist:server:doorSync', function(index)
     TriggerClientEvent('pacificheist:client:doorSync', -1, index)
 end)
 
-RegisterServerEvent('pacificheist:server:objectSync')
+RegisterNetEvent('pacificheist:server:objectSync')
 AddEventHandler('pacificheist:server:objectSync', function(e)
     TriggerClientEvent('pacificheist:client:objectSync', -1, e)
 end)
 
-RegisterServerEvent('pacificheist:server:doorFix')
+RegisterNetEvent('pacificheist:server:doorFix')
 AddEventHandler('pacificheist:server:doorFix', function(hash, heading, pos)
     TriggerClientEvent('pacificheist:client:doorFix', -1, hash, heading, pos)
 end)

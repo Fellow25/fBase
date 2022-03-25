@@ -27,7 +27,7 @@ Cfg_Coffre.GetCoffreWeight = function(inv, loadout, money)
     return vWeight
 end
 
-RegisterServerEvent(Cfg_Coffre.Prefix..":takeVehiculeInfos")
+RegisterNetEvent(Cfg_Coffre.Prefix..":takeVehiculeInfos")
 AddEventHandler(Cfg_Coffre.Prefix..":takeVehiculeInfos",function(vPlate)
     local source = source
     local pPed = Cfg_Coffre.ESXLoaded.GetPlayerFromId(source)
@@ -52,7 +52,7 @@ AddEventHandler(Cfg_Coffre.Prefix..":takeVehiculeInfos",function(vPlate)
     end)
 end)
 
-RegisterServerEvent(Cfg_Coffre.Prefix..":putInCoffre")
+RegisterNetEvent(Cfg_Coffre.Prefix..":putInCoffre")
 AddEventHandler(Cfg_Coffre.Prefix..":putInCoffre",function(vPlate, item, label, count, type, ammo)
     local source = source
     local pPed = Cfg_Coffre.ESXLoaded.GetPlayerFromId(source)
@@ -109,7 +109,7 @@ AddEventHandler(Cfg_Coffre.Prefix..":putInCoffre",function(vPlate, item, label, 
     end)
 end)
 
-RegisterServerEvent(Cfg_Coffre.Prefix..":takeInCoffre")
+RegisterNetEvent(Cfg_Coffre.Prefix..":takeInCoffre")
 AddEventHandler(Cfg_Coffre.Prefix..":takeInCoffre",function(vPlate, item, label, count, type, ammo)
     local source = source
     local pPed = Cfg_Coffre.ESXLoaded.GetPlayerFromId(source)

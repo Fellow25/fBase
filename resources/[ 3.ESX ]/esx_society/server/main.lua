@@ -58,7 +58,7 @@ AddEventHandler('esx_society:getSociety', function(name, cb)
 	cb(GetSociety(name))
 end)
 
-RegisterServerEvent('esx_society:withdrawMoney')
+RegisterNetEvent('esx_society:withdrawMoney')
 AddEventHandler('esx_society:withdrawMoney', function(societyName, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local society = GetSociety(societyName)
@@ -75,7 +75,7 @@ AddEventHandler('esx_society:withdrawMoney', function(societyName, amount)
 		end)
 end)
 
-RegisterServerEvent('esx_society:depositMoney')
+RegisterNetEvent('esx_society:depositMoney')
 AddEventHandler('esx_society:depositMoney', function(societyName, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local society = GetSociety(societyName)
@@ -92,7 +92,7 @@ AddEventHandler('esx_society:depositMoney', function(societyName, amount)
 		end
 end)
 
-RegisterServerEvent('esx_society:washMoney')
+RegisterNetEvent('esx_society:washMoney')
 AddEventHandler('esx_society:washMoney', function(society, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local account = xPlayer.getAccount('black_money')
@@ -113,7 +113,7 @@ AddEventHandler('esx_society:washMoney', function(society, amount)
 	end
 end)
 
-RegisterServerEvent('esx_society:putVehicleInGarage')
+RegisterNetEvent('esx_society:putVehicleInGarage')
 AddEventHandler('esx_society:putVehicleInGarage', function(societyName, vehicle)
 	local society = GetSociety(societyName)
 
@@ -124,7 +124,7 @@ AddEventHandler('esx_society:putVehicleInGarage', function(societyName, vehicle)
 	end)
 end)
 
-RegisterServerEvent('esx_society:removeVehicleFromGarage')
+RegisterNetEvent('esx_society:removeVehicleFromGarage')
 AddEventHandler('esx_society:removeVehicleFromGarage', function(societyName, vehicle)
 	local society = GetSociety(societyName)
 

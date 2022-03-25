@@ -74,7 +74,7 @@ AddEventHandler('playerDropped', function()
 	end
 end)
 
-RegisterServerEvent('esx_vigneronjob:spawned')
+RegisterNetEvent('esx_vigneronjob:spawned')
 AddEventHandler('esx_vigneronjob:spawned', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -98,12 +98,12 @@ AddEventHandler('onResourceStop', function(resource)
 	end
 end)
 
-RegisterServerEvent('esx_vigneronjob:message')
+RegisterNetEvent('esx_vigneronjob:message')
 AddEventHandler('esx_vigneronjob:message', function(target, msg)
 	TriggerClientEvent('esx:showNotification', target, msg)
 end)
 
-RegisterServerEvent('AnnonceVigneOuvert')
+RegisterNetEvent('AnnonceVigneOuvert')
 AddEventHandler('AnnonceVigneOuvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -114,7 +114,7 @@ AddEventHandler('AnnonceVigneOuvert', function()
 	end
 end)
 
-RegisterServerEvent('AnnonceVigneFermer')
+RegisterNetEvent('AnnonceVigneFermer')
 AddEventHandler('AnnonceVigneFermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -125,7 +125,7 @@ AddEventHandler('AnnonceVigneFermer', function()
 	end
 end)
 
-RegisterServerEvent('vigneron:prendreitems')
+RegisterNetEvent('vigneron:prendreitems')
 AddEventHandler('vigneron:prendreitems', function(itemName, count)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

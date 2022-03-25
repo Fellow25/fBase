@@ -1,7 +1,7 @@
 TriggerEvent('esx_phone:registerNumber', 'realestateagent', _U('clients'), false, false)
 TriggerEvent('esx_society:registerSociety', 'realestateagent', _U('realtors'), 'society_realestateagent', 'society_realestateagent', 'society_realestateagent', {type = 'private'})
 
-RegisterServerEvent('esx_realestateagentjob:revoke')
+RegisterNetEvent('esx_realestateagentjob:revoke')
 AddEventHandler('esx_realestateagentjob:revoke', function(property, owner)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -12,7 +12,7 @@ AddEventHandler('esx_realestateagentjob:revoke', function(property, owner)
 	end
 end)
 
-RegisterServerEvent('esx_realestateagentjob:sell')
+RegisterNetEvent('esx_realestateagentjob:sell')
 AddEventHandler('esx_realestateagentjob:sell', function(target, property, price)
 	local xPlayer, xTarget = ESX.GetPlayerFromId(source), ESX.GetPlayerFromId(target)
 
@@ -34,7 +34,7 @@ AddEventHandler('esx_realestateagentjob:sell', function(target, property, price)
 	end
 end)
 
-RegisterServerEvent('esx_realestateagentjob:rent')
+RegisterNetEvent('esx_realestateagentjob:rent')
 AddEventHandler('esx_realestateagentjob:rent', function(target, property, price)
 	local xPlayer = ESX.GetPlayerFromId(target)
 
@@ -69,7 +69,7 @@ ESX.RegisterServerCallback('esx_realestateagentjob:getCustomers', function(sourc
 end)
 
 
-RegisterServerEvent('mrw_prop:Save')
+RegisterNetEvent('mrw_prop:Save')
 AddEventHandler('mrw_prop:Save', function(name, label, entering, exit, inside, outside, ipl, isSingle, isRoom, isGateway, roommenu, price)
     local x_source = source
 
@@ -111,7 +111,7 @@ function Insert(x_source, name, label, entering, exit, inside, outside, ipl, isS
 end
 
 
-RegisterServerEvent('Rayan:createhouse')
+RegisterNetEvent('Rayan:createhouse')
 AddEventHandler('Rayan:createhouse', function(NameandLabel, x, y, z, namehouse)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local NomDuMec = xPlayer.getName()

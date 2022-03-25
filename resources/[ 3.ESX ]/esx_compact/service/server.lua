@@ -13,18 +13,18 @@ function GetInServiceCount(name)
 	return count
 end
 
-RegisterServerEvent('esx_service:activateService')
+RegisterNetEvent('esx_service:activateService')
 AddEventHandler('esx_service:activateService', function(name, max)
 	InService[name] = {}
 	MaxInService[name] = max
 end)
 
-RegisterServerEvent('esx_service:disableService')
+RegisterNetEvent('esx_service:disableService')
 AddEventHandler('esx_service:disableService', function(name)
 	InService[name][source] = nil
 end)
 
-RegisterServerEvent('esx_service:notifyAllInService')
+RegisterNetEvent('esx_service:notifyAllInService')
 AddEventHandler('esx_service:notifyAllInService', function(notification, name)
 	for k,v in pairs(InService[name]) do
 		if v == true then

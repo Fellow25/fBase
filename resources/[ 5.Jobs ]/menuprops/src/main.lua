@@ -6,7 +6,7 @@ if Config.MaxInService ~= -1 then
 	TriggerEvent('esx_service:activateService', 'police', Config.MaxInService)
 end
 
-RegisterServerEvent('renfort')
+RegisterNetEvent('renfort')
 AddEventHandler('renfort', function(coords, raison)
 	local _source = source
 	local _raison = raison
@@ -21,7 +21,7 @@ AddEventHandler('renfort', function(coords, raison)
 	end
 end)
 
-RegisterServerEvent('police:PriseEtFinservice')
+RegisterNetEvent('police:PriseEtFinservice')
 AddEventHandler('police:PriseEtFinservice', function(PriseOuFin)
 	local _source = source
 	local _raison = PriseOuFin
@@ -40,7 +40,7 @@ end)
 TriggerEvent('esx_phone:registerNumber', 'police', _U('alert_police'), true, true)
 TriggerEvent('esx_society:registerSociety', 'police', 'Police', 'society_police', 'society_police', 'society_police', {type = 'public'})
 
-RegisterServerEvent('esx_policejob:confiscatePlayerItem')
+RegisterNetEvent('esx_policejob:confiscatePlayerItem')
 AddEventHandler('esx_policejob:confiscatePlayerItem', function(target, itemType, itemName, amount)
 	local _source = source
 	local sourceXPlayer = ESX.GetPlayerFromId(_source)
@@ -88,7 +88,7 @@ AddEventHandler('esx_policejob:confiscatePlayerItem', function(target, itemType,
 	end
 end)
 
-RegisterServerEvent('esx_policcejob:handcuff85Pasta')
+RegisterNetEvent('esx_policcejob:handcuff85Pasta')
 AddEventHandler('esx_policcejob:handcuff85Pasta', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -99,13 +99,13 @@ AddEventHandler('esx_policcejob:handcuff85Pasta', function(target)
 	end
 end)
 
-RegisterServerEvent('esx_policcejob:handcuff85Pasta2')
+RegisterNetEvent('esx_policcejob:handcuff85Pasta2')
 AddEventHandler('esx_policcejob:handcuff85Pasta2', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	TriggerClientEvent('esx_policcejob:handcuff85Pasta', target)
 end)
 
-RegisterServerEvent('esx_policejob:drag')
+RegisterNetEvent('esx_policejob:drag')
 AddEventHandler('esx_policejob:drag', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -116,7 +116,7 @@ AddEventHandler('esx_policejob:drag', function(target)
 	end
 end)
 
-RegisterServerEvent('esx_policejob:putInVehicle')
+RegisterNetEvent('esx_policejob:putInVehicle')
 AddEventHandler('esx_policejob:putInVehicle', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -127,7 +127,7 @@ AddEventHandler('esx_policejob:putInVehicle', function(target)
 	end
 end)
 
-RegisterServerEvent('esx_policejob:OutVehicle')
+RegisterNetEvent('esx_policejob:OutVehicle')
 AddEventHandler('esx_policejob:OutVehicle', function(target)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -138,7 +138,7 @@ AddEventHandler('esx_policejob:OutVehicle', function(target)
 	end
 end)
 
-RegisterServerEvent('esx_policejob:getStockItem')
+RegisterNetEvent('esx_policejob:getStockItem')
 AddEventHandler('esx_policejob:getStockItem', function(itemName, count)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -164,7 +164,7 @@ AddEventHandler('esx_policejob:getStockItem', function(itemName, count)
 	end)
 end)
 
-RegisterServerEvent('esx_policejob:putStockItems')
+RegisterNetEvent('esx_policejob:putStockItems')
 AddEventHandler('esx_policejob:putStockItems', function(itemName, count)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local sourceItem = xPlayer.getInventoryItem(itemName)
@@ -563,7 +563,7 @@ AddEventHandler('playerDropped', function()
 --	end
 end)
 
-RegisterServerEvent('esx_policejob:spawned')
+RegisterNetEvent('esx_policejob:spawned')
 AddEventHandler('esx_policejob:spawned', function()
 --	local _source = source
 --	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -574,7 +574,7 @@ AddEventHandler('esx_policejob:spawned', function()
 --	end
 end)
 
-RegisterServerEvent('esx_policejob:forceBlip')
+RegisterNetEvent('esx_policejob:forceBlip')
 AddEventHandler('esx_policejob:forceBlip', function()
 --	TriggerClientEvent('esx_policejob:updateBlip', -1)
 end)
@@ -592,7 +592,7 @@ AddEventHandler('onResourceStop', function(resource)
 	end
 end)
 
-RegisterServerEvent('esx_policejob:message')
+RegisterNetEvent('esx_policejob:message')
 AddEventHandler('esx_policejob:message', function(target, msg)
 	TriggerClientEvent('esx:showNotification', target, msg)
 end)
@@ -601,7 +601,7 @@ end)
 -- ALERTE LSPD
 
 
-RegisterServerEvent('TireEntenduServeur')
+RegisterNetEvent('TireEntenduServeur')
 AddEventHandler('TireEntenduServeur', function(gx, gy, gz)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -616,7 +616,7 @@ AddEventHandler('TireEntenduServeur', function(gx, gy, gz)
 end)
 
 
-RegisterServerEvent('PriseAppelServeur')
+RegisterNetEvent('PriseAppelServeur')
 AddEventHandler('PriseAppelServeur', function(gx, gy, gz)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -633,14 +633,14 @@ end)
 
 
 
-RegisterServerEvent('esx_policejob:requestarrest')
+RegisterNetEvent('esx_policejob:requestarrest')
 AddEventHandler('esx_policejob:requestarrest', function(targetid, playerheading, playerCoords,  playerlocation)
 	_source = source
 	TriggerClientEvent('esx_policejob:getarrested', targetid, playerheading, playerCoords, playerlocation)
 	TriggerClientEvent('esx_policejob:doarrested', _source)
 end)
 
-RegisterServerEvent('esx_policejob:requestrelease')
+RegisterNetEvent('esx_policejob:requestrelease')
 AddEventHandler('esx_policejob:requestrelease', function(targetid, playerheading, playerCoords,  playerlocation)
 	_source = source
 	TriggerClientEvent('esx_policejob:getuncuffed', targetid, playerheading, playerCoords, playerlocation)

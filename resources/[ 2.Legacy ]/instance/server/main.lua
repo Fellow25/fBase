@@ -105,27 +105,27 @@ function InvitePlayerToInstance(instance, type, player, data)
 	TriggerClientEvent('instance:onInvite', player, instance, type, data)
 end
 
-RegisterServerEvent('instance:create')
+RegisterNetEvent('instance:create')
 AddEventHandler('instance:create', function(type, data)
 	CreateInstance(type, source, data)
 end)
 
-RegisterServerEvent('instance:close')
+RegisterNetEvent('instance:close')
 AddEventHandler('instance:close', function()
 	CloseInstance(source)
 end)
 
-RegisterServerEvent('instance:enter')
+RegisterNetEvent('instance:enter')
 AddEventHandler('instance:enter', function(instance)
 	AddPlayerToInstance(instance, source)
 end)
 
-RegisterServerEvent('instance:leave')
+RegisterNetEvent('instance:leave')
 AddEventHandler('instance:leave', function(instance)
 	RemovePlayerFromInstance(instance, source)
 end)
 
-RegisterServerEvent('instance:invite')
+RegisterNetEvent('instance:invite')
 AddEventHandler('instance:invite', function(instance, type, player, data)
 	InvitePlayerToInstance(instance, type, player, data)
 end)

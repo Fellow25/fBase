@@ -1,4 +1,4 @@
-RegisterServerEvent('esx_billing:sendBill')
+RegisterNetEvent('esx_billing:sendBill')
 AddEventHandler('esx_billing:sendBill', function(playerId, sharedAccountName, label, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xTarget = ESX.GetPlayerFromId(playerId)

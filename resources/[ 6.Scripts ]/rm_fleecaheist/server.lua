@@ -80,7 +80,7 @@ AddEventHandler('fleecaheist:server:policeAlert', function(coords)
     end
 end)
 
-RegisterServerEvent('fleecaheist:server:rewardItem')
+RegisterNetEvent('fleecaheist:server:rewardItem')
 AddEventHandler('fleecaheist:server:rewardItem', function(reward, count)
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -104,7 +104,7 @@ AddEventHandler('fleecaheist:server:rewardItem', function(reward, count)
     end
 end)
 
-RegisterServerEvent('fleecaheist:server:sellRewardItems')
+RegisterNetEvent('fleecaheist:server:sellRewardItems')
 AddEventHandler('fleecaheist:server:sellRewardItems', function()
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -133,27 +133,27 @@ AddEventHandler('fleecaheist:server:sellRewardItems', function()
     end
 end)
 
-RegisterServerEvent('fleecaheist:server:doorSync')
+RegisterNetEvent('fleecaheist:server:doorSync')
 AddEventHandler('fleecaheist:server:doorSync', function(index)
     TriggerClientEvent('fleecaheist:client:doorSync', -1, index)
 end)
 
-RegisterServerEvent('fleecaheist:server:lootSync')
+RegisterNetEvent('fleecaheist:server:lootSync')
 AddEventHandler('fleecaheist:server:lootSync', function(index, type, k)
     TriggerClientEvent('fleecaheist:client:lootSync', -1, index, type, k)
 end)
 
-RegisterServerEvent('fleecaheist:server:modelSync')
+RegisterNetEvent('fleecaheist:server:modelSync')
 AddEventHandler('fleecaheist:server:modelSync', function(index, k, model)
     TriggerClientEvent('fleecaheist:client:modelSync', -1, index, k, model)
 end)
 
-RegisterServerEvent('fleecaheist:server:grabSync')
+RegisterNetEvent('fleecaheist:server:grabSync')
 AddEventHandler('fleecaheist:server:grabSync', function(index, k, model)
     TriggerClientEvent('fleecaheist:client:grabSync', -1, index, k, model)
 end)
 
-RegisterServerEvent('fleecaheist:server:resetHeist')
+RegisterNetEvent('fleecaheist:server:resetHeist')
 AddEventHandler('fleecaheist:server:resetHeist', function(index)
     TriggerClientEvent('fleecaheist:client:resetHeist', -1, index)
 end)

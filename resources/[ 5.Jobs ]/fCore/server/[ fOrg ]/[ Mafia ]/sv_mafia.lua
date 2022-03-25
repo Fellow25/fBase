@@ -67,7 +67,7 @@ ESX.RegisterServerCallback('mafia:getPlayerInventoryBlack', function(source, cb)
 	})
   end)
 
-RegisterServerEvent('mafia:putblackmoney')
+RegisterNetEvent('mafia:putblackmoney')
 AddEventHandler('mafia:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -104,7 +104,7 @@ end)
   
   end)
 
-  RegisterServerEvent('mafia:getItem')
+  RegisterNetEvent('mafia:getItem')
   AddEventHandler('mafia:getItem', function(type, item, count)
   
     local _source      = source

@@ -5,7 +5,7 @@ TriggerEvent('esx:getSharedObject', function(obj)ESX = obj end)
 
 
 
-RegisterServerEvent("barbershop:pay")
+RegisterNetEvent("barbershop:pay")
 AddEventHandler("barbershop:pay", function(source, price)
     local src = source
     local xPlayer = ESX.GetPlayerFromId(src)
@@ -39,7 +39,7 @@ AddEventHandler('esx:playerDropped', function(source)
     end
 end)
 
-RegisterServerEvent('barbershop:removeposition')
+RegisterNetEvent('barbershop:removeposition')
 AddEventHandler('barbershop:removeposition', function()
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)

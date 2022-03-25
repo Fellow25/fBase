@@ -10,7 +10,7 @@ local freezeTime = Config.FreezeTime
 local blackout = Config.Blackout
 local newWeatherTimer = Config.NewWeatherTimer
 
-RegisterServerEvent('vSync:requestSync')
+RegisterNetEvent('vSync:requestSync')
 AddEventHandler('vSync:requestSync', function()
     TriggerClientEvent('vSync:updateWeather', -1, CurrentWeather, blackout)
     TriggerClientEvent('vSync:updateTime', -1, baseTime, timeOffset, freezeTime)

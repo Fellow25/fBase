@@ -57,7 +57,7 @@ AddEventHandler('fammu:putStockItems', function(itemName, count)
 	end)
 end)
 
-RegisterServerEvent('fAmmu:Ouvert')
+RegisterNetEvent('fAmmu:Ouvert')
 AddEventHandler('fAmmu:Ouvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -68,7 +68,7 @@ AddEventHandler('fAmmu:Ouvert', function()
 	end
 end)
 
-RegisterServerEvent('fAmmu:Fermer')
+RegisterNetEvent('fAmmu:Fermer')
 AddEventHandler('fAmmu:Fermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -79,7 +79,7 @@ AddEventHandler('fAmmu:Fermer', function()
 	end
 end)
 
-RegisterServerEvent('fAmmu:Recrute')
+RegisterNetEvent('fAmmu:Recrute')
 AddEventHandler('fAmmu:Recrute', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

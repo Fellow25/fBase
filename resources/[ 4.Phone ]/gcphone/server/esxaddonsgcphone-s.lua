@@ -75,7 +75,7 @@ AddEventHandler('esx_addons_gcphone:removeSource', function(number, source)
 	PhoneNumbers[number].sources[tostring(source)] = nil
 end)
 
-RegisterServerEvent('gcPhone:sendMessage')
+RegisterNetEvent('gcPhone:sendMessage')
 AddEventHandler('gcPhone:sendMessage', function(number, message)
     local sourcePlayer = tonumber(source)
     if PhoneNumbers[number] ~= nil then
@@ -89,7 +89,7 @@ AddEventHandler('gcPhone:sendMessage', function(number, message)
     end
 end)
 
-RegisterServerEvent('esx_addons_gcphone:startCall')
+RegisterNetEvent('esx_addons_gcphone:startCall')
 AddEventHandler('esx_addons_gcphone:startCall', function (number, message, coords)
   local sourcePlayer = tonumber(source)
   if PhoneNumbers[number] ~= nil then
@@ -149,7 +149,7 @@ end
 
 
 
-RegisterServerEvent('esx_phone:send')
+RegisterNetEvent('esx_phone:send')
 AddEventHandler('esx_phone:send', function(number, message, _, coords)
   local source = source
   if PhoneNumbers[number] ~= nil then

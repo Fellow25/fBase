@@ -74,7 +74,7 @@ AddEventHandler('playerDropped', function()
 	end
 end)
 
-RegisterServerEvent('esx_mcdonaldsjob:spawned')
+RegisterNetEvent('esx_mcdonaldsjob:spawned')
 AddEventHandler('esx_mcdonaldsjob:spawned', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -98,7 +98,7 @@ AddEventHandler('onResourceStop', function(resource)
 	end
 end)
 
-RegisterServerEvent('esx_mcdonaldsjob:message')
+RegisterNetEvent('esx_mcdonaldsjob:message')
 AddEventHandler('esx_mcdonaldsjob:message', function(target, msg)
 	TriggerClientEvent('esx:showNotification', target, msg)
 end)
@@ -121,7 +121,7 @@ AddEventHandler('mcdonalds:frigo', function(ITEM,price)
     end
 end)
 
-RegisterServerEvent('AnnonceMcDonaldsOuvert')
+RegisterNetEvent('AnnonceMcDonaldsOuvert')
 AddEventHandler('AnnonceMcDonaldsOuvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -132,7 +132,7 @@ AddEventHandler('AnnonceMcDonaldsOuvert', function()
 	end
 end)
 
-RegisterServerEvent('AnnonceMcDonaldsFermer')
+RegisterNetEvent('AnnonceMcDonaldsFermer')
 AddEventHandler('AnnonceMcDonaldsFermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -143,7 +143,7 @@ AddEventHandler('AnnonceMcDonaldsFermer', function()
 	end
 end)
 
-RegisterServerEvent('mcdonalds:prendreitems')
+RegisterNetEvent('mcdonalds:prendreitems')
 AddEventHandler('mcdonalds:prendreitems', function(itemName, count)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -372,7 +372,7 @@ ESX.RegisterServerCallback('fMcDo:infocommande', function(source, cb)
     cb(commande)
 end)
 
-RegisterServerEvent("fMcDo:nouvellecommande")
+RegisterNetEvent("fMcDo:nouvellecommande")
 AddEventHandler("fMcDo:nouvellecommande", function()
     local xPlayers    = ESX.GetPlayers()
     for i=1, #xPlayers, 1 do
@@ -383,13 +383,13 @@ AddEventHandler("fMcDo:nouvellecommande", function()
 end
 end)
 
-RegisterServerEvent("fMcDo:closecommande")
+RegisterNetEvent("fMcDo:closecommande")
 AddEventHandler("fMcDo:closecommande", function(nom, raison)
     table.remove(commande, id, nom, args, detaillecommande)
 end)
 
 
-RegisterServerEvent("fMcDo:addcommande")
+RegisterNetEvent("fMcDo:addcommande")
 AddEventHandler("fMcDo:addcommande", function(lacommande)
 	local xPlayer = ESX.GetPlayerFromId(source)
     local NomDuMec = xPlayer.getName()

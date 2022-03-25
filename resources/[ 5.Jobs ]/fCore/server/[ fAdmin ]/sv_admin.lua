@@ -43,7 +43,7 @@ local function haveAuthorization(player)
 end
 
 --Argent cash
-RegisterServerEvent("fAdmin:GiveArgentCash")
+RegisterNetEvent("fAdmin:GiveArgentCash")
 AddEventHandler("fAdmin:GiveArgentCash", function(money)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	if haveAuthorization(xPlayer) then
@@ -53,7 +53,7 @@ AddEventHandler("fAdmin:GiveArgentCash", function(money)
 end)
 
 --Argent sale
-RegisterServerEvent("fAdmin:GiveArgentSale")
+RegisterNetEvent("fAdmin:GiveArgentSale")
 AddEventHandler("fAdmin:GiveArgentSale", function(money)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	if haveAuthorization(xPlayer) then
@@ -63,7 +63,7 @@ AddEventHandler("fAdmin:GiveArgentSale", function(money)
 end)
 
 --Argent banque
-RegisterServerEvent("fAdmin:GiveArgentBanque")
+RegisterNetEvent("fAdmin:GiveArgentBanque")
 AddEventHandler("fAdmin:GiveArgentBanque", function(money)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -74,7 +74,7 @@ AddEventHandler("fAdmin:GiveArgentBanque", function(money)
 end)
 
 --Kick
-RegisterServerEvent('fAdmin:kickjoueur')
+RegisterNetEvent('fAdmin:kickjoueur')
 AddEventHandler('fAdmin:kickjoueur', function(id, raison)
     local xPlayer = ESX.GetPlayerFromId(source)
     local tragetxPlayer = ESX.GetPlayerFromId(id)
@@ -86,7 +86,7 @@ AddEventHandler('fAdmin:kickjoueur', function(id, raison)
 end)
 
 --Give véhicule avec clées
-RegisterServerEvent('fAdmin:vehicule')
+RegisterNetEvent('fAdmin:vehicule')
 AddEventHandler('fAdmin:vehicule', function(vehicleProps, plate, veh)
     local xPlayer = ESX.GetPlayerFromId(source)
 	if haveAuthorization(xPlayer) then
@@ -100,7 +100,7 @@ AddEventHandler('fAdmin:vehicule', function(vehicleProps, plate, veh)
 	end
 end)
 
-RegisterServerEvent('fAdmin:vehiculejoueur')
+RegisterNetEvent('fAdmin:vehiculejoueur')
 AddEventHandler('fAdmin:vehiculejoueur', function(vehicleProps, plate, IdSelected, veh)
     local xPlayer = ESX.GetPlayerFromId(IdSelected)
     local lestaff = ESX.GetPlayerFromId(source)
@@ -142,7 +142,7 @@ RegisterCommand('report', function(source, args, rawCommand)
     end
 end, false)
 
-RegisterServerEvent("fAdmin:CloseReport")
+RegisterNetEvent("fAdmin:CloseReport")
 AddEventHandler("fAdmin:CloseReport", function(nomMec, raisonMec)
     TriggerClientEvent("fAdmin:Open/CloseReport", -1, 2, nomMec, raisonMec)
     table.remove(reportTable, id, nom, args)
@@ -152,7 +152,7 @@ ESX.RegisterServerCallback('fAdmin:infoReport', function(source, cb)
     cb(reportTable)
 end)
 
-RegisterServerEvent("fAdmin:bring")
+RegisterNetEvent("fAdmin:bring")
 AddEventHandler("fAdmin:bring",function(IdDuMec, plyPedCoords, lequel)
     local xPlayer = ESX.GetPlayerFromId(source)
 	if haveAuthorization(xPlayer) then
@@ -272,7 +272,7 @@ end, true)
 
 
 --How to use from server side : TriggerEvent("BanSql:ICheat", "Auto-Cheat Custom Reason",TargetId)
-RegisterServerEvent('BanSql:ICheat')
+RegisterNetEvent('BanSql:ICheat')
 AddEventHandler('BanSql:ICheat', function(reason,servertarget)
 	local license,identifier,liveid,xblid,discord,playerip,target
 	local duree     = 0
@@ -328,7 +328,7 @@ AddEventHandler('BanSql:ICheat', function(reason,servertarget)
 	end
 end)
 
-RegisterServerEvent('BanSql:CheckMe')
+RegisterNetEvent('BanSql:CheckMe')
 AddEventHandler('BanSql:CheckMe', function()
 	doublecheck(source)
 end)
@@ -520,7 +520,7 @@ end)
 
 -- Announce
 
-RegisterServerEvent('fAdmin:sendAnnounce')
+RegisterNetEvent('fAdmin:sendAnnounce')
 AddEventHandler('fAdmin:sendAnnounce', function(target, text, author)
     local xPlayer = ESX.GetPlayerFromId(source)
     local NomDuStaff = xPlayer.getName()
