@@ -5,40 +5,28 @@ function CreateAddonAccount(name, owner, money)
 	self.owner = owner
 	self.money = money
 
-	self.addMoney = function(m)
+	function self.addMoney(m)
 		self.money = self.money + m
 		self.save()
-
-		TriggerClientEvent('esx_addonaccount:setMoney', -1, self.name, self.money)
 	end
 
-	self.removeMoney = function(m)
+	function self.removeMoney(m)
 		self.money = self.money - m
 		self.save()
-
-		TriggerClientEvent('esx_addonaccount:setMoney', -1, self.name, self.money)
 	end
 
-	self.setMoney = function(m)
+	function self.setMoney(m)
 		self.money = m
 		self.save()
-
-		TriggerClientEvent('esx_addonaccount:setMoney', -1, self.name, self.money)
 	end
 
-	self.save = function()
+	function self.save()
 		if self.owner == nil then
-			MySQL.Async.execute('UPDATE addon_account_data SET money = @money WHERE account_name = @account_name', {
-				['@account_name'] = self.name,
-				['@money']        = self.money
-			})
+			MySQL.update('UPDATE addon_account_data SET money = ? WHERE account_name = ?', {self.money, self.name})
 		else
-			MySQL.Async.execute('UPDATE addon_account_data SET money = @money WHERE account_name = @account_name AND owner = @owner', {
-				['@account_name'] = self.name,
-				['@money']        = self.money,
-				['@owner']        = self.owner
-			})
+			MySQL.update('UPDATE addon_account_data SET money = ? WHERE account_name = ? AND owner = ?', {self.money, self.name, self.owner})
 		end
+		TriggerClientEvent('esx_addonaccount:setMoney', -1, self.name, self.money)
 	end
 
 	return self

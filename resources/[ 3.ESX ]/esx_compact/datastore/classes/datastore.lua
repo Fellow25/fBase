@@ -17,16 +17,16 @@ function CreateDataStore(name, owner, data)
 
 	self.name  = name
 	self.owner = owner
-	self.data  = data
+	self.data  = type(data) == 'string' and json.decode(data) or data
 
 	local timeoutCallbacks = {}
 
-	self.set = function(key, val)
+	function self.set(key, val)
 		data[key] = val
 		self.save()
 	end
 
-	self.get = function(key, i)
+	function self.get(key, i)
 		local path = stringsplit(key, '.')
 		local obj  = self.data
 
@@ -41,7 +41,7 @@ function CreateDataStore(name, owner, data)
 		end
 	end
 
-	self.count = function(key, i)
+	function self.count(key, i)
 		local path = stringsplit(key, '.')
 		local obj  = self.data
 
@@ -60,7 +60,7 @@ function CreateDataStore(name, owner, data)
 		end
 	end
 
-	self.save = function()
+	function self.save()
 		for i=1, #timeoutCallbacks, 1 do
 			ESX.ClearTimeout(timeoutCallbacks[i])
 			timeoutCallbacks[i] = nil
@@ -68,16 +68,9 @@ function CreateDataStore(name, owner, data)
 
 		local timeoutCallback = ESX.SetTimeout(10000, function()
 			if self.owner == nil then
-				MySQL.Async.execute('UPDATE datastore_data SET data = @data WHERE name = @name', {
-					['@data'] = json.encode(self.data),
-					['@name'] = self.name,
-				})
+				MySQL.update('UPDATE datastore_data SET data = ? WHERE name = ?', {json.encode(self.data), self.name})
 			else
-				MySQL.Async.execute('UPDATE datastore_data SET data = @data WHERE name = @name and owner = @owner', {
-					['@data']  = json.encode(self.data),
-					['@name']  = self.name,
-					['@owner'] = self.owner,
-				})
+				MySQL.update('UPDATE datastore_data SET data = ? WHERE name = ? and owner = ?', {json.encode(self.data), self.name, self.owner})
 			end
 		end)
 

@@ -1,15 +1,15 @@
-fx_version 'adamant'
+fx_version 'cerulean'
 
 game 'gta5'
 
 description 'ESX Society'
 
-version 'legacy'
+version '1.6.5'
 
 shared_script '@es_extended/imports.lua'
 
 server_scripts {
-    '@mysql-async/lib/MySQL.lua',
+    '@oxmysql/lib/MySQL.lua',
     '@es_extended/locale.lua',
     'locales/br.lua',
     'locales/en.lua',
@@ -43,5 +43,6 @@ client_scripts {
 
 dependencies {
     'es_extended',
-    'cron'
+    'cron',
+    'esx_compact'
 }
