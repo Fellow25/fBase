@@ -37,6 +37,8 @@ local function haveAuthorization(player)
 		return true
 	else
 		envoyerdiscord("fAdmin","Tentative exploit (MENU ADMIN) \n__Joueur :__ "..player.getName().."", 16744192, fAdmin.webhooks)
+
+		return false
 	end
 end
 
