@@ -59,7 +59,7 @@ end)
 
 --- Annonce
 
-RegisterServerEvent('rFire:Ouvert')
+RegisterNetEvent('rFire:Ouvert')
 AddEventHandler('rFire:Ouvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -70,7 +70,7 @@ AddEventHandler('rFire:Ouvert', function()
 	end
 end)
 
-RegisterServerEvent('rFire:Fermer')
+RegisterNetEvent('rFire:Fermer')
 AddEventHandler('rFire:Fermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -81,7 +81,7 @@ AddEventHandler('rFire:Fermer', function()
 	end
 end)
 
-RegisterServerEvent('rFire:Perso')
+RegisterNetEvent('rFire:Perso')
 AddEventHandler('rFire:Perso', function(msg)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -102,7 +102,7 @@ ESX.RegisterServerCallback('rFire:infoReport', function(source, cb)
     cb(demandeTable)
 end)
 
-RegisterServerEvent("rFire:fireAppel")
+RegisterNetEvent("rFire:fireAppel")
 AddEventHandler("rFire:fireAppel", function()
     local xPlayers    = ESX.GetPlayers()
     for i=1, #xPlayers, 1 do
@@ -113,7 +113,7 @@ AddEventHandler("rFire:fireAppel", function()
 end
 end)
 
-RegisterServerEvent("rFire:CloseReport")
+RegisterNetEvent("rFire:CloseReport")
 AddEventHandler("rFire:CloseReport", function(nom, raison)
     local xPlayers    = ESX.GetPlayers()
     for i=1, #xPlayers, 1 do

@@ -13,16 +13,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -54,7 +54,7 @@ function defESX()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     defESX()
 end)
 
@@ -66,7 +66,7 @@ local function getInfoReport()
 end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if Fire.jeveuxblips then
     local firemap = AddBlipForCoord(Fire.pos.blips.position.x, Fire.pos.blips.position.y, Fire.pos.blips.position.z)
     SetBlipSprite(firemap, 436)
@@ -90,7 +90,7 @@ function Menuf6Fire()
     defESX()
     RageUI.Visible(rFiref6, not RageUI.Visible(rFiref6))
     while rFiref6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(rFiref6, true, true, true, function()
 
 
@@ -245,7 +245,7 @@ function CoffreFire()
     Cfire:SetRectangleBanner(255, 0, 0, 255)
         RageUI.Visible(Cfire, not RageUI.Visible(Cfire))
             while Cfire do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cfire, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -271,11 +271,11 @@ function CoffreFire()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fire' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Fire.pos.coffre.position.x, Fire.pos.coffre.position.y, Fire.pos.coffre.position.z)
             if jobdist <= 10.0 and Fire.jeveuxmarker then
                 Timer = 0
@@ -289,7 +289,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -301,13 +301,13 @@ function GarageFire()
   GFire:SetRectangleBanner(255, 0, 0, 255)
     RageUI.Visible(GFire, not RageUI.Visible(GFire))
         while GFire do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GFire, true, true, true, function()
  
                     for k,v in pairs(GFirevoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarFire(v.modele)
                             RageUI.CloseAll()
                             end
@@ -321,11 +321,11 @@ function GarageFire()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fire' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Fire.pos.garage.position.x, Fire.pos.garage.position.y, Fire.pos.garage.position.z)
             if dist3 <= 10.0 and Fire.jeveuxmarker then
                 Timer = 0
@@ -339,17 +339,17 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
 ---- Ranger la voiture
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fire' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Fire.pos.deletevoiture.position.x, Fire.pos.deletevoiture.position.y, Fire.pos.deletevoiture.position.z)
             if dist3 <= 1.0 then
             Timer = 0   
@@ -363,7 +363,7 @@ Citizen.CreateThread(function()
                 end   
             end
         end 
-    Citizen.Wait(Timer)
+    Wait(Timer)
  end
 end)
 
@@ -374,16 +374,16 @@ function spawnuniCarFire(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Fire.pos.spawnvoiture.position.x, Fire.pos.spawnvoiture.position.y, Fire.pos.spawnvoiture.position.z, Fire.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Pompier"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque)
     SetVehRadioStation(vehicle, "OFF") 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 
@@ -397,7 +397,7 @@ function FireRetirerobjet()
    
     RageUI.Visible(Stockfire, not RageUI.Visible(Stockfire))
         while Stockfire do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockfire, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -426,7 +426,7 @@ function FireDeposerobjet()
     ESX.TriggerServerCallback('rFire:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -461,7 +461,7 @@ function VestiaireFire()
     VFire:SetRectangleBanner(255, 0, 0, 255)
         RageUI.Visible(VFire, not RageUI.Visible(VFire))
             while VFire do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(VFire, true, true, true, function()
 
                     RageUI.Separator("↓ Vêtements ↓")
@@ -487,11 +487,11 @@ function VestiaireFire()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fire' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'fire' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Fire.pos.vestiaire.position.x, Fire.pos.vestiaire.position.y, Fire.pos.vestiaire.position.z)
             if jobdist <= 10.0 and Fire.jeveuxmarker then
                 Timer = 0
@@ -505,7 +505,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 

@@ -68,7 +68,7 @@ ESX.RegisterServerCallback('vangelicoheist:server:hasItem', function(source, cb,
     end
 end)
 
-RegisterServerEvent('vangelicoheist:server:policeAlert')
+RegisterNetEvent('vangelicoheist:server:policeAlert')
 AddEventHandler('vangelicoheist:server:policeAlert', function(coords)
     local players = ESX.GetPlayers()
     
@@ -80,7 +80,7 @@ AddEventHandler('vangelicoheist:server:policeAlert', function(coords)
     end
 end)
 
-RegisterServerEvent('vangelicoheist:server:rewardItem')
+RegisterNetEvent('vangelicoheist:server:rewardItem')
 AddEventHandler('vangelicoheist:server:rewardItem', function(item)
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -107,7 +107,7 @@ AddEventHandler('vangelicoheist:server:rewardItem', function(item)
     end
 end)
 
-RegisterServerEvent('vangelicoheist:server:sellRewardItems')
+RegisterNetEvent('vangelicoheist:server:sellRewardItems')
 AddEventHandler('vangelicoheist:server:sellRewardItems', function()
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -165,27 +165,27 @@ RegisterCommand('pdvangelico', function(source, args)
     end
 end)
 
-RegisterServerEvent('vangelicoheist:server:startGas')
+RegisterNetEvent('vangelicoheist:server:startGas')
 AddEventHandler('vangelicoheist:server:startGas', function()
     TriggerClientEvent('vangelicoheist:client:startGas', -1)
 end)
 
-RegisterServerEvent('vangelicoheist:server:insideLoop')
+RegisterNetEvent('vangelicoheist:server:insideLoop')
 AddEventHandler('vangelicoheist:server:insideLoop', function()
     TriggerClientEvent('vangelicoheist:client:insideLoop', -1)
 end)
 
-RegisterServerEvent('vangelicoheist:server:lootSync')
+RegisterNetEvent('vangelicoheist:server:lootSync')
 AddEventHandler('vangelicoheist:server:lootSync', function(type, index)
     TriggerClientEvent('vangelicoheist:client:lootSync', -1, type, index)
 end)
 
-RegisterServerEvent('vangelicoheist:server:globalObject')
+RegisterNetEvent('vangelicoheist:server:globalObject')
 AddEventHandler('vangelicoheist:server:globalObject', function(obj, random)
     TriggerClientEvent('vangelicoheist:client:globalObject', -1, obj, random)
 end)
 
-RegisterServerEvent('vangelicoheist:server:smashSync')
+RegisterNetEvent('vangelicoheist:server:smashSync')
 AddEventHandler('vangelicoheist:server:smashSync', function(sceneConfig)
     TriggerClientEvent('vangelicoheist:client:smashSync', -1, sceneConfig)
 end)

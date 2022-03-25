@@ -14,16 +14,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -48,7 +48,7 @@ AddEventHandler('esx:setJob2', function(job2)
     ESX.PlayerData.job2 = job2
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     local policemap = AddBlipForCoord(rPolice.pos.blips.position.x, rPolice.pos.blips.position.y, rPolice.pos.blips.position.z)
     SetBlipSprite(policemap, 60)
     SetBlipColour(policemap, 29)
@@ -66,7 +66,7 @@ function Menuf6police()
     local rPolicef5Chien = RageUI.CreateSubMenu(rPolicef5, "Police", "Chien")
     RageUI.Visible(rPolicef5, not RageUI.Visible(rPolicef5))
     while rPolicef5 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(rPolicef5, true, true, true, function()
 
                 RageUI.Checkbox("Prendre/Quitter son service",nil, service,{},function(Hovered,Ative,Selected,Checked)
@@ -171,7 +171,7 @@ function Menuf6police()
             
                             if DoesEntityExist(vehicle) then
                                 TaskStartScenarioInPlace(PlayerPedId(), 'WORLD_HUMAN_CLIPBOARD', 0, true)
-                                Citizen.Wait(5000)
+                                Wait(5000)
                                 ClearPedTasks(playerPed)
                                 ESX.ShowNotification('La voiture à été placer en fourriere.')
                                 ESX.Game.DeleteVehicle(vehicle)
@@ -537,7 +537,7 @@ function Rechercherplaquevoiture(plaquerechercher)
     ESX.TriggerServerCallback('rPolice:getVehicleInfos', function(retrivedInfo)
     RageUI.Visible(PlaqueMenu, not RageUI.Visible(PlaqueMenu))
         while PlaqueMenu do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(PlaqueMenu, true, true, true, function()
                     local hashvoiture = retrivedInfo.vehicle.model
                     local nomvoituremodele = GetDisplayNameFromVehicleModel(hashvoiture)
@@ -576,7 +576,7 @@ function OpenPrendreMenuPolice()
     local PrendreMenu = RageUI.CreateMenu("Police", "Arsenal")
         RageUI.Visible(PrendreMenu, not RageUI.Visible(PrendreMenu))
     while PrendreMenu do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(PrendreMenu, true, true, true, function()
 
             RageUI.ButtonWithStyle("Déposer les armes",nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
@@ -604,11 +604,11 @@ function OpenPrendreMenuPolice()
 end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, rPolice.pos.MenuPrendre.position.x, rPolice.pos.MenuPrendre.position.y, rPolice.pos.MenuPrendre.position.z)
         if dist3 <= 7.0 and rPolice.jeveuxmarker then
             Timer = 0
@@ -622,7 +622,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -630,7 +630,7 @@ function Coffrepolice()
     local Cpolice = RageUI.CreateMenu("Coffre", "Police")
         RageUI.Visible(Cpolice, not RageUI.Visible(Cpolice))
             while Cpolice do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cpolice, true, true, true, function()
 
                 RageUI.Separator("~y~↓ Objet ↓")
@@ -656,11 +656,11 @@ function Coffrepolice()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, rPolice.pos.coffre.position.x, rPolice.pos.coffre.position.y, rPolice.pos.coffre.position.z)
             if jobdist <= 10.0 and rPolice.jeveuxmarker then
                 Timer = 0
@@ -674,7 +674,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -686,7 +686,7 @@ function vestiairepolice()
     local Vpolice = RageUI.CreateMenu("Vestiaire", "Police")
         RageUI.Visible(Vpolice, not RageUI.Visible(Vpolice))
             while Vpolice do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Vpolice, true, true, true, function()
                 RageUI.Separator("~y~↓ Votre Tenue ↓")
                     if ESX.PlayerData.job.grade_name == 'recruit' then
@@ -742,14 +742,14 @@ function vestiairepolice()
             RageUI.ButtonWithStyle("Mettre",nil, {nil}, true, function(Hovered, Active, Selected)
                 if Selected then
                     mettrebullet_wear()
-                    SetPedArmour(GetPlayerPed(-1), 100)
+                    SetPedArmour(PlayerPedId(), 100)
                 end
             end)
 
             RageUI.ButtonWithStyle("Enlever",nil, {nil}, true, function(Hovered, Active, Selected)
                 if Selected then
                     enleverbullet_wear()
-                    SetPedArmour(GetPlayerPed(-1), 0)
+                    SetPedArmour(PlayerPedId(), 0)
                 end
             end)
                 end, function()
@@ -866,11 +866,11 @@ end)
 end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, rPolice.pos.vestiaire.position.x, rPolice.pos.vestiaire.position.y, rPolice.pos.vestiaire.position.z)
             if jobdist <= 10.0 and rPolice.jeveuxmarker then
                 Timer = 0
@@ -884,7 +884,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -899,7 +899,7 @@ function Garagepolice()
   local Gpolice = RageUI.CreateMenu("Garage", "Police")
     RageUI.Visible(Gpolice, not RageUI.Visible(Gpolice))
         while Gpolice do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Gpolice, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -914,7 +914,7 @@ function Garagepolice()
                     for k,v in pairs(Gpolicevoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarpolice(v.modele)
                             RageUI.CloseAll()
                             end
@@ -928,11 +928,11 @@ function Garagepolice()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, rPolice.pos.garage.position.x, rPolice.pos.garage.position.y, rPolice.pos.garage.position.z)
             if dist3 <= 10.0 and rPolice.jeveuxmarker then
                 Timer = 0
@@ -946,7 +946,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -956,22 +956,22 @@ function spawnuniCarpolice(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, rPolice.pos.spawnvoiture.position.x, rPolice.pos.spawnvoiture.position.y, rPolice.pos.spawnvoiture.position.z, rPolice.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "POLICE"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 function Helipolice()
     local Hpolice = RageUI.CreateMenu("Garage", "Police")
       RageUI.Visible(Hpolice, not RageUI.Visible(Hpolice))
           while Hpolice do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Hpolice, true, true, true, function()
                       RageUI.ButtonWithStyle("Ranger le hélicoptère", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then   
@@ -986,7 +986,7 @@ function Helipolice()
                       for k,v in pairs(Hpoliceheli) do
                       RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then
-                          Citizen.Wait(1)  
+                          Wait(1)  
                             spawnuniCarheli(v.modele)
                               RageUI.CloseAll()
                               end
@@ -1000,11 +1000,11 @@ function Helipolice()
       end
 end
   
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, rPolice.pos.garageheli.position.x, rPolice.pos.garageheli.position.y, rPolice.pos.garageheli.position.z)
             if dist3 <= 10.0 and rPolice.jeveuxmarker then
                 Timer = 0
@@ -1018,7 +1018,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
   
@@ -1028,15 +1028,15 @@ function spawnuniCarheli(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, rPolice.pos.spawnheli.position.x, rPolice.pos.spawnheli.position.y, rPolice.pos.spawnheli.position.z, rPolice.pos.spawnheli.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "POLICE"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 itemstock = {}
@@ -1047,7 +1047,7 @@ function PoliceRetirerobjet()
    
     RageUI.Visible(Stockpolice, not RageUI.Visible(Stockpolice))
         while Stockpolice do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockpolice, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -1076,7 +1076,7 @@ function PoliceDeposerobjet()
     ESX.TriggerServerCallback('rPolice:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -1107,7 +1107,7 @@ function plaintepolice()
     local Ppolice = RageUI.CreateMenu("Plainte", "Police")
         RageUI.Visible(Ppolice, not RageUI.Visible(Ppolice))
             while Ppolice do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Ppolice, true, true, true, function()
 
                     RageUI.ButtonWithStyle("Porter plainte",nil, {RightLabel = "→→"}, true, function(Hovered, Active, Selected)
@@ -1126,10 +1126,10 @@ function plaintepolice()
 end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, rPolice.pos.plainte.position.x, rPolice.pos.plainte.position.y, rPolice.pos.plainte.position.z)
             if jobdist <= 10.0 and rPolice.jeveuxmarker then
                 Timer = 0
@@ -1142,7 +1142,7 @@ Citizen.CreateThread(function()
                         plaintepolice()   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -1234,19 +1234,19 @@ local prop = "prop_ballistic_shield"
 
 function EnableShield()
     shieldActive = true
-    local ped = GetPlayerPed(-1)
+    local ped = PlayerPedId()
     local pedPos = GetEntityCoords(ped, false)
     
     RequestAnimDict(animDict)
     while not HasAnimDictLoaded(animDict) do
-        Citizen.Wait(250)
+        Wait(250)
     end
 
     TaskPlayAnim(ped, animDict, animName, 8.0, -8.0, -1, (2 + 16 + 32), 0.0, 0, 0, 0)
 
     RequestModel(GetHashKey(prop))
     while not HasModelLoaded(GetHashKey(prop)) do
-        Citizen.Wait(250)
+        Wait(250)
     end
 
     local shield = CreateObject(GetHashKey(prop), pedPos.x, pedPos.y, pedPos.z, 1, 1, 1)
@@ -1257,7 +1257,7 @@ function EnableShield()
 end
 
 function DisableShield()
-    local ped = GetPlayerPed(-1)
+    local ped = PlayerPedId()
     DeleteEntity(shieldEntity)
     ClearPedTasksImmediately(ped)
     SetWeaponAnimationOverride(ped, GetHashKey("Default"))
@@ -1265,20 +1265,20 @@ function DisableShield()
     shieldActive = false
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         if shieldActive then
-            local ped = GetPlayerPed(-1)
+            local ped = PlayerPedId()
             if not IsEntityPlayingAnim(ped, animDict, animName, 1) then
                 RequestAnimDict(animDict)
                 while not HasAnimDictLoaded(animDict) do
-                    Citizen.Wait(100)
+                    Wait(100)
                 end
             
                 TaskPlayAnim(ped, animDict, animName, 8.0, -8.0, -1, (2 + 16 + 32), 0.0, 0, 0, 0)
             end
         end
-        Citizen.Wait(500)
+        Wait(500)
     end
 end)
 
@@ -1293,7 +1293,7 @@ function SpawnVehicle1()
 	RequestModel(hashKey)
 	while not HasModelLoaded(hashKey) do
 	  RequestModel(hashKey)
-	  Citizen.Wait(100)
+	  Wait(100)
 	end
 	chasePed = CreatePed(pedType, hashKey, PedPosition.x + 2,  PedPosition.y,  PedPosition.z, 250.00, 1, 1)
 	ESX.Game.SpawnVehicle(rPolice.vehicle1, {
@@ -1305,7 +1305,7 @@ function SpawnVehicle1()
 	  local vehicle = GetVehiclePedIsIn(PlayerPed, true)
 	  SetVehicleUndriveable(chaseVehicle, false)
 	  SetVehicleEngineOn(chaseVehicle, true, true)
-	  while not chasePed do Citizen.Wait(100) end;
+	  while not chasePed do Wait(100) end;
 	  PlaySoundFrontend(-1, "CONFIRM_BEEP", "HUD_MINI_GAME_SOUNDSET", 1)
 	  TaskWarpPedIntoVehicle(chasePed, chaseVehicle, -1)
 	  TaskVehicleFollow(chasePed, chaseVehicle, playerPed, 50.0, 1, 5)
@@ -1322,7 +1322,7 @@ pedType2 = GetPedType(hashKey)
 RequestModel(hashKey2)
 while not HasModelLoaded(hashKey2) do
     RequestModel(hashKey2)
-    Citizen.Wait(100)
+    Wait(100)
 end
 chasePed2 = CreatePed(pedType2, hashKey2, PedPosition.x + 4,  PedPosition.y,  PedPosition.z, 250.00, 1, 1)
 ESX.Game.SpawnVehicle(rPolice.vehicle2, {
@@ -1334,8 +1334,8 @@ ESX.Game.SpawnVehicle(rPolice.vehicle2, {
     local vehicle = GetVehiclePedIsIn(PlayerPed, true)
     SetVehicleUndriveable(chaseVehicle2, false)
     SetVehicleEngineOn(chaseVehicle2, true, true)
-    while not chasePed2 do Citizen.Wait(100) end;
-    while not chaseVehicle2 do Citizen.Wait(100) end;
+    while not chasePed2 do Wait(100) end;
+    while not chaseVehicle2 do Wait(100) end;
     PlaySoundFrontend(-1, "CONFIRM_BEEP", "HUD_MINI_GAME_SOUNDSET", 1)
     TaskWarpPedIntoVehicle(chasePed2, chaseVehicle2, -1)
     TaskVehicleFollow(chasePed2, chaseVehicle2, playerPed, 50.0, 1, 5)
@@ -1352,7 +1352,7 @@ pedType3 = GetPedType(hashKey)
 RequestModel(hashKey3)
 while not HasModelLoaded(hashKey3) do
     RequestModel(hashKey3)
-    Citizen.Wait(100)
+    Wait(100)
 end
 chasePed3 = CreatePed(pedType3, hashKey3, PedPosition.x + 2,  PedPosition.y,  PedPosition.z, 250.00, 1, 1)
 ESX.Game.SpawnVehicle(rPolice.vehicle3, {
@@ -1364,8 +1364,8 @@ ESX.Game.SpawnVehicle(rPolice.vehicle3, {
     local vehicle = GetVehiclePedIsIn(PlayerPed, true)
     SetVehicleUndriveable(chaseVehicle3, false)
     SetVehicleEngineOn(chaseVehicle3, true, true)
-    while not chasePed3 do Citizen.Wait(100) end;
-    while not chaseVehicle3 do Citizen.Wait(100) end;
+    while not chasePed3 do Wait(100) end;
+    while not chaseVehicle3 do Wait(100) end;
     PlaySoundFrontend(-1, "CONFIRM_BEEP", "HUD_MINI_GAME_SOUNDSET", 1)
     TaskWarpPedIntoVehicle(chasePed3, chaseVehicle3, -1)
     TaskVehicleFollow(chasePed3, chaseVehicle3, playerPed, 50.0, 1, 5)
@@ -1382,7 +1382,7 @@ pedType4 = GetPedType(hashKey)
 RequestModel(hashKey4)
 while not HasModelLoaded(hashKey4) do
     RequestModel(hashKey4)
-    Citizen.Wait(100)
+    Wait(100)
 end
 chasePed4 = CreatePed(pedType4, hashKey4, PedPosition.x + 2,  PedPosition.y,  PedPosition.z, 250.00, 1, 1)
 ESX.Game.SpawnVehicle(rPolice.vehicle4, {
@@ -1394,8 +1394,8 @@ ESX.Game.SpawnVehicle(rPolice.vehicle4, {
     local vehicle = GetVehiclePedIsIn(PlayerPed, true)
     SetVehicleUndriveable(chaseVehicle4, false)
     SetVehicleEngineOn(chaseVehicle4, true, true)
-    while not chasePed4 do Citizen.Wait(100) end;
-    while not chaseVehicle4 do Citizen.Wait(100) end;
+    while not chasePed4 do Wait(100) end;
+    while not chaseVehicle4 do Wait(100) end;
     PlaySoundFrontend(-1, "CONFIRM_BEEP", "HUD_MINI_GAME_SOUNDSET", 1)
     TaskWarpPedIntoVehicle(chasePed4, chaseVehicle4, -1)
     TaskVehicleFollow(chasePed4, chaseVehicle4, playerPed, 50.0, 1, 5)
@@ -1412,7 +1412,7 @@ pedType5 = GetPedType(hashKey)
 RequestModel(hashKey5)
 while not HasModelLoaded(hashKey5) do
     RequestModel(hashKey5)
-    Citizen.Wait(100)
+    Wait(100)
 end
 chasePed5 = CreatePed(pedType5, hashKey5, PedPosition.x + 2,  PedPosition.y,  PedPosition.z, 250.00, 1, 1)
 ESX.Game.SpawnVehicle(rPolice.vehicle5, {
@@ -1424,8 +1424,8 @@ ESX.Game.SpawnVehicle(rPolice.vehicle5, {
     local vehicle = GetVehiclePedIsIn(PlayerPed, true)
     SetVehicleUndriveable(chaseVehicle5, false)
     SetVehicleEngineOn(chaseVehicle5, true, true)
-    while not chasePed5 do Citizen.Wait(100) end;
-    while not chaseVehicle5 do Citizen.Wait(100) end;
+    while not chasePed5 do Wait(100) end;
+    while not chaseVehicle5 do Wait(100) end;
     PlaySoundFrontend(-1, "CONFIRM_BEEP", "HUD_MINI_GAME_SOUNDSET", 1)
     TaskWarpPedIntoVehicle(chasePed5, chaseVehicle5, freeSeat)
     TaskVehicleFollow(chasePed5, chaseVehicle5, playerPed, 50.0, 1, 5)

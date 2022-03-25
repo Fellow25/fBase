@@ -344,10 +344,10 @@ function RageUI.PlaySound(Library, Sound, IsLooped)
         PlaySoundFrontend(-1, Sound, Library, true)
     else
         if not audioId then
-            Citizen.CreateThread(function()
+            CreateThread(function()
                 audioId = GetSoundId()
                 PlaySoundFrontend(audioId, Sound, Library, true)
-                Citizen.Wait(0)
+                Wait(0)
                 StopSound(audioId)
                 ReleaseSoundId(audioId)
                 audioId = nil
@@ -379,11 +379,11 @@ function RageUI.Banner(Enabled, Glare)
 
                     if Glare then
                         local ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
-                        Citizen.CreateThread(function()
+                        CreateThread(function()
                             if not HasScaleformMovieLoaded(ScaleformMovie) then
                                 ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
                                 while not HasScaleformMovieLoaded(ScaleformMovie) do
-                                    Citizen.Wait(0)
+                                    Wait(0)
                                 end
                             end
                         end)
@@ -650,14 +650,14 @@ end
 ---@public
 function RageUI.CreateWhile(wait, closure, type)
     type = 1;
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
             if (type == 1) then
-                Citizen.Wait(wait or 0.1)
+                Wait(wait or 0.1)
             end
             closure()
             if (type == 2) then
-                Citizen.Wait(wait or 0.1)
+                Wait(wait or 0.1)
             end
         end
     end)

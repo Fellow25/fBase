@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -68,14 +68,14 @@ function MenuFouille()
     local fFouilleSub = RageUI.CreateSubMenu(fFouille, "Menu Fouille", "Interactions")
         RageUI.Visible(fFouille, not RageUI.Visible(fFouille))
             while fFouille do
-                Citizen.Wait(0)
+                Wait(0)
                     RageUI.IsVisible(fFouille, true, true, true, function()
 
             local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
             local target, distance = ESX.Game.GetClosestPlayer()
-            playerheading = GetEntityHeading(GetPlayerPed(-1))
+            playerheading = GetEntityHeading(PlayerPedId())
             playerlocation = GetEntityForwardVector(PlayerPedId())
-            playerCoords = GetEntityCoords(GetPlayerPed(-1))
+            playerCoords = GetEntityCoords(PlayerPedId())
             local target_id = GetPlayerServerId(target)
             local searchPlayerPed = GetPlayerPed(target)
             RageUI.ButtonWithStyle('Fouiller', nil, {RightLabel = "→"}, closestPlayer ~= -1 and closestDistance <= 3.0, function(_, a, s)
@@ -94,13 +94,13 @@ function MenuFouille()
         RageUI.ButtonWithStyle("Carte d'identité", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     local target, distance = ESX.Game.GetClosestPlayer()
-                    playerheading = GetEntityHeading(GetPlayerPed(-1))
+                    playerheading = GetEntityHeading(PlayerPedId())
                     playerlocation = GetEntityForwardVector(PlayerPedId())
-                    playerCoords = GetEntityCoords(GetPlayerPed(-1))
+                    playerCoords = GetEntityCoords(PlayerPedId())
                     local target_id = GetPlayerServerId(target)
                     if closestPlayer ~= -1 and closestDistance <= 3.0 then  
                     ESX.ShowNotification("Recherche en cours...")
-                    Citizen.Wait(2000)
+                    Wait(2000)
                     carteidentite(closestPlayer)
             else
                 ESX.ShowNotification('Aucun joueurs à proximité')
@@ -113,9 +113,9 @@ function MenuFouille()
         RageUI.ButtonWithStyle("Menotter/démenotter", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
             if (Selected) then
                 local target, distance = ESX.Game.GetClosestPlayer()
-                playerheading = GetEntityHeading(GetPlayerPed(-1))
+                playerheading = GetEntityHeading(PlayerPedId())
                 playerlocation = GetEntityForwardVector(PlayerPedId())
-                playerCoords = GetEntityCoords(GetPlayerPed(-1))
+                playerCoords = GetEntityCoords(PlayerPedId())
                 local target_id = GetPlayerServerId(target)
                 if closestPlayer ~= -1 and closestDistance <= 3.0 then   
                 TriggerServerEvent('fellow:handcuff', GetPlayerServerId(closestPlayer))
@@ -130,9 +130,9 @@ function MenuFouille()
             RageUI.ButtonWithStyle("Escorter", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     local target, distance = ESX.Game.GetClosestPlayer()
-                    playerheading = GetEntityHeading(GetPlayerPed(-1))
+                    playerheading = GetEntityHeading(PlayerPedId())
                     playerlocation = GetEntityForwardVector(PlayerPedId())
-                    playerCoords = GetEntityCoords(GetPlayerPed(-1))
+                    playerCoords = GetEntityCoords(PlayerPedId())
                     local target_id = GetPlayerServerId(target)
                     if closestPlayer ~= -1 and closestDistance <= 3.0 then  
                 TriggerServerEvent('fellow:drag', GetPlayerServerId(closestPlayer))
@@ -147,9 +147,9 @@ function MenuFouille()
             RageUI.ButtonWithStyle("Mettre dans un véhicule", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     local target, distance = ESX.Game.GetClosestPlayer()
-                    playerheading = GetEntityHeading(GetPlayerPed(-1))
+                    playerheading = GetEntityHeading(PlayerPedId())
                     playerlocation = GetEntityForwardVector(PlayerPedId())
-                    playerCoords = GetEntityCoords(GetPlayerPed(-1))
+                    playerCoords = GetEntityCoords(PlayerPedId())
                     local target_id = GetPlayerServerId(target)
                     if closestPlayer ~= -1 and closestDistance <= 3.0 then  
                 TriggerServerEvent('fellow:putInVehicle', GetPlayerServerId(closestPlayer))
@@ -164,9 +164,9 @@ function MenuFouille()
             RageUI.ButtonWithStyle("Sortir du véhicule", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     local target, distance = ESX.Game.GetClosestPlayer()
-                    playerheading = GetEntityHeading(GetPlayerPed(-1))
+                    playerheading = GetEntityHeading(PlayerPedId())
                     playerlocation = GetEntityForwardVector(PlayerPedId())
-                    playerCoords = GetEntityCoords(GetPlayerPed(-1))
+                    playerCoords = GetEntityCoords(PlayerPedId())
                     local target_id = GetPlayerServerId(target)
                     if closestPlayer ~= -1 and closestDistance <= 3.0 then  
                 TriggerServerEvent('fellow:OutVehicle', GetPlayerServerId(closestPlayer))
@@ -236,7 +236,7 @@ function carteidentite(player)
     ESX.TriggerServerCallback('fFouille:getOtherPlayerData', function(data)
     RageUI.Visible(StockFouille, not RageUI.Visible(StockFouille))
         while StockFouille do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(StockFouille, true, true, true, function()
                             RageUI.ButtonWithStyle("Prenom & Nom : ", nil, {RightLabel = data.name}, true, function(Hovered, Active, Selected)
                                 if Selected then
@@ -289,16 +289,16 @@ function KeyboardInput(TextEntry, ExampleText, MaxStringLenght)
     blockinput = true
 
     while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do 
-        Citizen.Wait(0)
+        Wait(0)
     end
         
     if UpdateOnscreenKeyboard() ~= 2 then
         local result = GetOnscreenKeyboardResult() 
-        Citizen.Wait(500) 
+        Wait(500) 
         blockinput = false
         return result 
     else
-        Citizen.Wait(500) 
+        Wait(500) 
         blockinput = false 
         return nil 
     end
@@ -310,15 +310,15 @@ RegisterNetEvent('fellow:handcuff')
 AddEventHandler('fellow:handcuff', function()
 
   IsHandcuffed    = not IsHandcuffed;
-  local playerPed = GetPlayerPed(-1)
+  local playerPed = PlayerPedId()
 
-  Citizen.CreateThread(function()
+  CreateThread(function()
 
     if IsHandcuffed then
 
         RequestAnimDict('mp_arresting')
         while not HasAnimDictLoaded('mp_arresting') do
-            Citizen.Wait(100)
+            Wait(100)
         end
 
       TaskPlayAnim(playerPed, 'mp_arresting', 'idle', 8.0, -8, -1, 49, 0, 0, 0, 0)
@@ -353,16 +353,16 @@ AddEventHandler('fellow:drag', function(cop)
   CopPed = tonumber(cop)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
   while true do
     Wait(0)
     if IsHandcuffed then
       if IsDragged then
         local ped = GetPlayerPed(GetPlayerFromServerId(CopPed))
-        local myped = GetPlayerPed(-1)
+        local myped = PlayerPedId()
         AttachEntityToEntity(myped, ped, 11816, 0.54, 0.54, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
       else
-        DetachEntity(GetPlayerPed(-1), true, false)
+        DetachEntity(PlayerPedId(), true, false)
       end
     end
   end
@@ -371,7 +371,7 @@ end)
 RegisterNetEvent('fellow:putInVehicle')
 AddEventHandler('fellow:putInVehicle', function()
 
-  local playerPed = GetPlayerPed(-1)
+  local playerPed = PlayerPedId()
   local coords    = GetEntityCoords(playerPed)
 
   if IsAnyVehicleNearPoint(coords.x, coords.y, coords.z, 5.0) then
@@ -404,15 +404,15 @@ RegisterNetEvent('fellow:OutVehicle')
 AddEventHandler('fellow:OutVehicle', function(t)
   local ped = GetPlayerPed(t)
   ClearPedTasksImmediately(ped)
-  plyPos = GetEntityCoords(GetPlayerPed(-1),  true)
+  plyPos = GetEntityCoords(PlayerPedId(),  true)
   local xnew = plyPos.x+2
   local ynew = plyPos.y+2
 
-  SetEntityCoords(GetPlayerPed(-1), xnew, ynew, plyPos.z)
+  SetEntityCoords(PlayerPedId(), xnew, ynew, plyPos.z)
 end)
 
 -- Handcuff
-Citizen.CreateThread(function()
+CreateThread(function()
   while true do
     Wait(0)
     if IsHandcuffed then
@@ -427,9 +427,9 @@ RegisterNetEvent('fellow:MenuFouille')
 AddEventHandler('fellow:MenuFouille', function()
     local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
     local target, distance = ESX.Game.GetClosestPlayer()
-    playerheading = GetEntityHeading(GetPlayerPed(-1))
+    playerheading = GetEntityHeading(PlayerPedId())
     playerlocation = GetEntityForwardVector(PlayerPedId())
-    playerCoords = GetEntityCoords(GetPlayerPed(-1))
+    playerCoords = GetEntityCoords(PlayerPedId())
     local target_id = GetPlayerServerId(target)
     local searchPlayerPed = GetPlayerPed(target)
     if closestPlayer ~= -1 and closestDistance <= 3.0 then

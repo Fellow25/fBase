@@ -1,5 +1,5 @@
-if Citizen and Citizen.CreateThread then
-	CreateThread = Citizen.CreateThread
+if Citizen and CreateThread then
+	CreateThread = CreateThread
 end
 
 Async = {}

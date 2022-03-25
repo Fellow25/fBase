@@ -12,7 +12,7 @@ ESX.RegisterServerCallback('driving:getStockItems', function(source, cb)
     end)
 end)
 
-RegisterServerEvent('AnnonceDrivingOuvert')
+RegisterNetEvent('AnnonceDrivingOuvert')
 AddEventHandler('AnnonceDrivingOuvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -23,7 +23,7 @@ AddEventHandler('AnnonceDrivingOuvert', function()
 	end
 end)
 
-RegisterServerEvent('AnnonceDrivingFermer')
+RegisterNetEvent('AnnonceDrivingFermer')
 AddEventHandler('AnnonceDrivingFermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

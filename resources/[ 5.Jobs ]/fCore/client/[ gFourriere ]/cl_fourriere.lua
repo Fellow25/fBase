@@ -13,16 +13,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -51,7 +51,7 @@ gFourriere = {
     listefourriere = {}
 }
 
-Citizen.CreateThread(function()
+CreateThread(function()
     local blip = AddBlipForCoord(configFourriere.fourriere.position.x, configFourriere.fourriere.position.y, configFourriere.fourriere.position.z)
     SetBlipSprite(blip, 67)
     SetBlipColour(blip, 64)
@@ -68,7 +68,7 @@ function Menuf6fourriere()
     local fourrieref6 = RageUI.CreateMenu("Fourrière", "Interactions")
     RageUI.Visible(fourrieref6, not RageUI.Visible(fourrieref6))
     while fourrieref6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fourrieref6, true, true, true, function()
 
                 RageUI.Separator("~o~"..ESX.PlayerData.job.grade_label.." - "..GetPlayerName(PlayerId()))
@@ -166,7 +166,7 @@ function Repportmenu()
     
         RageUI.Visible(reportmenu, not RageUI.Visible(reportmenu))
             while reportmenu do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(reportmenu, true, true, true, function()
             for numreport = 1, #reportlistesql, 1 do
                 RageUI.ButtonWithStyle(reportlistesql[numreport].plaque.. " - "..reportlistesql[numreport].date,nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
@@ -235,7 +235,7 @@ function Garagefourriere()
     local Gfourriere = RageUI.CreateMenu("Garage", "Fourrière")
       RageUI.Visible(Gfourriere, not RageUI.Visible(Gfourriere))
           while Gfourriere do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Gfourriere, true, true, true, function()
                       RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then   
@@ -249,7 +249,7 @@ function Garagefourriere()
                       for k,v in pairs(configFourrierevoiture) do
                       RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then
-                          Citizen.Wait(1)  
+                          Wait(1)  
                               spawnuniCar(v.modele)
                               RageUI.CloseAll()
                               end
@@ -264,11 +264,11 @@ function Garagefourriere()
   end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fourriere' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, configFourriere.pos.garage.position.x, configFourriere.pos.garage.position.y, configFourriere.pos.garage.position.z)
         if dist3 <= 10.0 and configFourriere.jeveuxmarker then
             Timer = 0
@@ -282,7 +282,7 @@ Citizen.CreateThread(function()
                 end   
             end
         end 
-    Citizen.Wait(Timer)
+    Wait(Timer)
  end
 end)
 
@@ -292,23 +292,23 @@ local car = GetHashKey(car)
 RequestModel(car)
 while not HasModelLoaded(car) do
     RequestModel(car)
-    Citizen.Wait(0)
+    Wait(0)
 end
 
-local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
 local vehicle = CreateVehicle(car, configFourriere.pos.spawnvoiture.position.x, configFourriere.pos.spawnvoiture.position.y, configFourriere.pos.spawnvoiture.position.z, configFourriere.pos.spawnvoiture.position.h, true, false)
 SetEntityAsMissionEntity(vehicle, true, true)
 local plaque = "fourriere"..math.random(1,9)
 SetVehicleNumberPlateText(vehicle, plaque)
 SetVehRadioStation(vehicle, "OFF")
-SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 function OpenfourriereMenu()
   local fourriere = RageUI.CreateMenu("Fourrière", "Voici les véhicules en fourrière")
   RageUI.Visible(fourriere, not RageUI.Visible(fourriere))
   while fourriere do
-      Citizen.Wait(0)
+      Wait(0)
       RageUI.IsVisible(fourriere, true, true, true, function()
         for i = 1, #gFourriere.listefourriere, 1 do
             local hashvoiture = gFourriere.listefourriere[i].vehicle.model
@@ -332,11 +332,11 @@ function OpenfourriereMenu()
     end
 end
     
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fourriere' then
-        local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+        local plycrdjob = GetEntityCoords(PlayerPedId(), false)
         local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, configFourriere.fourriere.position.x, configFourriere.fourriere.position.y, configFourriere.fourriere.position.z)
         if jobdist <= 10.0 and configFourriere.jeveuxmarker then
             Timer = 0
@@ -353,15 +353,15 @@ Citizen.CreateThread(function()
             end
         end 
     end
-    Citizen.Wait(Timer)   
+    Wait(Timer)   
 end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fourriere' then
-        local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+        local plycrdjob = GetEntityCoords(PlayerPedId(), false)
         local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, configFourriere.mettrefourriere.position.x, configFourriere.mettrefourriere.position.y, configFourriere.mettrefourriere.position.z)
             if jobdist <= 2.0 then
                 Timer = 0
@@ -389,7 +389,7 @@ Citizen.CreateThread(function()
                             TaskStartScenarioInPlace(PlayerPedId(), 'WORLD_HUMAN_CLIPBOARD', 0, true)
                             local motif = KeyboardInput("Motif", "", 25)
                             reportfourriere(vehicle, motif)
-                            Citizen.Wait(5000)
+                            Wait(5000)
                             ClearPedTasks(playerPed)
                             ESX.Game.DeleteVehicle(vehicle)
                             ESX.ShowNotification('La voiture à été placer en fourriere.')
@@ -401,11 +401,11 @@ Citizen.CreateThread(function()
             end
         end 
     end
-    Citizen.Wait(Timer)   
+    Wait(Timer)   
 end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     local hash = GetHashKey("s_m_y_garbage")
     while not HasModelLoaded(hash) do
     RequestModel(hash)
@@ -419,7 +419,7 @@ end)
 
 
 function sortirvoiture(vehicle, plate)
-	x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
+	x,y,z = table.unpack(GetEntityCoords(PlayerPedId(),true))
 
 	ESX.Game.SpawnVehicle(vehicle.model, {
 		x = x,
@@ -432,7 +432,7 @@ function sortirvoiture(vehicle, plate)
 		SetVehicleDeformationFixed(callback_vehicle)
 		SetVehicleUndriveable(callback_vehicle, false)
 		SetVehicleEngineOn(callback_vehicle, true, true)
-		TaskWarpPedIntoVehicle(GetPlayerPed(-1), callback_vehicle, -1)
+		TaskWarpPedIntoVehicle(PlayerPedId(), callback_vehicle, -1)
 	end)
 end
 
@@ -441,7 +441,7 @@ function Coffrefourriere()
     local Cfourriere = RageUI.CreateMenu("Coffre", "Fourrière")
         RageUI.Visible(Cfourriere, not RageUI.Visible(Cfourriere))
             while Cfourriere do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cfourriere, true, true, true, function()
 
                 RageUI.Separator("↓ Objet ↓")
@@ -555,7 +555,7 @@ function FourriereRetirerobjet()
    
     RageUI.Visible(Stockfourriere, not RageUI.Visible(Stockfourriere))
         while Stockfourriere do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockfourriere, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -583,7 +583,7 @@ function FourriereDeposerobjet()
     ESX.TriggerServerCallback('gfourriere:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -629,11 +629,11 @@ function aboss()
     end, {wash = false})
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fourriere' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, configFourriere.pos.coffre.position.x, configFourriere.pos.coffre.position.y, configFourriere.pos.coffre.position.z)
             if jobdist <= 10.0 and configFourriere.jeveuxmarker then
                 Timer = 0
@@ -647,7 +647,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 

@@ -12,16 +12,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -47,7 +47,7 @@ function OpenTabacTransformation()
     RageUI.Visible(TabacTransformation, not RageUI.Visible(TabacTransformation))
     
     while TabacTransformation do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(TabacTransformation, true, true, true, function()
                 RageUI.ButtonWithStyle("Faire des malboro", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -64,11 +64,11 @@ function OpenTabacTransformation()
     end
 
 local transformationpossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, tabac.pos.transformation.position.x, tabac.pos.transformation.position.y, tabac.pos.transformation.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -90,7 +90,7 @@ function transformationtabac()
     if not transformationpossible then
         transformationpossible = true
     while transformationpossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('malboro')
     end
     else
@@ -98,11 +98,11 @@ function transformationtabac()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tabac' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, tabac.pos.transformation.position.x, tabac.pos.transformation.position.y, tabac.pos.transformation.position.z)
         if dist3 <= 10.0 and tabac.jeveuxmarker then
             Timer = 0
@@ -116,6 +116,6 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)

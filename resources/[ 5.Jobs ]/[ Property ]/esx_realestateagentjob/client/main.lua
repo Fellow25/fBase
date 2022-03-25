@@ -6,7 +6,7 @@ function OpenRealestateAgentMenu()
     local MRealestateAgent = RageUI.CreateMenu("Agent Immobilier", " ")
         RageUI.Visible(MRealestateAgent, not RageUI.Visible(MRealestateAgent))
             while MRealestateAgent do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(MRealestateAgent, true, true, true, function()
 
                     RageUI.ButtonWithStyle(_U('properties'), nil, {RightLabel = "→→"}, true, function(Hovered, Active, Selected)
@@ -253,7 +253,7 @@ AddEventHandler('esx_realestateagentjob:hasExitedMarker', function(zone)
 end)
 
 -- Create Blips
-Citizen.CreateThread(function()
+CreateThread(function()
 	local blip = AddBlipForCoord(Config.Zones.OfficeEnter.Pos.x, Config.Zones.OfficeEnter.Pos.y, Config.Zones.OfficeEnter.Pos.z)
 
 	SetBlipSprite (blip, 357)
@@ -268,9 +268,9 @@ Citizen.CreateThread(function()
 end)
 
 -- Display markers
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		local coords = GetEntityCoords(PlayerPedId())
 
@@ -283,9 +283,9 @@ Citizen.CreateThread(function()
 end)
 
 -- Enter / Exit marker events
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		local coords      = GetEntityCoords(PlayerPedId())
 		local isInMarker  = false
@@ -312,9 +312,9 @@ Citizen.CreateThread(function()
 end)
 
 -- Key controls
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		if CurrentAction then
 			ESX.ShowHelpNotification(CurrentActionMsg)
@@ -327,13 +327,13 @@ Citizen.CreateThread(function()
 				CurrentAction = nil
 			end
 		else
-			Citizen.Wait(500)
+			Wait(500)
 		end
 	end
 end)
 
 -- Load IPLS
-Citizen.CreateThread(function()
+CreateThread(function()
 	RequestIpl('ex_dt1_02_office_02c')
 end)
 
@@ -487,7 +487,7 @@ function MenuF6Immo()
 	rImmoF6:SetRectangleBanner(200, 0, 0, 254)
     RageUI.Visible(rImmoF6, not RageUI.Visible(rImmoF6))
     while rImmoF6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(rImmoF6, true, true, true, function()
 
                 RageUI.Separator("↓ Facture ↓")
@@ -558,7 +558,7 @@ function aProperty()
         Property = true
 		RageUI.Visible(RMenu:Get('Property', 'create'), true)
 
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			while Property do
 				RageUI.IsVisible(RMenu:Get("Property",'create'),true,true,true,function()
                     local pos = GetEntityCoords(PlayerPedId())
@@ -611,7 +611,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), 151.0994, -1007.8073, -98.9999)	
+                                    SetEntityCoords(PlayerPedId(), 151.0994, -1007.8073, -98.9999)	
 
 	
                                 elseif Index == 2 then
@@ -621,7 +621,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), 265.6031, -1002.9244, -99.0086)	
+                                    SetEntityCoords(PlayerPedId(), 265.6031, -1002.9244, -99.0086)	
 
 		                          
                                 elseif Index == 3 then
@@ -631,7 +631,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), -616.8566, 59.3575, 98.2000)
+                                    SetEntityCoords(PlayerPedId(), -616.8566, 59.3575, 98.2000)
 
 
                                 elseif Index == 4 then
@@ -641,7 +641,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), -788.3881, 320.2430, 187.3132)
+                                    SetEntityCoords(PlayerPedId(), -788.3881, 320.2430, 187.3132)
 
                                
                                 elseif Index == 5 then
@@ -651,7 +651,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), -1459.1700, -520.5855, 56.9247) 
+                                    SetEntityCoords(PlayerPedId(), -1459.1700, -520.5855, 56.9247) 
 
                                 elseif Index == 6 then
                                     ipl = '[]'
@@ -660,7 +660,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), -674.4503, 595.6156, 145.3796)
+                                    SetEntityCoords(PlayerPedId(), -674.4503, 595.6156, 145.3796)
                                 elseif Index == 7 then
                                     ipl = '[]'
                                     inside = '{"x":1026.5056,"y":-3099.8320,"z":-38.9998}'
@@ -668,7 +668,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), 1026.8707, -3099.8710, -38.9998)	
+                                    SetEntityCoords(PlayerPedId(), 1026.8707, -3099.8710, -38.9998)	
                                 elseif Index == 8 then
                                     ipl = '[]'
                                     inside = '{"x":1048.5067,"y":-3097.0817,"z":-38.9999}'
@@ -676,7 +676,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), 1072.8447, -3100.0390, -38.9999)	
+                                    SetEntityCoords(PlayerPedId(), 1072.8447, -3100.0390, -38.9999)	
                                 elseif Index == 9 then
                                     ipl = '[]'
                                     inside = '{"x":1088.1834,"y":-3099.3547,"z":-38.9999}'
@@ -684,7 +684,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), 1104.7231, -3100.0690, -38.9999)	
+                                    SetEntityCoords(PlayerPedId(), 1104.7231, -3100.0690, -38.9999)	
 
                                 end
                             end
@@ -741,7 +741,7 @@ function aProperty()
                                     else 	
                                        TriggerServerEvent('mrw_prop:Save', name, label, entering, exit, inside, outside, ipl, isSingle, isRoom, isGateway, roommenu, price)
 
-                                       Citizen.Wait(15)
+                                       Wait(15)
                                        SetEntityCoords(PlayerPedId(), PedPosition.x, PedPosition.y, PedPosition.z)
                                     end
                                 end  
@@ -768,11 +768,11 @@ function OpenKeyboard(type, labelText)
 	DisplayOnscreenKeyboard(1, "FMMC_KEY_TIP1", "", "", "", "", "", 25)
 	blockinput = true
 	while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
-		Citizen.Wait(0)
+		Wait(0)
 	end
 	if UpdateOnscreenKeyboard() ~= 2 then
 		local result = GetOnscreenKeyboardResult() 
-		Citizen.Wait(500) 
+		Wait(500) 
 		blockinput = false 
 		if type == "name" then 
 			ESX.ShowNotification("Nom assigné : ~b~"..noSpace(result))
@@ -789,13 +789,13 @@ function OpenKeyboard(type, labelText)
 		    return tonumber(result)
 		end
 	else
-		Citizen.Wait(500)
+		Wait(500)
 		blockinput = false 
 		return nil
 	end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 0
 		if ESX.PlayerData.job and ESX.PlayerData.job.name == 'realestateagent' then
@@ -803,7 +803,7 @@ Citizen.CreateThread(function()
 			MenuF6Immo()
         end
 	end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -813,16 +813,16 @@ local function AgentImmoKeyboardInput(TextEntry, ExampleText, MaxStringLenght)
     blockinput = true
 
     while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do 
-        Citizen.Wait(0)
+        Wait(0)
     end
         
     if UpdateOnscreenKeyboard() ~= 2 then
         local result = GetOnscreenKeyboardResult() 
-        Citizen.Wait(500) 
+        Wait(500) 
         blockinput = false
         return result 
     else
-        Citizen.Wait(500) 
+        Wait(500) 
         blockinput = false 
         return nil 
     end
@@ -841,7 +841,7 @@ function MenuDpropriete()
 	local Dpropriete = RageUI.CreateMenu("Demande de propriété", " ")
 	RageUI.Visible(Dpropriete, not RageUI.Visible(Dpropriete))
 	while Dpropriete do
-		Citizen.Wait(0)
+		Wait(0)
 		RageUI.IsVisible(Dpropriete, true, true, true, function()
 			local posped = GetEntityCoords(PlayerPedId())
 

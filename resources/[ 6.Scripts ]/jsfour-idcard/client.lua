@@ -12,7 +12,7 @@ AddEventHandler('jsfour-idcard:open', function( data, type )
 end)
 
 -- Key events
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		Wait(0)
 		if IsControlJustReleased(0, 322) and open or IsControlJustReleased(0, 177) and open then

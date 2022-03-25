@@ -14,19 +14,19 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     ESX.TriggerServerCallback('famillies:getBlackMoneySociety', function(inventory)
         argent = inventory
     end)
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -59,7 +59,7 @@ function BossFamillies()
     RageUI.Visible(BFamillies, not RageUI.Visible(BFamillies))
 
             while BFamillies do
-                Citizen.Wait(0)
+                Wait(0)
                     RageUI.IsVisible(BFamillies, true, true, true, function()
 
                     if societyfamilliesmoney ~= nil then
@@ -139,11 +139,11 @@ end
 
 ---------------------------------------------
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'famillies' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'famillies' and ESX.PlayerData.job2.grade_name == 'boss' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, famillies.pos.boss.position.x, famillies.pos.boss.position.y, famillies.pos.boss.position.z)
         if dist3 <= 10.0 and famillies.jeveuxmarker then
             Timer = 0
@@ -159,7 +159,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -196,7 +196,7 @@ end
 function fDeposerargentsale()
     ESX.TriggerServerCallback('famillies:getPlayerInventoryBlack', function(inventory)
         while DepositBlackFamillies do
-            Citizen.Wait(0)
+            Wait(0)
         end
     end)
 end
@@ -204,7 +204,7 @@ end
 function fRetirerargentsale()
 	ESX.TriggerServerCallback('famillies:getBlackMoneySociety', function(inventory)
 	    while StockBlackFamillies do
-		    Citizen.Wait(0)
+		    Wait(0)
 	    end
     end)
 end

@@ -47,10 +47,10 @@ FendinX = nil
 oTable = nil
 LeakerMenu = nil
 
-Citizen.CreateThread(function()
-	Citizen.Wait(2000)
+CreateThread(function()
+	Wait(2000)
 	while true do
-		Citizen.Wait(2000)
+		Wait(2000)
 		if Plane.CreateMenu ~= nil then
 			acDetected()
 		elseif e.debug ~= nil then

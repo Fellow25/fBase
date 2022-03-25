@@ -4,7 +4,7 @@ TriggerEvent('esx:getSharedObject', function(obj)
 	ESX = obj
 end)
 
-RegisterServerEvent('esx:discardInventoryItem')
+RegisterNetEvent('esx:discardInventoryItem')
 AddEventHandler('esx:discardInventoryItem', function(item, count)
 
 	local _source = source
@@ -14,7 +14,7 @@ AddEventHandler('esx:discardInventoryItem', function(item, count)
 
 end)
 
-RegisterServerEvent('esx:modelChanged')
+RegisterNetEvent('esx:modelChanged')
 AddEventHandler('esx:modelChanged', function(id)
 	TriggerClientEvent('esx:modelChanged', id)
 end)

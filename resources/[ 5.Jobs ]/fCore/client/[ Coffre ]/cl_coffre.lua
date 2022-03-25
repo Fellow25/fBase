@@ -1,7 +1,7 @@
 local inTrunk = false
 
 ESX = nil
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         Wait(0)
         if inTrunk then
@@ -44,7 +44,7 @@ Citizen.CreateThread(function()
     end
 end)   
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end) Wait(0) end
     while not NetworkIsSessionStarted() or ESX.GetPlayerData().job == nil do Wait(0) end
     while true do
@@ -78,7 +78,7 @@ Citizen.CreateThread(function()
                     if IsControlJustReleased(0, 38) and not inTrunk then
                         local player = ESX.Game.GetClosestPlayer()
                         local playerPed = GetPlayerPed(player)
-						local playerPed2 = GetPlayerPed(-1)
+						local playerPed2 = PlayerPedId()
 						if lockStatus == 1 then --unlocked
 							if DoesEntityExist(playerPed) then
 								if not IsEntityAttached(playerPed) or GetDistanceBetweenCoords(GetEntityCoords(playerPed), GetEntityCoords(PlayerPedId()), true) >= 5.0 then

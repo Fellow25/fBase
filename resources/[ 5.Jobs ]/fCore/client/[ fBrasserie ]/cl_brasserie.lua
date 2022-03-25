@@ -13,16 +13,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -48,7 +48,7 @@ AddEventHandler('esx:setJob2', function(job2)
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if brasserie.jeveuxblips then
     local brasseriemap = AddBlipForCoord(brasserie.pos.blips.position.x, brasserie.pos.blips.position.y, brasserie.pos.blips.position.z)
 
@@ -68,7 +68,7 @@ function Menuf6Brasserie()
     Brasserief6:SetRectangleBanner(0, 150, 0)
     RageUI.Visible(Brasserief6, not RageUI.Visible(Brasserief6))
     while Brasserief6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(Brasserief6, true, true, true, function()
 
                 RageUI.ButtonWithStyle("Passer une facture",nil, {RightLabel = "→"}, true, function(_,_,s)
@@ -197,7 +197,7 @@ function Coffrebrasserie()
     Cbrasserie:SetRectangleBanner(0, 150, 0)
         RageUI.Visible(Cbrasserie, not RageUI.Visible(Cbrasserie))
             while Cbrasserie do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cbrasserie, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -240,11 +240,11 @@ function Coffrebrasserie()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'brasserie' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, brasserie.pos.coffre.position.x, brasserie.pos.coffre.position.y, brasserie.pos.coffre.position.z)
             if jobdist <= 10.0 and brasserie.jeveuxmarker then
                 Timer = 0
@@ -258,7 +258,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -268,7 +268,7 @@ function Garagebrasserie()
     Gbrasserie:SetRectangleBanner(0, 150, 0)
       RageUI.Visible(Gbrasserie, not RageUI.Visible(Gbrasserie))
           while Gbrasserie do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Gbrasserie, true, true, true, function()
                       RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then   
@@ -283,7 +283,7 @@ function Garagebrasserie()
                       for k,v in pairs(Gbrasserievoiture) do
                       RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                           if (Selected) then
-                          Citizen.Wait(1)  
+                          Wait(1)  
                               spawnuniCarbrasserie(v.modele)
                               RageUI.CloseAll()
                               end
@@ -297,11 +297,11 @@ function Garagebrasserie()
       end
   end
   
-  Citizen.CreateThread(function()
+  CreateThread(function()
           while true do
               local Timer = 500
               if ESX.PlayerData.job and ESX.PlayerData.job.name == 'brasserie' then
-              local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+              local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
               local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, brasserie.pos.garage.position.x, brasserie.pos.garage.position.y, brasserie.pos.garage.position.z)
               if dist3 <= 10.0 and brasserie.jeveuxmarker then
                   Timer = 0
@@ -315,7 +315,7 @@ function Garagebrasserie()
                       end   
                   end
               end 
-          Citizen.Wait(Timer)
+          Wait(Timer)
        end
   end)
   
@@ -325,15 +325,15 @@ function Garagebrasserie()
       RequestModel(car)
       while not HasModelLoaded(car) do
           RequestModel(car)
-          Citizen.Wait(0)
+          Wait(0)
       end
   
-      local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+      local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
       local vehicle = CreateVehicle(car, brasserie.pos.spawnvoiture.position.x, brasserie.pos.spawnvoiture.position.y, brasserie.pos.spawnvoiture.position.z, brasserie.pos.spawnvoiture.position.h, true, false)
       SetEntityAsMissionEntity(vehicle, true, true)
       local plaque = "brasserie"..math.random(1,9)
       SetVehicleNumberPlateText(vehicle, plaque) 
-      SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+      SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
   end
 
 
@@ -367,7 +367,7 @@ function brasserieRetirerobjet()
     itemstock = items
     RageUI.Visible(Stockbrasserie, not RageUI.Visible(Stockbrasserie))
         while Stockbrasserie do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockbrasserie, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -396,7 +396,7 @@ function brasserieDeposerobjet()
     ESX.TriggerServerCallback('brasserie:getPlayerInventory', function(inventory)
         RageUI.Visible(Depositbrasserie, not RageUI.Visible(Depositbrasserie))
     while Depositbrasserie do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(Depositbrasserie, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

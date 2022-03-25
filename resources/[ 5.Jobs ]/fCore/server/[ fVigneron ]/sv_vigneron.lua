@@ -68,26 +68,26 @@ AddEventHandler('playerDropped', function()
 
 		-- Is it worth telling all clients to refresh?
 		if xPlayer ~= nil and xPlayer.job ~= nil and xPlayer.job.name == 'vigneron' then
-			Citizen.Wait(5000)
+			Wait(5000)
 			TriggerClientEvent('esx_vigneronjob:updateBlip', -1)
 		end
 	end
 end)
 
-RegisterServerEvent('esx_vigneronjob:spawned')
+RegisterNetEvent('esx_vigneronjob:spawned')
 AddEventHandler('esx_vigneronjob:spawned', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
 	if xPlayer ~= nil and xPlayer.job ~= nil and xPlayer.job.name == 'vigneron' then
-		Citizen.Wait(5000)
+		Wait(5000)
 		TriggerClientEvent('esx_vigneronjob:updateBlip', -1)
 	end
 end)
 
 AddEventHandler('onResourceStart', function(resource)
 	if resource == GetCurrentResourceName() then
-		Citizen.Wait(5000)
+		Wait(5000)
 		TriggerClientEvent('esx_vigneronjob:updateBlip', -1)
 	end
 end)
@@ -98,12 +98,12 @@ AddEventHandler('onResourceStop', function(resource)
 	end
 end)
 
-RegisterServerEvent('esx_vigneronjob:message')
+RegisterNetEvent('esx_vigneronjob:message')
 AddEventHandler('esx_vigneronjob:message', function(target, msg)
 	TriggerClientEvent('esx:showNotification', target, msg)
 end)
 
-RegisterServerEvent('AnnonceVigneOuvert')
+RegisterNetEvent('AnnonceVigneOuvert')
 AddEventHandler('AnnonceVigneOuvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -114,7 +114,7 @@ AddEventHandler('AnnonceVigneOuvert', function()
 	end
 end)
 
-RegisterServerEvent('AnnonceVigneFermer')
+RegisterNetEvent('AnnonceVigneFermer')
 AddEventHandler('AnnonceVigneFermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -125,7 +125,7 @@ AddEventHandler('AnnonceVigneFermer', function()
 	end
 end)
 
-RegisterServerEvent('vigneron:prendreitems')
+RegisterNetEvent('vigneron:prendreitems')
 AddEventHandler('vigneron:prendreitems', function(itemName, count)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

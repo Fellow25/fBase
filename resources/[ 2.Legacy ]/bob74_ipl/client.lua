@@ -1,5 +1,5 @@
 
-Citizen.CreateThread(function()
+CreateThread(function()
     -- ====================================================================
     -- =--------------------- [GTA V: Single player] ---------------------=
     -- ====================================================================
@@ -23,10 +23,10 @@ Citizen.CreateThread(function()
     TrevorsTrailer.LoadDefault()
 
     -- Bahama Mamas: -1388.0013, -618.41967, 30.819599
-    BahamaMamas.Enable(false)
+    BahamaMamas.Enable(true)
 
     -- Pillbox hospital: 307.1680, -590.807, 43.280
-    PillboxHospital.Enable(false)
+    PillboxHospital.Enable(true)
 
     -- Zancudo Gates (GTAO like): -1600.30100000, 2806.73100000, 18.79683000
     ZancudoGates.LoadDefault()
@@ -144,5 +144,27 @@ Citizen.CreateThread(function()
         DiamondCasino.LoadDefault()                -- 1100.000, 220.000, -50.000
         DiamondPenthouse.LoadDefault()             -- 976.636, 70.295, 115.164
     end
-end)
 
+    -- ====================================================================
+    -- =------------------- [DLC: Los Santos Tuners] ---------------------=
+    -- ====================================================================
+    if GetGameBuildNumber() >= 2372 then
+        TunerGarage.LoadDefault()   -- -1350.0, 160.0, -100.0
+        TunerMethLab.LoadDefault()  -- 981.9999, -143.0, -50.0
+        TunerMeetup.LoadDefault()   -- -2000.0, 1113.211, -25.36243
+    end
+
+    -- ====================================================================
+    -- =------------------- [DLC: Los Santos The Contract] ---------------------=
+    -- ====================================================================
+    if GetGameBuildNumber() >= 2545 then
+        MpSecurityGarage.LoadDefault()   -- -1071.4387, -77.033875, -93.525505
+        MpSecurityMusicRoofTop.LoadDefault()   -- -592.6896, 273.1052, 116.302444
+        MpSecurityStudio.LoadDefault()   -- -1000.7252, -70.559875, -98.10669
+        MpSecurityBillboards.LoadDefault()   -- -592.6896, 273.1052, 116.302444
+        MpSecurityOffice1.LoadDefault()   -- -1021.86084, -427.74564, 68.95764
+        MpSecurityOffice2.LoadDefault()   -- 383.4156, -59.878227, 108.4595
+        MpSecurityOffice3.LoadDefault()   -- -1004.23035, -761.2084, 66.99069
+        MpSecurityOffice4.LoadDefault()   -- -587.87213, -716.84937, 118.10156
+    end
+end)

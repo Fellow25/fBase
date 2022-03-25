@@ -35,7 +35,7 @@ local maitem = false
 local tekst = 0
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	local sleep = 1
 	local hash = GetHashKey("s_m_y_cop_01")
 	while not HasModelLoaded(hash) do
@@ -60,7 +60,7 @@ Citizen.CreateThread(function()
     end
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(100)
+        Wait(100)
     end
     while (true) do
         if Vdist2(GetEntityCoords(PlayerPedId(), false), Peds.sortie.coords) < 3 then
@@ -201,7 +201,7 @@ Citizen.CreateThread(function()
 				onSelected = function()
 					ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
 						playAnim('mp_clothing@female@shirt', 'try_shirt_positive_a', Config.Animation1.Time)
-						Citizen.Wait(4000)
+						Wait(4000)
 						TriggerEvent('skinchanger:loadSkin', skin)
 						TriggerEvent('esx:restoreLoadout')
 			
@@ -212,7 +212,7 @@ Citizen.CreateThread(function()
 			});
 			end, function()
 		end)
-        Citizen.Wait(sleep)
+        Wait(sleep)
     end
 
 end)
@@ -249,10 +249,10 @@ function OnEsPartit()
 	ExecuteCommand('me Tiens prend ta merde !')
 	print("^9BrownyProd ^4| ^6BNJ Homme Efficace")
 	playAnim('mp_cop_armoury', 'pistol_on_counter_cop', Config.Animation.Time)
-	Citizen.Wait(Config.Animation.Time)
+	Wait(Config.Animation.Time)
 	DeleteEntity(medkit)
 	TaskPlayAnim(ped, "mp_cop_armoury", "rifle_on_counter_cop", 2.0, 2.0, -1, 0, 0, false, false, false)
-	Citizen.Wait(3000)	
+	Wait(3000)	
 	medkitbnj = CreateObject(GetHashKey("p_t_shirt_pile_s"), 0, 0, 0, true, true, true)
 	AttachEntityToEntity(medkitbnj, ped, GetPedBoneIndex(ped, 57005), 0.4, 0, 0, 0, 270.0, 60.0, true, true, false, true, 1, true)
 	playAnim('mp_common', 'givetake1_a', Config.Animation.Time)
@@ -262,7 +262,7 @@ function OnEsPartit()
 	DeleteEntity(medkitbnjbnj)
 	ESX.ShowHelpNotification("~g~Gardien : ~s~Change toi ici")
 	playAnim('mp_clothing@female@shirt', 'try_shirt_positive_a', Config.Animation1.Time)
-	Citizen.Wait(2500)
+	Wait(2500)
 	TriggerEvent('skinchanger:getSkin', function(skin)
 		if skin.sex == 0 then
 			TriggerEvent('skinchanger:loadClothes', skin, Config.Uniforms.prison_vetement.male)
@@ -286,7 +286,7 @@ end
 
 function playAnim(animDict, animName, duration)
 	RequestAnimDict(animDict)
-	while not HasAnimDictLoaded(animDict) do Citizen.Wait(0) end
+	while not HasAnimDictLoaded(animDict) do Wait(0) end
 	TaskPlayAnim(PlayerPedId(), animDict, animName, 1.0, -1.0, duration, 49, 1, false, false, false)
 	RemoveAnimDict(animDict)
 end
@@ -315,8 +315,8 @@ end)
 
 function skup()
 	TriggerServerEvent('bnj:skup')
-	Citizen.Wait(3500)
-	Citizen.Wait(13000)
+	Wait(3500)
+	Wait(13000)
 	FreezeEntityPosition(PlayerPedId(), false)
 	recolerbnj = false
 end
@@ -335,7 +335,7 @@ AddEventHandler('bnj:collecte', function()
 	FreezeEntityPosition(playerPed, false)
 	ClearPedTasks(PlayerPedId())
 	maitem = true
-	Citizen.Wait(1000)
+	Wait(1000)
 	recolerbnj = false
 	TriggerEvent('bnj:prop')
 end)
@@ -343,7 +343,7 @@ end)
 RegisterNetEvent('bnj:craft')
 AddEventHandler('bnj:craft', function()
 	TaskStartScenarioInPlace(PlayerPedId(), "PROP_HUMAN_BUM_BIN", 0, true)
-	Citizen.Wait(2000)
+	Wait(2000)
 end)
 
 RegisterNetEvent('bnj:prop')
@@ -351,7 +351,7 @@ AddEventHandler('bnj:prop', function()
 	function loadAnimDict(dict)
 		while (not HasAnimDictLoaded(dict)) do
 			RequestAnimDict(dict)
-			Citizen.Wait(5)
+			Wait(5)
 		end
 	end
 	local ad = "anim@heists@box_carry@"
@@ -364,19 +364,19 @@ AddEventHandler('bnj:prop', function()
 		bagModel = 'prop_car_door_04'
 		porte = CreateObject(GetHashKey(bagModel), x, y, z+0.2,  true,  true, true)
 		AttachEntityToEntity(porte, PlayerPedId(), GetPedBoneIndex(PlayerPedId(), 60309), 0.025, 0.00, 0.355, -75.0, 470.0, 0.0, true, true, false, true, 1, true)
-		Citizen.Wait(10000)
+		Wait(10000)
 
 	elseif bnj == 2 then
 		bagModel = 'prop_car_door_04'
 		porte = CreateObject(GetHashKey(bagModel), x, y, z+0.2,  true,  true, true)
 		AttachEntityToEntity(porte, PlayerPedId(), GetPedBoneIndex(PlayerPedId(), 60309), 0.025, 0.00, 0.355, -045.0, 480.0, 0.0, true, true, false, true, 1, true)
-		Citizen.Wait(10000)
+		Wait(10000)
 
 	else	
 		bagModel = 'prop_car_door_04'
 		porte = CreateObject(GetHashKey(bagModel), x, y, z,  true,  true, true)
 		AttachEntityToEntity(porte, PlayerPedId(), GetPedBoneIndex(PlayerPedId(), 60309), 0.125, -0.50, 0.355, -045.0, 410.0, 0.0, true, true, false, true, 1, true)
-		Citizen.Wait(10000)
+		Wait(10000)
 	end
 end)
 
@@ -397,7 +397,7 @@ local UI = {
 RegisterNetEvent('bnj:craft2')
 AddEventHandler('bnj:craft2', function()
 	while true do
-		Citizen.Wait(1)
+		Wait(1)
 		if recolerbnj == true then
 		drawTxt(UI.x + 0.9605, UI.y + 0.962, 1.0,0.98,0.4, "~y~[~w~".. tekst .. "%~y~]", 255, 255, 255, 255)
 		end
@@ -425,10 +425,10 @@ end)
 RegisterNetEvent('traitement')
 AddEventHandler('traitement', function()
 	for v = 1,101 do
-		Citizen.Wait(37)
+		Wait(37)
 		tekst = tekst + 1
 	end
-	Citizen.Wait(1500)
+	Wait(1500)
 	tekst = 0
 end)
 
@@ -458,7 +458,7 @@ end)
          RequestNamedPtfxAsset(particleDictionary)
  
          while not HasNamedPtfxAssetLoaded(particleDictionary) do
-             Citizen.Wait(0)
+             Wait(0)
          end
  
          SetPtfxAssetNextCall(particleDictionary)
@@ -477,10 +477,10 @@ end)
          StopParticleFxLooped(effect4, 0)
  end)
  
- Citizen.CreateThread(function()
+ CreateThread(function()
      while true do
        
-     Citizen.Wait(5)
+     Wait(5)
        
          local coords = GetEntityCoords(PlayerPedId())
          for k, v in pairs(douche) do
@@ -519,12 +519,12 @@ end)
  
                              end)
                          end
-                         Citizen.Wait(500)
+                         Wait(500)
                          TriggerEvent('bnj:supersync',PlayerPedId(), 'bnj', v["x"], v["y"], v["z"])
-                         Citizen.Wait(2500)
-                         Citizen.Wait(1000)
+                         Wait(2500)
+                         Wait(1000)
                          TriggerEvent('bnj:supersync', PlayerPedId(), 'bnj1')
-                         Citizen.Wait(6500)
+                         Wait(6500)
                          FreezeEntityPosition(PlayerPedId(), false)
                      end
                  end
@@ -550,21 +550,21 @@ end)
          RequestAnimDict(animDictionary)
  
          while not HasAnimDictLoaded(animDictionary) do
-             Citizen.Wait(0)
+             Wait(0)
          end
          
          local hashSkin = GetHashKey("mp_m_freemode_01") 
          RequestAnimDict(animDictionary2)
  
          while not HasAnimDictLoaded(animDictionary2) do
-             Citizen.Wait(0)
+             Wait(0)
          end		
          TaskPlayAnim(PlayerPed, animDictionary, animName, 8.0, -8.0, -1, 0, 0, false, false, false)
          
          RequestNamedPtfxAsset(particleDictionary)
  
          while not HasNamedPtfxAssetLoaded(particleDictionary) do
-             Citizen.Wait(0)
+             Wait(0)
          end
  
          SetPtfxAssetNextCall(particleDictionary)
@@ -608,7 +608,7 @@ AddEventHandler('bnj:supersync', function(player, sync, x, y, z)
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
 
     local prisonmap = AddBlipForCoord(729.49, 144.08, 20.8)
 

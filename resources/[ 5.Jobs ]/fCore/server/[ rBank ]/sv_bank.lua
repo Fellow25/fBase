@@ -2,7 +2,7 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-RegisterServerEvent("gBank:deposer")
+RegisterNetEvent("gBank:deposer")
 AddEventHandler("gBank:deposer", function(money)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -20,7 +20,7 @@ AddEventHandler("gBank:deposer", function(money)
     end    
 end) 
 
-RegisterServerEvent("gBank:retirer")
+RegisterNetEvent("gBank:retirer")
 AddEventHandler("gBank:retirer", function(money)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -39,7 +39,7 @@ AddEventHandler("gBank:retirer", function(money)
 end)
 
 
-RegisterServerEvent("bank:solde") 
+RegisterNetEvent("bank:solde") 
 AddEventHandler("bank:solde", function(action, amount)
     local xPlayer = ESX.GetPlayerFromId(source)
     local playerMoney = xPlayer.getAccount('bank').money

@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -23,7 +23,7 @@ AddEventHandler('esx:setJob', function(job)
 	ESX.PlayerData.job = job
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if Tequila.jeveuxblips then
     local tequilamap = AddBlipForCoord(Tequila.pos.blips.position.x, Tequila.pos.blips.position.y, Tequila.pos.blips.position.z)
     SetBlipSprite(tequilamap, 93)
@@ -41,7 +41,7 @@ function Menuf6Tequila()
     fTequilaf6:SetRectangleBanner(173, 248, 2)
     RageUI.Visible(fTequilaf6, not RageUI.Visible(fTequilaf6))
     while fTequilaf6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fTequilaf6, true, true, true, function()
 
                 RageUI.Separator("↓ Facture ↓")
@@ -129,7 +129,7 @@ function OpenPrendreMenuTequila()
     PrendreMenu:SetRectangleBanner(173, 248, 2)
         RageUI.Visible(PrendreMenu, not RageUI.Visible(PrendreMenu))
     while PrendreMenu do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(PrendreMenu, true, true, true, function()
             for k,v in pairs(Tequila.Bar.item) do
             RageUI.ButtonWithStyle(v.Label.. ' Prix: ' .. v.Price .. '€', nil, { }, true, function(Hovered, Active, Selected)
@@ -148,11 +148,11 @@ function OpenPrendreMenuTequila()
 end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tequila' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Tequila.pos.MenuPrendre.position.x, Tequila.pos.MenuPrendre.position.y, Tequila.pos.MenuPrendre.position.z)
         if dist3 <= 7.0 and Tequila.jeveuxmarker then
             Timer = 0
@@ -166,7 +166,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -177,7 +177,7 @@ function Coffretequila()
     Ctequila:SetRectangleBanner(173, 248, 2)
         RageUI.Visible(Ctequila, not RageUI.Visible(Ctequila))
             while Ctequila do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Ctequila, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -203,11 +203,11 @@ function Coffretequila()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tequila' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Tequila.pos.coffre.position.x, Tequila.pos.coffre.position.y, Tequila.pos.coffre.position.z)
             if jobdist <= 10.0 and Tequila.jeveuxmarker then
                 Timer = 0
@@ -221,7 +221,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -233,7 +233,7 @@ function GarageTequila()
   GTequila:SetRectangleBanner(173, 248, 2)
     RageUI.Visible(GTequila, not RageUI.Visible(GTequila))
         while GTequila do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GTequila, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -248,7 +248,7 @@ function GarageTequila()
                     for k,v in pairs(GTequilavoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarTequila(v.modele)
                             RageUI.CloseAll()
                             end
@@ -262,11 +262,11 @@ function GarageTequila()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tequila' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Tequila.pos.garage.position.x, Tequila.pos.garage.position.y, Tequila.pos.garage.position.z)
             if dist3 <= 10.0 and Tequila.jeveuxmarker then
                 Timer = 0
@@ -280,7 +280,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -290,15 +290,15 @@ function spawnuniCarTequila(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Tequila.pos.spawnvoiture.position.x, Tequila.pos.spawnvoiture.position.y, Tequila.pos.spawnvoiture.position.z, Tequila.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Tequila"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 
@@ -312,7 +312,7 @@ function TequilaRetirerobjet()
    
     RageUI.Visible(Stocktequila, not RageUI.Visible(Stocktequila))
         while Stocktequila do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stocktequila, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -341,7 +341,7 @@ function TequilaDeposerobjet()
     ESX.TriggerServerCallback('ftequila:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

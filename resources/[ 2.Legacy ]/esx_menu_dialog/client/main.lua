@@ -1,4 +1,4 @@
-Citizen.CreateThread(function()
+CreateThread(function()
 	local ESX = exports['es_extended']:getSharedObject()
 	local Timeouts, OpenedMenus, MenuType = {}, {}, 'dialog'
 
@@ -83,9 +83,9 @@ Citizen.CreateThread(function()
 		end
 	end)
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
-			Citizen.Wait(10)
+			Wait(10)
 
 			if ESX.Table.SizeOf(OpenedMenus) > 0 then
 				DisableControlAction(0, 1,   true) -- LookLeftRight
@@ -98,7 +98,7 @@ Citizen.CreateThread(function()
 				DisableControlAction(0, 16, true) -- SelectNextWeapon
 				DisableControlAction(0, 17, true) -- SelectPrevWeapon
 			else
-				Citizen.Wait(500)
+				Wait(500)
 			end
 		end
 	end)

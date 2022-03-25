@@ -58,12 +58,12 @@ AddEventHandler('boulangerie:putStockItems', function(itemName, count)
 	end)
 end)
 
-RegisterServerEvent('esx_boulangeriejob:message')
+RegisterNetEvent('esx_boulangeriejob:message')
 AddEventHandler('esx_boulangeriejob:message', function(target, msg)
 	TriggerClientEvent('esx:showNotification', target, msg)
 end)
 
-RegisterServerEvent('AnnonceBoulangerieOuvert')
+RegisterNetEvent('AnnonceBoulangerieOuvert')
 AddEventHandler('AnnonceBoulangerieOuvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -74,7 +74,7 @@ AddEventHandler('AnnonceBoulangerieOuvert', function()
 	end
 end)
 
-RegisterServerEvent('AnnonceBoulangerieFermer')
+RegisterNetEvent('AnnonceBoulangerieFermer')
 AddEventHandler('AnnonceBoulangerieFermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

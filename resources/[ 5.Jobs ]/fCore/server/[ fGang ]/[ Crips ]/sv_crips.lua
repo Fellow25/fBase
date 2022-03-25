@@ -69,7 +69,7 @@ ESX.RegisterServerCallback('crips:getPlayerInventoryBlack', function(source, cb)
 	})
   end)
 
-RegisterServerEvent('crips:putblackmoney')
+RegisterNetEvent('crips:putblackmoney')
 AddEventHandler('crips:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -106,7 +106,7 @@ end)
   
   end)
 
-  RegisterServerEvent('crips:getItem')
+  RegisterNetEvent('crips:getItem')
   AddEventHandler('crips:getItem', function(type, item, count)
   
     local _source      = source

@@ -154,12 +154,12 @@ function PlaySound(Library, Sound, IsLooped,  Audio)
         PlaySoundFrontend(-1, Sound, Library, true)
     else
         if not Audio.Id then
-            Citizen.CreateThread(function()
+            CreateThread(function()
                 Audio.Id = GetSoundId()
 
                 PlaySoundFrontend(Audio.Id, Sound, Library, true)
 
-                Citizen.Wait(0.01)
+                Wait(0.01)
 
                 StopSound(Audio.Id)
 
@@ -1124,11 +1124,11 @@ function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName
         end
     end
 
-    Citizen.CreateThread(function()
+    CreateThread(function()
         if not HasScaleformMovieLoaded(Menu.InstructionalScaleform) then
             Menu.InstructionalScaleform = RequestScaleformMovie("INSTRUCTIONAL_BUTTONS")
             while not HasScaleformMovieLoaded(Menu.InstructionalScaleform) do
-                Citizen.Wait(0)
+                Wait(0)
             end
         end
     end)
@@ -3205,23 +3205,23 @@ function RageUI.GoLeft(Controls)
                 if IsDisabledControlJustPressed(Controls.Left.Keys[Index][1], Controls.Left.Keys[Index][2]) then
                     Controls.Left.Pressed = true
 
-                    Citizen.CreateThread(function()
+                    CreateThread(function()
                         Controls.Left.Active = true
 
-                        Citizen.Wait(0.01)
+                        Wait(0.01)
 
                         Controls.Left.Active = false
 
-                        Citizen.Wait(174.99)
+                        Wait(174.99)
 
                         while Controls.Left.Enabled and IsDisabledControlPressed(Controls.Left.Keys[Index][1], Controls.Left.Keys[Index][2]) do
                             Controls.Left.Active = true
 
-                            Citizen.Wait(0.01)
+                            Wait(0.01)
 
                             Controls.Left.Active = false
 
-                            Citizen.Wait(124.99)
+                            Wait(124.99)
                         end
 
                         Controls.Left.Pressed = false
@@ -3242,23 +3242,23 @@ function RageUI.GoRight(Controls)
                 if IsDisabledControlJustPressed(Controls.Right.Keys[Index][1], Controls.Right.Keys[Index][2]) then
                     Controls.Right.Pressed = true
 
-                    Citizen.CreateThread(function()
+                    CreateThread(function()
                         Controls.Right.Active = true
 
-                        Citizen.Wait(0.01)
+                        Wait(0.01)
 
                         Controls.Right.Active = false
 
-                        Citizen.Wait(174.99)
+                        Wait(174.99)
 
                         while Controls.Right.Enabled and IsDisabledControlPressed(Controls.Right.Keys[Index][1], Controls.Right.Keys[Index][2]) do
                             Controls.Right.Active = true
 
-                            Citizen.Wait(1)
+                            Wait(1)
 
                             Controls.Right.Active = false
 
-                            Citizen.Wait(124.99)
+                            Wait(124.99)
                         end
 
                         Controls.Right.Pressed = false
@@ -3278,13 +3278,13 @@ function RageUI.GoSliderLeft(Controls)
             if not Controls.SliderLeft.Pressed then
                 if IsDisabledControlJustPressed(Controls.SliderLeft.Keys[Index][1], Controls.SliderLeft.Keys[Index][2]) then
                     Controls.SliderLeft.Pressed = true
-                    Citizen.CreateThread(function()
+                    CreateThread(function()
                         Controls.SliderLeft.Active = true
-                        Citizen.Wait(1)
+                        Wait(1)
                         Controls.SliderLeft.Active = false
                         while Controls.SliderLeft.Enabled and IsDisabledControlPressed(Controls.SliderLeft.Keys[Index][1], Controls.SliderLeft.Keys[Index][2]) do
                             Controls.SliderLeft.Active = true
-                            Citizen.Wait(1)
+                            Wait(1)
                             Controls.SliderLeft.Active = false
                         end
                         Controls.SliderLeft.Pressed = false
@@ -3302,13 +3302,13 @@ function RageUI.GoSliderRight(Controls)
             if not Controls.SliderRight.Pressed then
                 if IsDisabledControlJustPressed(Controls.SliderRight.Keys[Index][1], Controls.SliderRight.Keys[Index][2]) then
                     Controls.SliderRight.Pressed = true
-                    Citizen.CreateThread(function()
+                    CreateThread(function()
                         Controls.SliderRight.Active = true
-                        Citizen.Wait(1)
+                        Wait(1)
                         Controls.SliderRight.Active = false
                         while Controls.SliderRight.Enabled and IsDisabledControlPressed(Controls.SliderRight.Keys[Index][1], Controls.SliderRight.Keys[Index][2]) do
                             Controls.SliderRight.Active = true
-                            Citizen.Wait(1)
+                            Wait(1)
                             Controls.SliderRight.Active = false
                         end
                         Controls.SliderRight.Pressed = false
@@ -3352,15 +3352,15 @@ function RageUI.Controls()
                             if IsDisabledControlJustPressed(Controls.Up.Keys[Index][1], Controls.Up.Keys[Index][2]) then
                                 Controls.Up.Pressed = true
 
-                                Citizen.CreateThread(function()
+                                CreateThread(function()
                                     RageUI.GoUp(Options)
 
-                                    Citizen.Wait(175)
+                                    Wait(175)
 
                                     while Controls.Up.Enabled and IsDisabledControlPressed(Controls.Up.Keys[Index][1], Controls.Up.Keys[Index][2]) do
                                         RageUI.GoUp(Options)
 
-                                        Citizen.Wait(50)
+                                        Wait(50)
                                     end
 
                                     Controls.Up.Pressed = false
@@ -3378,15 +3378,15 @@ function RageUI.Controls()
                             if IsDisabledControlJustPressed(Controls.Down.Keys[Index][1], Controls.Down.Keys[Index][2]) then
                                 Controls.Down.Pressed = true
 
-                                Citizen.CreateThread(function()
+                                CreateThread(function()
                                     RageUI.GoDown(Options)
 
-                                    Citizen.Wait(175)
+                                    Wait(175)
 
                                     while Controls.Down.Enabled and IsDisabledControlPressed(Controls.Down.Keys[Index][1], Controls.Down.Keys[Index][2]) do
                                         RageUI.GoDown(Options)
 
-                                        Citizen.Wait(50)
+                                        Wait(50)
                                     end
 
                                     Controls.Down.Pressed = false
@@ -3411,23 +3411,23 @@ function RageUI.Controls()
                             if IsDisabledControlJustPressed(Controls.Select.Keys[Index][1], Controls.Select.Keys[Index][2]) then
                                 Controls.Select.Pressed = true
 
-                                Citizen.CreateThread(function()
+                                CreateThread(function()
                                     Controls.Select.Active = true
 
-                                    Citizen.Wait(0.01)
+                                    Wait(0.01)
 
                                     Controls.Select.Active = false
 
-                                    Citizen.Wait(174.99)
+                                    Wait(174.99)
 
                                     while Controls.Select.Enabled and IsDisabledControlPressed(Controls.Select.Keys[Index][1], Controls.Select.Keys[Index][2]) do
                                         Controls.Select.Active = true
 
-                                        Citizen.Wait(0.01)
+                                        Wait(0.01)
 
                                         Controls.Select.Active = false
 
-                                        Citizen.Wait(124.99)
+                                        Wait(124.99)
                                     end
 
                                     Controls.Select.Pressed = false
@@ -3446,23 +3446,23 @@ function RageUI.Controls()
                             if IsDisabledControlJustPressed(Controls.Click.Keys[Index][1], Controls.Click.Keys[Index][2]) then
                                 Controls.Click.Pressed = true
 
-                                Citizen.CreateThread(function()
+                                CreateThread(function()
                                     Controls.Click.Active = true
 
-                                    Citizen.Wait(0.01)
+                                    Wait(0.01)
 
                                     Controls.Click.Active = false
 
-                                    Citizen.Wait(174.99)
+                                    Wait(174.99)
 
                                     while Controls.Click.Enabled and IsDisabledControlPressed(Controls.Click.Keys[Index][1], Controls.Click.Keys[Index][2]) do
                                         Controls.Click.Active = true
 
-                                        Citizen.Wait(0.01)
+                                        Wait(0.01)
 
                                         Controls.Click.Active = false
 
-                                        Citizen.Wait(124.99)
+                                        Wait(124.99)
                                     end
 
                                     Controls.Click.Pressed = false
@@ -3926,10 +3926,10 @@ function RageUI.PlaySound(Library, Sound, IsLooped)
         PlaySoundFrontend(-1, Sound, Library, true)
     else
         if not audioId then
-            Citizen.CreateThread(function()
+            CreateThread(function()
                 audioId = GetSoundId()
                 PlaySoundFrontend(audioId, Sound, Library, true)
-                Citizen.Wait(0)
+                Wait(0)
                 StopSound(audioId)
                 ReleaseSoundId(audioId)
                 audioId = nil
@@ -3961,11 +3961,11 @@ function RageUI.Banner(Enabled, Glare)
 
                     if Glare then
                         local ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
-                        Citizen.CreateThread(function()
+                        CreateThread(function()
                             if not HasScaleformMovieLoaded(ScaleformMovie) then
                                 ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
                                 while not HasScaleformMovieLoaded(ScaleformMovie) do
-                                    Citizen.Wait(0)
+                                    Wait(0)
                                 end
                             end
                         end)
@@ -4230,14 +4230,14 @@ end
 ---@public
 function RageUI.CreateWhile(wait, closure, type)
     type = 1;
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
             if (type == 1) then
-                Citizen.Wait(1)
+                Wait(1)
             end
             closure()
             if (type == 2) then
-                Citizen.Wait(1)
+                Wait(1)
             end
         end
     end)

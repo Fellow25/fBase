@@ -12,16 +12,16 @@ ESX = nil
 	RegisterNetEvent('esx:setJob')
 	AddEventHandler('esx:setJob', function(job)  
 		PlayerData.job = job  
-		Citizen.Wait(5000) 
+		Wait(5000) 
 	end)
 	
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while ESX == nil do
 			TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-			Citizen.Wait(10)
+			Wait(10)
 		end
 		while ESX.GetPlayerData().job == nil do
-			Citizen.Wait(10)
+			Wait(10)
 		end
 		if ESX.IsPlayerLoaded() then
 	
@@ -46,7 +46,7 @@ ESX = nil
 		ESX.PlayerData.job2 = job2
 	end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if Mafia.jeveuxblips then
         local mafiamap = AddBlipForCoord(Mafia.pos.blips.position.x, Mafia.pos.blips.position.y, Mafia.pos.blips.position.z)
     
@@ -64,7 +64,7 @@ function Coffremafia()
     local Cmafia = RageUI.CreateMenu("Coffre", "Mafia")
         RageUI.Visible(Cmafia, not RageUI.Visible(Cmafia))
             while Cmafia do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cmafia, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -90,11 +90,11 @@ function Coffremafia()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Mafia.pos.coffre.position.x, Mafia.pos.coffre.position.y, Mafia.pos.coffre.position.z)
             if jobdist <= 10.0 and Mafia.jeveuxmarker then
                 Timer = 0
@@ -108,7 +108,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -119,7 +119,7 @@ function Garagemafia()
   local Gmafia = RageUI.CreateMenu("Garage", "Mafia")
     RageUI.Visible(Gmafia, not RageUI.Visible(Gmafia))
         while Gmafia do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Gmafia, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -134,7 +134,7 @@ function Garagemafia()
                     for k,v in pairs(Gmafiavoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarmafia(v.modele)
                             RageUI.CloseAll()
                             end
@@ -148,11 +148,11 @@ function Garagemafia()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.pos.garage.position.x, Mafia.pos.garage.position.y, Mafia.pos.garage.position.z)
             if dist3 <= 10.0 and Mafia.jeveuxmarker then
                 Timer = 0
@@ -166,7 +166,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -176,15 +176,15 @@ function spawnuniCarmafia(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Mafia.pos.spawnvoiture.position.x, Mafia.pos.spawnvoiture.position.y, Mafia.pos.spawnvoiture.position.z, Mafia.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Mafia"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
     SetVehicleCustomPrimaryColour(vehicle, 0, 0, 0)
     SetVehicleCustomSecondaryColour(vehicle, 0, 0, 0)
     SetVehicleMaxMods(vehicle)
@@ -198,7 +198,7 @@ function MafiaRetirerobjet()
    
     RageUI.Visible(Stockmafia, not RageUI.Visible(Stockmafia))
         while Stockmafia do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockmafia, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -226,7 +226,7 @@ function MafiaDeposerobjet()
     ESX.TriggerServerCallback('fmafia:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -263,7 +263,7 @@ function Theoriemafia()
     local Tmafia = RageUI.CreateMenu("Craft Théorie", "Mafia")
       RageUI.Visible(Tmafia, not RageUI.Visible(Tmafia))
           while Tmafia do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Tmafia, true, true, true, function()
                     for k,v in pairs(Mafia.craft) do
                         RageUI.ButtonWithStyle(v.name, nil, {RightLabel = "?"},true, function(Hovered, Active, Selected)
@@ -292,11 +292,11 @@ function Theoriemafia()
       end
   end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-    local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
     local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.pos.theorie.position.x, Mafia.pos.theorie.position.y, Mafia.pos.theorie.position.z)
     if dist3 <= 10.0 and Mafia.jeveuxmarker then
         Timer = 0
@@ -310,7 +310,7 @@ while true do
             end   
         end
     end 
-Citizen.Wait(Timer)
+Wait(Timer)
 end
 end)
 
@@ -324,7 +324,7 @@ function MenuCraftmafia()
     choixnbruban = 0
       RageUI.Visible(Craftmafia, not RageUI.Visible(Craftmafia))
           while Craftmafia do
-              Citizen.Wait(0)
+              Wait(0)
                   RageUI.IsVisible(Craftmafia, true, true, true, function()
                     for v = 1, #inventory.items, 1 do
                         if inventory.items[v].name == "metaux" or inventory.items[v].name == "poudre" or inventory.items[v].name == "meche" or inventory.items[v].name == "ruban" then
@@ -481,11 +481,11 @@ function MenuCraftmafia()
     end)
   end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-    local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
     local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.pos.craftmenu.position.x, Mafia.pos.craftmenu.position.y, Mafia.pos.craftmenu.position.z)
     if dist3 <= 10.0 and Mafia.jeveuxmarker then
         Timer = 0
@@ -499,7 +499,7 @@ while true do
             end   
         end
     end 
-Citizen.Wait(Timer)
+Wait(Timer)
 end
 end)
 
@@ -509,7 +509,7 @@ function mafiaRecolteMetaux()
     RageUI.Visible(ARM, not RageUI.Visible(ARM))
     
     while ARM do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARM, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de métaux", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -526,11 +526,11 @@ function mafiaRecolteMetaux()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Mafia.farm.metaux.position.x, Mafia.farm.metaux.position.y, Mafia.farm.metaux.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -552,7 +552,7 @@ function recoltemetaux()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('metaux')
     end
     else
@@ -560,11 +560,11 @@ function recoltemetaux()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.farm.metaux.position.x, Mafia.farm.metaux.position.y, Mafia.farm.metaux.position.z)
         if dist3 <= 10.0 and Mafia.jeveuxmarker then
             Timer = 0
@@ -578,7 +578,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 ------------------------------------
@@ -588,7 +588,7 @@ function mafiaRecoltepoudre()
     RageUI.Visible(ARC, not RageUI.Visible(ARC))
     
     while ARC do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARC, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de poudre à canon", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -605,11 +605,11 @@ function mafiaRecoltepoudre()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Mafia.farm.poudre.position.x, Mafia.farm.poudre.position.y, Mafia.farm.poudre.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -631,7 +631,7 @@ function recoltepoudre()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('poudre')
     end
     else
@@ -639,11 +639,11 @@ function recoltepoudre()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.farm.poudre.position.x, Mafia.farm.poudre.position.y, Mafia.farm.poudre.position.z)
         if dist3 <= 10.0 and Mafia.jeveuxmarker then
             Timer = 0
@@ -657,7 +657,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -668,7 +668,7 @@ function mafiaRecolteMeche()
     RageUI.Visible(ARM, not RageUI.Visible(ARM))
     
     while ARM do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARM, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de mèche", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -685,11 +685,11 @@ function mafiaRecolteMeche()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Mafia.farm.meche.position.x, Mafia.farm.meche.position.y, Mafia.farm.meche.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -711,7 +711,7 @@ function recoltemeche()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('meche')
     end
     else
@@ -719,11 +719,11 @@ function recoltemeche()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.farm.meche.position.x, Mafia.farm.meche.position.y, Mafia.farm.meche.position.z)
         if dist3 <= 10.0 and Mafia.jeveuxmarker then
             Timer = 0
@@ -737,7 +737,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -748,7 +748,7 @@ function mafiaRecolteruban()
     RageUI.Visible(ARL, not RageUI.Visible(ARL))
     
     while ARL do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(ARL, true, true, true, function()
                 RageUI.ButtonWithStyle("Récolte de ruban adhésif", nil, {}, true, function(Hovered, Active, Selected)
                 if (Selected) then
@@ -765,11 +765,11 @@ function mafiaRecolteruban()
     end
 
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Mafia.farm.ruban.position.x, Mafia.farm.ruban.position.y, Mafia.farm.ruban.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -791,7 +791,7 @@ function recolteruban()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-        Citizen.Wait(2000)
+        Wait(2000)
         TriggerServerEvent('ruban')
     end
     else
@@ -799,11 +799,11 @@ function recolteruban()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.farm.ruban.position.x, Mafia.farm.ruban.position.y, Mafia.farm.ruban.position.z)
         if dist3 <= 10.0 and Mafia.jeveuxmarker then
             Timer = 0
@@ -817,7 +817,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 

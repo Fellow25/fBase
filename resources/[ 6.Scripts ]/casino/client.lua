@@ -1,4 +1,4 @@
-Citizen.CreateThread(function()
+CreateThread(function()
 	RequestIpl("ch_int_placement_ch_interior_0_dlc_casino_heist_milo_")
 	RequestIpl("ch_int_placement_ch_interior_1_dlc_arcade_milo_")
 	RequestIpl("ch_int_placement_ch_interior_2_dlc_plan_milo_")

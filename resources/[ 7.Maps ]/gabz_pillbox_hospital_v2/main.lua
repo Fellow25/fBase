@@ -1,4 +1,4 @@
-Citizen.CreateThread(function()
+CreateThread(function()
   RequestIpl("gabz_pillbox_milo_")
 
   local interiorID = GetInteriorAtCoords(311.2546, -592.4204, 42.32737)

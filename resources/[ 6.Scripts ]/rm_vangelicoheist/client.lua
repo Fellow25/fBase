@@ -7,16 +7,16 @@ VangelicoHeist = {
 }
 
 ESX = nil
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent("esx:getSharedObject", function(library) 
 			ESX = library 
 		end)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for k, v in pairs(Config['VangelicoHeist']['startHeist']['peds']) do
         loadModel(v['ped'])
         VangelicoHeist['startPeds'][k] = CreatePed(4, GetHashKey(v['ped']), v['pos']['x'], v['pos']['y'], v['pos']['z'] - 0.95, v['heading'], false, true)
@@ -26,7 +26,7 @@ Citizen.CreateThread(function()
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local ped = PlayerPedId()
         local pedCo = GetEntityCoords(ped)
@@ -40,7 +40,7 @@ Citizen.CreateThread(function()
                 VangelicoStart()
             end
         end
-        Citizen.Wait(sleep)
+        Wait(sleep)
     end
 end)
 
@@ -112,7 +112,7 @@ AddEventHandler('vangelicoheist:client:policeAlert', function(targetCoords)
     SetBlipAsShortRange(nappingBlip, true)
 
     while alpha ~= 0 do
-        Citizen.Wait(500)
+        Wait(500)
         alpha = alpha - 1
         SetBlipAlpha(nappingBlip, alpha)
 
@@ -132,7 +132,7 @@ end)
 RegisterNetEvent('vangelicoheist:client:insideLoop')
 AddEventHandler('vangelicoheist:client:insideLoop', function()
     insideLoop = true
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while insideLoop do
             local ped = PlayerPedId()
             local pedCo = GetEntityCoords(ped)
@@ -176,7 +176,7 @@ AddEventHandler('vangelicoheist:client:insideLoop', function()
                 end
             end
             
-            Citizen.Wait(1)
+            Wait(1)
         end
     end)
 end)
@@ -569,7 +569,7 @@ AddEventHandler('vangelicoheist:client:startGas', function()
     SetPtfxAssetNextCall(ptfxAsset)
     ptfx = StartParticleFxLoopedAtCoord(particleFx, -622.0, -231.0, 38.0, 0.0, 0.0, 0.0, 0.5, false, false, false, false)
     gasLoop = true
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while gasLoop do
             local ped = PlayerPedId()
             local pedCo = GetEntityCoords(ped)
@@ -578,9 +578,9 @@ AddEventHandler('vangelicoheist:client:startGas', function()
 
             if dist <= 10.0 and not VangelicoHeist['gasMask'] then
                 ApplyDamageToPed(ped, 3, false)
-                Citizen.Wait(1000)
+                Wait(1000)
             end
-            Citizen.Wait(1)
+            Wait(1)
         end
     end)
 end)
@@ -656,14 +656,14 @@ end
 function loadPtfxAsset(dict)
     while not HasNamedPtfxAssetLoaded(dict) do
         RequestNamedPtfxAsset(dict)
-        Citizen.Wait(50)
+        Wait(50)
 	end
 end
 
 function loadAnimDict(dict)
     while not HasAnimDictLoaded(dict) do
         RequestAnimDict(dict)
-        Citizen.Wait(50)
+        Wait(50)
     end
 end
 
@@ -675,7 +675,7 @@ function loadModel(model)
     end
     while not HasModelLoaded(model) do
         RequestModel(model)
-        Citizen.Wait(0)
+        Wait(0)
     end
 end
 

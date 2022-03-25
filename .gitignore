@@ -1,0 +1,13 @@
+
+cfxlua-vscode/.editorconfig
+cfxlua-vscode/library/promise.lua
+cfxlua-vscode/.vscode/extensions.json
+cfxlua-vscode/library/citizen.lua
+cfxlua-vscode/library/env.lua
+cfxlua-vscode/library/event.lua
+cfxlua-vscode/library/json.lua
+cfxlua-vscode/library/luaglm.lua
+cfxlua-vscode/library/msgpack.lua
+cfxlua-vscode/plugin.lua
+cfxlua-vscode/README.md
+cfxlua-vscode/fbase.code-workspace

@@ -9,18 +9,20 @@ function GetSociety(name)
 	end
 end
 
-MySQL.ready(function()
-	local result = MySQL.Sync.fetchAll('SELECT * FROM jobs', {})
+AddEventHandler('onResourceStart', function(resourceName)
+	if resourceName == GetCurrentResourceName() then
+		local result = MySQL.query.await('SELECT * FROM jobs')
 
-	for i=1, #result, 1 do
-		Jobs[result[i].name] = result[i]
-		Jobs[result[i].name].grades = {}
-	end
+		for i = 1, #result, 1 do
+			Jobs[result[i].name] = result[i]
+			Jobs[result[i].name].grades = {}
+		end
 
-	local result2 = MySQL.Sync.fetchAll('SELECT * FROM job_grades', {})
+		local result2 = MySQL.query.await('SELECT * FROM job_grades')
 
-	for i=1, #result2, 1 do
-		Jobs[result2[i].job_name].grades[tostring(result2[i].grade)] = result2[i]
+		for i = 1, #result2, 1 do
+			Jobs[result2[i].job_name].grades[tostring(result2[i].grade)] = result2[i]
+		end
 	end
 end)
 
@@ -56,7 +58,7 @@ AddEventHandler('esx_society:getSociety', function(name, cb)
 	cb(GetSociety(name))
 end)
 
-RegisterServerEvent('esx_society:withdrawMoney')
+RegisterNetEvent('esx_society:withdrawMoney')
 AddEventHandler('esx_society:withdrawMoney', function(societyName, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local society = GetSociety(societyName)
@@ -73,7 +75,7 @@ AddEventHandler('esx_society:withdrawMoney', function(societyName, amount)
 		end)
 end)
 
-RegisterServerEvent('esx_society:depositMoney')
+RegisterNetEvent('esx_society:depositMoney')
 AddEventHandler('esx_society:depositMoney', function(societyName, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local society = GetSociety(societyName)
@@ -90,7 +92,7 @@ AddEventHandler('esx_society:depositMoney', function(societyName, amount)
 		end
 end)
 
-RegisterServerEvent('esx_society:washMoney')
+RegisterNetEvent('esx_society:washMoney')
 AddEventHandler('esx_society:washMoney', function(society, amount)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local account = xPlayer.getAccount('black_money')
@@ -100,11 +102,7 @@ AddEventHandler('esx_society:washMoney', function(society, amount)
 		if amount and amount > 0 and account.money >= amount then
 			xPlayer.removeAccountMoney('black_money', amount)
 
-			MySQL.Async.execute('INSERT INTO society_moneywash (identifier, society, amount) VALUES (@identifier, @society, @amount)', {
-				['@identifier'] = xPlayer.identifier,
-				['@society'] = society,
-				['@amount'] = amount
-			}, function(rowsChanged)
+			MySQL.insert('INSERT INTO society_moneywash (identifier, society, amount) VALUES (?, ?, ?)', {xPlayer.identifier, society, amount}, function(rowsChanged)
 				xPlayer.showNotification(_U('you_have', ESX.Math.GroupDigits(amount)))
 			end)
 		else
@@ -115,7 +113,7 @@ AddEventHandler('esx_society:washMoney', function(society, amount)
 	end
 end)
 
-RegisterServerEvent('esx_society:putVehicleInGarage')
+RegisterNetEvent('esx_society:putVehicleInGarage')
 AddEventHandler('esx_society:putVehicleInGarage', function(societyName, vehicle)
 	local society = GetSociety(societyName)
 
@@ -126,7 +124,7 @@ AddEventHandler('esx_society:putVehicleInGarage', function(societyName, vehicle)
 	end)
 end)
 
-RegisterServerEvent('esx_society:removeVehicleFromGarage')
+RegisterNetEvent('esx_society:removeVehicleFromGarage')
 AddEventHandler('esx_society:removeVehicleFromGarage', function(societyName, vehicle)
 	local society = GetSociety(societyName)
 
@@ -180,15 +178,10 @@ ESX.RegisterServerCallback('esx_society:getEmployees', function(source, cb, soci
 		})
 	end
 		
-	local query = "SELECT identifier, job_grade FROM `users` WHERE `job`=@job ORDER BY job_grade DESC"
+	local query = "SELECT identifier, job_grade, firstname, lastname FROM `users` WHERE `job`=? ORDER BY job_grade DESC"
 
-	if Config.EnableESXIdentity then
-		query = "SELECT identifier, job_grade, firstname, lastname FROM `users` WHERE `job`=@job ORDER BY job_grade DESC"
-	end
-
-	MySQL.Async.fetchAll(query, {
-		['@job'] = society
-	}, function(result)
+	MySQL.query(query, {society},
+	function(result)
 		for k, row in pairs(result) do
 			local alreadyInTable
 			local identifier = row.identifier
@@ -249,15 +242,9 @@ ESX.RegisterServerCallback('esx_society:getEmployees2', function(source, cb, soc
 		})
 	end
 		
-	local query = "SELECT identifier, job_grade FROM `users` WHERE `job2`=@job2 ORDER BY job_grade DESC"
+	local query = "SELECT identifier, job_grade, firstname, lastname FROM `users` WHERE `job2`=? ORDER BY job_grade2 DESC"
 
-	if Config.EnableESXIdentity then
-		query = "SELECT identifier, job_grade, firstname, lastname FROM `users` WHERE `job2`=@job2 ORDER BY job_grade DESC"
-	end
-
-	MySQL.Async.fetchAll(query, {
-		['@job2'] = society
-	}, function(result)
+	MySQL.query(query, {society}, function(result)
 		for k, row in pairs(result) do
 			local alreadyInTable
 			local identifier = row.identifier
@@ -348,11 +335,7 @@ ESX.RegisterServerCallback('esx_society:setJob', function(source, cb, identifier
 
 			cb()
 		else
-			MySQL.Async.execute('UPDATE users SET job = @job, job_grade = @job_grade WHERE identifier = @identifier', {
-				['@job']        = job,
-				['@job_grade']  = grade,
-				['@identifier'] = identifier
-			}, function(rowsChanged)
+			MySQL.update('UPDATE users SET job = ?, job_grade = ? WHERE identifier = ?', {job, grade,identifier}, function(rowsChanged)
 				cb()
 			end)
 		end
@@ -382,11 +365,7 @@ ESX.RegisterServerCallback('esx_society:setJob2', function(source, cb, identifie
 
 			cb()
 		else
-			MySQL.Async.execute('UPDATE users SET job2 = @job2, job2_grade = @job_grade WHERE identifier = @identifier', {
-				['@job2']        = job2,
-				['@job2_grade']  = grade2,
-				['@identifier'] = identifier
-			}, function(rowsChanged)
+			MySQL.update('UPDATE users SET job2 = ?, job_grade2 = ? WHERE identifier = ?', {job2, grade2, identifier}, function(rowsChanged)
 				cb()
 			end)
 		end
@@ -401,11 +380,8 @@ ESX.RegisterServerCallback('esx_society:setJobSalary', function(source, cb, job,
 
 	if xPlayer.job.name == job and xPlayer.job.grade_name == 'boss' then
 		if salary <= Config.MaxSalary then
-			MySQL.Async.execute('UPDATE job_grades SET salary = @salary WHERE job_name = @job_name AND grade = @grade', {
-				['@salary']   = salary,
-				['@job_name'] = job,
-				['@grade']    = grade
-			}, function(rowsChanged)
+			MySQL.update('UPDATE job_grades SET salary = ? WHERE job_name = ? AND grade = ?', {salary, job, grade},
+			function(rowsChanged)
 				Jobs[job].grades[tostring(grade)].salary = salary
 
 				local xPlayers = ESX.GetExtendedPlayers('job', job)
@@ -427,17 +403,12 @@ ESX.RegisterServerCallback('esx_society:setJobSalary', function(source, cb, job,
 		cb()
 	end
 end)
-
 ESX.RegisterServerCallback('esx_society:setJobSalary2', function(source, cb, job2, grade2, salary)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
 	if xPlayer.job2.name == job2 and xPlayer.job2.grade_name == 'boss' then
 		if salary <= Config.MaxSalary then
-			MySQL.Async.execute('UPDATE job_grades SET salary = @salary WHERE job_name = @job_name AND grade = @grade', {
-				['@salary']   = salary,
-				['@job_name'] = job2,
-				['@grade']    = grade2
-			}, function(rowsChanged)
+			MySQL.update('UPDATE job_grades SET salary = ? WHERE job_name = ? AND grade = ?', {salary, job2, grade2}, function(rowsChanged)
 				Jobs[job2].grades[tostring(grade2)].salary = salary
 
 				local xPlayers = ESX.GetExtendedPlayers('job2', job2)
@@ -476,11 +447,11 @@ ESX.RegisterServerCallback('esx_society:getOnlinePlayers', function(source, cb)
 		end
 		cb(onlinePlayers)
 		getOnlinePlayers = false
-		Citizen.Wait(1000) -- For the next second any extra requests will receive the cached list
+		Wait(1000) -- For the next second any extra requests will receive the cached list
 		onlinePlayers = {}
 		return
 	end
-	while getOnlinePlayers do Citizen.Wait(10) end -- Wait for the xPlayer loop to finish
+	while getOnlinePlayers do Wait(10) end -- Wait for the xPlayer loop to finish
 	cb(onlinePlayers)
 end)
 
@@ -499,11 +470,11 @@ ESX.RegisterServerCallback('esx_society:getOnlinePlayers2', function(source, cb)
 		end
 		cb(onlinePlayers)
 		getOnlinePlayers = false
-		Citizen.Wait(1000) -- For the next second any extra requests will receive the cached list
+		Wait(1000) -- For the next second any extra requests will receive the cached list
 		onlinePlayers = {}
 		return
 	end
-	while getOnlinePlayers do Citizen.Wait(10) end -- Wait for the xPlayer loop to finish
+	while getOnlinePlayers do Wait(10) end -- Wait for the xPlayer loop to finish
 	cb(onlinePlayers)
 end)
 
@@ -532,7 +503,7 @@ function isPlayerBoss(playerId, job)
 end
 
 function WashMoneyCRON(d, h, m)
-	MySQL.Async.fetchAll('SELECT * FROM society_moneywash', {}, function(result)
+	MySQL.query('SELECT * FROM society_moneywash', function(result)
 		for i=1, #result, 1 do
 			local society = GetSociety(result[i].society)
 			local xPlayer = ESX.GetPlayerFromIdentifier(result[i].identifier)
@@ -547,10 +518,8 @@ function WashMoneyCRON(d, h, m)
 				xPlayer.showNotification(_U('you_have_laundered', ESX.Math.GroupDigits(result[i].amount)))
 			end
 
-			MySQL.Async.execute('DELETE FROM society_moneywash WHERE id = @id', {
-				['@id'] = result[i].id
-			})
 		end
+		MySQL.update('DELETE FROM society_moneywash')
 	end)
 end
 

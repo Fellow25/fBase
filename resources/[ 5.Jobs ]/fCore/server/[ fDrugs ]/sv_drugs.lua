@@ -245,7 +245,7 @@ RegisterCommand('dealer', function(source, args, rawcommand)
     end
 end, false)
 
-RegisterServerEvent('stasiek_selldrugsv2:pay')
+RegisterNetEvent('stasiek_selldrugsv2:pay')
 AddEventHandler('stasiek_selldrugsv2:pay', function(drugToSell)
     xPlayer = ESX.GetPlayerFromId(source)
     xPlayer.removeInventoryItem(drugToSell.type, drugToSell.count)
@@ -256,7 +256,7 @@ AddEventHandler('stasiek_selldrugsv2:pay', function(drugToSell)
     end
 end)
 
-RegisterServerEvent('stasiek_selldrugsv2:notifycops')
+RegisterNetEvent('stasiek_selldrugsv2:notifycops')
 AddEventHandler('stasiek_selldrugsv2:notifycops', function(drugToSell)
     TriggerClientEvent('stasiek_selldrugsv2:notifyPolice', -1, drugToSell.coords)
 end)

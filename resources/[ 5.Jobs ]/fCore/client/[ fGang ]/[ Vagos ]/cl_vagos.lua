@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -30,7 +30,7 @@ end)
 
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
 if vagos.jeveuxblips then
     local vagosmap = AddBlipForCoord(334.75, -2039.65, 21.1)
 
@@ -51,7 +51,7 @@ function GarageVagos()
   local GVagos = RageUI.CreateMenu("Garage", "Vagos")
     RageUI.Visible(GVagos, not RageUI.Visible(GVagos))
         while GVagos do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GVagos, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -66,7 +66,7 @@ function GarageVagos()
                     for k,v in pairs(GVagosvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarVagos(v.modele)
                             RageUI.CloseAll()
                             end
@@ -80,11 +80,11 @@ function GarageVagos()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'vagos' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'vagos' then 
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, vagos.pos.garage.position.x, vagos.pos.garage.position.y, vagos.pos.garage.position.z)
             if dist3 <= 10.0 and vagos.jeveuxmarker then
                 Timer = 0
@@ -98,7 +98,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -108,15 +108,15 @@ function spawnuniCarVagos(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, vagos.pos.spawnvoiture.position.x, vagos.pos.spawnvoiture.position.y, vagos.pos.spawnvoiture.position.z, vagos.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "vagos"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
     SetVehicleCustomPrimaryColour(vehicle, 255, 255, 0)
     SetVehicleCustomSecondaryColour(vehicle, 255, 255, 0)
     SetVehicleMaxMods(vehicle)
@@ -143,7 +143,7 @@ function CoffreVagos()
 	local CVagos = RageUI.CreateMenu("Coffre", "Vagos")
         RageUI.Visible(CVagos, not RageUI.Visible(CVagos))
             while CVagos do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(CVagos, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -185,11 +185,11 @@ function CoffreVagos()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'vagos' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'vagos' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, vagos.pos.coffre.position.x, vagos.pos.coffre.position.y, vagos.pos.coffre.position.z)
             if jobdist <= 10.0 and vagos.jeveuxmarker then
                 Timer = 0
@@ -203,7 +203,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -215,7 +215,7 @@ function VagosRetirerobjet()
 	end)
 	RageUI.Visible(StockVagos, not RageUI.Visible(StockVagos))
         while StockVagos do
-		    Citizen.Wait(0)
+		    Wait(0)
 		        RageUI.IsVisible(StockVagos, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -242,7 +242,7 @@ function VagosDeposerobjet()
 	ESX.TriggerServerCallback('vagos:getPlayerInventory', function(inventory)
         RageUI.Visible(DepositVagos, not RageUI.Visible(DepositVagos))
     while DepositVagos do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositVagos, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

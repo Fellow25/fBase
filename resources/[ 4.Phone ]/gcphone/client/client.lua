@@ -35,10 +35,10 @@ local soundDistanceMax = 8.0
 
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
+		Wait(0)
   end
 end)
 
@@ -81,9 +81,9 @@ end, false)
 --====================================================================================
 --  
 --====================================================================================
-Citizen.CreateThread(function()
+CreateThread(function()
   while true do
-    Citizen.Wait(0)
+    Wait(0)
     if not menuIsOpen and isDead then
       DisableControlAction(0, 288, true)
     end
@@ -172,18 +172,18 @@ AddEventHandler('gcPhone:receiveLivePosition', function(sourcePlayerServerId, ti
     gpsActive = true
     Citizen.SetTimeout(timeoutInMilliseconds, function()
       SetBlipFlashes(entityBlip, true)
-      Citizen.Wait(10000)
+      Wait(10000)
       RemoveBlip(entityBlip)
       entityBlip = nil
       gpsActive = false
     end)
-    Citizen.CreateThread(function()
+    CreateThread(function()
       while Config.ItemRequired and gpsActive do
-        Citizen.Wait(checkRate)
+        Wait(checkRate)
         hasPhone(function (hasPhone)
           if hasPhone == false then
             SetBlipFlashes(entityBlip, true)
-            Citizen.Wait(2000) -- 2 Seconds
+            Wait(2000) -- 2 Seconds
             RemoveBlip(entityBlip)
             entityBlip = nil
             gpsActive = false
@@ -258,11 +258,11 @@ AddEventHandler('gcPhone:register_FixePhone', function(phone_number, data)
 end)
 
 local registeredPhones = {}
-Citizen.CreateThread(function()
+CreateThread(function()
   if not Config.AutoFindFixePhones then return end
-  while not ESX do Citizen.Wait(0) end
+  while not ESX do Wait(0) end
   while true do
-    local playerPed = GetPlayerPed(-1)
+    local playerPed = PlayerPedId()
     local coords = GetEntityCoords(playerPed)
     for _, key in pairs({'p_phonebox_01b_s', 'p_phonebox_02_s', 'prop_phonebox_01a', 'prop_phonebox_01b', 'prop_phonebox_01c', 'prop_phonebox_02', 'prop_phonebox_03', 'prop_phonebox_04'}) do
       local closestPhone = GetClosestObjectOfType(coords.x, coords.y, coords.z, 25.0, key, false)
@@ -275,11 +275,11 @@ Citizen.CreateThread(function()
         registeredPhones[closestPhone] = true
       end
     end
-    Citizen.Wait(1000)
+    Wait(1000)
   end
 end)
 
-Citizen.CreateThread(function ()
+CreateThread(function ()
   local mod = 0
   while true do
      
@@ -326,7 +326,7 @@ Citizen.CreateThread(function ()
       currentPlaySound = false
       StopSoundJS('ring2.ogg')
     end
-    Citizen.Wait(0)
+    Wait(0)
   end
 end)
 
@@ -396,9 +396,9 @@ AddEventHandler("gcPhone:receiveMessage", function(message)
     AddTextComponentString(text)
     DrawNotification(false, false)
     PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
-    Citizen.Wait(300)
+    Wait(300)
     PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
-    Citizen.Wait(300)
+    Wait(300)
     PlaySound(-1, "Menu_Accept", "Phone_SoundSet_Default", 0, 0, 1)
   end
 end)
@@ -791,7 +791,7 @@ AddEventHandler('onClientResourceStart', function(res)
   if res == "gcphone" then
       TriggerServerEvent('gcPhone:allUpdate')
       -- Try again in 2 minutes (Recovers bugged phone numbers)
-      Citizen.Wait(120000)
+      Wait(120000)
       TriggerServerEvent('gcPhone:allUpdate')
   end
 end)
@@ -805,13 +805,13 @@ RegisterNUICallback('takePhoto', function(data, cb)
 	CreateMobilePhone(1)
   CellCamActivate(true, true)
   takePhoto = true
-  Citizen.Wait(0)
+  Wait(0)
   if hasFocus == true then
     SetNuiFocus(false, false)
     hasFocus = false
   end
 	while takePhoto do
-    Citizen.Wait(0)
+    Wait(0)
 
 		if IsControlJustPressed(1, 27) then -- Toogle Mode
 			frontCam = not frontCam
@@ -839,6 +839,6 @@ RegisterNUICallback('takePhoto', function(data, cb)
 		HideHudComponentThisFrame(19)
     HideHudAndRadarThisFrame()
   end
-  Citizen.Wait(1000)
+  Wait(1000)
   PhonePlayAnim('text', false, true)
 end)

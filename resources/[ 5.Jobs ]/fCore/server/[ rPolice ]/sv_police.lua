@@ -84,7 +84,7 @@ AddEventHandler('rPolice:arsenalvide', function()
 	TriggerClientEvent('esx:showNotification', source, "Vous avez posé tous vos armes")
 end)
 
-RegisterServerEvent('police:PriseEtFinservice')
+RegisterNetEvent('police:PriseEtFinservice')
 AddEventHandler('police:PriseEtFinservice', function(PriseOuFin)
 	local _source = source
 	local _raison = PriseOuFin
@@ -100,7 +100,7 @@ AddEventHandler('police:PriseEtFinservice', function(PriseOuFin)
 	end
 end)
 
-RegisterServerEvent('renfort')
+RegisterNetEvent('renfort')
 AddEventHandler('renfort', function(coords, raison)
 	local _source = source
 	local _raison = raison

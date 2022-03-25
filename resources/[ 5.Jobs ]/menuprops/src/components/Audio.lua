@@ -20,12 +20,12 @@ function PlaySound(Library, Sound, IsLooped,  Audio)
         PlaySoundFrontend(-1, Sound, Library, true)
     else
         if not Audio.Id then
-            Citizen.CreateThread(function()
+            CreateThread(function()
                 Audio.Id = GetSoundId()
 
                 PlaySoundFrontend(Audio.Id, Sound, Library, true)
 
-                Citizen.Wait(0.01)
+                Wait(0.01)
 
                 StopSound(Audio.Id)
 

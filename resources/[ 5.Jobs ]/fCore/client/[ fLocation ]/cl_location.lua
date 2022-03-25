@@ -1,9 +1,9 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(0)
+        Wait(0)
     end
 end)
 
@@ -13,7 +13,7 @@ function OpenLocation()
     RageUI.Visible(Location, not RageUI.Visible(Location))
   
     while Location do
-        Citizen.Wait(0)
+        Wait(0)
         RageUI.IsVisible(Location, true, true, true, function()
   
             RageUI.ButtonWithStyle("BMX", nil, {RightLabel = "~g~50€"},true, function(Hovered, Active, Selected)
@@ -51,7 +51,7 @@ local position = {
 
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     local hash = GetHashKey("s_m_m_highsec_02")
     while not HasModelLoaded(hash) do
     RequestModel(hash)
@@ -62,7 +62,7 @@ Citizen.CreateThread(function()
     FreezeEntityPosition(ped, true)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     for k, v in pairs(position) do
         local blip = AddBlipForCoord(v.x, v.y, v.z)
         SetBlipSprite(blip, 38)
@@ -75,11 +75,11 @@ Citizen.CreateThread(function()
     end
 end)    
     
- Citizen.CreateThread(function()
+ CreateThread(function()
     while true do
         local sleep = 500
             for k in pairs(position) do
-                local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+                local plyCoords = GetEntityCoords(PlayerPedId(), false)
                 local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, position[k].x, position[k].y, position[k].z)
                     if dist <= 1.0 then
                     sleep = 0
@@ -89,7 +89,7 @@ end)
                     end
                 end
             end
-        Citizen.Wait(sleep)
+        Wait(sleep)
     end
 end)
 
@@ -100,13 +100,13 @@ AddEventHandler('g:spawnCar', function(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, -286.77, -1022.85, 30.20, 248.43, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "fLocation"
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end)

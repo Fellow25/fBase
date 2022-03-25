@@ -5,7 +5,7 @@ local VehiclesInShop = {}
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-RegisterServerEvent('fpwn_customs:refreshOwnedVehicle')
+RegisterNetEvent('fpwn_customs:refreshOwnedVehicle')
 AddEventHandler('fpwn_customs:refreshOwnedVehicle', function(vehicleProps)
 	local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -47,7 +47,7 @@ ESX.RegisterServerCallback('fpwn_customs:getVehiclesPrices', function(source, cb
 	end
 end)
 
-RegisterServerEvent('fpwn_customs:checkVehicle')
+RegisterNetEvent('fpwn_customs:checkVehicle')
 AddEventHandler('fpwn_customs:checkVehicle', function(plate)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	--print("plate: " .. plate)
@@ -63,7 +63,7 @@ AddEventHandler('fpwn_customs:checkVehicle', function(plate)
 	end
 end)
 
-RegisterServerEvent('fpwn_customs:saveVehicle')
+RegisterNetEvent('fpwn_customs:saveVehicle')
 AddEventHandler('fpwn_customs:saveVehicle', function(oldVehProps)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	--print("oldVehProps['plate']: " .. oldVehProps['plate'])
@@ -73,7 +73,7 @@ AddEventHandler('fpwn_customs:saveVehicle', function(oldVehProps)
 	end
 end)
 
-RegisterServerEvent('fpwn_customs:finishPurchase')
+RegisterNetEvent('fpwn_customs:finishPurchase')
 AddEventHandler('fpwn_customs:finishPurchase', function(society, newVehProps, shopCart, playerId, shopProfit)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xTarget = ESX.GetPlayerFromId(playerId)

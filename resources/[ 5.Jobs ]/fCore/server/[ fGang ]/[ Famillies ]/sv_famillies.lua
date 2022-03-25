@@ -69,7 +69,7 @@ ESX.RegisterServerCallback('famillies:getPlayerInventoryBlack', function(source,
 	})
   end)
 
-RegisterServerEvent('famillies:putblackmoney')
+RegisterNetEvent('famillies:putblackmoney')
 AddEventHandler('famillies:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -106,7 +106,7 @@ end)
   
   end)
 
-  RegisterServerEvent('famillies:getItem')
+  RegisterNetEvent('famillies:getItem')
   AddEventHandler('famillies:getItem', function(type, item, count)
   
     local _source      = source

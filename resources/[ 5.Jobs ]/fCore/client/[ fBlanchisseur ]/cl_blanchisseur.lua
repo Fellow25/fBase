@@ -4,14 +4,14 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 local PlayerData = {}
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -32,7 +32,7 @@ AddEventHandler('esx:setJob2', function(job2)
     ESX.PlayerData.job2 = job2
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 if blanchisseur.jeveuxblips then
     local blanchisseurmap = AddBlipForCoord(blanchisseur.pos.blip.position.x, blanchisseur.pos.blip.position.y, blanchisseur.pos.blip.position.z)
 
@@ -56,7 +56,7 @@ function GarageBlanchisseur()
   local GBlanchisseur = RageUI.CreateMenu("Garage", "Blanchisseur")
     RageUI.Visible(GBlanchisseur, not RageUI.Visible(GBlanchisseur))
         while GBlanchisseur do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GBlanchisseur, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -71,7 +71,7 @@ function GarageBlanchisseur()
                     for k,v in pairs(GBlanchisseurvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarBlanchisseur(v.modele)
                             RageUI.CloseAll()
                             end
@@ -85,11 +85,11 @@ function GarageBlanchisseur()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'blanchisseur' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'blanchisseur' then 
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, blanchisseur.pos.garage.position.x, blanchisseur.pos.garage.position.y, blanchisseur.pos.garage.position.z)
             if dist3 <= 10.0 and blanchisseur.jeveuxmarker then
                 Timer = 0
@@ -103,7 +103,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -113,15 +113,15 @@ function spawnuniCarBlanchisseur(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, blanchisseur.pos.spawnvoiture.position.x, blanchisseur.pos.spawnvoiture.position.y, blanchisseur.pos.spawnvoiture.position.z, blanchisseur.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "XXXXXXXXX"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
     SetVehicleCustomPrimaryColour(vehicle, 0, 0, 0)
     SetVehicleCustomSecondaryColour(vehicle, 0, 0, 0)
     SetVehicleMaxMods(vehicle)
@@ -147,7 +147,7 @@ function MenuF7Blanchisseur()
     local fBlanchisseurf7 = RageUI.CreateMenu("Blanchisseur", "Interactions")
     RageUI.Visible(fBlanchisseurf7, not RageUI.Visible(fBlanchisseurf7))
     while fBlanchisseurf7 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fBlanchisseurf7, true, true, true, function()
 
                 RageUI.Separator("↓ Facture ↓")
@@ -237,7 +237,7 @@ function CoffreBlanchisseur()
 	local CBlanchisseur = RageUI.CreateMenu("Coffre", "Blanchisseur")
         RageUI.Visible(CBlanchisseur, not RageUI.Visible(CBlanchisseur))
             while CBlanchisseur do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(CBlanchisseur, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -279,11 +279,11 @@ function CoffreBlanchisseur()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'blanchisseur' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'blanchisseur' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, blanchisseur.pos.coffre.position.x, blanchisseur.pos.coffre.position.y, blanchisseur.pos.coffre.position.z)
             if jobdist <= 10.0 and blanchisseur.jeveuxmarker then
                 Timer = 0
@@ -297,7 +297,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -307,7 +307,7 @@ function WashBlanchisseur()
 	local WBlanchisseur = RageUI.CreateMenu("Blanchir l'argent", "Blanchisseur")
         RageUI.Visible(WBlanchisseur, not RageUI.Visible(WBlanchisseur))
             while WBlanchisseur do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(WBlanchisseur, true, true, true, function()
 
 
@@ -326,11 +326,11 @@ function WashBlanchisseur()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'blanchisseur' and ESX.PlayerData.job2.grade_name == 'brasdroit' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'blanchisseur' and ESX.PlayerData.job2.grade_name == 'boss' then            
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, blanchisseur.pos.wash.position.x, blanchisseur.pos.wash.position.y, blanchisseur.pos.wash.position.z)
             if jobdist <= 10.0 and blanchisseur.jeveuxmarker then
                 Timer = 0
@@ -344,7 +344,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -355,7 +355,7 @@ function BlanchisseurRetirerobjet()
 	itemstock = items
 	RageUI.Visible(StockBlanchisseur, not RageUI.Visible(StockBlanchisseur))
         while StockBlanchisseur do
-		    Citizen.Wait(0)
+		    Wait(0)
 		        RageUI.IsVisible(StockBlanchisseur, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -383,7 +383,7 @@ function BlanchisseurDeposerobjet()
     ESX.TriggerServerCallback('blanchisseur:getPlayerInventory', function(inventory)
         RageUI.Visible(DepositBlanchisseur, not RageUI.Visible(DepositBlanchisseur))
     while DepositBlanchisseur do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositBlanchisseur, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

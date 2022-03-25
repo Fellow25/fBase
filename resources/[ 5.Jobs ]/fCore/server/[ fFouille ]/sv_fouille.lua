@@ -48,23 +48,23 @@ function mysplit (inputstr, sep)
 end
 
 
-RegisterServerEvent('fellow:handcuff')
+RegisterNetEvent('fellow:handcuff')
 AddEventHandler('fellow:handcuff', function(target)
   TriggerClientEvent('fellow:handcuff', target)
 end)
 
-RegisterServerEvent('fellow:drag')
+RegisterNetEvent('fellow:drag')
 AddEventHandler('fellow:drag', function(target)
   local _source = source
   TriggerClientEvent('fellow:drag', target, _source)
 end)
 
-RegisterServerEvent('fellow:putInVehicle')
+RegisterNetEvent('fellow:putInVehicle')
 AddEventHandler('fellow:putInVehicle', function(target)
   TriggerClientEvent('fellow:putInVehicle', target)
 end)
 
-RegisterServerEvent('fellow:OutVehicle')
+RegisterNetEvent('fellow:OutVehicle')
 AddEventHandler('fellow:OutVehicle', function(target)
     TriggerClientEvent('fellow:OutVehicle', target)
 end)

@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -23,7 +23,7 @@ AddEventHandler('esx:setJob', function(job)
 	ESX.PlayerData.job = job
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if Unicorn.jeveuxblips then
     local unicornmap = AddBlipForCoord(Unicorn.pos.blips.position.x, Unicorn.pos.blips.position.y, Unicorn.pos.blips.position.z)
     SetBlipSprite(unicornmap, 121)
@@ -41,7 +41,7 @@ function Menuf6Unicorn()
     fUnicornf6:SetRectangleBanner(147, 112, 219)
     RageUI.Visible(fUnicornf6, not RageUI.Visible(fUnicornf6))
     while fUnicornf6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fUnicornf6, true, true, true, function()
 
                 RageUI.Separator("↓ Facture ↓")
@@ -129,7 +129,7 @@ function OpenPrendreMenuUnicorn()
     PrendreMenu:SetRectangleBanner(147, 112, 219)
         RageUI.Visible(PrendreMenu, not RageUI.Visible(PrendreMenu))
     while PrendreMenu do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(PrendreMenu, true, true, true, function()
             for k,v in pairs(Unicorn.Bar.item) do
             RageUI.ButtonWithStyle(v.Label.. ' Prix: ' .. v.Price .. '€', nil, { }, true, function(Hovered, Active, Selected)
@@ -148,11 +148,11 @@ function OpenPrendreMenuUnicorn()
 end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'unicorn' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Unicorn.pos.MenuPrendre.position.x, Unicorn.pos.MenuPrendre.position.y, Unicorn.pos.MenuPrendre.position.z)
         if dist3 <= 7.0 and Unicorn.jeveuxmarker then
             Timer = 0
@@ -166,7 +166,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -177,7 +177,7 @@ function Coffreunicorn()
     Cunicorn:SetRectangleBanner(147, 112, 219)
         RageUI.Visible(Cunicorn, not RageUI.Visible(Cunicorn))
             while Cunicorn do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cunicorn, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -203,11 +203,11 @@ function Coffreunicorn()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'unicorn' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Unicorn.pos.coffre.position.x, Unicorn.pos.coffre.position.y, Unicorn.pos.coffre.position.z)
             if jobdist <= 10.0 and Unicorn.jeveuxmarker then
                 Timer = 0
@@ -221,7 +221,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -233,7 +233,7 @@ function GarageUnicorn()
   GUnicorn:SetRectangleBanner(147, 112, 219)
     RageUI.Visible(GUnicorn, not RageUI.Visible(GUnicorn))
         while GUnicorn do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GUnicorn, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -248,7 +248,7 @@ function GarageUnicorn()
                     for k,v in pairs(GUnicornvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarUnicorn(v.modele)
                             RageUI.CloseAll()
                             end
@@ -262,11 +262,11 @@ function GarageUnicorn()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'unicorn' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Unicorn.pos.garage.position.x, Unicorn.pos.garage.position.y, Unicorn.pos.garage.position.z)
             if dist3 <= 10.0 and Unicorn.jeveuxmarker then
                 Timer = 0
@@ -280,7 +280,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -290,15 +290,15 @@ function spawnuniCarUnicorn(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Unicorn.pos.spawnvoiture.position.x, Unicorn.pos.spawnvoiture.position.y, Unicorn.pos.spawnvoiture.position.z, Unicorn.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Vanilla Unicorn"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 
@@ -312,7 +312,7 @@ function UnicornRetirerobjet()
    
     RageUI.Visible(Stockunicorn, not RageUI.Visible(Stockunicorn))
         while Stockunicorn do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockunicorn, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -341,7 +341,7 @@ function UnicornDeposerobjet()
     ESX.TriggerServerCallback('funicorn:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

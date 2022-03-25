@@ -103,18 +103,18 @@ function EnterProperty(name, owner)
 
 	TriggerServerEvent('esx_property:saveLastProperty', name)
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		DoScreenFadeOut(800)
 
 		while not IsScreenFadedOut() do
-			Citizen.Wait(0)
+			Wait(0)
 		end
 
 		for i=1, #property.ipls, 1 do
 			RequestIpl(property.ipls[i])
 
 			while not IsIplActive(property.ipls[i]) do
-				Citizen.Wait(0)
+				Wait(0)
 			end
 		end
 
@@ -139,11 +139,11 @@ function ExitProperty(name)
 
 	TriggerServerEvent('esx_property:deleteLastProperty')
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		DoScreenFadeOut(800)
 
 		while not IsScreenFadedOut() do
-			Citizen.Wait(0)
+			Wait(0)
 		end
 
 		SetEntityCoords(playerPed, outside.x, outside.y, outside.z)
@@ -658,9 +658,9 @@ end)
 
 AddEventHandler('esx:onPlayerSpawn', function()
 	if firstSpawn then
-		Citizen.CreateThread(function()
+		CreateThread(function()
 			while not ESX.IsPlayerLoaded() do
-				Citizen.Wait(0)
+				Wait(0)
 			end
 
 			ESX.TriggerServerCallback('esx_property:getLastProperty', function(propertyName)
@@ -672,7 +672,7 @@ AddEventHandler('esx:onPlayerSpawn', function()
 							RequestIpl(property.ipls[i])
 
 							while not IsIplActive(property.ipls[i]) do
-								Citizen.Wait(0)
+								Wait(0)
 							end
 						end
 
@@ -766,9 +766,9 @@ AddEventHandler('esx_property:hasExitedMarker', function(name, part)
 end)
 
 -- Enter / Exit marker events & Draw markers
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		local coords = GetEntityCoords(PlayerPedId())
 		local isInMarker, letSleep = false, true
@@ -843,15 +843,15 @@ Citizen.CreateThread(function()
 		end
 
 		if letSleep then
-			Citizen.Wait(500)
+			Wait(500)
 		end
 	end
 end)
 
 -- Key controls
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 
 		if CurrentAction then
 			ESX.ShowHelpNotification(CurrentActionMsg)
@@ -874,7 +874,7 @@ Citizen.CreateThread(function()
 				CurrentAction = nil
 			end
 		else
-			Citizen.Wait(500)
+			Wait(500)
 		end
 	end
 end)

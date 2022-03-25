@@ -1,6 +1,6 @@
 RconLog({ msgType = 'serverStart', hostname = 'lovely', maxplayers = 32 })
 
-RegisterServerEvent('rlPlayerActivated')
+RegisterNetEvent('rlPlayerActivated')
 
 local names = {}
 
@@ -14,7 +14,7 @@ AddEventHandler('rlPlayerActivated', function()
 	end
 end)
 
-RegisterServerEvent('rlUpdateNamesResult')
+RegisterNetEvent('rlUpdateNamesResult')
 
 AddEventHandler('rlUpdateNamesResult', function(res)
     if source ~= tonumber(GetHostId()) then

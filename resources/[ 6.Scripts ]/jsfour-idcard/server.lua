@@ -3,7 +3,7 @@ local ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 -- Open ID card
-RegisterServerEvent('jsfour-idcard:open')
+RegisterNetEvent('jsfour-idcard:open')
 AddEventHandler('jsfour-idcard:open', function(ID, targetID, type)
 	local identifier = ESX.GetPlayerFromId(ID).identifier
 	local _source 	 = ESX.GetPlayerFromId(targetID).source

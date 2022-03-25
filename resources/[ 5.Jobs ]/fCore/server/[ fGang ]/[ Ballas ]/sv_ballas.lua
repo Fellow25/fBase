@@ -69,7 +69,7 @@ ESX.RegisterServerCallback('ballas:getPlayerInventoryBlack', function(source, cb
 	})
   end)
 
-RegisterServerEvent('ballas:putblackmoney')
+RegisterNetEvent('ballas:putblackmoney')
 AddEventHandler('ballas:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -106,7 +106,7 @@ end)
   
   end)
 
-  RegisterServerEvent('ballas:getItem')
+  RegisterNetEvent('ballas:getItem')
   AddEventHandler('ballas:getItem', function(type, item, count)
   
     local _source      = source

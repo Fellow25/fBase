@@ -9,7 +9,7 @@ end)
 RegisterNetEvent('esx:setJob2')
 AddEventHandler('esx:setJob2', function(job2)
 	ESX.PlayerData.job2 = job2
-	RefreshBussHUD()
+	RefreshBussHUD2()
 end)
 
 RegisterNetEvent('esx:playerLoaded')
@@ -22,7 +22,7 @@ end)
 function RefreshBussHUD()
 	DisableSocietyMoneyHUDElement()
 
-	if ESX.PlayerData.job.grade_name == 'boss' or ESX.PlayerData.job2.grade_name == 'boss' then
+	if ESX.PlayerData.job.grade_name == 'boss' then
 		EnableSocietyMoneyHUDElement()
 
 		ESX.TriggerServerCallback('esx_society:getSocietyMoney', function(money)
@@ -30,6 +30,18 @@ function RefreshBussHUD()
 		end, ESX.PlayerData.job.name)
 	end
 end
+
+function RefreshBussHUD2()
+	DisableSocietyMoneyHUDElement()
+
+	if ESX.PlayerData.job2.grade_name == 'boss' then
+		EnableSocietyMoneyHUDElement()
+
+		ESX.TriggerServerCallback('esx_society:getSocietyMoney', function(money)
+			UpdateSocietyMoneyHUDElement(money)
+		end, ESX.PlayerData.job2.name)
+	end
+end 
 
 RegisterNetEvent('esx_addonaccount:setMoney')
 AddEventHandler('esx_addonaccount:setMoney', function(society, money)
@@ -548,4 +560,4 @@ AddEventHandler('esx_society:openBossMenu', function(society, close, options)
 	OpenBossMenu(society, close, options)
 end)
 
-if ESX.PlayerLoaded then RefreshBussHUD() end
+if ESX.PlayerLoaded then RefreshBussHUD() RefreshBussHUD2() end

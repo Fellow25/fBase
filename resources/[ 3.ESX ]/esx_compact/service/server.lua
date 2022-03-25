@@ -13,18 +13,18 @@ function GetInServiceCount(name)
 	return count
 end
 
-RegisterServerEvent('esx_service:activateService')
+RegisterNetEvent('esx_service:activateService')
 AddEventHandler('esx_service:activateService', function(name, max)
 	InService[name] = {}
 	MaxInService[name] = max
 end)
 
-RegisterServerEvent('esx_service:disableService')
+RegisterNetEvent('esx_service:disableService')
 AddEventHandler('esx_service:disableService', function(name)
 	InService[name][source] = nil
 end)
 
-RegisterServerEvent('esx_service:notifyAllInService')
+RegisterNetEvent('esx_service:notifyAllInService')
 AddEventHandler('esx_service:notifyAllInService', function(notification, name)
 	for k,v in pairs(InService[name]) do
 		if v == true then
@@ -75,8 +75,8 @@ end)
 
 AddEventHandler('esx:playerDropped', function(playerId, reason)
 	for k,v in pairs(InService) do
-		if v[_source] == true then
-			v[_source] = nil
+		if v[source] == true then
+			v[source] = nil
 		end
 	end
 end)

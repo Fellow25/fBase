@@ -14,19 +14,19 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     --ESX.TriggerServerCallback('tequila:getBlackMoneySociety', function(inventory)
         --argent = inventory
     --end)
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -54,7 +54,7 @@ function Bosstequila()
     RageUI.Visible(ftequila, not RageUI.Visible(ftequila))
 
             while ftequila do
-                Citizen.Wait(0)
+                Wait(0)
                     RageUI.IsVisible(ftequila, true, true, true, function()
 
                     if societytequilamoney ~= nil then
@@ -134,11 +134,11 @@ end
 
 ---------------------------------------------
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tequila' and ESX.PlayerData.job.grade_name == 'boss' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Tequila.pos.boss.position.x, Tequila.pos.boss.position.y, Tequila.pos.boss.position.z)
         if dist3 <= 7.0 and Tequila.jeveuxmarker then
             Timer = 0
@@ -154,7 +154,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -191,7 +191,7 @@ end
 function Deposerargentsale()
     ESX.TriggerServerCallback('tequila:getPlayerInventoryBlack', function(inventory)
         while DepositBlackTequila do
-            Citizen.Wait(0)
+            Wait(0)
         end
     end)
 end
@@ -199,7 +199,7 @@ end
 function Retirerargentsaletequila()
 	ESX.TriggerServerCallback('tequila:getBlackMoneySociety', function(inventory)
 	    while StockBlackTequila do
-		    Citizen.Wait(0)
+		    Wait(0)
 	    end
     end)
 end

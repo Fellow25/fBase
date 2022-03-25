@@ -68,7 +68,7 @@ ESX.RegisterServerCallback('marabunta:getPlayerInventoryBlack', function(source,
 	})
   end)
 
-RegisterServerEvent('marabunta:putblackmoney')
+RegisterNetEvent('marabunta:putblackmoney')
 AddEventHandler('marabunta:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -105,7 +105,7 @@ end)
   
   end)
 
-  RegisterServerEvent('marabunta:getItem')
+  RegisterNetEvent('marabunta:getItem')
   AddEventHandler('marabunta:getItem', function(type, item, count)
   
     local _source      = source

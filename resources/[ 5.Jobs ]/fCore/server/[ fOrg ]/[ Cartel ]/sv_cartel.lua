@@ -67,7 +67,7 @@ ESX.RegisterServerCallback('cartel:getPlayerInventoryBlack', function(source, cb
 	})
   end)
 
-RegisterServerEvent('cartel:putblackmoney')
+RegisterNetEvent('cartel:putblackmoney')
 AddEventHandler('cartel:putblackmoney', function(type, item, count)
 
   local _source      = source
@@ -104,7 +104,7 @@ end)
   
   end)
 
-  RegisterServerEvent('cartel:getItem')
+  RegisterNetEvent('cartel:getItem')
   AddEventHandler('cartel:getItem', function(type, item, count)
   
     local _source      = source

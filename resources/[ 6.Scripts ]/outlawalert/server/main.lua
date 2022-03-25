@@ -2,7 +2,7 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-RegisterServerEvent('esx_outlawalert:carJackInProgress')
+RegisterNetEvent('esx_outlawalert:carJackInProgress')
 AddEventHandler('esx_outlawalert:carJackInProgress', function(targetCoords, streetName, vehicleLabel, playerGender)
     mytype = 'police'
     data = {["code"] = '10-16', ["name"] = 'Vol de véhicule en cours '..vehicleLabel..'.', ["loc"] = streetName}
@@ -12,7 +12,7 @@ AddEventHandler('esx_outlawalert:carJackInProgress', function(targetCoords, stre
     TriggerClientEvent('esx_outlawalert:carJackInProgress', -1, targetCoords)
 end, false)
 
-RegisterServerEvent('esx_outlawalert:combatInProgress')
+RegisterNetEvent('esx_outlawalert:combatInProgress')
 AddEventHandler('esx_outlawalert:combatInProgress', function(targetCoords, streetName, playerGender)
 	mytype = 'police'
     data = {["code"] = '10-10', ["name"] = 'Bagarre en cours ', ["loc"] = streetName}
@@ -21,7 +21,7 @@ AddEventHandler('esx_outlawalert:combatInProgress', function(targetCoords, stree
     TriggerClientEvent('esx_outlawalert:combatInProgress', -1, targetCoords)
 end, false)
 
-RegisterServerEvent('esx_outlawalert:gunshotInProgress')
+RegisterNetEvent('esx_outlawalert:gunshotInProgress')
 AddEventHandler('esx_outlawalert:gunshotInProgress', function(targetCoords, streetName, playerGender)
 	mytype = 'police'
     data = {["code"] = '10-11', ["name"] = 'Coup de feu en cours ', ["loc"] = streetName}

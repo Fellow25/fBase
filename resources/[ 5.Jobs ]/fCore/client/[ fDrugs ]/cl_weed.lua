@@ -1,15 +1,15 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 end)
 
 local playerPed = PlayerPedId()
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if fDrugs.jeveuxblipweed then
         local blip = AddBlipForCoord(fDrugs.weed.recolte.position.x, fDrugs.weed.recolte.position.y, fDrugs.weed.recolte.position.z)
         SetBlipSprite(blip, 140)
@@ -22,7 +22,7 @@ Citizen.CreateThread(function()
     end
 end)  
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if fDrugs.jeveuxblipweed then
         local blip = AddBlipForCoord(fDrugs.weed.traitement.position.x, fDrugs.weed.traitement.position.y, fDrugs.weed.traitement.position.z)
         SetBlipSprite(blip, 140)
@@ -39,13 +39,13 @@ function fWeedRecolte()
     local fWR = RageUI.CreateMenu("Weed", "Récolte")
       RageUI.Visible(fWR, not RageUI.Visible(fWR))
               while fWR do
-                  Citizen.Wait(0)
+                  Wait(0)
                       RageUI.IsVisible(fWR, true, true, true, function()
 
                         RageUI.ButtonWithStyle("Récolter de la weed", nil, {}, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_GARDENER_PLANT', 0, true)
-                                Citizen.Wait(100)
+                                Wait(100)
                                 recolteweed()
                                 ClearPedTasksImmediately(playerPed)
                                 RageUI.CloseAll()
@@ -63,13 +63,13 @@ function fWeedTraitement()
     local fWT = RageUI.CreateMenu("Weed", "Traitement")
         RageUI.Visible(fWT, not RageUI.Visible(fWT))
                 while fWT do
-                    Citizen.Wait(0)
+                    Wait(0)
                         RageUI.IsVisible(fWT, true, true, true, function()
 
                         RageUI.ButtonWithStyle("Mettre de la weed en sachet", nil, {}, true, function(Hovered, Active, Selected)
                             if (Selected) then
                                 TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_PARKING_METER', 0, true)
-                                Citizen.Wait(100)
+                                Wait(100)
                                 traitementweed()
                                 ClearPedTasksImmediately(playerPed)
                                 RageUI.CloseAll()
@@ -87,11 +87,11 @@ function fWeedTraitement()
 
     ---------------------------------------- Position du Menu --------------------------------------------
 local recoltepossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, fDrugs.weed.recolte.position.x, fDrugs.weed.recolte.position.y, fDrugs.weed.recolte.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -109,10 +109,10 @@ Citizen.CreateThread(function()
     end    
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, fDrugs.weed.recolte.position.x, fDrugs.weed.recolte.position.y, fDrugs.weed.recolte.position.z)
         if dist3 <= 10.0 and fDrugs.jeveuxmarker then
             Timer = 0
@@ -125,16 +125,16 @@ Citizen.CreateThread(function()
                             fWeedRecolte()
                     end   
                 end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 -------------------------------------------------------------------------------
 local traitementpossible = false
-Citizen.CreateThread(function()
+CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, fDrugs.weed.traitement.position.x, fDrugs.weed.traitement.position.y, fDrugs.weed.traitement.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -152,10 +152,10 @@ Citizen.CreateThread(function()
     end    
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, fDrugs.weed.traitement.position.x, fDrugs.weed.traitement.position.y, fDrugs.weed.traitement.position.z)
         if dist3 <= 10.0 and fDrugs.jeveuxmarker then
             Timer = 0
@@ -168,7 +168,7 @@ Citizen.CreateThread(function()
                             fWeedTraitement()
                     end   
                 end
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -182,7 +182,7 @@ function recolteweed()
     if not recoltepossible then
         recoltepossible = true
     while recoltepossible do
-            Citizen.Wait(2000)
+            Wait(2000)
             TriggerServerEvent('rweed')
     end
     else
@@ -194,7 +194,7 @@ function traitementweed()
     if not traitementpossible then
         traitementpossible = true
     while traitementpossible do
-            Citizen.Wait(2000)
+            Wait(2000)
             TriggerServerEvent('tweed')
     end
     else

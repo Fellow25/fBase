@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -28,7 +28,7 @@ AddEventHandler('esx:setJob2', function(job2)
     ESX.PlayerData.job2 = job2
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 if famillies.jeveuxblips then
     local familliesmap = AddBlipForCoord(famillies.pos.blips.position.x, famillies.pos.blips.position.y, famillies.pos.blips.position.z)
 
@@ -48,7 +48,7 @@ function GarageFamillies()
   local GFamillies = RageUI.CreateMenu("Garage", "Famillies")
     RageUI.Visible(GFamillies, not RageUI.Visible(GFamillies))
         while GFamillies do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GFamillies, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -63,7 +63,7 @@ function GarageFamillies()
                     for k,v in pairs(GFamilliesvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarFamillies(v.modele)
                             RageUI.CloseAll()
                             end
@@ -77,11 +77,11 @@ function GarageFamillies()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'famillies' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'famillies' then 
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, famillies.pos.garage.position.x, famillies.pos.garage.position.y, famillies.pos.garage.position.z)
             if dist3 <= 10.0 and famillies.jeveuxmarker then
                 Timer = 0
@@ -95,7 +95,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -105,15 +105,15 @@ function spawnuniCarFamillies(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, famillies.pos.spawnvoiture.position.x, famillies.pos.spawnvoiture.position.y, famillies.pos.spawnvoiture.position.z, famillies.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "famillies"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
     SetVehicleCustomPrimaryColour(vehicle, 34, 139, 34)
     SetVehicleCustomSecondaryColour(vehicle, 34, 139, 34)
     SetVehicleMaxMods(vehicle)
@@ -140,7 +140,7 @@ function CoffreFamillies()
 	local CFamillies = RageUI.CreateMenu("Coffre", "Famillies")
         RageUI.Visible(CFamillies, not RageUI.Visible(CFamillies))
             while CFamillies do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(CFamillies, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -182,11 +182,11 @@ function CoffreFamillies()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'famillies' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'famillies' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, famillies.pos.coffre.position.x, famillies.pos.coffre.position.y, famillies.pos.coffre.position.z)
             if jobdist <= 10.0 and famillies.jeveuxmarker then
                 Timer = 0
@@ -200,7 +200,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -212,7 +212,7 @@ function FamilliesRetirerobjet()
 	end)
 	RageUI.Visible(StockFamillies, not RageUI.Visible(StockFamillies))
         while StockFamillies do
-		    Citizen.Wait(0)
+		    Wait(0)
 		        RageUI.IsVisible(StockFamillies, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -239,7 +239,7 @@ function FamilliesDeposerobjet()
 	ESX.TriggerServerCallback('famillies:getPlayerInventory', function(inventory)
         RageUI.Visible(StockFamillies, not RageUI.Visible(StockFamillies))
     while DepositFamillies do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositFamillies, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

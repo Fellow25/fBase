@@ -57,7 +57,7 @@ AddEventHandler('fbennys:putStockItems', function(itemName, count)
 	end)
 end)
 
-RegisterServerEvent('fBennys:Ouvert')
+RegisterNetEvent('fBennys:Ouvert')
 AddEventHandler('fBennys:Ouvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -68,7 +68,7 @@ AddEventHandler('fBennys:Ouvert', function()
 	end
 end)
 
-RegisterServerEvent('fBennys:Fermer')
+RegisterNetEvent('fBennys:Fermer')
 AddEventHandler('fBennys:Fermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -79,13 +79,13 @@ AddEventHandler('fBennys:Fermer', function()
 	end
 end)
 
-RegisterServerEvent('fBennys:Fabriquerkit')
+RegisterNetEvent('fBennys:Fabriquerkit')
 AddEventHandler('fBennys:Fabriquerkit', function()
 	local _source = source
 		TriggerClientEvent('esx:showAdvancedNotification', _source, 'Benny\'s', '~y~Informations', 'Vous êtes en train de fabriquer un kit de réparation!', 'CHAR_BENNYS', 2)
 end)
 
-RegisterServerEvent('fBennys:Perso')
+RegisterNetEvent('fBennys:Perso')
 AddEventHandler('fBennys:Perso', function(msg)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -96,7 +96,7 @@ AddEventHandler('fBennys:Perso', function(msg)
     end
 end)
 
-RegisterServerEvent('fBennys:Fourriere')
+RegisterNetEvent('fBennys:Fourriere')
 AddEventHandler('fBennys:Fourriere', function(PriseOuFin, message)
     local _source = source
     local _raison = PriseOuFin
@@ -114,7 +114,7 @@ AddEventHandler('fBennys:Fourriere', function(PriseOuFin, message)
     end
 end)
 
-RegisterServerEvent('fBennys:renfort')
+RegisterNetEvent('fBennys:renfort')
 AddEventHandler('fBennys:renfort', function(coords)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)

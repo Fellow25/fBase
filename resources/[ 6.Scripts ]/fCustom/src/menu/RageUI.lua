@@ -412,7 +412,7 @@ function RageUI.Banner(Enabled, Glare)
 
                             local ScaleformMovie = RequestScaleformMovie("MP_MENU_GLARE")
                             while not HasScaleformMovieLoaded(ScaleformMovie) do
-                                Citizen.Wait(0)
+                                Wait(0)
                             end
 
 							---@type number
@@ -672,9 +672,9 @@ end
 ---@return void
 ---@public
 function RageUI.CreateWhile(wait, menu, key, closure)
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while (true) do
-            Citizen.Wait(wait or 0.1)
+            Wait(wait or 0.1)
 
             if (key ~= nil) then
                 if IsControlJustPressed(1, key) then

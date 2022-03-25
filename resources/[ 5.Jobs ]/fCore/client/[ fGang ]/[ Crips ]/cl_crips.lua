@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -28,7 +28,7 @@ AddEventHandler('esx:setJob2', function(job2)
     ESX.PlayerData.job2 = job2
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 if crips.jeveuxblips then
     local cripsmap = AddBlipForCoord(crips.pos.blips.position.x, crips.pos.blips.position.y, crips.pos.blips.position.z)
 
@@ -48,7 +48,7 @@ function GarageCrips()
   local GCrips = RageUI.CreateMenu("Garage", "Crips")
     RageUI.Visible(GCrips, not RageUI.Visible(GCrips))
         while GCrips do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GCrips, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -63,7 +63,7 @@ function GarageCrips()
                     for k,v in pairs(GCripsvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarCrips(v.modele)
                             RageUI.CloseAll()
                             end
@@ -77,11 +77,11 @@ function GarageCrips()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'crips' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'crips' then 
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, crips.pos.garage.position.x, crips.pos.garage.position.y, crips.pos.garage.position.z)
             if dist3 <= 10.0 and crips.jeveuxmarker then
                 Timer = 0
@@ -95,7 +95,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -105,15 +105,15 @@ function spawnuniCarCrips(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, crips.pos.spawnvoiture.position.x, crips.pos.spawnvoiture.position.y, crips.pos.spawnvoiture.position.z, crips.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "crips"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
     SetVehicleCustomPrimaryColour(vehicle, 100, 149, 237)
     SetVehicleCustomSecondaryColour(vehicle, 100, 149, 237)
     SetVehicleMaxMods(vehicle)
@@ -140,7 +140,7 @@ function Coffrecrips()
 	local Ccrips = RageUI.CreateMenu("Coffre", "Crips")
         RageUI.Visible(Ccrips, not RageUI.Visible(Ccrips))
             while Ccrips do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Ccrips, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -182,11 +182,11 @@ function Coffrecrips()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'crips' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'crips' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, crips.pos.coffre.position.x, crips.pos.coffre.position.y, crips.pos.coffre.position.z)
             if jobdist <= 10.0 and crips.jeveuxmarker then
                 Timer = 0
@@ -200,7 +200,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -211,7 +211,7 @@ function CripsRetirerobjet()
 	itemstock = items
 	RageUI.Visible(StockCrips, not RageUI.Visible(StockCrips))
         while StockCrips do
-		    Citizen.Wait(0)
+		    Wait(0)
 		        RageUI.IsVisible(StockCrips, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -239,7 +239,7 @@ function CripsDeposerobjet()
     ESX.TriggerServerCallback('crips:getPlayerInventory', function(inventory)
         RageUI.Visible(DepositCrips, not RageUI.Visible(DepositCrips))
     while DepositCrips do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositCrips, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

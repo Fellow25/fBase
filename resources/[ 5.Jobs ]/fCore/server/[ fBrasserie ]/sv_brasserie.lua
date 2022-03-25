@@ -68,26 +68,26 @@ AddEventHandler('playerDropped', function()
 
 		-- Is it worth telling all clients to refresh?
 		if xPlayer ~= nil and xPlayer.job ~= nil and xPlayer.job.name == 'brasserie' then
-			Citizen.Wait(5000)
+			Wait(5000)
 			TriggerClientEvent('esx_brasseriejob:updateBlip', -1)
 		end
 	end
 end)
 
-RegisterServerEvent('esx_brasseriejob:spawned')
+RegisterNetEvent('esx_brasseriejob:spawned')
 AddEventHandler('esx_brasseriejob:spawned', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
 	if xPlayer ~= nil and xPlayer.job ~= nil and xPlayer.job.name == 'brasserie' then
-		Citizen.Wait(5000)
+		Wait(5000)
 		TriggerClientEvent('esx_brasseriejob:updateBlip', -1)
 	end
 end)
 
 AddEventHandler('onResourceStart', function(resource)
 	if resource == GetCurrentResourceName() then
-		Citizen.Wait(5000)
+		Wait(5000)
 		TriggerClientEvent('esx_brasseriejob:updateBlip', -1)
 	end
 end)
@@ -98,12 +98,12 @@ AddEventHandler('onResourceStop', function(resource)
 	end
 end)
 
-RegisterServerEvent('esx_brasseriejob:message')
+RegisterNetEvent('esx_brasseriejob:message')
 AddEventHandler('esx_brasseriejob:message', function(target, msg)
 	TriggerClientEvent('esx:showNotification', target, msg)
 end)
 
-RegisterServerEvent('AnnonceBrasserieOuvert')
+RegisterNetEvent('AnnonceBrasserieOuvert')
 AddEventHandler('AnnonceBrasserieOuvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -114,7 +114,7 @@ AddEventHandler('AnnonceBrasserieOuvert', function()
 	end
 end)
 
-RegisterServerEvent('AnnonceBrasserieFermer')
+RegisterNetEvent('AnnonceBrasserieFermer')
 AddEventHandler('AnnonceBrasserieFermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -125,7 +125,7 @@ AddEventHandler('AnnonceBrasserieFermer', function()
 	end
 end)
 
-RegisterServerEvent('brasserie:prendreitems')
+RegisterNetEvent('brasserie:prendreitems')
 AddEventHandler('brasserie:prendreitems', function(itemName, count)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

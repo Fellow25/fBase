@@ -343,10 +343,10 @@ function RageUI.PlaySound(Library, Sound, IsLooped)
 		PlaySoundFrontend(-1, Sound, Library, true)
 	else
 		if not audioId then
-			Citizen.CreateThread(function()
+			CreateThread(function()
 				audioId = GetSoundId()
 				PlaySoundFrontend(audioId, Sound, Library, true)
-				Citizen.Wait(0)
+				Wait(0)
 
 				StopSound(audioId)
 				ReleaseSoundId(audioId)
@@ -623,14 +623,14 @@ end
 ---@return void
 ---@public
 function RageUI.CreateWhile(wait, closure, beforeWait)
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
 			if (beforeWait or beforeWait == nil) then
-				Citizen.Wait(wait or 0.1)
+				Wait(wait or 0.1)
 				closure()
 			else
 				closure()
-				Citizen.Wait(wait or 0.1)
+				Wait(wait or 0.1)
 			end
 		end
 	end)

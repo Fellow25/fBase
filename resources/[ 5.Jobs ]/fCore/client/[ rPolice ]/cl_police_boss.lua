@@ -14,16 +14,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -56,7 +56,7 @@ function BossPolice()
     RageUI.Visible(rPolice, not RageUI.Visible(rPolice))
 
             while rPolice do
-                Citizen.Wait(0)
+                Wait(0)
                     RageUI.IsVisible(rPolice, true, true, true, function()
 
                     if societypolicemoney ~= nil then
@@ -279,11 +279,11 @@ end
 
 ---------------------------------------------
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' and ESX.PlayerData.job.grade_name == 'boss' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, rPolice.pos.boss.position.x, rPolice.pos.boss.position.y, rPolice.pos.boss.position.z)
         if dist3 <= 7.0 and rPolice.jeveuxmarker then
             Timer = 0
@@ -298,7 +298,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 

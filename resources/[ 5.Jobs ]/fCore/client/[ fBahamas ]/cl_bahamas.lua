@@ -1,13 +1,13 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -24,7 +24,7 @@ AddEventHandler('esx:setJob', function(job)
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if Bahamas.jeveuxblips then
     local bahamasmap = AddBlipForCoord(Bahamas.pos.blips.position.x, Bahamas.pos.blips.position.y, Bahamas.pos.blips.position.z)
     SetBlipSprite(bahamasmap, 279)
@@ -42,7 +42,7 @@ function Menuf6Bahamas()
     fBahamasf6:SetRectangleBanner(153, 50, 204)
     RageUI.Visible(fBahamasf6, not RageUI.Visible(fBahamasf6))
     while fBahamasf6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fBahamasf6, true, true, true, function()
 
                 RageUI.Separator("↓ Facture ↓")
@@ -130,7 +130,7 @@ function OpenPrendreMenuBahamas()
     PrendreMenu:SetRectangleBanner(153, 50, 204)
         RageUI.Visible(PrendreMenu, not RageUI.Visible(PrendreMenu))
     while PrendreMenu do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(PrendreMenu, true, true, true, function()
             for k,v in pairs(Bahamas.Bar.item) do
             RageUI.ButtonWithStyle(v.Label.. ' Prix: ' .. v.Price .. '€', nil, { }, true, function(Hovered, Active, Selected)
@@ -149,11 +149,11 @@ function OpenPrendreMenuBahamas()
 end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'bahamas' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Bahamas.pos.MenuPrendre.position.x, Bahamas.pos.MenuPrendre.position.y, Bahamas.pos.MenuPrendre.position.z)
         if dist3 <= 7.0 and Bahamas.jeveuxmarker then
             Timer = 0
@@ -167,7 +167,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
     end
 end)
 
@@ -178,7 +178,7 @@ function Coffrebahamas()
     Cbahamas:SetRectangleBanner(153, 50, 204)
         RageUI.Visible(Cbahamas, not RageUI.Visible(Cbahamas))
             while Cbahamas do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cbahamas, true, true, true, function()
 
                 RageUI.Separator("↓ Objet / Arme ↓")
@@ -204,11 +204,11 @@ function Coffrebahamas()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'bahamas' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Bahamas.pos.coffre.position.x, Bahamas.pos.coffre.position.y, Bahamas.pos.coffre.position.z)
             if jobdist <= 10.0 and Bahamas.jeveuxmarker then
                 Timer = 0
@@ -222,7 +222,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -234,7 +234,7 @@ function GarageBahamas()
   GBahamas:SetRectangleBanner(153, 50, 204)
     RageUI.Visible(GBahamas, not RageUI.Visible(GBahamas))
         while GBahamas do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GBahamas, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -249,7 +249,7 @@ function GarageBahamas()
                     for k,v in pairs(GBahamasvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarBahamas(v.modele)
                             RageUI.CloseAll()
                             end
@@ -263,11 +263,11 @@ function GarageBahamas()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'bahamas' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Bahamas.pos.garage.position.x, Bahamas.pos.garage.position.y, Bahamas.pos.garage.position.z)
             if dist3 <= 10.0 and Bahamas.jeveuxmarker then
                 Timer = 0
@@ -281,7 +281,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -291,15 +291,15 @@ function spawnuniCarBahamas(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Bahamas.pos.spawnvoiture.position.x, Bahamas.pos.spawnvoiture.position.y, Bahamas.pos.spawnvoiture.position.z, Bahamas.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Bahamas"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 
@@ -313,7 +313,7 @@ function BahamasRetirerobjet()
    
     RageUI.Visible(Stockbahamas, not RageUI.Visible(Stockbahamas))
         while Stockbahamas do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockbahamas, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -342,7 +342,7 @@ function BahamasDeposerobjet()
     ESX.TriggerServerCallback('fbahamas:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

@@ -1,10 +1,10 @@
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -31,7 +31,7 @@ local state = 0
 local SetStateWaypoint = false
     
 function BlipsJob()
-Citizen.CreateThread(function()
+CreateThread(function()
     if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ferrailleur' then
     local ferraillemap = AddBlipForCoord(config.Feraille.PedPos.x, config.Feraille.PedPos.y, config.Feraille.PedPos.z)
 
@@ -85,7 +85,7 @@ CreateThread(function()
                 end
             end
         end
-        Citizen.Wait(interval)
+        Wait(interval)
     end
 
 end) 
@@ -137,22 +137,22 @@ function Trajet()
                     if IsControlJustPressed(1, 51) then
                         RequestAnimDict("random@domestic")
                         while not HasAnimDictLoaded("random@domestic")do 
-                            Citizen.Wait(0) 
+                            Wait(0) 
                         end
-                        Citizen.Wait(100)
-                        TaskPlayAnim(GetPlayerPed(-1), "random@domestic", "pickup_low", 2.0, 2.0, -1, 0, 0, false, false, false)
-                        Citizen.Wait(3000)
-                        TaskPlayAnim(GetPlayerPed(-1), "random@domestic", "pickup_low", 2.0, 2.0, -1, 0, 0, false, false, false)
-                        Citizen.Wait(3000)
+                        Wait(100)
+                        TaskPlayAnim(PlayerPedId(), "random@domestic", "pickup_low", 2.0, 2.0, -1, 0, 0, false, false, false)
+                        Wait(3000)
+                        TaskPlayAnim(PlayerPedId(), "random@domestic", "pickup_low", 2.0, 2.0, -1, 0, 0, false, false, false)
+                        Wait(3000)
                         TriggerServerEvent("Interim:giveitem", "ferraille")
-                        ClearPedTasks(GetPlayerPed(-1))
+                        ClearPedTasks(PlayerPedId())
                         FutWaypoint()
                     end
                 else
                     DrawScreenText("Appuyez sur [~r~E~s~] pour finir le travail",1)
 
                     if IsControlJustPressed(1, 51) then
-                        Citizen.Wait(1000)
+                        Wait(1000)
                         Notif("~g~Très bon travail, dirige-toi vers le mécano pour vendre la ferraille.")
                         SetStateWaypoint = false
                         inWork = false

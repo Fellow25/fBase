@@ -14,27 +14,37 @@ end
 
 ]]
 
-ESX = nil
+local ESX = exports.es_extended:getSharedObject()
 
-Citizen.CreateThread(function()
-    while ESX == nil do
-        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
-    end
-
-    while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
-    end
+CreateThread(function()
 	ESX.TriggerServerCallback('fAdmin:getUsergroup', function(group)
         playergroup = group
     end)
 	SetNuiFocus(false, false)
-    ESX.PlayerData = ESX.GetPlayerData()
 end)
 
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer)
+
+RegisterNetEvent('esx:playerLoaded') -- Store the players data
+AddEventHandler('esx:playerLoaded', function(xPlayer, isNew)
 	ESX.PlayerData = xPlayer
+	ESX.PlayerLoaded = true
+end)
+
+RegisterNetEvent('esx:playerLogout') -- When a player logs out (multicharacter), reset their data
+AddEventHandler('esx:playerLogout', function(xPlayer, isNew)
+	ESX.PlayerLoaded = false
+	ESX.PlayerData = {}
+end)
+
+-- These two functions can perform the same task
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+	ESX.PlayerData.job = job
+end)
+
+RegisterNetEvent('esx:setJob2')
+AddEventHandler('esx:setJob2', function(job2)
+	ESX.PlayerData.job2 = job2
 end)
 
 local crossthemap = false
@@ -46,7 +56,7 @@ local onlinePlayers = GetNumberOfPlayers()
 local gamerTags = {}
 local spectating = false
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         Wait(500)
         for k,v in pairs(GetActivePlayers()) do
@@ -63,20 +73,20 @@ Citizen.CreateThread(function()
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(200)
+		Wait(200)
 
 		if invisible then
-			SetEntityVisible(GetPlayerPed(-1), 0, 0)
+			SetEntityVisible(PlayerPedId(), 0, 0)
 			NetworkSetEntityInvisibleToNetwork(pPed, 1)
 		else
-			SetEntityVisible(GetPlayerPed(-1), 1, 0)
+			SetEntityVisible(PlayerPedId(), 1, 0)
 			NetworkSetEntityInvisibleToNetwork(pPed, 0)
 		end
 
 		if ShowName then
-			local pCoords = GetEntityCoords(GetPlayerPed(-1), false)
+			local pCoords = GetEntityCoords(PlayerPedId(), false)
 			for _, v in pairs(GetActivePlayers()) do
 				local otherPed = GetPlayerPed(v)
 			
@@ -105,7 +115,7 @@ function defESX()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     defESX()
 end)
 
@@ -348,7 +358,7 @@ function fAdminMenu()
 
 					RageUI.ButtonWithStyle("Supprimer les pnj", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
 						if (Selected) then
-							local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
+							local x,y,z = table.unpack(GetEntityCoords(PlayerPedId(),true))
 			
 							ClearAreaOfPeds(x,y,z, 50.0, 1)
 							
@@ -382,7 +392,7 @@ function fAdminMenu()
 
                 RageUI.ButtonWithStyle("Blindage", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                     if (Selected) then   
-                        SetPedArmour(GetPlayerPed(-1), 200)
+                        SetPedArmour(PlayerPedId(), 200)
                         ESX.ShowNotification("~g~Blindage effectué~w~")
                         end   
                     end)
@@ -520,9 +530,9 @@ function fAdminMenu()
                             if ModelName and IsModelValid(ModelName) and IsModelAVehicle(ModelName) then
                                 RequestModel(ModelName)
                                 while not HasModelLoaded(ModelName) do
-                                    Citizen.Wait(0)
+                                    Wait(0)
                                 end
-                                    --local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)), true, true)
+                                    --local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()), true, true)
                                     --TaskWarpPedIntoVehicle(GetPlayerPed(IdSelected), veh, -1)
                                     give_vehijoueur(ModelName, IdSelected)
                                     Wait(50)
@@ -634,10 +644,10 @@ function fAdminMenu()
 						if ModelName and IsModelValid(ModelName) and IsModelAVehicle(ModelName) then
 							RequestModel(ModelName)
 							while not HasModelLoaded(ModelName) do
-								Citizen.Wait(0)
+								Wait(0)
 							end
-								local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)), true, true)
-								TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
+								local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()), true, true)
+								TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
 								Wait(50)
 						else
 							ShowNotification("Erreur !")
@@ -661,9 +671,9 @@ function fAdminMenu()
 
 					RageUI.ButtonWithStyle("Changer la plaque", nil, {RightLabel =  "→"}, true, function(_, Active, Selected)
 					if Selected then
-						if IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then
+						if IsPedSittingInAnyVehicle(PlayerPedId()) then
 							local plaqueVehicule = fAdminKeyboardInput("Plaque", "", 8)
-							SetVehicleNumberPlateText(GetVehiclePedIsIn(GetPlayerPed(-1), false) , plaqueVehicule)
+							SetVehicleNumberPlateText(GetVehiclePedIsIn(PlayerPedId(), false) , plaqueVehicule)
 							ESX.ShowNotification("La plaque du véhicule est désormais : ~g~"..plaqueVehicule)
 						else
 							ESX.ShowNotification("~r~Erreur\n~s~Vous n'êtes pas dans un véhicule !")
@@ -710,10 +720,10 @@ function fAdminMenu()
 								if ModelName and IsModelValid(ModelName) and IsModelAVehicle(ModelName) then
 									RequestModel(ModelName)
 									while not HasModelLoaded(ModelName) do
-										Citizen.Wait(0)
+										Wait(0)
 									end
-										--local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)), true, true)
-										TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
+										--local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()), true, true)
+										TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
 										give_vehi(ModelName)
 										Wait(50)
 								else
@@ -1289,10 +1299,10 @@ Keys.Register('F10', 'fAdmin', 'Ouvrir le menu F10', function()
 end)
 
 -- Coords
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
     	if Admin.showcoords then
-            x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
+            x,y,z = table.unpack(GetEntityCoords(PlayerPedId(),true))
             roundx=tonumber(string.format("%.2f",x))
             roundy=tonumber(string.format("%.2f",y))
             roundz=tonumber(string.format("%.2f",z))
@@ -1304,7 +1314,7 @@ Citizen.CreateThread(function()
         if Admin.showcrosshair then
             DrawTxt('+', 0.495, 0.484, 1.0, 0.3, MainColor)
         end
-    	Citizen.Wait(0)
+    	Wait(0)
     end
 end)
 
@@ -1381,7 +1391,7 @@ local noclip_speed = 1.0
 
 function fNoClip()
   noclip = not noclip
-  local ped = GetPlayerPed(-1)
+  local ped = PlayerPedId()
   if noclip then -- activé
     SetEntityInvincible(ped, true)
 	SetEntityVisible(ped, false, false)
@@ -1396,12 +1406,12 @@ function fNoClip()
 end
 
 function getPosition()
-    local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
+    local x,y,z = table.unpack(GetEntityCoords(PlayerPedId(),true))
     return x,y,z
   end
   
   function getCamDirection()
-    local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(GetPlayerPed(-1))
+    local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(PlayerPedId())
     local pitch = GetGameplayCamRelativePitch()
   
     local x = -math.sin(heading*math.pi/180.0)
@@ -1422,11 +1432,11 @@ function getPosition()
     return noclip
   end
   
-  Citizen.CreateThread(function()
+  CreateThread(function()
       while true do
         local Timer = 500
         if noclip then
-          local ped = GetPlayerPed(-1)
+          local ped = PlayerPedId()
           local x,y,z = getPosition()
           local dx,dy,dz = getCamDirection()
           local speed = noclip_speed
@@ -1450,7 +1460,7 @@ function getPosition()
     
           SetEntityCoordsNoOffset(ped,x,y,z,true,true,true)
         end
-        Citizen.Wait(Timer)
+        Wait(Timer)
       end
     end)
 
@@ -1470,9 +1480,9 @@ end)
 local voituregive = {}
 
 function give_vehi(veh)
-    local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords = GetEntityCoords(PlayerPedId(), false)
     
-    Citizen.Wait(10)
+    Wait(10)
     ESX.Game.SpawnVehicle(veh, {x = plyCoords.x+2 ,y = plyCoords.y, z = plyCoords.z+2}, 313.4216, function (vehicle)
             local plate = GeneratePlate()
             table.insert(voituregive, vehicle)        
@@ -1488,9 +1498,9 @@ end
 local voituregivejoueur = {}
 
 function give_vehijoueur(veh, IdSelected)
-    local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords = GetEntityCoords(PlayerPedId(), false)
     
-    Citizen.Wait(10)
+    Wait(10)
     ESX.Game.SpawnVehicle(veh, {x = plyCoords.x+2 ,y = plyCoords.y, z = plyCoords.z+2}, 313.4216, function (vehicle)
             local plate = GeneratePlate()
             table.insert(voituregivejoueur, vehicle)        
@@ -1579,20 +1589,20 @@ AddEventHandler('fAdmin:sendAnnounce', function(text, author)
     author = '~r~ ' .. author.. ' ~w~'
 
     local text = text;
-    Citizen.CreateThread(function()
+    CreateThread(function()
         local show = true;
         PlaySoundFrontend(-1, "5s_To_Event_Start_Countdown", "GTAO_FM_Events_Soundset", 1)
 
-        Citizen.CreateThread(function()
+        CreateThread(function()
             while show do
                 DrawRect(0.494, 0.200, 5.185, 0.050, 0, 0, 0, 150);
                 DrawAdvancedTextCNN(0.588, 0.14, 0.005, 0.0028, 0.8, author, 255, 255, 255, 255, 1, 0);
                 DrawAdvancedTextCNN(0.586, 0.199, 0.005, 0.0028, 0.6, text, 255, 255, 255, 255, 7, 0);
-                Citizen.Wait(1);
+                Wait(1);
             end
         end)
         
-        Citizen.Wait(5000);
+        Wait(5000);
         show = false;
     end)
 end)
@@ -1660,9 +1670,9 @@ function StopDrawPlayerInfo()
     drawTarget = 0
 end
 
-Citizen.CreateThread( function()
+CreateThread( function()
     while true do
-        Citizen.Wait(0)
+        Wait(0)
         if drawInfo then
             local text = {}
             local targetPed = GetPlayerPed(drawTarget)

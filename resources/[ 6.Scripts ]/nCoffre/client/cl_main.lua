@@ -1,8 +1,8 @@
-Citizen.CreateThread(function()
+CreateThread(function()
     Cfg_Coffre.prt(Cfg_Coffre.Credit)
     while Cfg_Coffre.ESXLoaded == nil do
 		Cfg_Coffre.InSide(Cfg_Coffre.ESXEvent, function(esxEvent) Cfg_Coffre.ESXLoaded = esxEvent end)
-		Citizen.Wait(0)
+		Wait(0)
     end
     RegisterNetEvent(Cfg_Coffre.Prefix..":refreshAll")
     AddEventHandler(Cfg_Coffre.Prefix..":refreshAll", function(vInfos, vPlate, pInventory, vWeight, pMoney)
@@ -25,7 +25,7 @@ Citizen.CreateThread(function()
         else
             Cfg_Coffre.main_Menu.menuIsOpen = true
             RageUI.Visible(RMenu:Get("nCoffre", "main_menu"), true)
-            Citizen.CreateThread(function()
+            CreateThread(function()
                 if Cfg_Coffre.vClass == nil then Cfg_Coffre.vClass = 0 end
                 Cfg_Coffre.vInfos = vInfos
                 Cfg_Coffre.vPlate = vPlate
@@ -33,7 +33,7 @@ Citizen.CreateThread(function()
                 Cfg_Coffre.vWeight = vWeight
                 Cfg_Coffre.changeColorIndex()
                 while Cfg_Coffre.main_Menu.menuIsOpen do
-                    Citizen.Wait(0)
+                    Wait(0)
                     RageUI.IsVisible(RMenu:Get("nCoffre", "main_menu"), function()
                         if Cfg_Coffre.main_Menu.Colors ~= nil then
                             RageUI.Separator("Poids du coffre : "..Cfg_Coffre.main_Menu.ColorsTwo[Cfg_Coffre.main_Menu.MainColors]..Cfg_Coffre.ESXLoaded.Math.Round(Cfg_Coffre.vWeight/1000, 1).."~s~/"..Cfg_Coffre.ESXLoaded.Math.Round(Cfg_Coffre.maxWeight[Cfg_Coffre.vClass]/1000, 1)..Cfg_Coffre.main_Menu.ColorsTwo[Cfg_Coffre.main_Menu.MainColors].." - KG")
@@ -250,34 +250,34 @@ Citizen.CreateThread(function()
         AddTextEntry("CUSTOM_AMOUNT", "Montant")
         DisplayOnscreenKeyboard(1, "CUSTOM_AMOUNT", '', "", '', '', '', 15)
         while UpdateOnscreenKeyboard() ~= 1 and UpdateOnscreenKeyboard() ~= 2 do
-            Citizen.Wait(0)
+            Wait(0)
         end
         if UpdateOnscreenKeyboard() ~= 2 then
             amount = GetOnscreenKeyboardResult()
-            Citizen.Wait(1)
+            Wait(1)
         else
-            Citizen.Wait(1)
+            Wait(1)
         end
         return tonumber(amount)
     end
     Cfg_Coffre.changeColorIndex = function()
-        Citizen.CreateThread(function()
+        CreateThread(function()
             Cfg_Coffre.main_Menu.Colors = {"~p~", "~r~","~o~","~y~","~c~","~g~","~b~"}
             Cfg_Coffre.main_Menu.ColorsTwo = {"~r~", "~p~","~y~","~o~","~g~","~c~","~b~"}
             Cfg_Coffre.main_Menu.MainColors = 1
             while Cfg_Coffre.main_Menu.menuIsOpen do 
-                Citizen.Wait(500)
+                Wait(500)
                 Cfg_Coffre.main_Menu.MainColors = Cfg_Coffre.main_Menu.MainColors + 1
                 if Cfg_Coffre.main_Menu.MainColors > #Cfg_Coffre.main_Menu.Colors then Cfg_Coffre.main_Menu.MainColors = 1 end
             end
         end)
     end
     RegisterCommand("openCoffre", function()
-        local pCoords = GetEntityCoords(GetPlayerPed(-1), true)
+        local pCoords = GetEntityCoords(PlayerPedId(), true)
         local pVehicule, vDistance = Cfg_Coffre.ESXLoaded.Game.GetClosestVehicle({x = pCoords.x, y = pCoords.y, z = pCoords.z})
         local vPlate = GetVehicleNumberPlateText(pVehicule)
         local vClass = GetVehicleClass(pVehicule)
-        if IsPedInAnyVehicle(GetPlayerPed(-1),  false) then return end
+        if IsPedInAnyVehicle(PlayerPedId(),  false) then return end
         if GetVehicleDoorLockStatus(pVehicule) ~= 2 then
             if vDistance < 2.5 then
                 Cfg_Coffre.ServerSide(Cfg_Coffre.Prefix..":takeVehiculeInfos", vPlate)

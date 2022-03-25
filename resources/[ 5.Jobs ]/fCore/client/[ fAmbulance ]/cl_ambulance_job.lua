@@ -12,7 +12,7 @@ function defESX()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     defESX()
 end)
 
@@ -23,7 +23,7 @@ local function getInfoReport()
     end)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if Ambulance.jeveuxblips then
         local ambulancemap = AddBlipForCoord(Ambulance.menu.blips.position.x, Ambulance.menu.blips.position.y, Ambulance.menu.blips.position.z)
     
@@ -52,7 +52,7 @@ function F6Ambulance()
     defESX()
     RageUI.Visible(fAmbulancef6, not RageUI.Visible(fAmbulancef6))
     while fAmbulancef6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fAmbulancef6, true, true, true, function()
 
                 RageUI.Separator("~u~"..ESX.PlayerData.job.grade_label.." - "..GetPlayerName(PlayerId()))
@@ -164,7 +164,7 @@ function F6Ambulance()
                     
                                                 ESX.ShowNotification('Vous soignez...')
                                                 TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_TEND_TO_DEAD', 0, true)
-                                                Citizen.Wait(10000)
+                                                Wait(10000)
                                                 ClearPedTasks(playerPed)
                     
                                                 TriggerServerEvent('esx_ambulancejob:removeItem', 'bandage')
@@ -204,7 +204,7 @@ function F6Ambulance()
                     
                                                 ESX.ShowNotification('vous soignez...')
                                                 TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_TEND_TO_DEAD', 0, true)
-                                                Citizen.Wait(10000)
+                                                Wait(10000)
                                                 ClearPedTasks(playerPed)
                     
                                                 TriggerServerEvent('esx_ambulancejob:heal', GetPlayerServerId(closestPlayer), 'big')
@@ -308,7 +308,7 @@ function GarageAmbulance()
 	GAmbulance:SetRectangleBanner(220,20, 60)
 	  RageUI.Visible(GAmbulance, not RageUI.Visible(GAmbulance))
 		  while GAmbulance do
-			  Citizen.Wait(0)
+			  Wait(0)
 				  RageUI.IsVisible(GAmbulance, true, true, true, function()
 					  RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
 						  if (Selected) then   
@@ -323,7 +323,7 @@ function GarageAmbulance()
 					  for k,v in pairs(GAmbulancevoiture) do
 					  RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
 						  if (Selected) then
-						  Citizen.Wait(1)  
+						  Wait(1)  
 							  spawnuniCarAmbulance(v.modele)
 							  RageUI.CloseAll()
 							  end
@@ -337,11 +337,11 @@ function GarageAmbulance()
 	  end
   end
   
-Citizen.CreateThread(function()
+CreateThread(function()
 		while true do
 			local Timer = 500
 			if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
-			local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+			local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
 			local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Ambulance.menu.garage.position.x, Ambulance.menu.garage.position.y, Ambulance.menu.garage.position.z)
 			if dist3 <= 10.0 and Ambulance.jeveuxmarker then
 				Timer = 0
@@ -355,7 +355,7 @@ Citizen.CreateThread(function()
 					end   
 				end
 			end 
-		Citizen.Wait(Timer)
+		Wait(Timer)
 	end
 end)
 
@@ -365,15 +365,15 @@ function spawnuniCarAmbulance(car)
 	RequestModel(car)
 	while not HasModelLoaded(car) do
 		RequestModel(car)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 
-	local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+	local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
 	local vehicle = CreateVehicle(car, Ambulance.menu.spawnvoiture.position.x, Ambulance.menu.spawnvoiture.position.y, Ambulance.menu.spawnvoiture.position.z, Ambulance.menu.spawnvoiture.position.h, true, false)
 	SetEntityAsMissionEntity(vehicle, true, true)
 	local plaque = "Ambulance"..math.random(1,9)
 	SetVehicleNumberPlateText(vehicle, plaque) 
-	SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+	SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
   function CoffreAmbulance()
@@ -381,7 +381,7 @@ end
 	CAmbulance:SetRectangleBanner(220,20, 60)
         RageUI.Visible(CAmbulance, not RageUI.Visible(CAmbulance))
             while CAmbulance do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(CAmbulance, true, true, true, function()
 
                 RageUI.Separator("~u~↓ Objet ↓")
@@ -407,11 +407,11 @@ end
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Ambulance.menu.coffre.position.x, Ambulance.menu.coffre.position.y, Ambulance.menu.coffre.position.z)
             if jobdist <= 10.0 and Ambulance.jeveuxmarker then
                 Timer = 0
@@ -425,7 +425,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -434,7 +434,7 @@ function VestiaireAmbulance()
     VAmbulance:SetRectangleBanner(220,20, 60)
         RageUI.Visible(VAmbulance, not RageUI.Visible(VAmbulance))
             while VAmbulance do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(VAmbulance, true, true, true, function()
 
                 RageUI.Separator("~u~↓ Vêtements ↓")
@@ -460,11 +460,11 @@ function VestiaireAmbulance()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Ambulance.menu.vestiaire.position.x, Ambulance.menu.vestiaire.position.y, Ambulance.menu.vestiaire.position.z)
             if jobdist <= 10.0 and Ambulance.jeveuxmarker then
                 Timer = 0
@@ -478,7 +478,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -487,7 +487,7 @@ function PharmacieAmbulance()
     PhAmbulance:SetRectangleBanner(220,20, 60)
         RageUI.Visible(PhAmbulance, not RageUI.Visible(PhAmbulance))
             while PhAmbulance do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(PhAmbulance, true, true, true, function()
 
                     RageUI.ButtonWithStyle("Kit médical",nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
@@ -516,11 +516,11 @@ function PharmacieAmbulance()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Ambulance.menu.pharmacie.position.x, Ambulance.menu.pharmacie.position.y, Ambulance.menu.pharmacie.position.z)
             if jobdist <= 10.0 and Ambulance.jeveuxmarker then
                 Timer = 0
@@ -534,7 +534,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -547,7 +547,7 @@ function AmbulanceRetirerobjet()
    
     RageUI.Visible(Stockbennys, not RageUI.Visible(Stockbennys))
         while Stockbennys do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockbennys, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -576,7 +576,7 @@ function AmbulanceDeposerobjet()
     ESX.TriggerServerCallback('fAmbulance:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -613,7 +613,7 @@ function revivePlayer(closestPlayer)
 				ESX.ShowNotification('Réanimation en cours')
 
 				for i=1, 15 do
-					Citizen.Wait(900)
+					Wait(900)
 
 					ESX.Streaming.RequestAnimDict(lib, function()
 						TaskPlayAnim(playerPed, lib, anim, 8.0, -8.0, -1, 0, 0.0, false, false, false)

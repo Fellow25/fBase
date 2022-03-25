@@ -1,15 +1,15 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(100)
+		Wait(100)
 	end
 end)
 
 --- Blips
 
-Citizen.CreateThread(function()
+CreateThread(function()
        local poleemploimap = AddBlipForCoord(rPoleEmploi.pos.blips.position.x, rPoleEmploi.pos.blips.position.y, rPoleEmploi.pos.blips.position.z)
        SetBlipSprite(poleemploimap, 590)
        SetBlipColour(poleemploimap, 38)
@@ -32,7 +32,7 @@ function MenuPoleEmploi()
        end
            RageUI.Visible(MenuPole, not RageUI.Visible(MenuPole))
                while MenuPole do
-               Citizen.Wait(0)
+               Wait(0)
                RageUI.IsVisible(MenuPole, true, true, true, function()
    
                      RageUI.Separator("~b~Bienvenue Mr. "..GetPlayerName(PlayerId()))
@@ -72,25 +72,25 @@ function MenuPoleEmploi()
 end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
        while true do
            local Timer = 500
-           local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+           local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
            local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, rPoleEmploi.pos.Menu.position.x, rPoleEmploi.pos.Menu.position.y, rPoleEmploi.pos.Menu.position.z)
                if dist3 <= 3.0 then
                Timer = 0   
                    RageUI.Text({ message = "Appuyez sur ~b~[E]~s~ pour accéder au Pôle emploi", time_display = 1 })
                    if IsControlJustPressed(1,51) then
                     TriggerEvent('esx:showAdvancedNotification', "Pôle emploi", "Recherche" , 'Recherche de vos données...', 'CHAR_POLEEMPLOI', 9)
-                    Citizen.Wait(2500)
+                    Wait(2500)
                     MenuPoleEmploi()
                    end   
                end
-       Citizen.Wait(Timer)
+       Wait(Timer)
     end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     local hash = GetHashKey(rPoleEmploi.Peds)
     while not HasModelLoaded(hash) do
     RequestModel(hash)

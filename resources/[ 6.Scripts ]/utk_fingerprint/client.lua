@@ -172,7 +172,7 @@ G_14 = {
 G_20 = false
 
 function Generate()
-    Citizen.CreateThread(function()
+    CreateThread(function()
         for level = 1, 4, 1 do
             for instance = 1, 86, 1 do
                 local array = {1, 2, 3, 4, 5, 6, 7, 8}
@@ -194,7 +194,7 @@ AddEventHandler("utk_fingerprint:startGame", function()
 		type = 'intro'
     })
     TriggerEvent("utk_hack:playSound", 'intro')
-    Citizen.Wait(3350)
+    Wait(3350)
     TriggerEvent('StartHack')
 end)
 
@@ -231,23 +231,23 @@ AddEventHandler("StartHack", function()
     or not HasStreamedTextureDictLoaded("mpfclone_print2")
     or not HasStreamedTextureDictLoaded("mpfclone_print3")
     do
-        Citizen.Wait(10)
+        Wait(10)
     end
     G_17 = GetSoundId()
     F_0()
     local G_23 = F_13("instructional_buttons")
     G_18 = function()
         G_19 = true
-        Citizen.CreateThread(function()
+        CreateThread(function()
             G_19 = false
             G_9 = 31
             while true do
                 if G_1 == true or G_19 == true then
                     return
                 end
-                Citizen.Wait(1920)
+                Wait(1920)
                 while G_16 == true do
-                    Citizen.Wait(10)
+                    Wait(10)
                 end
                 if G_9 == 0 then
                     G_6 = 0
@@ -260,13 +260,13 @@ AddEventHandler("StartHack", function()
             end
         end)
     end
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while G_15 do
             F_1()
-            Citizen.Wait(1)
+            Wait(1)
         end
     end)
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
             if IsControlJustReleased(2, 201) then
                 if G_13[G_4][3] == true then
@@ -323,11 +323,11 @@ AddEventHandler("StartHack", function()
             if G_1 then
                 return
             end
-            Citizen.Wait(1)
+            Wait(1)
         end
     end)
     PlaySoundFrontend(G_17, "Background_Hum", "DLC_H3_Cas_Finger_Minigame_Sounds", true)
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
             if G_1 then
                 return
@@ -395,11 +395,11 @@ AddEventHandler("StartHack", function()
                 F_4("mphackinggame", G_3, 0.5, 0.5, 600.0, 250.0, 0.0, 255, 255, 255, 255, 0)
             end
             DrawScaleformMovieFullscreen(G_23, 255, 255, 255, 255, 0)
-            Citizen.Wait(1)
+            Wait(1)
         end
     end)
     G_18()
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
             if G_1 then
                 return
@@ -411,12 +411,12 @@ AddEventHandler("StartHack", function()
                     G_12[i] = 0
                 end
             end
-            Citizen.Wait(1000)
+            Wait(1000)
         end
     end)
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
-            Citizen.Wait(1)
+            Wait(1)
             if G_1 then
                 return
             end
@@ -443,9 +443,9 @@ AddEventHandler("StartHack", function()
             end
         end
     end)
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
-            Citizen.Wait(1)
+            Wait(1)
             if G_1 == true then
                 return
             end
@@ -467,9 +467,9 @@ function F_3()
     G_16 = true
     G_21 = true
     G_20 = true
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while true do
-            Citizen.Wait(50)
+            Wait(50)
             G_5 = G_5 + 1
             if G_5 == 35 then
                 G_20 = false
@@ -494,29 +494,29 @@ function F_3()
         else
             a = false
         end
-        Citizen.Wait(1000)
-        Citizen.CreateThread(function()
+        Wait(1000)
+        CreateThread(function()
             while true do
                 if a == true then
                     PlaySoundFrontend(-1, "Target_Match", "DLC_H3_Cas_Finger_Minigame_Sounds", true)
                     G_3 = "Correct_0"
-                    Citizen.Wait(500)
+                    Wait(500)
                     G_3 = "Correct_1"
-                    Citizen.Wait(500)
+                    Wait(500)
                 elseif a == false then
                     PlaySoundFrontend(-1, "No_Match", "DLC_H3_Cas_Finger_Minigame_Sounds", true)
                     G_3 = "Incorrect_0"
-                    Citizen.Wait(500)
+                    Wait(500)
                     G_3 = "Incorrect_1"
-                    Citizen.Wait(500)
+                    Wait(500)
                 end
                 if G_1 == true or G_2 == true then
                     return
                 end
-                Citizen.Wait(1)
+                Wait(1)
             end
         end)
-        Citizen.Wait(3500)
+        Wait(3500)
         G_2 = true
         if a == true then
             if G_0 < LevelCount then
@@ -633,7 +633,7 @@ end
 function F_13(scaleform)
     local scaleform = RequestScaleformMovie(scaleform)
     while not HasScaleformMovieLoaded(scaleform) do
-        Citizen.Wait(0)
+        Wait(0)
     end
     PushScaleformMovieFunction(scaleform, "CLEAR_ALL")
     PopScaleformMovieFunctionVoid()
@@ -748,6 +748,6 @@ AddEventHandler("utk_fingerprint:Start", function(levels, lifes, time, func)
 		type = 'intro'
     })
     TriggerEvent("utk_hack:playSound", 'intro')
-    Citizen.Wait(3350)
+    Wait(3350)
     TriggerEvent('StartHack')
 end)

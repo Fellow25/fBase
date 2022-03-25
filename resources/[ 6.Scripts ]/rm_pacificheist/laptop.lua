@@ -10,24 +10,24 @@ local e = false
 local f = false
 local g = false
 StartComputer = function()
-    Citizen.CreateThread(
+    CreateThread(
         function()
             InitializeBruteForce = function(h)
                 local h = RequestScaleformMovieInteractive(h)
                 while not HasScaleformMovieLoaded(h) do
-                    Citizen.Wait(0)
+                    Wait(0)
                 end
                 local i = "hack"
                 local j = 0
                 while HasAdditionalTextLoaded(j) and not HasThisAdditionalTextLoaded(i, j) do
-                    Citizen.Wait(0)
+                    Wait(0)
                     j = j + 1
                 end
                 if not HasThisAdditionalTextLoaded(i, j) then
                     ClearAdditionalText(j, true)
                     RequestAdditionalText(i, j)
                     while not HasThisAdditionalTextLoaded(i, j) do
-                        Citizen.Wait(0)
+                        Wait(0)
                     end
                 end
                 PushScaleformMovieFunction(h, "SET_LABELS")
@@ -96,7 +96,7 @@ StartComputer = function()
             cachedScaleform = InitializeBruteForce("HACKING_PC")
             g = true
             while g do
-                Citizen.Wait(0)
+                Wait(0)
                 DisableControlAction(0, 1, true)
                 DisableControlAction(0, 2, true)
                 DisableControlAction(0, 24, true)
@@ -137,7 +137,7 @@ StartComputer = function()
         end
     )
 end
-Citizen.CreateThread(
+CreateThread(
     function()
         while true do
             local k = 1000
@@ -218,7 +218,7 @@ Citizen.CreateThread(
                     end
                 end
             end
-            Citizen.Wait(k)
+            Wait(k)
         end
     end
 )

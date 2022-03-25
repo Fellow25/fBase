@@ -161,7 +161,7 @@ function TwitterShowSuccess (sourcePlayer, title, message)
   TriggerClientEvent('gcPhone:twitter_showSuccess', sourcePlayer, title, message)
 end
 
-RegisterServerEvent('gcPhone:twitter_login')
+RegisterNetEvent('gcPhone:twitter_login')
 AddEventHandler('gcPhone:twitter_login', function(username, password)
   local sourcePlayer = tonumber(source)
   getUser(username, password, function (user)
@@ -174,7 +174,7 @@ AddEventHandler('gcPhone:twitter_login', function(username, password)
   end)
 end)
 
-RegisterServerEvent('gcPhone:twitter_changePassword')
+RegisterNetEvent('gcPhone:twitter_changePassword')
 AddEventHandler('gcPhone:twitter_changePassword', function(username, password, newPassword)
   local sourcePlayer = tonumber(source)
   getUser(username, password, function (user)
@@ -198,7 +198,7 @@ AddEventHandler('gcPhone:twitter_changePassword', function(username, password, n
 end)
 
 
-RegisterServerEvent('gcPhone:twitter_createAccount')
+RegisterNetEvent('gcPhone:twitter_createAccount')
 AddEventHandler('gcPhone:twitter_createAccount', function(username, password, avatarUrl)
   local sourcePlayer = tonumber(source)
   TwitterCreateAccount(username, password, avatarUrl, function (id)
@@ -211,7 +211,7 @@ AddEventHandler('gcPhone:twitter_createAccount', function(username, password, av
   end)
 end)
 
-RegisterServerEvent('gcPhone:twitter_getTweets')
+RegisterNetEvent('gcPhone:twitter_getTweets')
 AddEventHandler('gcPhone:twitter_getTweets', function(username, password)
   local sourcePlayer = tonumber(source)
   if username ~= nil and username ~= "" and password ~= nil and password ~= "" then
@@ -228,7 +228,7 @@ AddEventHandler('gcPhone:twitter_getTweets', function(username, password)
   end
 end)
 
-RegisterServerEvent('gcPhone:twitter_getFavoriteTweets')
+RegisterNetEvent('gcPhone:twitter_getFavoriteTweets')
 AddEventHandler('gcPhone:twitter_getFavoriteTweets', function(username, password)
   local sourcePlayer = tonumber(source)
   if username ~= nil and username ~= "" and password ~= nil and password ~= "" then
@@ -245,7 +245,7 @@ AddEventHandler('gcPhone:twitter_getFavoriteTweets', function(username, password
   end
 end)
 
-RegisterServerEvent('gcPhone:twitter_postTweets')
+RegisterNetEvent('gcPhone:twitter_postTweets')
 AddEventHandler('gcPhone:twitter_postTweets', function(username, password, message)
   local _source = source
   local sourcePlayer = tonumber(_source)
@@ -253,14 +253,14 @@ AddEventHandler('gcPhone:twitter_postTweets', function(username, password, messa
   TwitterPostTweet(username, password, message, sourcePlayer, srcIdentifier)
 end)
 
-RegisterServerEvent('gcPhone:twitter_toogleLikeTweet')
+RegisterNetEvent('gcPhone:twitter_toogleLikeTweet')
 AddEventHandler('gcPhone:twitter_toogleLikeTweet', function(username, password, tweetId)
   local sourcePlayer = tonumber(source)
   TwitterToogleLike(username, password, tweetId, sourcePlayer)
 end)
 
 
-RegisterServerEvent('gcPhone:twitter_setAvatarUrl')
+RegisterNetEvent('gcPhone:twitter_setAvatarUrl')
 AddEventHandler('gcPhone:twitter_setAvatarUrl', function(username, password, avatarUrl)
   local sourcePlayer = tonumber(source)
   MySQL.Async.execute("UPDATE `twitter_accounts` SET `avatar_url`= @avatarUrl WHERE twitter_accounts.username = @username AND twitter_accounts.password = @password", {

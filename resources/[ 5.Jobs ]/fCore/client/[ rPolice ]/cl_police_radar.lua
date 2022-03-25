@@ -91,15 +91,15 @@ function POLICE_radar()
 
     if isRadarPlaced then 
         
-        if GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), RadarPos.x, RadarPos.y, RadarPos.z, true) < 0.9 then 
+        if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), RadarPos.x, RadarPos.y, RadarPos.z, true) < 0.9 then 
        
             RequestAnimDict("anim@apt_trans@garage")
             while not HasAnimDictLoaded("anim@apt_trans@garage") do
                Wait(1)
             end
-            TaskPlayAnim(GetPlayerPed(-1), "anim@apt_trans@garage", "gar_open_1_left", 1.0, -1.0, 5000, 0, 1, true, true, true) 
+            TaskPlayAnim(PlayerPedId(), "anim@apt_trans@garage", "gar_open_1_left", 1.0, -1.0, 5000, 0, 1, true, true, true) 
        
-            Citizen.Wait(2000) 
+            Wait(2000) 
        
             SetEntityAsMissionEntity(Radar, false, false)
            
@@ -124,16 +124,16 @@ function POLICE_radar()
             AddTextComponentString("~r~Vous n'êtes pas à coté de votre Radar !")
             DrawSubtitleTimed(3000, 1)
            
-            Citizen.Wait(1500) 
+            Wait(1500) 
        
         end
    
     else 
         maxSpeed = radarSetSpeed("50")
        
-        Citizen.Wait(200) 
-        RadarPos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0, 1.5, 0)
-        RadarAng = GetEntityRotation(GetPlayerPed(-1))
+        Wait(200) 
+        RadarPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0, 1.5, 0)
+        RadarAng = GetEntityRotation(PlayerPedId())
        
         if maxSpeed ~= nil then 
        
@@ -141,9 +141,9 @@ function POLICE_radar()
             while not HasAnimDictLoaded("anim@apt_trans@garage") do
                Wait(1)
             end
-            TaskPlayAnim(GetPlayerPed(-1), "anim@apt_trans@garage", "gar_open_1_left", 1.0, -1.0, 5000, 0, 1, true, true, true) -- animation
+            TaskPlayAnim(PlayerPedId(), "anim@apt_trans@garage", "gar_open_1_left", 1.0, -1.0, 5000, 0, 1, true, true, true) -- animation
            
-            Citizen.Wait(1500)
+            Wait(1500)
            
             RequestModel("prop_cctv_pole_01a")
             while not HasModelLoaded("prop_cctv_pole_01a") do
@@ -171,7 +171,7 @@ function POLICE_radar()
     end
 end
  
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         Wait(0)
  
@@ -199,7 +199,7 @@ Citizen.CreateThread(function()
                
             end
            
-            if GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), RadarPos.x, RadarPos.y, RadarPos.z, true) > 300 then 
+            if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), RadarPos.x, RadarPos.y, RadarPos.z, true) > 300 then 
            
                 SetEntityAsMissionEntity(Radar, false, false)
                 SetEntityVisible(Radar, false)

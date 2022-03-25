@@ -39,7 +39,7 @@ ESX.RegisterServerCallback('SmallTattoos:PurchaseTattoo', function(source, cb, t
 	end
 end)
 
-RegisterServerEvent('SmallTattoos:RemoveTattoo')
+RegisterNetEvent('SmallTattoos:RemoveTattoo')
 AddEventHandler('SmallTattoos:RemoveTattoo', function (tattooList)
 	local xPlayer = ESX.GetPlayerFromId(source)
 

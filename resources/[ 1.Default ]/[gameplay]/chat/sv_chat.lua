@@ -1,11 +1,11 @@
-RegisterServerEvent('chat:init')
-RegisterServerEvent('chat:addTemplate')
-RegisterServerEvent('chat:addMessage')
-RegisterServerEvent('chat:addSuggestion')
-RegisterServerEvent('chat:removeSuggestion')
-RegisterServerEvent('_chat:messageEntered')
-RegisterServerEvent('chat:clear')
-RegisterServerEvent('__cfx_internal:commandFallback')
+RegisterNetEvent('chat:init')
+RegisterNetEvent('chat:addTemplate')
+RegisterNetEvent('chat:addMessage')
+RegisterNetEvent('chat:addSuggestion')
+RegisterNetEvent('chat:removeSuggestion')
+RegisterNetEvent('_chat:messageEntered')
+RegisterNetEvent('chat:clear')
+RegisterNetEvent('__cfx_internal:commandFallback')
 
 -- this is a built-in event, but somehow needs to be registered
 RegisterNetEvent('playerJoining')
@@ -201,7 +201,7 @@ local function routeMessage(source, author, message, mode, fromConsole)
     end
 end
 
-AddEventHandler('_chat:messageEntered', function(author, color, message, mode)
+AddEventHandler('_chat:messageEntered', function(author, _, message, mode)
     if not message or not author then
         return
     end
@@ -237,7 +237,7 @@ AddEventHandler('playerDropped', function(reason)
     TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^2* ' .. GetPlayerName(source) ..' left (' .. reason .. ')')
 end)
 
-RegisterCommand('say', function(source, args, rawCommand)
+RegisterCommand('say', function(source, _, rawCommand)
     routeMessage(source, (source == 0) and 'console' or GetPlayerName(source), rawCommand:sub(5), nil, true)
 end)
 
@@ -280,7 +280,7 @@ AddEventHandler('chat:init', function()
     end
 end)
 
-AddEventHandler('onServerResourceStart', function(resName)
+AddEventHandler('onServerResourceStart', function(_)
     Wait(500)
 
     for _, player in ipairs(GetPlayers()) do

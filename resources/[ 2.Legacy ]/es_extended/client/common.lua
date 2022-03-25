@@ -2,6 +2,8 @@ AddEventHandler('esx:getSharedObject', function(cb)
 	cb(ESX)
 end)
 
-function getSharedObject()
+exports('getSharedObject', function()
 	return ESX
-end
+end)
+
+Config.OxInventory = false -- just in case

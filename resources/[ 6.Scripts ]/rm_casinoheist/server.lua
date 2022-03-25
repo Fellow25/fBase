@@ -66,7 +66,7 @@ AddEventHandler('casinoheist:server:policeAlert', function(coords)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:startHeist')
+RegisterNetEvent('casinoheist:server:startHeist')
 AddEventHandler('casinoheist:server:startHeist', function(coords)
     local players = ESX.GetPlayers()
     CasinoHeist['start'] = true
@@ -85,14 +85,14 @@ AddEventHandler('casinoheist:server:startHeist', function(coords)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:rappelBusy')
+RegisterNetEvent('casinoheist:server:rappelBusy')
 AddEventHandler('casinoheist:server:rappelBusy', function(index)
     for k, v in pairs(CasinoHeist['heistFriends']) do
         TriggerClientEvent('casinoheist:client:rappelBusy', v, index)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:rewardItem')
+RegisterNetEvent('casinoheist:server:rewardItem')
 AddEventHandler('casinoheist:server:rewardItem', function(reward)
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -109,7 +109,7 @@ AddEventHandler('casinoheist:server:rewardItem', function(reward)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:sellRewardItems')
+RegisterNetEvent('casinoheist:server:sellRewardItems')
 AddEventHandler('casinoheist:server:sellRewardItems', function()
     local src = source
     local player = ESX.GetPlayerFromId(src)
@@ -146,63 +146,63 @@ AddEventHandler('casinoheist:server:sellRewardItems', function()
     end
 end)
 
-RegisterServerEvent('casinoheist:server:nightVision')
+RegisterNetEvent('casinoheist:server:nightVision')
 AddEventHandler('casinoheist:server:nightVision', function()
     for k, v in pairs(CasinoHeist['heistFriends']) do
         TriggerClientEvent('casinoheist:client:nightVision', v)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:syncDoor')
+RegisterNetEvent('casinoheist:server:syncDoor')
 AddEventHandler('casinoheist:server:syncDoor', function(index)
     for k, v in pairs(CasinoHeist['heistFriends']) do
         TriggerClientEvent('casinoheist:client:syncDoor', v, index)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:vaultSync')
+RegisterNetEvent('casinoheist:server:vaultSync')
 AddEventHandler('casinoheist:server:vaultSync', function()
     for k, v in pairs(CasinoHeist['heistFriends']) do
         TriggerClientEvent('casinoheist:client:vaultSync', v)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:drillSync')
+RegisterNetEvent('casinoheist:server:drillSync')
 AddEventHandler('casinoheist:server:drillSync', function()
     for k, v in pairs(CasinoHeist['heistFriends']) do
         TriggerClientEvent('casinoheist:client:drillSync', v)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:lockboxSync')
+RegisterNetEvent('casinoheist:server:lockboxSync')
 AddEventHandler('casinoheist:server:lockboxSync', function()
     for k, v in pairs(CasinoHeist['heistFriends']) do
         TriggerClientEvent('casinoheist:client:lockboxSync', v)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:deleteLockbox')
+RegisterNetEvent('casinoheist:server:deleteLockbox')
 AddEventHandler('casinoheist:server:deleteLockbox', function(index)
     for k, v in pairs(CasinoHeist['heistFriends']) do
         TriggerClientEvent('casinoheist:client:deleteLockbox', v, index)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:lootSync')
+RegisterNetEvent('casinoheist:server:lootSync')
 AddEventHandler('casinoheist:server:lootSync', function(index)
     for k, v in pairs(CasinoHeist['heistFriends']) do
         TriggerClientEvent('casinoheist:client:lootSync', v, index)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:vaultKeypadsSync')
+RegisterNetEvent('casinoheist:server:vaultKeypadsSync')
 AddEventHandler('casinoheist:server:vaultKeypadsSync', function(index)
     for k, v in pairs(CasinoHeist['heistFriends']) do
         TriggerClientEvent('casinoheist:client:vaultKeypadsSync', v, index)
     end
 end)
 
-RegisterServerEvent('casinoheist:server:npcSync')
+RegisterNetEvent('casinoheist:server:npcSync')
 AddEventHandler('casinoheist:server:npcSync', function()
     local src = source
     if CasinoHeist['npcSpawned'] then return end

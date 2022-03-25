@@ -19,14 +19,14 @@ local sortirvoitureacheter = {}
 local CurrentAction, CurrentActionMsg, LastZone, currentDisplayVehicle, CurrentVehicleData
 local CurrentActionData, Vehicles, Categories = {}, {}, {}
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -47,7 +47,7 @@ function fCatalogueMenu()
 RageUI.Visible(catalogue, not RageUI.Visible(catalogue))
 
 while catalogue do
-	Citizen.Wait(0)
+	Wait(0)
 	RageUI.IsVisible(catalogue, true, true, true, function()
 
 		
@@ -71,7 +71,7 @@ while catalogue do
 	for i2 = 1, #fellow_conc.listecatevehi, 1 do
 	RageUI.ButtonWithStyle(fellow_conc.listecatevehi[i2].name, nil, {RightLabel =  "→"},true, function(Hovered, Active, Selected)
 	if (Selected) then
-			local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+			local plyCoords = GetEntityCoords(PlayerPedId(), false)
 			nomvoiture = fellow_conc.listecatevehi[i2].name
 			modelevoiture = fellow_conc.listecatevehi[i2].model
 		end
@@ -101,10 +101,10 @@ while catalogue do
 	  end
   end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local Timer = 500
-		local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+		local plycrdjob = GetEntityCoords(PlayerPedId(), false)
 		local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, fCatalogue.pos.voiture.position.x, fCatalogue.pos.voiture.position.y, fCatalogue.pos.voiture.position.z)
 		if jobdist <= 10.0 then
 			Timer = 0
@@ -120,7 +120,7 @@ Citizen.CreateThread(function()
 						fCatalogueMenu()
 				end   
 			end
-	Citizen.Wait(Timer)   
+	Wait(Timer)   
 end
 end)
 ----------------------------------------------------------
@@ -134,7 +134,7 @@ function fCatalogueMotoMenu()
 RageUI.Visible(cataloguemoto, not RageUI.Visible(cataloguemoto))
 
 while cataloguemoto do
-	Citizen.Wait(0)
+	Wait(0)
 	RageUI.IsVisible(cataloguemoto, true, true, true, function()
 
 		
@@ -158,7 +158,7 @@ while cataloguemoto do
 	for i2 = 1, #fellow_moto.listecatemoto, 1 do
 	RageUI.ButtonWithStyle(fellow_moto.listecatemoto[i2].name, nil, {RightLabel =  "→"},true, function(Hovered, Active, Selected)
 	if (Selected) then
-			local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+			local plyCoords = GetEntityCoords(PlayerPedId(), false)
 			nomvoiture = fellow_moto.listecatemoto[i2].name
 			modelevoiture = fellow_moto.listecatemoto[i2].model
 		end
@@ -188,10 +188,10 @@ while cataloguemoto do
 	  end
   end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local Timer = 500
-		local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+		local plycrdjob = GetEntityCoords(PlayerPedId(), false)
 		local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, fCatalogue.pos.moto.position.x, fCatalogue.pos.moto.position.y, fCatalogue.pos.moto.position.z)
 		if jobdist <= 10.0 then
 			Timer = 0
@@ -207,7 +207,7 @@ Citizen.CreateThread(function()
 						fCatalogueMotoMenu()
 				end   
 			end
-	Citizen.Wait(Timer)   
+	Wait(Timer)   
 end
 end)
 function spawnuniCarCatalogue(car)
@@ -215,14 +215,14 @@ function spawnuniCarCatalogue(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, -899.62, -3298.74, 13.94, 58.0, true, false)
 	SetVehicleCustomPrimaryColour(vehicle, rouge, vert, bleu)
 	SetVehicleCustomSecondaryColour(vehicle, rouge, vert, bleu)
     SetEntityAsMissionEntity(vehicle, true, true) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 	SetVehicleDoorsLocked(vehicle, 4)
 	ESX.ShowNotification("Vous avez 30 secondes pour tester le véhicule.")
 	local timer =30

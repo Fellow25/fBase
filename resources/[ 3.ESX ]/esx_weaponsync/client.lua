@@ -19,10 +19,10 @@ for name,item in pairs(Config.AmmoTypes) do
   AmmoTypes[GetHashKey(name)] = item
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
   while ESX == nil do
     TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-    Citizen.Wait(200)
+    Wait(200)
   end
 end)
 
@@ -52,10 +52,10 @@ end
 function RebuildLoadout()
   
   while not PlayerData do
-    Citizen.Wait(200)
+    Wait(200)
   end
   
-  local playerPed = GetPlayerPed(-1)
+  local playerPed = PlayerPedId()
 
   for weaponHash,v in pairs(Weapons) do
     local item = GetInventoryItem(v.item)
@@ -91,7 +91,7 @@ function RebuildLoadout()
 end
 
 function RemoveUsedAmmo()  
-  local playerPed = GetPlayerPed(-1)
+  local playerPed = PlayerPedId()
   local AmmoAfter = GetAmmoInPedWeapon(playerPed, CurrentWeapon)
   local ammoType = AmmoTypes[GetPedAmmoTypeFromWeapon(playerPed, CurrentWeapon)]
   
@@ -126,29 +126,29 @@ end)
 
 RegisterNetEvent('esx:addInventoryItem')
 AddEventHandler('esx:addInventoryItem', function(name, count)
-  Citizen.Wait(1) -- Wait a tick to make sure ESX has updated PlayerData
+  Wait(1) -- Wait a tick to make sure ESX has updated PlayerData
   PlayerData = ESX.GetPlayerData()
   RebuildLoadout()
   if CurrentWeapon then
-    AmmoBefore = GetAmmoInPedWeapon(GetPlayerPed(-1), CurrentWeapon)
+    AmmoBefore = GetAmmoInPedWeapon(PlayerPedId(), CurrentWeapon)
   end
 end)
 
 RegisterNetEvent('esx:removeInventoryItem')
 AddEventHandler('esx:removeInventoryItem', function(name, count)
-  Citizen.Wait(1) -- Wait a tick to make sure ESX has updated PlayerData
+  Wait(1) -- Wait a tick to make sure ESX has updated PlayerData
   PlayerData = ESX.GetPlayerData()
   RebuildLoadout()
   if CurrentWeapon then
-    AmmoBefore = GetAmmoInPedWeapon(GetPlayerPed(-1), CurrentWeapon)
+    AmmoBefore = GetAmmoInPedWeapon(PlayerPedId(), CurrentWeapon)
   end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
   while true do
-    Citizen.Wait(200)
+    Wait(200)
     
-    local playerPed = GetPlayerPed(-1)
+    local playerPed = PlayerPedId()
 
     if CurrentWeapon ~= GetSelectedPedWeapon(playerPed) then
       IsShooting = false

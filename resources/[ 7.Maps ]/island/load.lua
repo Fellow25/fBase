@@ -374,6 +374,6 @@ local requestedIpl = {
         end
     end)
     
-    Citizen.CreateThread(function()
+    CreateThread(function()
       SetDeepOceanScaler(0.0)
     end)

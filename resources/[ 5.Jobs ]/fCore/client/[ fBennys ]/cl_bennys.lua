@@ -12,16 +12,16 @@ end)
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)  
 	PlayerData.job = job  
-	Citizen.Wait(5000) 
+	Wait(5000) 
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(10)
+		Wait(10)
     end
     while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
+		Wait(10)
     end
     if ESX.IsPlayerLoaded() then
 
@@ -47,7 +47,7 @@ AddEventHandler('esx:setJob2', function(job2)
 end)
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
     if Bennys.jeveuxblips then
     local bennysmap = AddBlipForCoord(Bennys.pos.blips.position.x, Bennys.pos.blips.position.y, Bennys.pos.blips.position.z)
         SetBlipSprite(bennysmap, 402)
@@ -69,7 +69,7 @@ function Menuf6Bennys()
     fBennysf6Sub1:SetRectangleBanner(150, 0, 0)
     RageUI.Visible(fBennysf6, not RageUI.Visible(fBennysf6))
     while fBennysf6 do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(fBennysf6, true, true, true, function()
 
                 RageUI.Separator("~y~↓ Facture ↓")
@@ -185,9 +185,9 @@ function Menuf6Bennys()
                         if DoesEntityExist(vehicle) then
                             isBusy = true
                             TaskStartScenarioInPlace(playerPed, 'PROP_HUMAN_BUM_BIN', 0, true)
-                            Citizen.CreateThread(function()
+                            CreateThread(function()
                                 TriggerServerEvent("fBennys:delkit")
-                                Citizen.Wait(20000)
+                                Wait(20000)
                                 SetVehicleFixed(vehicle)
                                 SetVehicleDeformationFixed(vehicle)
                                 SetVehicleUndriveable(vehicle, false)
@@ -220,8 +220,8 @@ function Menuf6Bennys()
                                 if DoesEntityExist(vehicle) then
                                     isBusy = true
                                     TaskStartScenarioInPlace(playerPed, 'WORLD_HUMAN_MAID_CLEAN', 0, true)
-                                    Citizen.CreateThread(function()
-                                        Citizen.Wait(10000)
+                                    CreateThread(function()
+                                        Wait(10000)
                     
                                         SetVehicleDirtLevel(vehicle, 0)
                                         ClearPedTasksImmediately(playerPed)
@@ -255,7 +255,7 @@ function Coffrebennys()
     Cbennys:SetRectangleBanner(150, 0, 0)
         RageUI.Visible(Cbennys, not RageUI.Visible(Cbennys))
             while Cbennys do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Cbennys, true, true, true, function()
                 
                
@@ -304,11 +304,11 @@ function Coffrebennys()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' or ESX.PlayerData.job and ESX.PlayerData.job.name == 'ferrailleur' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Bennys.pos.coffre.position.x, Bennys.pos.coffre.position.y, Bennys.pos.coffre.position.z)
             if jobdist <= 10.0 and Bennys.jeveuxmarker then
                 Timer = 0
@@ -322,7 +322,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -334,7 +334,7 @@ function GarageBennys()
   GBennys:SetRectangleBanner(150, 0, 0)
     RageUI.Visible(GBennys, not RageUI.Visible(GBennys))
         while GBennys do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(GBennys, true, true, true, function()
                     RageUI.ButtonWithStyle("Ranger la voiture", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then   
@@ -349,7 +349,7 @@ function GarageBennys()
                     for k,v in pairs(GBennysvoiture) do
                     RageUI.ButtonWithStyle(v.nom, nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                         if (Selected) then
-                        Citizen.Wait(1)  
+                        Wait(1)  
                             spawnuniCarBennys(v.modele)
                             RageUI.CloseAll()
                             end
@@ -363,11 +363,11 @@ function GarageBennys()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Bennys.pos.garage.position.x, Bennys.pos.garage.position.y, Bennys.pos.garage.position.z)
             if dist3 <= 10.0 and Bennys.jeveuxmarker then
                 Timer = 0
@@ -381,7 +381,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)
+        Wait(Timer)
      end
 end)
 
@@ -391,15 +391,15 @@ function spawnuniCarBennys(car)
     RequestModel(car)
     while not HasModelLoaded(car) do
         RequestModel(car)
-        Citizen.Wait(0)
+        Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Bennys.pos.spawnvoiture.position.x, Bennys.pos.spawnvoiture.position.y, Bennys.pos.spawnvoiture.position.z, Bennys.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Benny's"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 
@@ -413,7 +413,7 @@ function BennysRetirerobjet()
    
     RageUI.Visible(Stockbennys, not RageUI.Visible(Stockbennys))
         while Stockbennys do
-            Citizen.Wait(0)
+            Wait(0)
                 RageUI.IsVisible(Stockbennys, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count > 0 then
@@ -442,7 +442,7 @@ function BennysDeposerobjet()
     ESX.TriggerServerCallback('fbennys:getPlayerInventory', function(inventory)
         RageUI.Visible(StockPlayer, not RageUI.Visible(StockPlayer))
     while StockPlayer do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(StockPlayer, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then

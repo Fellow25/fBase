@@ -3,7 +3,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 local deadPeds = {}
 
-RegisterServerEvent('loffe_robbery:pedDead')
+RegisterNetEvent('loffe_robbery:pedDead')
 AddEventHandler('loffe_robbery:pedDead', function(store)
     if not deadPeds[store] then
         deadPeds[store] = 'deadlol'
@@ -21,12 +21,12 @@ AddEventHandler('loffe_robbery:pedDead', function(store)
     end
 end)
 
-RegisterServerEvent('loffe_robbery:handsUp')
+RegisterNetEvent('loffe_robbery:handsUp')
 AddEventHandler('loffe_robbery:handsUp', function(store)
     TriggerClientEvent('loffe_robbery:handsUp', -1, store)
 end)
 
-RegisterServerEvent('loffe_robbery:pickUp')
+RegisterNetEvent('loffe_robbery:pickUp')
 AddEventHandler('loffe_robbery:pickUp', function(store)
     local xPlayer = ESX.GetPlayerFromId(source)
     local randomAmount = math.random(Config.Shops[store].money[1], Config.Shops[store].money[2])
@@ -56,7 +56,7 @@ ESX.RegisterServerCallback('loffe_robbery:canRob', function(source, cb, store)
     end
 end)
 
-RegisterServerEvent('loffe_robbery:rob')
+RegisterNetEvent('loffe_robbery:rob')
 AddEventHandler('loffe_robbery:rob', function(store)
     local src = source
     Config.Shops[store].robbed = true
@@ -75,14 +75,14 @@ AddEventHandler('loffe_robbery:rob', function(store)
     TriggerClientEvent('loffe_robbery:resetStore', -1, store)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while true do
         for i = 1, #deadPeds do TriggerClientEvent('loffe_robbery:pedDead', -1, i) end -- update dead peds
-        Citizen.Wait(500)
+        Wait(500)
     end
 end)
 
-RegisterServerEvent('loffe_robbery:alarm')
+RegisterNetEvent('loffe_robbery:alarm')
 AddEventHandler('loffe_robbery:alarm', function(store)
     local src = source
     local xPlayers = ESX.GetPlayers()

@@ -248,7 +248,7 @@ if not isRDR then
   end, false)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
   SetTextChatEnabled(false)
   SetNuiFocus(false)
 
@@ -259,7 +259,7 @@ Citizen.CreateThread(function()
     Wait(0)
 
     if not chatInputActive then
-      if IsControlPressed(0, isRDR and `INPUT_MP_TEXT_CHAT_ALL` or 245) --[[ INPUT_MP_TEXT_CHAT_ALL ]] then
+      if IsControlPressed(0, isRDR and GetHashKey("INPUT_MP_TEXT_CHAT_ALL") or 245) --[[ INPUT_MP_TEXT_CHAT_ALL ]] then
         chatInputActive = true
         chatInputActivating = true
 
@@ -270,7 +270,7 @@ Citizen.CreateThread(function()
     end
 
     if chatInputActivating then
-      if not IsControlPressed(0, isRDR and `INPUT_MP_TEXT_CHAT_ALL` or 245) then
+      if not IsControlPressed(0, isRDR and GetHashKey("INPUT_MP_TEXT_CHAT_ALL") or 245) then
         SetNuiFocus(true)
 
         chatInputActivating = false

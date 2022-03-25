@@ -6,14 +6,14 @@ local scaleType = nil
 local scaleString = ""
 
 ESX = nil
-Citizen.CreateThread(function()
+CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	AddTextEntry("ParaTattoos", "Salon de tatouage")
 	for k, v in pairs(Config.Shops) do
 		local blip = AddBlipForCoord(v)
@@ -44,9 +44,9 @@ AddEventHandler('skinchanger:modelLoaded', function()
 	end)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(300000)
+		Wait(300000)
 		if not IsMenuOpen() then
 			ESX.TriggerServerCallback('SmallTattoos:GetPlayerTattoos', function(tattooList)
 				if tattooList then
@@ -134,7 +134,7 @@ end
 function ReqTexts(text, slot)
 	RequestAdditionalText(text, slot)
 	while not HasAdditionalTextLoaded(slot) do
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end
 
@@ -191,7 +191,7 @@ function CreateScale(sType)
 	end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	JayMenu.CreateMenu("tattoo", "Tattoo Shop", function()
         return CloseTattooShop()
     end)
@@ -203,7 +203,7 @@ Citizen.CreateThread(function()
 	end
 
     while true do 
-        Citizen.Wait(0)
+        Wait(0)
 		local CanSleep = true
 		if not IsMenuOpen() then
 			for _,interiorId in ipairs(Config.interiorIds) do
@@ -344,7 +344,7 @@ Citizen.CreateThread(function()
 			end
 		end
 		if CanSleep then
-			Citizen.Wait(3000)
+			Wait(3000)
 		end
     end
 end)
@@ -362,7 +362,7 @@ end
 function setupScaleform2(scaleform, message, button, message2, buttons, message3, button2)
     local scaleform = RequestScaleformMovie(scaleform)
     while not HasScaleformMovieLoaded(scaleform) do
-        Citizen.Wait(0)
+        Wait(0)
     end
     PushScaleformMovieFunction(scaleform, "CLEAR_ALL")
     PopScaleformMovieFunctionVoid()
@@ -406,7 +406,7 @@ end
 function setupScaleform(scaleform, message, button)
     local scaleform = RequestScaleformMovie(scaleform)
     while not HasScaleformMovieLoaded(scaleform) do
-        Citizen.Wait(0)
+        Wait(0)
     end
     PushScaleformMovieFunction(scaleform, "CLEAR_ALL")
     PopScaleformMovieFunctionVoid()

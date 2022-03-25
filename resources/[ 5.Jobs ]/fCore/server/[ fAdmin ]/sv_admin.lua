@@ -1,82 +1,109 @@
-ESX = nil
+local ESX = exports.es_extended:getSharedObject()
 
 local reportTable = {}
 
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
 	ESX.PlayerData = xPlayer
 end)
 
+
+local function envoyerdiscord(_, message, color, _)
+    local embeds = {
+        {
+            ["title"]=message,
+            ["type"]="rich",
+            ["color"] =color,
+            ["footer"]=  {
+            ["text"]= "fAdmin by Fellow",
+            },
+        }
+    }
+    if message == nil or message == '' then return FALSE end
+    PerformHttpRequest(fAdmin.webhooks, function(err, text, headers) end, 'POST', json.encode({ username = "fAdmin Bot",embeds = embeds}), { ['Content-Type'] = 'application/json' })
+end
+
+local listAccess = {
+	["superadmin"] = true,
+	["admin"] = true,
+	["modo"] = false,
+	["user"] = false,
+}
+
+local function haveAuthorization(player)
+	if listAccess[player.getGroup()] then
+		return true
+	else
+		envoyerdiscord("fAdmin","Tentative exploit (MENU ADMIN) \n__Joueur :__ "..player.getName().."", 16744192, fAdmin.webhooks)
+
+		return false
+	end
+end
+
 --Argent cash
-RegisterServerEvent("fAdmin:GiveArgentCash")
+RegisterNetEvent("fAdmin:GiveArgentCash")
 AddEventHandler("fAdmin:GiveArgentCash", function(money)
-	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(_source)
-	local total = money
-	
-	xPlayer.addMoney((total))
-    envoyerdiscord("fAdmin","__Give d'argent cash :__ "..total.."€ \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	if haveAuthorization(xPlayer) then
+		xPlayer.addMoney(money)
+		envoyerdiscord("fAdmin","__Give d'argent cash :__ "..money.."€ \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
+	end
 end)
 
 --Argent sale
-RegisterServerEvent("fAdmin:GiveArgentSale")
+RegisterNetEvent("fAdmin:GiveArgentSale")
 AddEventHandler("fAdmin:GiveArgentSale", function(money)
-	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(_source)
-	local total = money
-	
-	xPlayer.addAccountMoney('black_money', total)
-    envoyerdiscord("fAdmin","__Give d'argent sale :__ "..total.."€ \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	if haveAuthorization(xPlayer) then
+		xPlayer.addAccountMoney('black_money', money)
+    	envoyerdiscord("fAdmin","__Give d'argent sale :__ "..money.."€ \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
+	end
 end)
 
 --Argent banque
-RegisterServerEvent("fAdmin:GiveArgentBanque")
+RegisterNetEvent("fAdmin:GiveArgentBanque")
 AddEventHandler("fAdmin:GiveArgentBanque", function(money)
-	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(_source)
-	local total = money
-	
-	xPlayer.addAccountMoney('bank', total)
-    envoyerdiscord("fAdmin","__Give d'argent banque :__ "..total.."€ \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
+	local xPlayer = ESX.GetPlayerFromId(source)
+
+	if haveAuthorization(xPlayer) then
+		xPlayer.addAccountMoney('bank', money)
+		envoyerdiscord("fAdmin","__Give d'argent banque :__ "..money.."€ \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
+	end
 end)
 
 --Kick
-RegisterServerEvent('fAdmin:kickjoueur')
+RegisterNetEvent('fAdmin:kickjoueur')
 AddEventHandler('fAdmin:kickjoueur', function(id, raison)
-    local _source = source
-    local xPlayer = ESX.GetPlayerFromId(_source)
+    local xPlayer = ESX.GetPlayerFromId(source)
     local tragetxPlayer = ESX.GetPlayerFromId(id)
-    local reason = "Vous avez été kick par "..xPlayer.getName().." pour la raison suivante : "..raison
-    DropPlayer(id, reason)
-    envoyerdiscord("fAdmin","__Kick :__ "..tragetxPlayer.getName().." \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
+	if haveAuthorization(xPlayer) then
+		local reason = "Vous avez été kick par "..xPlayer.getName().." pour la raison suivante : "..raison
+		DropPlayer(id, reason)
+		envoyerdiscord("fAdmin","__Kick :__ "..tragetxPlayer.getName().." \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
+	end
 end)
 
 --Give véhicule avec clées
-RegisterServerEvent('fAdmin:vehicule')
+RegisterNetEvent('fAdmin:vehicule')
 AddEventHandler('fAdmin:vehicule', function(vehicleProps, plate, veh)
     local xPlayer = ESX.GetPlayerFromId(source)
-    MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle) VALUES (@owner, @plate, @vehicle)', {
-        ['@owner']   = xPlayer.identifier,
-        ['@plate']   = plate,
-        ['@vehicle'] = json.encode(vehicleProps)
-    }, function(rowsChange)
-    end)
-    envoyerdiscord("fAdmin","__Give de véhicule :__ "..veh.." \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
+	if haveAuthorization(xPlayer) then
+		MySQL.insert('INSERT INTO owned_vehicles (owner, plate, vehicle) VALUES (?, ?, ?)', {xPlayer.identifier, plate, json.encode(vehicleProps) }, function(rowsChange)
+		end)
+		envoyerdiscord("fAdmin","__Give de véhicule :__ "..veh.." \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
+	end
 end)
 
-RegisterServerEvent('fAdmin:vehiculejoueur')
+RegisterNetEvent('fAdmin:vehiculejoueur')
 AddEventHandler('fAdmin:vehiculejoueur', function(vehicleProps, plate, IdSelected, veh)
     local xPlayer = ESX.GetPlayerFromId(IdSelected)
     local lestaff = ESX.GetPlayerFromId(source)
-    MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle) VALUES (@owner, @plate, @vehicle)', {
-        ['@owner']   = xPlayer.identifier,
-        ['@plate']   = plate,
-        ['@vehicle'] = json.encode(vehicleProps)
-    }, function(rowsChange)
+   if haveAuthorization(lestaff) then
+	MySQL.insert('INSERT INTO owned_vehicles (owner, plate, vehicle) VALUES (?, ?, ?)', {xPlayer.identifier, plate, json.encode(vehicleProps)}, function(rowsChange)
     end)
     envoyerdiscord("fAdmin","__Give de véhicule joueur :__ "..xPlayer.getName().."\n\n__Véhicule :__ "..veh.."\n\n__Staff :__ "..lestaff.getName().."", 16744192, fAdmin.webhooks)
+   end
 end)
 
 --Report
@@ -106,7 +133,7 @@ RegisterCommand('report', function(source, args, rawCommand)
     end
 end, false)
 
-RegisterServerEvent("fAdmin:CloseReport")
+RegisterNetEvent("fAdmin:CloseReport")
 AddEventHandler("fAdmin:CloseReport", function(nomMec, raisonMec)
     TriggerClientEvent("fAdmin:Open/CloseReport", -1, 2, nomMec, raisonMec)
     table.remove(reportTable, id, nom, args)
@@ -116,18 +143,16 @@ ESX.RegisterServerCallback('fAdmin:infoReport', function(source, cb)
     cb(reportTable)
 end)
 
-RegisterServerEvent("fAdmin:bring")
+RegisterNetEvent("fAdmin:bring")
 AddEventHandler("fAdmin:bring",function(IdDuMec, plyPedCoords, lequel)
     local xPlayer = ESX.GetPlayerFromId(source)
-    if xPlayer.getGroup() == "help" or xPlayer.getGroup() == "mod" or xPlayer.getGroup() == "admin" then
-        if lequel == "bring" then
+	if haveAuthorization(xPlayer) then
+		if lequel == "bring" then
             TriggerClientEvent("fAdmin:bring", IdDuMec, plyPedCoords)
         else
             TriggerClientEvent("fAdmin:bring", plyPedCoords, IdDuMec)
         end
-    else
-        print('Tu peux pas !')
-    end
+	end
 end)
 
 RegisterNetEvent("fAdmin:Message")
@@ -144,7 +169,6 @@ BanListHistory     = {}
 BanListHistoryLoad = false
 Text = Config.TextFr
 
-TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 
 CreateThread(function()
@@ -175,7 +199,7 @@ end)
 CreateThread(function()
 	while Config.MultiServerSync do
 		Wait(30000)
-		MySQL.Async.fetchAll(
+		MySQL.query(
 		'SELECT * FROM banlist',
 		{},
 		function (data)
@@ -236,22 +260,10 @@ ESX.RegisterCommand('sqlbanreload', Config.Permission, function(source, args, us
 end, true)
 
 
---TriggerEvent('es:addGroupCommand', 'sqlsearch', Config.Permission, function (source, args, user)
---	cmdsearch(source, args)
---end, function(source, args, user)
---	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM ', 'Insufficient Permissions.' } })
---end, {help = Text.bansearch, params = {{name = "name", help = Text.steamname}}})
-
-
---TriggerEvent('es:addGroupCommand', 'sqlbanhistory', Config.Permission, function (source, args, user)
---	cmdbanhistory(source, args)
---end, function(source, args, user)
---	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM ', 'Insufficient Permissions.' } })
---end, {help = Text.history, params = {{name = "name", help = Text.steamname}, }})
 
 
 --How to use from server side : TriggerEvent("BanSql:ICheat", "Auto-Cheat Custom Reason",TargetId)
-RegisterServerEvent('BanSql:ICheat')
+RegisterNetEvent('BanSql:ICheat')
 AddEventHandler('BanSql:ICheat', function(reason,servertarget)
 	local license,identifier,liveid,xblid,discord,playerip,target
 	local duree     = 0
@@ -307,7 +319,7 @@ AddEventHandler('BanSql:ICheat', function(reason,servertarget)
 	end
 end)
 
-RegisterServerEvent('BanSql:CheckMe')
+RegisterNetEvent('BanSql:CheckMe')
 AddEventHandler('BanSql:CheckMe', function()
 	doublecheck(source)
 end)
@@ -338,7 +350,7 @@ AddEventHandler('playerConnecting', function (playerName,setKickReason)
 
 	--Si Banlist pas chargée
 	if (Banlist == {}) then
-		Citizen.Wait(1000)
+		Wait(1000)
 	end
 
     if steamID == "n/a" and Config.ForceSteam then
@@ -425,9 +437,7 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 			end
 		end
 
-		MySQL.Async.fetchAll('SELECT * FROM `baninfo` WHERE `license` = @license', {
-			['@license'] = license
-		}, function(data)
+		MySQL.query('SELECT * FROM `baninfo` WHERE `license` = ?', {license}, function(data)
 		local found = false
 			for i=1, #data, 1 do
 				if data[i].license == license then
@@ -435,28 +445,28 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 				end
 			end
 			if not found then
-				MySQL.Async.execute('INSERT INTO baninfo (license,identifier,liveid,xblid,discord,playerip,playername) VALUES (@license,@identifier,@liveid,@xblid,@discord,@playerip,@playername)', 
+				MySQL.insert('INSERT INTO baninfo (license,identifier,liveid,xblid,discord,playerip,playername) VALUES (?,?,?,?,?,?,?)', 
 					{ 
-					['@license']    = license,
-					['@identifier'] = steamID,
-					['@liveid']     = liveid,
-					['@xblid']      = xblid,
-					['@discord']    = discord,
-					['@playerip']   = playerip,
-					['@playername'] = playername
+					license,
+					steamID,
+					liveid,
+					xblid,
+					discord,
+					playerip,
+					playername
 					},
 					function ()
 				end)
 			else
-				MySQL.Async.execute('UPDATE `baninfo` SET `identifier` = @identifier, `liveid` = @liveid, `xblid` = @xblid, `discord` = @discord, `playerip` = @playerip, `playername` = @playername WHERE `license` = @license', 
+				MySQL.update('UPDATE `baninfo` SET `identifier` = ?, `liveid` = ?, `xblid` = ?, `discord` = ?, `playerip` = ?, `playername` = ? WHERE `license` = ?', 
 					{ 
-					['@license']    = license,
-					['@identifier'] = steamID,
-					['@liveid']     = liveid,
-					['@xblid']      = xblid,
-					['@discord']    = discord,
-					['@playerip']   = playerip,
-					['@playername'] = playername
+					steamID,
+					liveid,
+					xblid,
+					discord,
+					playerip,
+					playername,
+					license
 					},
 					function ()
 				end)
@@ -470,59 +480,43 @@ end)
 
 -- Wipe
 
-RegisterNetEvent("fAdmin:WipePlayer")
-AddEventHandler("fAdmin:WipePlayer", function(player)
-    WipePlayer(source, player)
-end)
-
-function WipePlayer(id, target)
+local function WipePlayer(id, target)
     local xPlayer = ESX.GetPlayerFromId(target)
     local steam = xPlayer.getIdentifier()
 
     DropPlayer(target, "Vous vous êtes fait wipe !")
 
-    MySQL.Async.execute([[ 
-		DELETE FROM billing WHERE identifier = @wipeID;
-		DELETE FROM billing WHERE sender = @wipeID;
-		DELETE FROM open_car WHERE identifier = @wipeID;
-		DELETE FROM owned_vehicles WHERE owner = @wipeID;
- 		DELETE FROM users WHERE identifier = @wipeID;	]], {
-		['@wipeID'] = steam,
-    }, function(rowsChanged)
+    MySQL.query([[ 
+		DELETE FROM billing WHERE identifier = ?;
+		DELETE FROM billing WHERE sender = ?;
+		DELETE FROM open_car WHERE identifier = ?;
+		DELETE FROM owned_vehicles WHERE owner = ?;
+ 		DELETE FROM users WHERE identifier = ?;	]], {steam}, function(rowsChanged)
         print("^5Wipe effectuer ! SteamID :"..steam.."^0")
     end)
 end
 
+RegisterNetEvent("fAdmin:WipePlayer")
+AddEventHandler("fAdmin:WipePlayer", function(player)
+	local xPlayer = ESX.GetPlayerFromId(source)
+	if haveAuthorization(xPlayer) then
+		WipePlayer(source, player)
+	end
+end)
+
 
 -- Announce
 
-RegisterServerEvent('fAdmin:sendAnnounce')
+RegisterNetEvent('fAdmin:sendAnnounce')
 AddEventHandler('fAdmin:sendAnnounce', function(target, text, author)
     local xPlayer = ESX.GetPlayerFromId(source)
     local NomDuStaff = xPlayer.getName()
+	if haveAuthorization(xPlayer) then
 		if (author == nil and target ~= -1) then
 			author = GetPlayerName(source);
 		end
 
 		TriggerClientEvent('fAdmin:sendAnnounce', target, text, author);
-        envoyerdiscord("fAdmin","__Une announce :__ "..text.." \n\n__Staff :__ "..NomDuStaff.."", 16744192, fAdmin.webhooks)
+		envoyerdiscord("fAdmin","__Une announce :__ "..text.." \n\n__Staff :__ "..NomDuStaff.."", 16744192, fAdmin.webhooks)
+	end
 end)
-
-
--- Discord
-
-function envoyerdiscord(name,message,color,url)
-    local DiscordWebHook = url
-    local embeds = {
-        {
-            ["title"]=message,
-            ["type"]="rich",
-            ["color"] =color,
-            ["footer"]=  {
-            ["text"]= "fAdmin by Fellow",
-            },
-        }
-    }
-    if message == nil or message == '' then return FALSE end
-    PerformHttpRequest(fAdmin.webhooks, function(err, text, headers) end, 'POST', json.encode({ username = "fAdmin Bot",embeds = embeds}), { ['Content-Type'] = 'application/json' })
-end

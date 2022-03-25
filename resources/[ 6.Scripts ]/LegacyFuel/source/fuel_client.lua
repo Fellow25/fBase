@@ -1,9 +1,9 @@
 if Config.UseESX then
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while not ESX do
 			TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-			Citizen.Wait(500)
+			Wait(500)
 		end
 	end)
 end
@@ -30,7 +30,7 @@ function ManageFuelUsage(vehicle)
 	end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	DecorRegister(Config.FuelDecor, 1)
 
 	for index = 1, #Config.Blacklist do
@@ -46,7 +46,7 @@ Citizen.CreateThread(function()
 	end
 
 	while true do
-		Citizen.Wait(1000)
+		Wait(1000)
 
 		local ped = PlayerPedId()
 
@@ -74,9 +74,9 @@ Citizen.CreateThread(function()
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(250)
+		Wait(250)
 
 		local pumpObject, pumpDistance = FindNearestFuelPump()
 
@@ -95,7 +95,7 @@ Citizen.CreateThread(function()
 		else
 			isNearPump = false
 
-			Citizen.Wait(math.ceil(pumpDistance * 20))
+			Wait(math.ceil(pumpDistance * 20))
 		end
 	end
 end)
@@ -104,7 +104,7 @@ AddEventHandler('fuel:startFuelUpTick', function(pumpObject, ped, vehicle)
 	currentFuel = GetVehicleFuelLevel(vehicle)
 
 	while isFueling do
-		Citizen.Wait(500)
+		Wait(500)
 
 		local oldFuel = DecorGetFloat(vehicle, Config.FuelDecor)
 		local fuelToAdd = math.random(10, 20) / 10.0
@@ -145,7 +145,7 @@ end)
 
 AddEventHandler('fuel:refuelFromPump', function(pumpObject, ped, vehicle)
 	TaskTurnPedToFaceEntity(ped, vehicle, 1000)
-	Citizen.Wait(1000)
+	Wait(1000)
 	SetCurrentPedWeapon(ped, -1569615261, true)
 	LoadAnimDict("timetable@gardener@filling_can")
 	TaskPlayAnim(ped, "timetable@gardener@filling_can", "gar_ig_5_filling_can", 2.0, 8.0, -1, 50, 0, 0, 0, 0)
@@ -181,14 +181,14 @@ AddEventHandler('fuel:refuelFromPump', function(pumpObject, ped, vehicle)
 			isFueling = false
 		end
 
-		Citizen.Wait(0)
+		Wait(0)
 	end
 
 	ClearPedTasks(ped)
 	RemoveAnimDict("timetable@gardener@filling_can")
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		local ped = PlayerPedId()
 
@@ -278,19 +278,19 @@ Citizen.CreateThread(function()
 						DrawText3Ds(stringCoords.x, stringCoords.y, stringCoords.z + 1.2, Config.Strings.NotEnoughCash)
 					end
 				else
-					Citizen.Wait(250)
+					Wait(250)
 				end
 			end
 		else
-			Citizen.Wait(250)
+			Wait(250)
 		end
 
-		Citizen.Wait(0)
+		Wait(0)
 	end
 end)
 
 if Config.ShowNearestGasStationOnly then
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		local currentGasBlip = 0
 
 		while true do
@@ -313,11 +313,11 @@ if Config.ShowNearestGasStationOnly then
 
 			currentGasBlip = CreateBlip(closestCoords)
 
-			Citizen.Wait(10000)
+			Wait(10000)
 		end
 	end)
 elseif Config.ShowAllGasStations then
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		for _, gasStationCoords in pairs(Config.GasStations) do
 			CreateBlip(gasStationCoords)
 		end
@@ -348,7 +348,7 @@ if Config.EnableHUD then
 	local x = 0.01135
 	local y = 0.002
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
 			local ped = PlayerPedId()
 
@@ -364,14 +364,14 @@ if Config.EnableHUD then
 			else
 				displayHud = false
 
-				Citizen.Wait(500)
+				Wait(500)
 			end
 
-			Citizen.Wait(50)
+			Wait(50)
 		end
 	end)
 
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while true do
 			if displayHud then
 				DrawAdvancedText(0.130 - x, 0.77 - y, 0.005, 0.0028, 0.6, mph, 255, 255, 255, 255, 6, 1)
@@ -379,10 +379,10 @@ if Config.EnableHUD then
 				DrawAdvancedText(0.2195 - x, 0.77 - y, 0.005, 0.0028, 0.6, fuel, 255, 255, 255, 255, 6, 1)
 				DrawAdvancedText(0.148 - x, 0.7765 - y, 0.005, 0.0028, 0.4, "mp/h              km/h              Fuel", 255, 255, 255, 255, 6, 1)
 			else
-				Citizen.Wait(750)
+				Wait(750)
 			end
 
-			Citizen.Wait(0)
+			Wait(0)
 		end
 	end)
 end

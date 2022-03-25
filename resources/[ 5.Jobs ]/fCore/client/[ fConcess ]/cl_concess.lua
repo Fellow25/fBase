@@ -12,14 +12,14 @@ local sortirvoitureacheter = {}
 local CurrentAction, CurrentActionMsg, LastZone, currentDisplayVehicle, CurrentVehicleData
 local CurrentActionData, Vehicles, Categories = {}, {}, {}
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     while ESX.GetPlayerData().job == nil do
-        Citizen.Wait(10)
+        Wait(10)
     end
 
     ESX.PlayerData = ESX.GetPlayerData()
@@ -35,7 +35,7 @@ AddEventHandler('esx:setJob', function(job)
 	ESX.PlayerData.job = job
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 if Concess.jeveuxblips then
         local concessmap = AddBlipForCoord(-57.0, -1099.44, 26.42)
         SetBlipSprite(concessmap, 326)
@@ -53,7 +53,7 @@ function MenuF6Concess()
     local f6concess = RageUI.CreateMenu("Concessionnaire", "Interactions")
     RageUI.Visible(f6concess, not RageUI.Visible(f6concess))
     while f6concess do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(f6concess, true, true, true, function()
 
                 RageUI.Separator("↓ Facture ↓")
@@ -142,7 +142,7 @@ function CoffreConcess()
 	local Coffreconcess = RageUI.CreateMenu("Concessionnaire", "Coffre")
         RageUI.Visible(Coffreconcess, not RageUI.Visible(Coffreconcess))
             while Coffreconcess do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(Coffreconcess, true, true, true, function()
 
                 RageUI.Separator("↓ Objet ↓")
@@ -168,11 +168,11 @@ function CoffreConcess()
     end
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'cardealer' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Concess.pos.coffre.position.x, Concess.pos.coffre.position.y, Concess.pos.coffre.position.z)
             if jobdist <= 10.0 and Concess.jeveuxmarker then
                 Timer = 0
@@ -186,7 +186,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -197,7 +197,7 @@ function ConcessRetirerobjet()
 	itemstock = items
 	RageUI.Visible(StockConcess, not RageUI.Visible(StockConcess))
         while StockConcess do
-		    Citizen.Wait(0)
+		    Wait(0)
 		        RageUI.IsVisible(StockConcess, true, true, true, function()
                         for k,v in pairs(itemstock) do 
                             if v.count ~= 0 then
@@ -225,7 +225,7 @@ function ConcessDeposerobjet()
     ESX.TriggerServerCallback('fellow_concess:getPlayerInventory', function(inventory)
         RageUI.Visible(DepositConcess, not RageUI.Visible(DepositConcess))
     while DepositConcess do
-        Citizen.Wait(0)
+        Wait(0)
             RageUI.IsVisible(DepositConcess, true, true, true, function()
                 for i=1, #inventory.items, 1 do
                     if inventory ~= nil then
@@ -401,11 +401,11 @@ function MenuConcess()
 end
 
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'cardealer' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cardealer' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Concess.pos.menu.position.x, Concess.pos.menu.position.y, Concess.pos.menu.position.z)
             if jobdist <= 10.0 and Concess.jeveuxmarker then
                 Timer = 0
@@ -422,7 +422,7 @@ Citizen.CreateThread(function()
                     end   
                 end
             end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -432,7 +432,7 @@ function MenuSerrurier()
     ESX.TriggerServerCallback('ddx_vehiclelock:getVehiclesnokey', function(Vehicles2)
         RageUI.Visible(MSerrurier, not RageUI.Visible(MSerrurier))
             while MSerrurier do
-            Citizen.Wait(0)
+            Wait(0)
             RageUI.IsVisible(MSerrurier, true, true, true, function()
                 RageUI.Separator('~g~Bienvenue '..GetPlayerName(PlayerId()))
                     for i=1, #Vehicles2, 1 do
@@ -455,10 +455,10 @@ function MenuSerrurier()
 end)
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
         while true do
             local Timer = 500
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Concess.pos.serrurier.position.x, Concess.pos.serrurier.position.y, Concess.pos.serrurier.position.z)
             if jobdist <= 10.0 and Concess.jeveuxmarker then
                 Timer = 0
@@ -473,7 +473,7 @@ Citizen.CreateThread(function()
                             end)
                     end   
                 end 
-        Citizen.Wait(Timer)   
+        Wait(Timer)   
     end
 end)
 
@@ -497,7 +497,7 @@ function chargementvoiture(modelHash)
 		EndTextCommandBusyString(4)
 
 		while not HasModelLoaded(modelHash) do
-			Citizen.Wait(1)
+			Wait(1)
 			DisableAllControlActions(0)
 		end
 
@@ -506,7 +506,7 @@ function chargementvoiture(modelHash)
 end
 
 function OpenCloseVehicle()
-	local playerPed = GetPlayerPed(-1)
+	local playerPed = PlayerPedId()
 	local coords    = GetEntityCoords(playerPed, true)
 
 	local vehicle = nil
@@ -536,7 +536,7 @@ function OpenCloseVehicle()
 	end, GetVehicleNumberPlateText(vehicle))
 end
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
 		Wait(0)
 		if IsControlJustReleased(0,303) then -- Touche K
@@ -545,18 +545,18 @@ Citizen.CreateThread(function()
 	end
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
     local dict = "anim@mp_player_intmenu@key_fob@"
     
     RequestAnimDict(dict)
     while not HasAnimDictLoaded(dict) do
-        Citizen.Wait(100)
+        Wait(100)
     end
     while true do
-        Citizen.Wait(0)
+        Wait(0)
         if IsControlJustPressed(1, 303) then -- When you press "U"
-             if not IsPedInAnyVehicle(GetPlayerPed(-1), true) then 
-                TaskPlayAnim(GetPlayerPed(-1), dict, "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false, false)
+             if not IsPedInAnyVehicle(PlayerPedId(), true) then 
+                TaskPlayAnim(PlayerPedId(), dict, "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false, false)
 				StopAnimTask = true
               else
                 TriggerEvent("chatMessage", "", { 200, 200, 90 }, "Vous devez être sorti d'un véhicule pour l'utiliser les clés !") -- Shows this message when you are not in a vehicle in the chat

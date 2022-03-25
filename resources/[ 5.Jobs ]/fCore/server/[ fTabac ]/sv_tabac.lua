@@ -68,26 +68,26 @@ AddEventHandler('playerDropped', function()
 
 		-- Is it worth telling all clients to refresh?
 		if xPlayer ~= nil and xPlayer.job ~= nil and xPlayer.job.name == 'tabac' then
-			Citizen.Wait(5000)
+			Wait(5000)
 			TriggerClientEvent('esx_tabacjob:updateBlip', -1)
 		end
 	end
 end)
 
-RegisterServerEvent('esx_tabacjob:spawned')
+RegisterNetEvent('esx_tabacjob:spawned')
 AddEventHandler('esx_tabacjob:spawned', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 
 	if xPlayer ~= nil and xPlayer.job ~= nil and xPlayer.job.name == 'tabac' then
-		Citizen.Wait(5000)
+		Wait(5000)
 		TriggerClientEvent('esx_tabacjob:updateBlip', -1)
 	end
 end)
 
 AddEventHandler('onResourceStart', function(resource)
 	if resource == GetCurrentResourceName() then
-		Citizen.Wait(5000)
+		Wait(5000)
 		TriggerClientEvent('esx_tabacjob:updateBlip', -1)
 	end
 end)
@@ -98,12 +98,12 @@ AddEventHandler('onResourceStop', function(resource)
 	end
 end)
 
-RegisterServerEvent('esx_tabacjob:message')
+RegisterNetEvent('esx_tabacjob:message')
 AddEventHandler('esx_tabacjob:message', function(target, msg)
 	TriggerClientEvent('esx:showNotification', target, msg)
 end)
 
-RegisterServerEvent('AnnonceTabacOuvert')
+RegisterNetEvent('AnnonceTabacOuvert')
 AddEventHandler('AnnonceTabacOuvert', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -114,7 +114,7 @@ AddEventHandler('AnnonceTabacOuvert', function()
 	end
 end)
 
-RegisterServerEvent('AnnonceTabacFermer')
+RegisterNetEvent('AnnonceTabacFermer')
 AddEventHandler('AnnonceTabacFermer', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
@@ -125,7 +125,7 @@ AddEventHandler('AnnonceTabacFermer', function()
 	end
 end)
 
-RegisterServerEvent('tabac:prendreitems')
+RegisterNetEvent('tabac:prendreitems')
 AddEventHandler('tabac:prendreitems', function(itemName, count)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)

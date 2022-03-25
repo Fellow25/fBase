@@ -2,7 +2,7 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-RegisterServerEvent('rPoleEmploi:setjob')
+RegisterNetEvent('rPoleEmploi:setjob')
 AddEventHandler('rPoleEmploi:setjob', function(setjob, Nom)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
@@ -15,7 +15,7 @@ AddEventHandler('rPoleEmploi:setjob', function(setjob, Nom)
     sendToDiscordWithSpecialURL("Pôle emploi"," __Nouvelle embauche :__\n\nChez : __"..Nom.."__\nL'employé : __"..xPlayer.getName().."__", 16744192, rPoleEmploi.webhooks)
 end)
 
-RegisterServerEvent('rPoleEmploi:jobwhitelist')
+RegisterNetEvent('rPoleEmploi:jobwhitelist')
 AddEventHandler('rPoleEmploi:jobwhitelist', function(Nom)
     local _source = source
     local xPlayer = ESX.GetPlayerFromId(_source)
