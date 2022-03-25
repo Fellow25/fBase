@@ -201,7 +201,7 @@ local function routeMessage(source, author, message, mode, fromConsole)
     end
 end
 
-AddEventHandler('_chat:messageEntered', function(author, color, message, mode)
+AddEventHandler('_chat:messageEntered', function(author, _, message, mode)
     if not message or not author then
         return
     end
@@ -237,7 +237,7 @@ AddEventHandler('playerDropped', function(reason)
     TriggerClientEvent('chatMessage', -1, '', { 255, 255, 255 }, '^2* ' .. GetPlayerName(source) ..' left (' .. reason .. ')')
 end)
 
-RegisterCommand('say', function(source, args, rawCommand)
+RegisterCommand('say', function(source, _, rawCommand)
     routeMessage(source, (source == 0) and 'console' or GetPlayerName(source), rawCommand:sub(5), nil, true)
 end)
 
@@ -280,7 +280,7 @@ AddEventHandler('chat:init', function()
     end
 end)
 
-AddEventHandler('onServerResourceStart', function(resName)
+AddEventHandler('onServerResourceStart', function(_)
     Wait(500)
 
     for _, player in ipairs(GetPlayers()) do
