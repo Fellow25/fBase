@@ -14,27 +14,37 @@ end
 
 ]]
 
-ESX = nil
+local ESX = exports.es_extended:getSharedObject()
 
 CreateThread(function()
-    while ESX == nil do
-        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Wait(10)
-    end
-
-    while ESX.GetPlayerData().job == nil do
-        Wait(10)
-    end
 	ESX.TriggerServerCallback('fAdmin:getUsergroup', function(group)
         playergroup = group
     end)
 	SetNuiFocus(false, false)
-    ESX.PlayerData = ESX.GetPlayerData()
 end)
 
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer)
+
+RegisterNetEvent('esx:playerLoaded') -- Store the players data
+AddEventHandler('esx:playerLoaded', function(xPlayer, isNew)
 	ESX.PlayerData = xPlayer
+	ESX.PlayerLoaded = true
+end)
+
+RegisterNetEvent('esx:playerLogout') -- When a player logs out (multicharacter), reset their data
+AddEventHandler('esx:playerLogout', function(xPlayer, isNew)
+	ESX.PlayerLoaded = false
+	ESX.PlayerData = {}
+end)
+
+-- These two functions can perform the same task
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+	ESX.PlayerData.job = job
+end)
+
+RegisterNetEvent('esx:setJob2')
+AddEventHandler('esx:setJob2', function(job2)
+	ESX.PlayerData.job2 = job2
 end)
 
 local crossthemap = false
