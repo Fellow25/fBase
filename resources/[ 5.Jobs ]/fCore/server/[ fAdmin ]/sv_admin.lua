@@ -9,8 +9,7 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 end)
 
 
-local function envoyerdiscord(name,message,color,url)
-    local DiscordWebHook = url
+local function envoyerdiscord(_, message, color, _)
     local embeds = {
         {
             ["title"]=message,
@@ -90,11 +89,7 @@ RegisterNetEvent('fAdmin:vehicule')
 AddEventHandler('fAdmin:vehicule', function(vehicleProps, plate, veh)
     local xPlayer = ESX.GetPlayerFromId(source)
 	if haveAuthorization(xPlayer) then
-		MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle) VALUES (@owner, @plate, @vehicle)', {
-			['@owner']   = xPlayer.identifier,
-			['@plate']   = plate,
-			['@vehicle'] = json.encode(vehicleProps)
-		}, function(rowsChange)
+		MySQL.insert('INSERT INTO owned_vehicles (owner, plate, vehicle) VALUES (?, ?, ?)', {xPlayer.identifier, plate, json.encode(vehicleProps) }, function(rowsChange)
 		end)
 		envoyerdiscord("fAdmin","__Give de véhicule :__ "..veh.." \n\n__Staff :__ "..xPlayer.getName().."", 16744192, fAdmin.webhooks)
 	end
@@ -105,11 +100,7 @@ AddEventHandler('fAdmin:vehiculejoueur', function(vehicleProps, plate, IdSelecte
     local xPlayer = ESX.GetPlayerFromId(IdSelected)
     local lestaff = ESX.GetPlayerFromId(source)
    if haveAuthorization(lestaff) then
-	MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle) VALUES (@owner, @plate, @vehicle)', {
-        ['@owner']   = xPlayer.identifier,
-        ['@plate']   = plate,
-        ['@vehicle'] = json.encode(vehicleProps)
-    }, function(rowsChange)
+	MySQL.insert('INSERT INTO owned_vehicles (owner, plate, vehicle) VALUES (?, ?, ?)', {xPlayer.identifier, plate, json.encode(vehicleProps)}, function(rowsChange)
     end)
     envoyerdiscord("fAdmin","__Give de véhicule joueur :__ "..xPlayer.getName().."\n\n__Véhicule :__ "..veh.."\n\n__Staff :__ "..lestaff.getName().."", 16744192, fAdmin.webhooks)
    end
@@ -208,7 +199,7 @@ end)
 CreateThread(function()
 	while Config.MultiServerSync do
 		Wait(30000)
-		MySQL.Async.fetchAll(
+		MySQL.query(
 		'SELECT * FROM banlist',
 		{},
 		function (data)
@@ -446,9 +437,7 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 			end
 		end
 
-		MySQL.Async.fetchAll('SELECT * FROM `baninfo` WHERE `license` = @license', {
-			['@license'] = license
-		}, function(data)
+		MySQL.query('SELECT * FROM `baninfo` WHERE `license` = ?', {license}, function(data)
 		local found = false
 			for i=1, #data, 1 do
 				if data[i].license == license then
@@ -456,28 +445,28 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 				end
 			end
 			if not found then
-				MySQL.Async.execute('INSERT INTO baninfo (license,identifier,liveid,xblid,discord,playerip,playername) VALUES (@license,@identifier,@liveid,@xblid,@discord,@playerip,@playername)', 
+				MySQL.insert('INSERT INTO baninfo (license,identifier,liveid,xblid,discord,playerip,playername) VALUES (?,?,?,?,?,?,?)', 
 					{ 
-					['@license']    = license,
-					['@identifier'] = steamID,
-					['@liveid']     = liveid,
-					['@xblid']      = xblid,
-					['@discord']    = discord,
-					['@playerip']   = playerip,
-					['@playername'] = playername
+					license,
+					steamID,
+					liveid,
+					xblid,
+					discord,
+					playerip,
+					playername
 					},
 					function ()
 				end)
 			else
-				MySQL.Async.execute('UPDATE `baninfo` SET `identifier` = @identifier, `liveid` = @liveid, `xblid` = @xblid, `discord` = @discord, `playerip` = @playerip, `playername` = @playername WHERE `license` = @license', 
+				MySQL.update('UPDATE `baninfo` SET `identifier` = ?, `liveid` = ?, `xblid` = ?, `discord` = ?, `playerip` = ?, `playername` = ? WHERE `license` = ?', 
 					{ 
-					['@license']    = license,
-					['@identifier'] = steamID,
-					['@liveid']     = liveid,
-					['@xblid']      = xblid,
-					['@discord']    = discord,
-					['@playerip']   = playerip,
-					['@playername'] = playername
+					steamID,
+					liveid,
+					xblid,
+					discord,
+					playerip,
+					playername,
+					license
 					},
 					function ()
 				end)
@@ -497,14 +486,12 @@ local function WipePlayer(id, target)
 
     DropPlayer(target, "Vous vous êtes fait wipe !")
 
-    MySQL.Async.execute([[ 
-		DELETE FROM billing WHERE identifier = @wipeID;
-		DELETE FROM billing WHERE sender = @wipeID;
-		DELETE FROM open_car WHERE identifier = @wipeID;
-		DELETE FROM owned_vehicles WHERE owner = @wipeID;
- 		DELETE FROM users WHERE identifier = @wipeID;	]], {
-		['@wipeID'] = steam,
-    }, function(rowsChanged)
+    MySQL.query([[ 
+		DELETE FROM billing WHERE identifier = ?;
+		DELETE FROM billing WHERE sender = ?;
+		DELETE FROM open_car WHERE identifier = ?;
+		DELETE FROM owned_vehicles WHERE owner = ?;
+ 		DELETE FROM users WHERE identifier = ?;	]], {steam}, function(rowsChanged)
         print("^5Wipe effectuer ! SteamID :"..steam.."^0")
     end)
 end
@@ -533,4 +520,3 @@ AddEventHandler('fAdmin:sendAnnounce', function(target, text, author)
 		envoyerdiscord("fAdmin","__Une announce :__ "..text.." \n\n__Staff :__ "..NomDuStaff.."", 16744192, fAdmin.webhooks)
 	end
 end)
-
