@@ -61,7 +61,7 @@ end
 ----------------------------------
 -- faire spawn voiture
 function sortirvoitures(vehicle, plate)
-	x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
+	x,y,z = table.unpack(GetEntityCoords(PlayerPedId(),true))
 
 	ESX.Game.SpawnVehicle(vehicle.model, {
 		x = x,
@@ -74,7 +74,7 @@ function sortirvoitures(vehicle, plate)
 		SetVehicleDeformationFixed(callback_vehicle)
 		SetVehicleUndriveable(callback_vehicle, false)
 		SetVehicleEngineOn(callback_vehicle, true, true)
-		TaskWarpPedIntoVehicle(GetPlayerPed(-1), callback_vehicle, -1)
+		TaskWarpPedIntoVehicle(PlayerPedId(), callback_vehicle, -1)
 	end)
 
 	TriggerServerEvent('fellow_garage:etatvehiculesortie', plate, false)
@@ -82,13 +82,13 @@ end
 
 --ranger voiture
 function rangervoiture()
-    local playerPed  = GetPlayerPed(-1)
+    local playerPed  = PlayerPedId()
     if IsPedInAnyVehicle(playerPed,  false) then
-        local playerPed    = GetPlayerPed(-1)
+        local playerPed    = PlayerPedId()
         local coords       = GetEntityCoords(playerPed)
         local vehicle      = GetVehiclePedIsIn(playerPed, false)
         local vehicleProps = ESX.Game.GetVehicleProperties(vehicle)
-        local current        = GetPlayersLastVehicle(GetPlayerPed(-1), true)
+        local current        = GetPlayersLastVehicle(PlayerPedId(), true)
         local engineHealth = GetVehicleEngineHealth(current)
         local plate        = vehicleProps.plate
         local valid2       = false
@@ -122,7 +122,7 @@ end
         while true do
             local Timer = 500
             for k,v in pairs(garagepublic.zone) do
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, v.sortie.x, v.sortie.y, v.sortie.z)
             if dist <= 10.0 then
                 Timer = 0
@@ -148,7 +148,7 @@ end)
         while true do
             local Timer = 500
             for k,v in pairs(garagepublic.zone) do
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, v.ranger.x, v.ranger.y, v.ranger.z)
             if dist <= 10.0 then
                 Timer = 0

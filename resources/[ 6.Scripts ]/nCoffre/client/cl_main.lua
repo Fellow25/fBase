@@ -273,11 +273,11 @@ CreateThread(function()
         end)
     end
     RegisterCommand("openCoffre", function()
-        local pCoords = GetEntityCoords(GetPlayerPed(-1), true)
+        local pCoords = GetEntityCoords(PlayerPedId(), true)
         local pVehicule, vDistance = Cfg_Coffre.ESXLoaded.Game.GetClosestVehicle({x = pCoords.x, y = pCoords.y, z = pCoords.z})
         local vPlate = GetVehicleNumberPlateText(pVehicule)
         local vClass = GetVehicleClass(pVehicule)
-        if IsPedInAnyVehicle(GetPlayerPed(-1),  false) then return end
+        if IsPedInAnyVehicle(PlayerPedId(),  false) then return end
         if GetVehicleDoorLockStatus(pVehicule) ~= 2 then
             if vDistance < 2.5 then
                 Cfg_Coffre.ServerSide(Cfg_Coffre.Prefix..":takeVehiculeInfos", vPlate)

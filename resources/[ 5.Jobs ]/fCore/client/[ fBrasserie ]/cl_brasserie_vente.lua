@@ -67,7 +67,7 @@ function OpenBrasserieVente()
             local playerPed = PlayerPedId()
             while true do
                 local Timer = 500
-                local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+                local plyCoords = GetEntityCoords(PlayerPedId(), false)
                 local playerCoords = GetEntityCoords(PlayerPedId())
                 zoneDistance = GetDistanceBetweenCoords(playerCoords, brasserie.pos.vente.position.x, brasserie.pos.vente.position.y, brasserie.pos.vente.position.z)
                     if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -101,7 +101,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'brasserie' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, brasserie.pos.vente.position.x, brasserie.pos.vente.position.y, brasserie.pos.vente.position.z)
         if dist3 <= 7.0 and brasserie.jeveuxmarker then
             Timer = 0

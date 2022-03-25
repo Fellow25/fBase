@@ -68,15 +68,15 @@ CreateThread(function()
 		Wait(200)
 
 		if invisible then
-			SetEntityVisible(GetPlayerPed(-1), 0, 0)
+			SetEntityVisible(PlayerPedId(), 0, 0)
 			NetworkSetEntityInvisibleToNetwork(pPed, 1)
 		else
-			SetEntityVisible(GetPlayerPed(-1), 1, 0)
+			SetEntityVisible(PlayerPedId(), 1, 0)
 			NetworkSetEntityInvisibleToNetwork(pPed, 0)
 		end
 
 		if ShowName then
-			local pCoords = GetEntityCoords(GetPlayerPed(-1), false)
+			local pCoords = GetEntityCoords(PlayerPedId(), false)
 			for _, v in pairs(GetActivePlayers()) do
 				local otherPed = GetPlayerPed(v)
 			
@@ -348,7 +348,7 @@ function fAdminMenu()
 
 					RageUI.ButtonWithStyle("Supprimer les pnj", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
 						if (Selected) then
-							local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
+							local x,y,z = table.unpack(GetEntityCoords(PlayerPedId(),true))
 			
 							ClearAreaOfPeds(x,y,z, 50.0, 1)
 							
@@ -382,7 +382,7 @@ function fAdminMenu()
 
                 RageUI.ButtonWithStyle("Blindage", nil, {RightLabel = "→"},true, function(Hovered, Active, Selected)
                     if (Selected) then   
-                        SetPedArmour(GetPlayerPed(-1), 200)
+                        SetPedArmour(PlayerPedId(), 200)
                         ESX.ShowNotification("~g~Blindage effectué~w~")
                         end   
                     end)
@@ -522,7 +522,7 @@ function fAdminMenu()
                                 while not HasModelLoaded(ModelName) do
                                     Wait(0)
                                 end
-                                    --local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)), true, true)
+                                    --local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()), true, true)
                                     --TaskWarpPedIntoVehicle(GetPlayerPed(IdSelected), veh, -1)
                                     give_vehijoueur(ModelName, IdSelected)
                                     Wait(50)
@@ -636,8 +636,8 @@ function fAdminMenu()
 							while not HasModelLoaded(ModelName) do
 								Wait(0)
 							end
-								local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)), true, true)
-								TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
+								local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()), true, true)
+								TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
 								Wait(50)
 						else
 							ShowNotification("Erreur !")
@@ -661,9 +661,9 @@ function fAdminMenu()
 
 					RageUI.ButtonWithStyle("Changer la plaque", nil, {RightLabel =  "→"}, true, function(_, Active, Selected)
 					if Selected then
-						if IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then
+						if IsPedSittingInAnyVehicle(PlayerPedId()) then
 							local plaqueVehicule = fAdminKeyboardInput("Plaque", "", 8)
-							SetVehicleNumberPlateText(GetVehiclePedIsIn(GetPlayerPed(-1), false) , plaqueVehicule)
+							SetVehicleNumberPlateText(GetVehiclePedIsIn(PlayerPedId(), false) , plaqueVehicule)
 							ESX.ShowNotification("La plaque du véhicule est désormais : ~g~"..plaqueVehicule)
 						else
 							ESX.ShowNotification("~r~Erreur\n~s~Vous n'êtes pas dans un véhicule !")
@@ -712,8 +712,8 @@ function fAdminMenu()
 									while not HasModelLoaded(ModelName) do
 										Wait(0)
 									end
-										--local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(GetPlayerPed(-1)), GetEntityHeading(GetPlayerPed(-1)), true, true)
-										TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
+										--local veh = CreateVehicle(GetHashKey(ModelName), GetEntityCoords(PlayerPedId()), GetEntityHeading(PlayerPedId()), true, true)
+										TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
 										give_vehi(ModelName)
 										Wait(50)
 								else
@@ -1292,7 +1292,7 @@ end)
 CreateThread(function()
     while true do
     	if Admin.showcoords then
-            x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
+            x,y,z = table.unpack(GetEntityCoords(PlayerPedId(),true))
             roundx=tonumber(string.format("%.2f",x))
             roundy=tonumber(string.format("%.2f",y))
             roundz=tonumber(string.format("%.2f",z))
@@ -1381,7 +1381,7 @@ local noclip_speed = 1.0
 
 function fNoClip()
   noclip = not noclip
-  local ped = GetPlayerPed(-1)
+  local ped = PlayerPedId()
   if noclip then -- activé
     SetEntityInvincible(ped, true)
 	SetEntityVisible(ped, false, false)
@@ -1396,12 +1396,12 @@ function fNoClip()
 end
 
 function getPosition()
-    local x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
+    local x,y,z = table.unpack(GetEntityCoords(PlayerPedId(),true))
     return x,y,z
   end
   
   function getCamDirection()
-    local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(GetPlayerPed(-1))
+    local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(PlayerPedId())
     local pitch = GetGameplayCamRelativePitch()
   
     local x = -math.sin(heading*math.pi/180.0)
@@ -1426,7 +1426,7 @@ function getPosition()
       while true do
         local Timer = 500
         if noclip then
-          local ped = GetPlayerPed(-1)
+          local ped = PlayerPedId()
           local x,y,z = getPosition()
           local dx,dy,dz = getCamDirection()
           local speed = noclip_speed
@@ -1470,7 +1470,7 @@ end)
 local voituregive = {}
 
 function give_vehi(veh)
-    local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords = GetEntityCoords(PlayerPedId(), false)
     
     Wait(10)
     ESX.Game.SpawnVehicle(veh, {x = plyCoords.x+2 ,y = plyCoords.y, z = plyCoords.z+2}, 313.4216, function (vehicle)
@@ -1488,7 +1488,7 @@ end
 local voituregivejoueur = {}
 
 function give_vehijoueur(veh, IdSelected)
-    local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords = GetEntityCoords(PlayerPedId(), false)
     
     Wait(10)
     ESX.Game.SpawnVehicle(veh, {x = plyCoords.x+2 ,y = plyCoords.y, z = plyCoords.z+2}, 313.4216, function (vehicle)

@@ -158,7 +158,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'split' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Split.pos.MenuPrendre.position.x, Split.pos.MenuPrendre.position.y, Split.pos.MenuPrendre.position.z)
         if dist3 <= 7.0 and Split.jeveuxmarker then
             Timer = 0
@@ -213,7 +213,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'split' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Split.pos.coffre.position.x, Split.pos.coffre.position.y, Split.pos.coffre.position.z)
             if jobdist <= 10.0 and Split.jeveuxmarker then
                 Timer = 0
@@ -272,7 +272,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'split' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Split.pos.garage.position.x, Split.pos.garage.position.y, Split.pos.garage.position.z)
             if dist3 <= 10.0 and Split.jeveuxmarker then
                 Timer = 0
@@ -299,12 +299,12 @@ function spawnuniCarSplit(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Split.pos.spawnvoiture.position.x, Split.pos.spawnvoiture.position.y, Split.pos.spawnvoiture.position.z, Split.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Split"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 

@@ -75,7 +75,7 @@ end
 CreateThread(function()
        while true do
            local Timer = 500
-           local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+           local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
            local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, rPoleEmploi.pos.Menu.position.x, rPoleEmploi.pos.Menu.position.y, rPoleEmploi.pos.Menu.position.z)
                if dist3 <= 3.0 then
                Timer = 0   

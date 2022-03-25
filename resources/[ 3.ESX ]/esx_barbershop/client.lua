@@ -20,7 +20,7 @@ end)
 CreateThread(function()
     while true do
         Wait(19)
-        local coords = GetEntityCoords(GetPlayerPed(-1))
+        local coords = GetEntityCoords(PlayerPedId())
         if (GetDistanceBetweenCoords(coords, 133.55, -1708.86, 29.29, true) < 0.5) then
             AddTextEntry(GetCurrentResourceName(), _U('started'))
             DisplayHelpTextThisFrame(GetCurrentResourceName(), false)
@@ -60,9 +60,9 @@ function readyCutHair()
     end
     SetEntityCoords(PlayerPedId(), 137.72, -1710.64, 28.60)
     SetEntityHeading(PlayerPedId(), 237.22)
-    ClearPedTasks(GetPlayerPed(-1))
+    ClearPedTasks(PlayerPedId())
     BehindPlayer = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 0 - 0.5, -0.5);
-    TaskStartScenarioAtPosition(GetPlayerPed(-1), "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER", BehindPlayer['x'], BehindPlayer['y'], BehindPlayer['z'], GetEntityHeading(PlayerPedId()), 0, 1, false)
+    TaskStartScenarioAtPosition(PlayerPedId(), "PROP_HUMAN_SEAT_CHAIR_MP_PLAYER", BehindPlayer['x'], BehindPlayer['y'], BehindPlayer['z'], GetEntityHeading(PlayerPedId()), 0, 1, false)
     Wait(1300)
     DoScreenFadeIn(5000)
 end
@@ -75,7 +75,7 @@ function createBarber()
     SetBlockingOfNonTemporaryEvents(Ped, true)
     TaskPedSlideToCoord(Ped, 137.15, -1710.50, 29.3, 205.75, 1.0)-- 讓npc移動到指定位置
     Wait(10000)
-    FreezeEntityPosition(GetPlayerPed(-1), true)
+    FreezeEntityPosition(PlayerPedId(), true)
     started = true
     TriggerEvent('barbershop:start')
 end
@@ -89,14 +89,14 @@ AddEventHandler('barbershop:start', function()
             AddTextEntry(GetCurrentResourceName(), _U('buttom_Help', Config.hairCost, Config.eyebrowCost, Config.beardCost, cost))
             DisplayHelpTextThisFrame(GetCurrentResourceName(), false)
             if (IsControlJustPressed(0, 215)) then
-                FreezeEntityPosition(GetPlayerPed(-1), false)
+                FreezeEntityPosition(PlayerPedId(), false)
                 viewangle = false
                 started = false
                 disableUI = false
                 destorycam()
                 SetEntityCoords(PlayerPedId(), 133.55, -1708.86, 28.29)
                 SetEntityHeading(PlayerPedId(), 237.22)
-                ClearPedTasks(GetPlayerPed(-1))
+                ClearPedTasks(PlayerPedId())
                 TriggerServerEvent('barbershop:pay', GetPlayerServerId(PlayerId()), cost)
                 Wait(500)
                 TaskPedSlideToCoord(Ped, 141.48, -1705.59, 29.29 - 0.95, 123.37, 1.0)
@@ -163,7 +163,7 @@ AddEventHandler('barbershop:disableUI', function()
             Wait(0)
             HideHudComponentThisFrame(19)
             DisableControlAction(2, 37, true)
-            DisablePlayerFiring(GetPlayerPed(-1), true)
+            DisablePlayerFiring(PlayerPedId(), true)
             DisableControlAction(0, 106, true)
             if IsDisabledControlJustPressed(2, 37) or IsDisabledControlJustPressed(0, 106) then
                 SetCurrentPedWeapon(player, GetHashKey("WEAPON_UNARMED"), true)

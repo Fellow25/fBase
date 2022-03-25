@@ -341,7 +341,7 @@ CreateThread(function()
 		while true do
 			local Timer = 500
 			if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
-			local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+			local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
 			local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Ambulance.menu.garage.position.x, Ambulance.menu.garage.position.y, Ambulance.menu.garage.position.z)
 			if dist3 <= 10.0 and Ambulance.jeveuxmarker then
 				Timer = 0
@@ -368,12 +368,12 @@ function spawnuniCarAmbulance(car)
 		Wait(0)
 	end
 
-	local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+	local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
 	local vehicle = CreateVehicle(car, Ambulance.menu.spawnvoiture.position.x, Ambulance.menu.spawnvoiture.position.y, Ambulance.menu.spawnvoiture.position.z, Ambulance.menu.spawnvoiture.position.h, true, false)
 	SetEntityAsMissionEntity(vehicle, true, true)
 	local plaque = "Ambulance"..math.random(1,9)
 	SetVehicleNumberPlateText(vehicle, plaque) 
-	SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+	SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
   function CoffreAmbulance()
@@ -411,7 +411,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Ambulance.menu.coffre.position.x, Ambulance.menu.coffre.position.y, Ambulance.menu.coffre.position.z)
             if jobdist <= 10.0 and Ambulance.jeveuxmarker then
                 Timer = 0
@@ -464,7 +464,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Ambulance.menu.vestiaire.position.x, Ambulance.menu.vestiaire.position.y, Ambulance.menu.vestiaire.position.z)
             if jobdist <= 10.0 and Ambulance.jeveuxmarker then
                 Timer = 0
@@ -520,7 +520,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ambulance' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Ambulance.menu.pharmacie.position.x, Ambulance.menu.pharmacie.position.y, Ambulance.menu.pharmacie.position.z)
             if jobdist <= 10.0 and Ambulance.jeveuxmarker then
                 Timer = 0

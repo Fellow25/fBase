@@ -91,7 +91,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, fDrugs.lsd.recolte.position.x, fDrugs.lsd.recolte.position.y, fDrugs.lsd.recolte.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -112,7 +112,7 @@ end)
 CreateThread(function()
     while true do
         local Timer = 500
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, fDrugs.lsd.recolte.position.x, fDrugs.lsd.recolte.position.y, fDrugs.lsd.recolte.position.z)
         if dist3 <= 10.0 and fDrugs.jeveuxmarker then
             Timer = 0
@@ -134,7 +134,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, fDrugs.lsd.traitement.position.x, fDrugs.lsd.traitement.position.y, fDrugs.lsd.traitement.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -155,7 +155,7 @@ end)
 CreateThread(function()
     while true do
         local Timer = 500
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, fDrugs.lsd.traitement.position.x, fDrugs.lsd.traitement.position.y, fDrugs.lsd.traitement.position.z)
         if dist3 <= 10.0 and fDrugs.jeveuxmarker then
             Timer = 0

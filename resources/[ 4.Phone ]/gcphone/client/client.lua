@@ -262,7 +262,7 @@ CreateThread(function()
   if not Config.AutoFindFixePhones then return end
   while not ESX do Wait(0) end
   while true do
-    local playerPed = GetPlayerPed(-1)
+    local playerPed = PlayerPedId()
     local coords = GetEntityCoords(playerPed)
     for _, key in pairs({'p_phonebox_01b_s', 'p_phonebox_02_s', 'prop_phonebox_01a', 'prop_phonebox_01b', 'prop_phonebox_01c', 'prop_phonebox_02', 'prop_phonebox_03', 'prop_phonebox_04'}) do
       local closestPhone = GetClosestObjectOfType(coords.x, coords.y, coords.z, 25.0, key, false)

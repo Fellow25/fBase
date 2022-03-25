@@ -67,7 +67,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, tabac.pos.recolte.position.x, tabac.pos.recolte.position.y, tabac.pos.recolte.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -101,7 +101,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tabac' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, tabac.pos.recolte.position.x, tabac.pos.recolte.position.y, tabac.pos.recolte.position.z)
         if dist3 <= 10.0 and tabac.jeveuxmarker then
             Timer = 0

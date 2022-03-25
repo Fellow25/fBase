@@ -94,7 +94,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Cartel.pos.coffre.position.x, Cartel.pos.coffre.position.y, Cartel.pos.coffre.position.z)
             if jobdist <= 10.0 and Cartel.jeveuxmarker then
                 Timer = 0
@@ -152,7 +152,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Cartel.pos.garage.position.x, Cartel.pos.garage.position.y, Cartel.pos.garage.position.z)
             if dist3 <= 10.0 and Cartel.jeveuxmarker then
                 Timer = 0
@@ -179,12 +179,12 @@ function spawnuniCarcartel(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Cartel.pos.spawnvoiture.position.x, Cartel.pos.spawnvoiture.position.y, Cartel.pos.spawnvoiture.position.z, Cartel.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Cartel"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
     SetVehicleCustomPrimaryColour(vehicle, 0, 0, 0)
     SetVehicleCustomSecondaryColour(vehicle, 0, 0, 0)
     SetVehicleMaxMods(vehicle)
@@ -296,7 +296,7 @@ CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
-    local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
     local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Cartel.pos.theorie.position.x, Cartel.pos.theorie.position.y, Cartel.pos.theorie.position.z)
     if dist3 <= 10.0 and Cartel.jeveuxmarker then
         Timer = 0
@@ -485,7 +485,7 @@ CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
-    local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
     local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Cartel.pos.craftmenu.position.x, Cartel.pos.craftmenu.position.y, Cartel.pos.craftmenu.position.z)
     if dist3 <= 10.0 and Cartel.jeveuxmarker then
         Timer = 0
@@ -530,7 +530,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Cartel.farm.metaux.position.x, Cartel.farm.metaux.position.y, Cartel.farm.metaux.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -564,7 +564,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Cartel.farm.metaux.position.x, Cartel.farm.metaux.position.y, Cartel.farm.metaux.position.z)
         if dist3 <= 10.0 and Cartel.jeveuxmarker then
             Timer = 0
@@ -609,7 +609,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Cartel.farm.poudre.position.x, Cartel.farm.poudre.position.y, Cartel.farm.poudre.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -643,7 +643,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Cartel.farm.poudre.position.x, Cartel.farm.poudre.position.y, Cartel.farm.poudre.position.z)
         if dist3 <= 10.0 and Cartel.jeveuxmarker then
             Timer = 0
@@ -689,7 +689,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Cartel.farm.meche.position.x, Cartel.farm.meche.position.y, Cartel.farm.meche.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -723,7 +723,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Cartel.farm.meche.position.x, Cartel.farm.meche.position.y, Cartel.farm.meche.position.z)
         if dist3 <= 10.0 and Cartel.jeveuxmarker then
             Timer = 0
@@ -769,7 +769,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Cartel.farm.ruban.position.x, Cartel.farm.ruban.position.y, Cartel.farm.ruban.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -803,7 +803,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'cartel' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Cartel.farm.ruban.position.x, Cartel.farm.ruban.position.y, Cartel.farm.ruban.position.z)
         if dist3 <= 10.0 and Cartel.jeveuxmarker then
             Timer = 0

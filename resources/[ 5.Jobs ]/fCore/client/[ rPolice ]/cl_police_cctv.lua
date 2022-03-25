@@ -64,7 +64,7 @@ AddEventHandler("cctv:camera", function(camNumber)
 		PlaySoundFrontend(-1, "HACKING_SUCCESS", false)
 		-- TriggerEvent('animation:tablet',false)
 		Wait(250)
-		ClearPedTasks(GetPlayerPed(-1))
+		ClearPedTasks(PlayerPedId())
 	else
 		if camNumber > 0 and camNumber < #CCTVCamLocations+1 then
 			PlaySoundFrontend(-1, "HACKING_SUCCESS", false)
@@ -95,7 +95,7 @@ AddEventHandler("cctv:startcamera", function(camNumber)
 		Wait(200)
 	end
 
-	local lPed = GetPlayerPed(-1)
+	local lPed = PlayerPedId()
 	cctvCam = CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
 	SetCamCoord(cctvCam,x,y,z+1.2)						
 	SetCamRot(cctvCam, -15.0,0.0,h)

@@ -143,7 +143,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ballas' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'ballas' and ESX.PlayerData.job2.grade_name == 'boss' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, ballas.pos.boss.position.x, ballas.pos.boss.position.y, ballas.pos.boss.position.z)
         if dist3 <= 10.0 and ballas.jeveuxmarker then
             Timer = 0

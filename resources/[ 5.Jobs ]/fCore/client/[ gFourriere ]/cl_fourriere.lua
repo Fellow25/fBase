@@ -268,7 +268,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fourriere' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, configFourriere.pos.garage.position.x, configFourriere.pos.garage.position.y, configFourriere.pos.garage.position.z)
         if dist3 <= 10.0 and configFourriere.jeveuxmarker then
             Timer = 0
@@ -295,13 +295,13 @@ while not HasModelLoaded(car) do
     Wait(0)
 end
 
-local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
 local vehicle = CreateVehicle(car, configFourriere.pos.spawnvoiture.position.x, configFourriere.pos.spawnvoiture.position.y, configFourriere.pos.spawnvoiture.position.z, configFourriere.pos.spawnvoiture.position.h, true, false)
 SetEntityAsMissionEntity(vehicle, true, true)
 local plaque = "fourriere"..math.random(1,9)
 SetVehicleNumberPlateText(vehicle, plaque)
 SetVehRadioStation(vehicle, "OFF")
-SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 function OpenfourriereMenu()
@@ -336,7 +336,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fourriere' then
-        local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+        local plycrdjob = GetEntityCoords(PlayerPedId(), false)
         local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, configFourriere.fourriere.position.x, configFourriere.fourriere.position.y, configFourriere.fourriere.position.z)
         if jobdist <= 10.0 and configFourriere.jeveuxmarker then
             Timer = 0
@@ -361,7 +361,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fourriere' then
-        local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+        local plycrdjob = GetEntityCoords(PlayerPedId(), false)
         local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, configFourriere.mettrefourriere.position.x, configFourriere.mettrefourriere.position.y, configFourriere.mettrefourriere.position.z)
             if jobdist <= 2.0 then
                 Timer = 0
@@ -419,7 +419,7 @@ end)
 
 
 function sortirvoiture(vehicle, plate)
-	x,y,z = table.unpack(GetEntityCoords(GetPlayerPed(-1),true))
+	x,y,z = table.unpack(GetEntityCoords(PlayerPedId(),true))
 
 	ESX.Game.SpawnVehicle(vehicle.model, {
 		x = x,
@@ -432,7 +432,7 @@ function sortirvoiture(vehicle, plate)
 		SetVehicleDeformationFixed(callback_vehicle)
 		SetVehicleUndriveable(callback_vehicle, false)
 		SetVehicleEngineOn(callback_vehicle, true, true)
-		TaskWarpPedIntoVehicle(GetPlayerPed(-1), callback_vehicle, -1)
+		TaskWarpPedIntoVehicle(PlayerPedId(), callback_vehicle, -1)
 	end)
 end
 
@@ -633,7 +633,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fourriere' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, configFourriere.pos.coffre.position.x, configFourriere.pos.coffre.position.y, configFourriere.pos.coffre.position.z)
             if jobdist <= 10.0 and configFourriere.jeveuxmarker then
                 Timer = 0

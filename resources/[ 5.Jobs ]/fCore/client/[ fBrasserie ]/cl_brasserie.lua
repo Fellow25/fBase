@@ -244,7 +244,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'brasserie' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, brasserie.pos.coffre.position.x, brasserie.pos.coffre.position.y, brasserie.pos.coffre.position.z)
             if jobdist <= 10.0 and brasserie.jeveuxmarker then
                 Timer = 0
@@ -301,7 +301,7 @@ function Garagebrasserie()
           while true do
               local Timer = 500
               if ESX.PlayerData.job and ESX.PlayerData.job.name == 'brasserie' then
-              local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+              local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
               local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, brasserie.pos.garage.position.x, brasserie.pos.garage.position.y, brasserie.pos.garage.position.z)
               if dist3 <= 10.0 and brasserie.jeveuxmarker then
                   Timer = 0
@@ -328,12 +328,12 @@ function Garagebrasserie()
           Wait(0)
       end
   
-      local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+      local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
       local vehicle = CreateVehicle(car, brasserie.pos.spawnvoiture.position.x, brasserie.pos.spawnvoiture.position.y, brasserie.pos.spawnvoiture.position.z, brasserie.pos.spawnvoiture.position.h, true, false)
       SetEntityAsMissionEntity(vehicle, true, true)
       local plaque = "brasserie"..math.random(1,9)
       SetVehicleNumberPlateText(vehicle, plaque) 
-      SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+      SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
   end
 
 

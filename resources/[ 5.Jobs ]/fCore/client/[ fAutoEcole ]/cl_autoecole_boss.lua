@@ -105,7 +105,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'driving' and ESX.PlayerData.job.grade_name == 'boss' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, AutoEcole.pos.boss.position.x, AutoEcole.pos.boss.position.y, AutoEcole.pos.boss.position.z)
         if dist3 <= 10.0 and AutoEcole.jeveuxmarker then
             Timer = 0

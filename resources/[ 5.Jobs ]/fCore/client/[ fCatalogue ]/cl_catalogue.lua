@@ -71,7 +71,7 @@ while catalogue do
 	for i2 = 1, #fellow_conc.listecatevehi, 1 do
 	RageUI.ButtonWithStyle(fellow_conc.listecatevehi[i2].name, nil, {RightLabel =  "→"},true, function(Hovered, Active, Selected)
 	if (Selected) then
-			local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+			local plyCoords = GetEntityCoords(PlayerPedId(), false)
 			nomvoiture = fellow_conc.listecatevehi[i2].name
 			modelevoiture = fellow_conc.listecatevehi[i2].model
 		end
@@ -104,7 +104,7 @@ while catalogue do
 CreateThread(function()
 	while true do
 		local Timer = 500
-		local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+		local plycrdjob = GetEntityCoords(PlayerPedId(), false)
 		local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, fCatalogue.pos.voiture.position.x, fCatalogue.pos.voiture.position.y, fCatalogue.pos.voiture.position.z)
 		if jobdist <= 10.0 then
 			Timer = 0
@@ -158,7 +158,7 @@ while cataloguemoto do
 	for i2 = 1, #fellow_moto.listecatemoto, 1 do
 	RageUI.ButtonWithStyle(fellow_moto.listecatemoto[i2].name, nil, {RightLabel =  "→"},true, function(Hovered, Active, Selected)
 	if (Selected) then
-			local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+			local plyCoords = GetEntityCoords(PlayerPedId(), false)
 			nomvoiture = fellow_moto.listecatemoto[i2].name
 			modelevoiture = fellow_moto.listecatemoto[i2].model
 		end
@@ -191,7 +191,7 @@ while cataloguemoto do
 CreateThread(function()
 	while true do
 		local Timer = 500
-		local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+		local plycrdjob = GetEntityCoords(PlayerPedId(), false)
 		local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, fCatalogue.pos.moto.position.x, fCatalogue.pos.moto.position.y, fCatalogue.pos.moto.position.z)
 		if jobdist <= 10.0 then
 			Timer = 0
@@ -217,12 +217,12 @@ function spawnuniCarCatalogue(car)
         RequestModel(car)
         Wait(0)
     end
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, -899.62, -3298.74, 13.94, 58.0, true, false)
 	SetVehicleCustomPrimaryColour(vehicle, rouge, vert, bleu)
 	SetVehicleCustomSecondaryColour(vehicle, rouge, vert, bleu)
     SetEntityAsMissionEntity(vehicle, true, true) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 	SetVehicleDoorsLocked(vehicle, 4)
 	ESX.ShowNotification("Vous avez 30 secondes pour tester le véhicule.")
 	local timer =30

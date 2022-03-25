@@ -82,7 +82,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'marabunta' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'marabunta' then 
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, marabunta.pos.garage.position.x, marabunta.pos.garage.position.y, marabunta.pos.garage.position.z)
             if dist3 <= 10.0 and marabunta.jeveuxmarker then
                 Timer = 0
@@ -109,12 +109,12 @@ function spawnuniCarMarabunta(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, marabunta.pos.spawnvoiture.position.x, marabunta.pos.spawnvoiture.position.y, marabunta.pos.spawnvoiture.position.z, marabunta.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "marabunta"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
     SetVehicleCustomPrimaryColour(vehicle, 65, 105, 225)
     SetVehicleCustomSecondaryColour(vehicle, 65, 105, 225)
     SetVehicleMaxMods(vehicle)
@@ -187,7 +187,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'marabunta' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'marabunta' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, marabunta.pos.coffre.position.x, marabunta.pos.coffre.position.y, marabunta.pos.coffre.position.z)
             if jobdist <= 10.0 and marabunta.jeveuxmarker then
                 Timer = 0

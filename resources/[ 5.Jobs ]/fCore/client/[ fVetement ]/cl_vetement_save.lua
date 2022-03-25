@@ -101,7 +101,7 @@ function MenufVetements()
   Keys.Register('F9', 'Vêtements', 'Ouvrir le menu vêtements', function()
         local open = false
         for _,v in pairs(position) do
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, v[1], v[2], v[3])
           if dist3 <= 15.0 then
             MenufVetements()

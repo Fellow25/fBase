@@ -278,7 +278,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             for i=1, #rBank.position, 1 do
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, rBank.position[i].x, rBank.position[i].y, rBank.position[i].z)
             if jobdist <= 10.0 and rBank.jeveuxmarkerbanque then
                 Timer = 0
@@ -305,7 +305,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         for i=1, #rBank.posatm, 1 do
-        local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+        local plycrdjob = GetEntityCoords(PlayerPedId(), false)
         local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, rBank.posatm[i].x, rBank.posatm[i].y, rBank.posatm[i].z)
         if jobdist <= 10.0 and rBank.jeveuxmarkeratm then
             Timer = 0

@@ -89,7 +89,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'blanchisseur' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'blanchisseur' then 
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, blanchisseur.pos.garage.position.x, blanchisseur.pos.garage.position.y, blanchisseur.pos.garage.position.z)
             if dist3 <= 10.0 and blanchisseur.jeveuxmarker then
                 Timer = 0
@@ -116,12 +116,12 @@ function spawnuniCarBlanchisseur(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, blanchisseur.pos.spawnvoiture.position.x, blanchisseur.pos.spawnvoiture.position.y, blanchisseur.pos.spawnvoiture.position.z, blanchisseur.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "XXXXXXXXX"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
     SetVehicleCustomPrimaryColour(vehicle, 0, 0, 0)
     SetVehicleCustomSecondaryColour(vehicle, 0, 0, 0)
     SetVehicleMaxMods(vehicle)
@@ -283,7 +283,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'blanchisseur' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'blanchisseur' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, blanchisseur.pos.coffre.position.x, blanchisseur.pos.coffre.position.y, blanchisseur.pos.coffre.position.z)
             if jobdist <= 10.0 and blanchisseur.jeveuxmarker then
                 Timer = 0
@@ -330,7 +330,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'blanchisseur' and ESX.PlayerData.job2.grade_name == 'brasdroit' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'blanchisseur' and ESX.PlayerData.job2.grade_name == 'boss' then            
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, blanchisseur.pos.wash.position.x, blanchisseur.pos.wash.position.y, blanchisseur.pos.wash.position.z)
             if jobdist <= 10.0 and blanchisseur.jeveuxmarker then
                 Timer = 0

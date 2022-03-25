@@ -608,7 +608,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, rPolice.pos.MenuPrendre.position.x, rPolice.pos.MenuPrendre.position.y, rPolice.pos.MenuPrendre.position.z)
         if dist3 <= 7.0 and rPolice.jeveuxmarker then
             Timer = 0
@@ -660,7 +660,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, rPolice.pos.coffre.position.x, rPolice.pos.coffre.position.y, rPolice.pos.coffre.position.z)
             if jobdist <= 10.0 and rPolice.jeveuxmarker then
                 Timer = 0
@@ -742,14 +742,14 @@ function vestiairepolice()
             RageUI.ButtonWithStyle("Mettre",nil, {nil}, true, function(Hovered, Active, Selected)
                 if Selected then
                     mettrebullet_wear()
-                    SetPedArmour(GetPlayerPed(-1), 100)
+                    SetPedArmour(PlayerPedId(), 100)
                 end
             end)
 
             RageUI.ButtonWithStyle("Enlever",nil, {nil}, true, function(Hovered, Active, Selected)
                 if Selected then
                     enleverbullet_wear()
-                    SetPedArmour(GetPlayerPed(-1), 0)
+                    SetPedArmour(PlayerPedId(), 0)
                 end
             end)
                 end, function()
@@ -870,7 +870,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, rPolice.pos.vestiaire.position.x, rPolice.pos.vestiaire.position.y, rPolice.pos.vestiaire.position.z)
             if jobdist <= 10.0 and rPolice.jeveuxmarker then
                 Timer = 0
@@ -932,7 +932,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, rPolice.pos.garage.position.x, rPolice.pos.garage.position.y, rPolice.pos.garage.position.z)
             if dist3 <= 10.0 and rPolice.jeveuxmarker then
                 Timer = 0
@@ -959,12 +959,12 @@ function spawnuniCarpolice(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, rPolice.pos.spawnvoiture.position.x, rPolice.pos.spawnvoiture.position.y, rPolice.pos.spawnvoiture.position.z, rPolice.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "POLICE"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 function Helipolice()
@@ -1004,7 +1004,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'police' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, rPolice.pos.garageheli.position.x, rPolice.pos.garageheli.position.y, rPolice.pos.garageheli.position.z)
             if dist3 <= 10.0 and rPolice.jeveuxmarker then
                 Timer = 0
@@ -1031,12 +1031,12 @@ function spawnuniCarheli(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, rPolice.pos.spawnheli.position.x, rPolice.pos.spawnheli.position.y, rPolice.pos.spawnheli.position.z, rPolice.pos.spawnheli.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "POLICE"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 itemstock = {}
@@ -1129,7 +1129,7 @@ end
 CreateThread(function()
         while true do
             local Timer = 500
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, rPolice.pos.plainte.position.x, rPolice.pos.plainte.position.y, rPolice.pos.plainte.position.z)
             if jobdist <= 10.0 and rPolice.jeveuxmarker then
                 Timer = 0
@@ -1234,7 +1234,7 @@ local prop = "prop_ballistic_shield"
 
 function EnableShield()
     shieldActive = true
-    local ped = GetPlayerPed(-1)
+    local ped = PlayerPedId()
     local pedPos = GetEntityCoords(ped, false)
     
     RequestAnimDict(animDict)
@@ -1257,7 +1257,7 @@ function EnableShield()
 end
 
 function DisableShield()
-    local ped = GetPlayerPed(-1)
+    local ped = PlayerPedId()
     DeleteEntity(shieldEntity)
     ClearPedTasksImmediately(ped)
     SetWeaponAnimationOverride(ped, GetHashKey("Default"))
@@ -1268,7 +1268,7 @@ end
 CreateThread(function()
     while true do
         if shieldActive then
-            local ped = GetPlayerPed(-1)
+            local ped = PlayerPedId()
             if not IsEntityPlayingAnim(ped, animDict, animName, 1) then
                 RequestAnimDict(animDict)
                 while not HasAnimDictLoaded(animDict) do

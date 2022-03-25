@@ -66,7 +66,7 @@ CreateThread(function()
         Wait(wait)
 
         -- Get player PED, position and vehicle and save to locals
-        local player = GetPlayerPed(-1)
+        local player = PlayerPedId()
         local position = GetEntityCoords(player)
         local vehicle = GetVehiclePedIsIn(player, false)
 

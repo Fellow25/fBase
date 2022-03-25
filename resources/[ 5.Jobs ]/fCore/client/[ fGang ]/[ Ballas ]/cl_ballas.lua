@@ -81,7 +81,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ballas' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'ballas' then 
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, ballas.pos.garage.position.x, ballas.pos.garage.position.y, ballas.pos.garage.position.z)
             if dist3 <= 10.0 and ballas.jeveuxmarker then
                 Timer = 0
@@ -108,12 +108,12 @@ function spawnuniCarBallas(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, ballas.pos.spawnvoiture.position.x, ballas.pos.spawnvoiture.position.y, ballas.pos.spawnvoiture.position.z, ballas.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "ballas"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
     SetVehicleCustomPrimaryColour(vehicle, 128, 0, 128)
     SetVehicleCustomSecondaryColour(vehicle, 128, 0, 128)
     SetVehicleMaxMods(vehicle)
@@ -186,7 +186,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ballas' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'ballas' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, ballas.pos.coffre.position.x, ballas.pos.coffre.position.y, ballas.pos.coffre.position.z)
             if jobdist <= 10.0 and ballas.jeveuxmarker then
                 Timer = 0

@@ -36,7 +36,7 @@ function disableControl()
     DisableControlAction(2, 1, true) -- Disable pan
     DisableControlAction(2, 2, true) -- Disable tilt 
     DisableControlAction(0, 59, true)
-    SetPedCanPlayGestureAnims(GetPlayerPed(-1), false)
+    SetPedCanPlayGestureAnims(PlayerPedId(), false)
     DisableControlAction(2, 24, true) -- Attack
     DisableControlAction(2, 257, true) -- Attack 2
     DisableControlAction(2, 25, true) -- Aim
@@ -57,7 +57,7 @@ function disableControl()
     DisableControlAction(0, Keys['Z'], true)
     DisableControlAction(0, Keys['S'], true)
     DisableControlAction(0, Keys['D'], true) 
-    DisablePlayerFiring(GetPlayerPed(-1), true)
+    DisablePlayerFiring(PlayerPedId(), true)
     DisableControlAction(0, 82,  true) -- Animations
     DisableControlAction(0, 69, true) -- INPUT_VEH_ATTACK
     DisableControlAction(0, 92, true) -- INPUT_VEH_PASSENGER_ATTACK
@@ -99,7 +99,7 @@ function alert(msg)
 end
 
 function CreateMain()
-	local coords = GetEntityCoords(GetPlayerPed(-1))
+	local coords = GetEntityCoords(PlayerPedId())
     cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
     SetCamCoord(cam, coords.x-1.75, coords.y, coords.z)
     SetCamFov(cam, 50.0)
@@ -109,7 +109,7 @@ function CreateMain()
 end
 
 function CreateShoes()
-	local coords = GetEntityCoords(GetPlayerPed(-1))
+	local coords = GetEntityCoords(PlayerPedId())
     cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
     SetCamCoord(cam, coords.x-1.0, coords.y, coords.z)
     SetCamFov(cam, 50.0)
@@ -119,7 +119,7 @@ function CreateShoes()
 end
 
 function CreateFutal()
-	local coords = GetEntityCoords(GetPlayerPed(-1))
+	local coords = GetEntityCoords(PlayerPedId())
     cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
     SetCamCoord(cam, coords.x-1.75, coords.y, coords.z-0.55)
     SetCamFov(cam, 40.0)
@@ -129,7 +129,7 @@ function CreateFutal()
 end
 
 function CreateArms()
-	local coords = GetEntityCoords(GetPlayerPed(-1))
+	local coords = GetEntityCoords(PlayerPedId())
     cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
     SetCamCoord(cam, coords.x-1.75, coords.y, coords.z-0.15)
     SetCamFov(cam, 40.0)
@@ -139,7 +139,7 @@ function CreateArms()
 end
 
 function CreateTop()
-	local coords = GetEntityCoords(GetPlayerPed(-1))
+	local coords = GetEntityCoords(PlayerPedId())
     cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
     SetCamCoord(cam, coords.x-1.75, coords.y, coords.z+0.60)
     SetCamFov(cam, 40.0)
@@ -149,7 +149,7 @@ function CreateTop()
 end
 
 function CreateFace()
-	local coords = GetEntityCoords(GetPlayerPed(-1))
+	local coords = GetEntityCoords(PlayerPedId())
     cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
     SetCamCoord(cam, coords.x-2.0, coords.y-1.0, coords.z+0.5)
     SetCamFov(cam, 30.0)
@@ -159,7 +159,7 @@ function CreateFace()
 end
 
 function CreateBack()
-	local coords = GetEntityCoords(GetPlayerPed(-1))
+	local coords = GetEntityCoords(PlayerPedId())
     cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
     SetCamCoord(cam, coords.x+1.75, coords.y, coords.z+0.60)
     SetCamFov(cam, 40.0)
@@ -169,7 +169,7 @@ function CreateBack()
 end
 
 function CreateMontre()
-	local coords = GetEntityCoords(GetPlayerPed(-1))
+	local coords = GetEntityCoords(PlayerPedId())
     cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
     SetCamCoord(cam, coords.x-1.50, coords.y-1.5, coords.z+0.60)
     SetCamFov(cam, 20.0)
@@ -179,12 +179,12 @@ function CreateMontre()
 end
 
 function Tourner()
-    local back = GetEntityHeading(GetPlayerPed(-1))
-    SetEntityHeading(GetPlayerPed(-1), back+180)
+    local back = GetEntityHeading(PlayerPedId())
+    SetEntityHeading(PlayerPedId(), back+180)
 end
 
 function Left()
-    local coords = GetEntityCoords(GetPlayerPed(-1))
+    local coords = GetEntityCoords(PlayerPedId())
     cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
     SetCamCoord(cam, coords.x, coords.y-1.00, coords.z)
     SetCamFov(cam, 40.0)
@@ -264,7 +264,7 @@ CreateThread(function()
       Wait(0)
       for k in pairs(listClotheshop) do
 
-        local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords = GetEntityCoords(PlayerPedId(), false)
         local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, listClotheshop[k].x, listClotheshop[k].y, listClotheshop[k].z)
 
         if dist <= 1.5 then
@@ -281,7 +281,7 @@ CreateThread(function()
                         end)
                 CreateMain()
                 DrawAnim()
-                FreezeEntityPosition(GetPlayerPed(-1), true)
+                FreezeEntityPosition(PlayerPedId(), true)
                 RageUI.Visible(RMenu:Get('aces', 'main'), not RageUI.Visible(RMenu:Get('aces', 'main')))
            --    ESX.TriggerServerCallback('GetTenues', function(skin)
            --         TenueTable = skin
@@ -302,8 +302,8 @@ CreateThread(function()
             if IsControlJustPressed(0, 194) then
                 RenderScriptCams(0, 1, 1000, 1, 1)
                 DestroyAllCams(true)
-                ClearPedTasks(GetPlayerPed(-1))
-                FreezeEntityPosition(GetPlayerPed(-1), false)
+                ClearPedTasks(PlayerPedId())
+                FreezeEntityPosition(PlayerPedId(), false)
             end
             RageUI.Button("Masques", "", { RightLabel = "→" },true, function()
             end, RMenu:Get('aces', 'masks'))
@@ -325,7 +325,7 @@ CreateThread(function()
             if IsControlJustPressed(0, 22) then
                 Tourner()
             end
-            playerPed = GetPlayerPed(-1)
+            playerPed = PlayerPedId()
 maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque hockey 1","Masque Singe","Masque Crane Mexicain","Masque Ogre","Masque Père Noël","Masque Renne","Masque Bonhomme Neige","Masque Soirée","Masque Théâtre","Masque Cupidon","Masque Hockey 2","Masque 3","Masque Crane Métal","Masque Chat","Masque Renard","Masque Hibou","Masque Raton Laveur","Masque Ours","Masque Buffle","Masque Taureau","Masque Aigle","Masque Dindon","Masque Loup","Masque Aviateur","Masque Combat","Masque Mort","Masque Hockey 4","Masque Pingouin","Masque Chaussette Noël","Masque Biscuit","Masque Vieux Noël","Masque Cagoule","Masque Gaz","Masque Cagoule Retournée","Masque Gaz Simple","Masque Zombie","Masque Momie","Masque Dent Pointue","Masque Frankenstein","Masque Manga H","Masque Manga F","Masque Manga H Padré","Masque Toxique","Masque Ruban","Masque Scotch","Masque Papier","Masque Simple","Masque Foulard","Masque Cagoule Braqueur","Masque Ninja 1","Masque Touareg","Masque Ninja 2","Masque Ninja 3","Masque Cagoule Rayé 1","Masque Cagoule Rayé 2","Masque Big Foot","Masque Citrouille","Masque vieux Zombie","Masque Acide","Masque Muscle","Masque Zombie Langue","Masque Loup Garou","Masque Mouche","Masque Gollum","Masque Démons","Masque Cousu","Masque Vampire Tourbi","Masque Sorcière","Masque Démons Moustache","Masque Chauve","Masque Biscuit 2","Masque Biscuit 3","Masque Noël Cigare","Masque Sapin Noël","Masque Fraise Pourri","Masque Big Foot 2","Masque Big Foot 3","Masque Big Foot 4","Masque Big Foot 5","Masque Big Foot 6","Masque Yéti","Masque Poulet","Masque Mère Noël 1","Masque Clochard Noël","Masque Mère Noël 2","Masque Combat 2","Masque Training 1","Masque Rino Métal","Masque Alien","Masque T-Rex","Masque Démons 2","Masque Clown","Masque Gorille","Masque Cheval","Masque Licorne","Masque Crane Motif","Masque Chien","Masque Training 2","Masque Dessin Fluo","Masque Soldat","Masque Ensemble Cagoule","Masque Combat Bouffon","Masque Combat Crane","Masque Training Combat","Masque Combat Mort","Masque Aviateur 2","Masque Combat Teubé","Masque Foulard 2","Masque Cagoule Teubé 2","Masque Ninja Motif","Masque Keffieh Ouvert","Masque Keffieh Fermé","Masque Keffieh Nez","Masque Cagoule Rayé 3","Masque Ninja 4","Masque Cagoule Retournée 2","Masque Chauve","Masque Oreillette","Masque Cagoule Plongée","Masque Collant","Masque Hockey 5","Masque Combat Connecté","Masque Hockey Cagoule","Masque Hockey Biscuit","Masque Simple 2","Masque Combat Gaz","Masque Combat Flamme","Masque Bélier","Masque Vision Nocturne", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque", "Masque"}            --maskName = {}
             for i=0,GetNumberOfPedDrawableVariations(playerPed, 1)-1,1 do 
                 amount = {}
@@ -341,7 +341,7 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                     if (Active) then
                         mask1 = i
                         mask2 = 0
-                        SetPedComponentVariation(GetPlayerPed(-1), 1, mask1,mask2, 2)
+                        SetPedComponentVariation(PlayerPedId(), 1, mask1,mask2, 2)
                     end
                     if (Selected) then
                         TriggerServerEvent("dqp:SetNewMasque", mask1, mask2,"Masque", maskName[i+1])
@@ -393,7 +393,7 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
             for i = 0,25,1 do
                 --
                 local amount = {}
-                local playerPed = GetPlayerPed(-1)
+                local playerPed = PlayerPedId()
                 local ind = i+1
                 for c = 1, GetNumberOfPedPropTextureVariations(playerPed, 1, i), 1 do
         
@@ -428,7 +428,7 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                 Tourner()       
             end
             Angle()
-            local playerPed = GetPlayerPed(-1)
+            local playerPed = PlayerPedId()
             for i = -1,GetNumberOfPedDrawableVariations(playerPed,7),1 do
                 --
                 local amount = {}
@@ -526,7 +526,7 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
         
         
             }
-            local playerPed = GetPlayerPed(-1)
+            local playerPed = PlayerPedId()
             for i = 0,36,1 do
                 --
                 local amount = {}
@@ -567,7 +567,7 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
             for i = -1,19,1 do
                 --
                 local amount = {}
-                local playerPed = GetPlayerPed(-1)
+                local playerPed = PlayerPedId()
                 local ind = i+2
                 for c = 1, GetNumberOfPedPropTextureVariations(playerPed, 6, i+1), 1 do
         
@@ -628,7 +628,7 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
             Angle()
             RageUI.Button("Aucun", "Cette tenue est disponible dans notre magasin.", { RightLabel = "~g~25$" }, true, function(Hovered, Active, Selected)
                 if (Active) then
-                    SetPedComponentVariation(GetPlayerPed(-1), 5, 0, 0, 2)
+                    SetPedComponentVariation(PlayerPedId(), 5, 0, 0, 2)
                 end
                 if (Selected) then
                     TriggerEvent('skinchanger:getSkin', function(skin)
@@ -658,7 +658,7 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
             end)
             RageUI.Button("Sac à dos", "Cette tenue est disponible dans notre magasin.", { RightLabel = "~g~25$" }, true, function(Hovered, Active, Selected)
                 if (Active) then
-                    SetPedComponentVariation(GetPlayerPed(-1),7, 3, 0, 2)
+                    SetPedComponentVariation(PlayerPedId(),7, 3, 0, 2)
                 end
                 if (Selected) then
                     TriggerEvent('skinchanger:getSkin', function(skin)
@@ -689,7 +689,7 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
             end)
             RageUI.Button("Sac Tactique", "Cette tenue est disponible dans notre magasin.", { RightLabel = "~g~25$" }, true, function(Hovered, Active, Selected)
                 if (Active) then
-                    SetPedComponentVariation(GetPlayerPed(-1), 5, 44, 0, 2)
+                    SetPedComponentVariation(PlayerPedId(), 5, 44, 0, 2)
                 end
                 if (Selected) then
                     TriggerEvent('skinchanger:getSkin', function(skin)
@@ -799,11 +799,11 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                 "Casquette"
                 
             }
-            for i = -1,GetNumberOfPedDrawableVariations(GetPlayerPed(-1), 0),1 do
+            for i = -1,GetNumberOfPedDrawableVariations(PlayerPedId(), 0),1 do
                 --
                 local amount = {}
                 local ind = i+2
-                for c = 1, GetNumberOfPedPropTextureVariations(GetPlayerPed(-1), 0, i+1), 1 do
+                for c = 1, GetNumberOfPedPropTextureVariations(PlayerPedId(), 0, i+1), 1 do
         
                     amount[c] = c 
                     
@@ -815,7 +815,7 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                     if (Active) then
                         hats1 = i
                         hats2 = 0
-                        SetPedPropIndex(GetPlayerPed(-1), 0, hats1-1, 0, 2)
+                        SetPedPropIndex(PlayerPedId(), 0, hats1-1, 0, 2)
                     end
                     if (Selected) then
                         TriggerServerEvent("dqp:SetNewMasque", hats1-1,hats2,"Chapeau",chapeauItem[i],0)
@@ -840,10 +840,10 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                         animation = 'takeoff_mask'
                         TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
                         Wait(1000)
-                        SetEntityCollision(GetPlayerPed(-1), true, true)
-                        playerPed = GetPlayerPed(-1)
+                        SetEntityCollision(PlayerPedId(), true, true)
+                        playerPed = PlayerPedId()
                         Wait(200)
-                        SetPedComponentVariation(GetPlayerPed(-1), 1, 0, 0, 2)
+                        SetPedComponentVariation(PlayerPedId(), 1, 0, 0, 2)
                         ClearPedTasks(playerPed)
                     elseif Index == 2 then
                         local dict = 'missheistdockssetup1hardhat@'
@@ -859,11 +859,11 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                         animation = 'put_on_hat'
                         TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
                         Wait(1000)
-                        SetEntityCollision(GetPlayerPed(-1), true, true)
-                        playerPed = GetPlayerPed(-1)
+                        SetEntityCollision(PlayerPedId(), true, true)
+                        playerPed = PlayerPedId()
                         SetPedPropIndex(playerPed, 0, k.mask_1, k.mask_2, 2)
                         Wait(200)
-                        ClearPedProp(GetPlayerPed(-1), 0)
+                        ClearPedProp(PlayerPedId(), 0)
                         ClearPedTasks(playerPed)
                     elseif Index == 3 then
                         local dict = 'clothingspecs'
@@ -879,10 +879,10 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                         animation = 'try_glasses_positive_a'
                         TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
                         Wait(1000)
-                        SetEntityCollision(GetPlayerPed(-1), true, true)
-                        playerPed = GetPlayerPed(-1)
+                        SetEntityCollision(PlayerPedId(), true, true)
+                        playerPed = PlayerPedId()
                         Wait(200)
-                        ClearPedProp(GetPlayerPed(-1), 1)
+                        ClearPedProp(PlayerPedId(), 1)
                         ClearPedTasks(playerPed)
                     elseif Index == 4 then
                         local dict = 'mini@ears_defenders'
@@ -898,10 +898,10 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                         animation = 'takeoff_earsdefenders_idle'
                         TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
                         Wait(1000)
-                        SetEntityCollision(GetPlayerPed(-1), true, true)
-                        playerPed = GetPlayerPed(-1)
+                        SetEntityCollision(PlayerPedId(), true, true)
+                        playerPed = PlayerPedId()
                         Wait(200)
-                        ClearPedProp(GetPlayerPed(-1), 2)
+                        ClearPedProp(PlayerPedId(), 2)
                         ClearPedTasks(playerPed)
                     end
                 end
@@ -919,7 +919,7 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                     if (Selected) then
                         if Index == 1 then
                             k = json.decode(result[i].mask)
-                            ped = GetPlayerPed(-1)
+                            ped = PlayerPedId()
                             uno = k.mask_1
                             dos = k.mask_2
                             typos = result[i].type
@@ -940,8 +940,8 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                                     animation = 'takeoff_mask'
                                     TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
                                     Wait(1000)
-                                    SetEntityCollision(GetPlayerPed(-1), true, true)
-                                    playerPed = GetPlayerPed(-1)
+                                    SetEntityCollision(PlayerPedId(), true, true)
+                                    playerPed = PlayerPedId()
                                     SetPedComponentVariation(playerPed, 1, k.mask_1, k.mask_2, 2)
                                     Wait(200)
                                     ClearPedTasks(playerPed)
@@ -962,8 +962,8 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                                     animation = 'try_glasses_positive_a'
                                     TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
                                     Wait(1000)
-                                    SetEntityCollision(GetPlayerPed(-1), true, true)
-                                    playerPed = GetPlayerPed(-1)
+                                    SetEntityCollision(PlayerPedId(), true, true)
+                                    playerPed = PlayerPedId()
                                     SetPedPropIndex(playerPed, 1, k.mask_1, k.mask_2, 2)
                                     Wait(200)
                                     ClearPedTasks(playerPed)
@@ -985,8 +985,8 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                                     animation = 'put_on_hat'
                                     TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
                                     Wait(1000)
-                                    SetEntityCollision(GetPlayerPed(-1), true, true)
-                                    playerPed = GetPlayerPed(-1)
+                                    SetEntityCollision(PlayerPedId(), true, true)
+                                    playerPed = PlayerPedId()
                                     SetPedPropIndex(playerPed, 0, k.mask_1, k.mask_2, 2)
                                     Wait(200)
                                     ClearPedTasks(playerPed)
@@ -1007,8 +1007,8 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                                     animation = 'takeoff_earsdefenders_idle'
                                     TaskPlayAnim(myPed, dict, animation, 8.0, -8.0, -1, 50, 0, false, false, false)
                                     Wait(1000)
-                                    SetEntityCollision(GetPlayerPed(-1), true, true)
-                                    playerPed = GetPlayerPed(-1)
+                                    SetEntityCollision(PlayerPedId(), true, true)
+                                    playerPed = PlayerPedId()
                                     SetPedPropIndex(playerPed, 2, k.mask_1, k.mask_2, 2)
                                     Wait(200)
                                     ClearPedTasks(playerPed)
@@ -1060,13 +1060,13 @@ maskName = {"Pas de masque","Masque Cochon","Masque Crane","Masque Pogo","Masque
                         if Index == 4 then
                             TriggerServerEvent('dqp:Delclo', result[i].id, result[i].label,result[i])
                             if result[i].type == 'Masque' then
-                                SetPedComponentVariation(GetPlayerPed(-1), 1, 0, 0, 2)
+                                SetPedComponentVariation(PlayerPedId(), 1, 0, 0, 2)
                             elseif result[i].type == 'Chapeau' then
-                                ClearPedProp(GetPlayerPed(-1), 0)
+                                ClearPedProp(PlayerPedId(), 0)
                             elseif result[i].type == 'Lunette' then
-                                ClearPedProp(GetPlayerPed(-1), 1)
+                                ClearPedProp(PlayerPedId(), 1)
                             elseif result[i].type == 'Boucle' then
-                                ClearPedProp(GetPlayerPed(-1), 2)
+                                ClearPedProp(PlayerPedId(), 2)
                             end
                             TriggerEvent('shop:SyncAccess')
                             RageUI.CloseAll()
@@ -1123,7 +1123,7 @@ CreateThread(function()
 
 
 function DrawAnim()
-    local ped = GetPlayerPed(-1)
+    local ped = PlayerPedId()
     local ad = "clothingshirt"
     loadAnimDict(ad)
     RequestAnimDict(dict)

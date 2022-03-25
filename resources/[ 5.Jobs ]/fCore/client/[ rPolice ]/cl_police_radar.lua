@@ -91,13 +91,13 @@ function POLICE_radar()
 
     if isRadarPlaced then 
         
-        if GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), RadarPos.x, RadarPos.y, RadarPos.z, true) < 0.9 then 
+        if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), RadarPos.x, RadarPos.y, RadarPos.z, true) < 0.9 then 
        
             RequestAnimDict("anim@apt_trans@garage")
             while not HasAnimDictLoaded("anim@apt_trans@garage") do
                Wait(1)
             end
-            TaskPlayAnim(GetPlayerPed(-1), "anim@apt_trans@garage", "gar_open_1_left", 1.0, -1.0, 5000, 0, 1, true, true, true) 
+            TaskPlayAnim(PlayerPedId(), "anim@apt_trans@garage", "gar_open_1_left", 1.0, -1.0, 5000, 0, 1, true, true, true) 
        
             Wait(2000) 
        
@@ -132,8 +132,8 @@ function POLICE_radar()
         maxSpeed = radarSetSpeed("50")
        
         Wait(200) 
-        RadarPos = GetOffsetFromEntityInWorldCoords(GetPlayerPed(-1), 0, 1.5, 0)
-        RadarAng = GetEntityRotation(GetPlayerPed(-1))
+        RadarPos = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0, 1.5, 0)
+        RadarAng = GetEntityRotation(PlayerPedId())
        
         if maxSpeed ~= nil then 
        
@@ -141,7 +141,7 @@ function POLICE_radar()
             while not HasAnimDictLoaded("anim@apt_trans@garage") do
                Wait(1)
             end
-            TaskPlayAnim(GetPlayerPed(-1), "anim@apt_trans@garage", "gar_open_1_left", 1.0, -1.0, 5000, 0, 1, true, true, true) -- animation
+            TaskPlayAnim(PlayerPedId(), "anim@apt_trans@garage", "gar_open_1_left", 1.0, -1.0, 5000, 0, 1, true, true, true) -- animation
            
             Wait(1500)
            
@@ -199,7 +199,7 @@ CreateThread(function()
                
             end
            
-            if GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), RadarPos.x, RadarPos.y, RadarPos.z, true) > 300 then 
+            if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), RadarPos.x, RadarPos.y, RadarPos.z, true) > 300 then 
            
                 SetEntityAsMissionEntity(Radar, false, false)
                 SetEntityVisible(Radar, false)

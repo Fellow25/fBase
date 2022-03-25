@@ -78,7 +78,7 @@ CreateThread(function()
                     if IsControlJustReleased(0, 38) and not inTrunk then
                         local player = ESX.Game.GetClosestPlayer()
                         local playerPed = GetPlayerPed(player)
-						local playerPed2 = GetPlayerPed(-1)
+						local playerPed2 = PlayerPedId()
 						if lockStatus == 1 then --unlocked
 							if DoesEntityExist(playerPed) then
 								if not IsEntityAttached(playerPed) or GetDistanceBetweenCoords(GetEntityCoords(playerPed), GetEntityCoords(PlayerPedId()), true) >= 5.0 then

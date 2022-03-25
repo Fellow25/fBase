@@ -308,7 +308,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' or ESX.PlayerData.job and ESX.PlayerData.job.name == 'ferrailleur' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Bennys.pos.coffre.position.x, Bennys.pos.coffre.position.y, Bennys.pos.coffre.position.z)
             if jobdist <= 10.0 and Bennys.jeveuxmarker then
                 Timer = 0
@@ -367,7 +367,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mechanic' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Bennys.pos.garage.position.x, Bennys.pos.garage.position.y, Bennys.pos.garage.position.z)
             if dist3 <= 10.0 and Bennys.jeveuxmarker then
                 Timer = 0
@@ -394,12 +394,12 @@ function spawnuniCarBennys(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Bennys.pos.spawnvoiture.position.x, Bennys.pos.spawnvoiture.position.y, Bennys.pos.spawnvoiture.position.z, Bennys.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Benny's"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 

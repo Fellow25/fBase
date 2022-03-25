@@ -64,7 +64,7 @@ end)
     while true do
         local sleep = 500
             for k in pairs(position) do
-                local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+                local plyCoords = GetEntityCoords(PlayerPedId(), false)
                 local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, position[k].x, position[k].y, position[k].z)
                     if dist <= 1.0 then
                     sleep = 0

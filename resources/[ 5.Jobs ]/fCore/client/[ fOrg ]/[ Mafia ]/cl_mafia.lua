@@ -94,7 +94,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Mafia.pos.coffre.position.x, Mafia.pos.coffre.position.y, Mafia.pos.coffre.position.z)
             if jobdist <= 10.0 and Mafia.jeveuxmarker then
                 Timer = 0
@@ -152,7 +152,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.pos.garage.position.x, Mafia.pos.garage.position.y, Mafia.pos.garage.position.z)
             if dist3 <= 10.0 and Mafia.jeveuxmarker then
                 Timer = 0
@@ -179,12 +179,12 @@ function spawnuniCarmafia(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Mafia.pos.spawnvoiture.position.x, Mafia.pos.spawnvoiture.position.y, Mafia.pos.spawnvoiture.position.z, Mafia.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Mafia"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
     SetVehicleCustomPrimaryColour(vehicle, 0, 0, 0)
     SetVehicleCustomSecondaryColour(vehicle, 0, 0, 0)
     SetVehicleMaxMods(vehicle)
@@ -296,7 +296,7 @@ CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-    local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
     local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.pos.theorie.position.x, Mafia.pos.theorie.position.y, Mafia.pos.theorie.position.z)
     if dist3 <= 10.0 and Mafia.jeveuxmarker then
         Timer = 0
@@ -485,7 +485,7 @@ CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-    local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
     local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.pos.craftmenu.position.x, Mafia.pos.craftmenu.position.y, Mafia.pos.craftmenu.position.z)
     if dist3 <= 10.0 and Mafia.jeveuxmarker then
         Timer = 0
@@ -530,7 +530,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Mafia.farm.metaux.position.x, Mafia.farm.metaux.position.y, Mafia.farm.metaux.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -564,7 +564,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.farm.metaux.position.x, Mafia.farm.metaux.position.y, Mafia.farm.metaux.position.z)
         if dist3 <= 10.0 and Mafia.jeveuxmarker then
             Timer = 0
@@ -609,7 +609,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Mafia.farm.poudre.position.x, Mafia.farm.poudre.position.y, Mafia.farm.poudre.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -643,7 +643,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.farm.poudre.position.x, Mafia.farm.poudre.position.y, Mafia.farm.poudre.position.z)
         if dist3 <= 10.0 and Mafia.jeveuxmarker then
             Timer = 0
@@ -689,7 +689,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Mafia.farm.meche.position.x, Mafia.farm.meche.position.y, Mafia.farm.meche.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -723,7 +723,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.farm.meche.position.x, Mafia.farm.meche.position.y, Mafia.farm.meche.position.z)
         if dist3 <= 10.0 and Mafia.jeveuxmarker then
             Timer = 0
@@ -769,7 +769,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Mafia.farm.ruban.position.x, Mafia.farm.ruban.position.y, Mafia.farm.ruban.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -803,7 +803,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'mafia' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Mafia.farm.ruban.position.x, Mafia.farm.ruban.position.y, Mafia.farm.ruban.position.z)
         if dist3 <= 10.0 and Mafia.jeveuxmarker then
             Timer = 0

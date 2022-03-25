@@ -140,12 +140,12 @@ function Trajet()
                             Wait(0) 
                         end
                         Wait(100)
-                        TaskPlayAnim(GetPlayerPed(-1), "random@domestic", "pickup_low", 2.0, 2.0, -1, 0, 0, false, false, false)
+                        TaskPlayAnim(PlayerPedId(), "random@domestic", "pickup_low", 2.0, 2.0, -1, 0, 0, false, false, false)
                         Wait(3000)
-                        TaskPlayAnim(GetPlayerPed(-1), "random@domestic", "pickup_low", 2.0, 2.0, -1, 0, 0, false, false, false)
+                        TaskPlayAnim(PlayerPedId(), "random@domestic", "pickup_low", 2.0, 2.0, -1, 0, 0, false, false, false)
                         Wait(3000)
                         TriggerServerEvent("Interim:giveitem", "ferraille")
-                        ClearPedTasks(GetPlayerPed(-1))
+                        ClearPedTasks(PlayerPedId())
                         FutWaypoint()
                     end
                 else

@@ -275,7 +275,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fire' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Fire.pos.coffre.position.x, Fire.pos.coffre.position.y, Fire.pos.coffre.position.z)
             if jobdist <= 10.0 and Fire.jeveuxmarker then
                 Timer = 0
@@ -325,7 +325,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fire' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Fire.pos.garage.position.x, Fire.pos.garage.position.y, Fire.pos.garage.position.z)
             if dist3 <= 10.0 and Fire.jeveuxmarker then
                 Timer = 0
@@ -349,7 +349,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fire' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Fire.pos.deletevoiture.position.x, Fire.pos.deletevoiture.position.y, Fire.pos.deletevoiture.position.z)
             if dist3 <= 1.0 then
             Timer = 0   
@@ -377,13 +377,13 @@ function spawnuniCarFire(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Fire.pos.spawnvoiture.position.x, Fire.pos.spawnvoiture.position.y, Fire.pos.spawnvoiture.position.z, Fire.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Pompier"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque)
     SetVehRadioStation(vehicle, "OFF") 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 
@@ -491,7 +491,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'fire' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'fire' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Fire.pos.vestiaire.position.x, Fire.pos.vestiaire.position.y, Fire.pos.vestiaire.position.z)
             if jobdist <= 10.0 and Fire.jeveuxmarker then
                 Timer = 0

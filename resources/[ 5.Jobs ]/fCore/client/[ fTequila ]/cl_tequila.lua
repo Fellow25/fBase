@@ -152,7 +152,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tequila' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Tequila.pos.MenuPrendre.position.x, Tequila.pos.MenuPrendre.position.y, Tequila.pos.MenuPrendre.position.z)
         if dist3 <= 7.0 and Tequila.jeveuxmarker then
             Timer = 0
@@ -207,7 +207,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tequila' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Tequila.pos.coffre.position.x, Tequila.pos.coffre.position.y, Tequila.pos.coffre.position.z)
             if jobdist <= 10.0 and Tequila.jeveuxmarker then
                 Timer = 0
@@ -266,7 +266,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tequila' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Tequila.pos.garage.position.x, Tequila.pos.garage.position.y, Tequila.pos.garage.position.z)
             if dist3 <= 10.0 and Tequila.jeveuxmarker then
                 Timer = 0
@@ -293,12 +293,12 @@ function spawnuniCarTequila(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Tequila.pos.spawnvoiture.position.x, Tequila.pos.spawnvoiture.position.y, Tequila.pos.spawnvoiture.position.z, Tequila.pos.spawnvoiture.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Tequila"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 

@@ -248,7 +248,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'vigneron' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, vigneron.pos.coffre.position.x, vigneron.pos.coffre.position.y, vigneron.pos.coffre.position.z)
             if jobdist <= 10.0 and vigneron.jeveuxmarker then
                 Timer = 0
@@ -304,7 +304,7 @@ function Garagevigneron()
           while true do
               local Timer = 500
               if ESX.PlayerData.job and ESX.PlayerData.job.name == 'vigneron' then
-              local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+              local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
               local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, vigneron.pos.garage.position.x, vigneron.pos.garage.position.y, vigneron.pos.garage.position.z)
               if dist3 <= 10.0 and vigneron.jeveuxmarker then
                   Timer = 0
@@ -331,12 +331,12 @@ function Garagevigneron()
           Wait(0)
       end
   
-      local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+      local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
       local vehicle = CreateVehicle(car, vigneron.pos.spawnvoiture.position.x, vigneron.pos.spawnvoiture.position.y, vigneron.pos.spawnvoiture.position.z, vigneron.pos.spawnvoiture.position.h, true, false)
       SetEntityAsMissionEntity(vehicle, true, true)
       local plaque = "vigneron"..math.random(1,9)
       SetVehicleNumberPlateText(vehicle, plaque) 
-      SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+      SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
   end
 
 

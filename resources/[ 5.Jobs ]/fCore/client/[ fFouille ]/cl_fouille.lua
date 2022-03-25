@@ -73,9 +73,9 @@ function MenuFouille()
 
             local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
             local target, distance = ESX.Game.GetClosestPlayer()
-            playerheading = GetEntityHeading(GetPlayerPed(-1))
+            playerheading = GetEntityHeading(PlayerPedId())
             playerlocation = GetEntityForwardVector(PlayerPedId())
-            playerCoords = GetEntityCoords(GetPlayerPed(-1))
+            playerCoords = GetEntityCoords(PlayerPedId())
             local target_id = GetPlayerServerId(target)
             local searchPlayerPed = GetPlayerPed(target)
             RageUI.ButtonWithStyle('Fouiller', nil, {RightLabel = "→"}, closestPlayer ~= -1 and closestDistance <= 3.0, function(_, a, s)
@@ -94,9 +94,9 @@ function MenuFouille()
         RageUI.ButtonWithStyle("Carte d'identité", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     local target, distance = ESX.Game.GetClosestPlayer()
-                    playerheading = GetEntityHeading(GetPlayerPed(-1))
+                    playerheading = GetEntityHeading(PlayerPedId())
                     playerlocation = GetEntityForwardVector(PlayerPedId())
-                    playerCoords = GetEntityCoords(GetPlayerPed(-1))
+                    playerCoords = GetEntityCoords(PlayerPedId())
                     local target_id = GetPlayerServerId(target)
                     if closestPlayer ~= -1 and closestDistance <= 3.0 then  
                     ESX.ShowNotification("Recherche en cours...")
@@ -113,9 +113,9 @@ function MenuFouille()
         RageUI.ButtonWithStyle("Menotter/démenotter", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
             if (Selected) then
                 local target, distance = ESX.Game.GetClosestPlayer()
-                playerheading = GetEntityHeading(GetPlayerPed(-1))
+                playerheading = GetEntityHeading(PlayerPedId())
                 playerlocation = GetEntityForwardVector(PlayerPedId())
-                playerCoords = GetEntityCoords(GetPlayerPed(-1))
+                playerCoords = GetEntityCoords(PlayerPedId())
                 local target_id = GetPlayerServerId(target)
                 if closestPlayer ~= -1 and closestDistance <= 3.0 then   
                 TriggerServerEvent('fellow:handcuff', GetPlayerServerId(closestPlayer))
@@ -130,9 +130,9 @@ function MenuFouille()
             RageUI.ButtonWithStyle("Escorter", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     local target, distance = ESX.Game.GetClosestPlayer()
-                    playerheading = GetEntityHeading(GetPlayerPed(-1))
+                    playerheading = GetEntityHeading(PlayerPedId())
                     playerlocation = GetEntityForwardVector(PlayerPedId())
-                    playerCoords = GetEntityCoords(GetPlayerPed(-1))
+                    playerCoords = GetEntityCoords(PlayerPedId())
                     local target_id = GetPlayerServerId(target)
                     if closestPlayer ~= -1 and closestDistance <= 3.0 then  
                 TriggerServerEvent('fellow:drag', GetPlayerServerId(closestPlayer))
@@ -147,9 +147,9 @@ function MenuFouille()
             RageUI.ButtonWithStyle("Mettre dans un véhicule", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     local target, distance = ESX.Game.GetClosestPlayer()
-                    playerheading = GetEntityHeading(GetPlayerPed(-1))
+                    playerheading = GetEntityHeading(PlayerPedId())
                     playerlocation = GetEntityForwardVector(PlayerPedId())
-                    playerCoords = GetEntityCoords(GetPlayerPed(-1))
+                    playerCoords = GetEntityCoords(PlayerPedId())
                     local target_id = GetPlayerServerId(target)
                     if closestPlayer ~= -1 and closestDistance <= 3.0 then  
                 TriggerServerEvent('fellow:putInVehicle', GetPlayerServerId(closestPlayer))
@@ -164,9 +164,9 @@ function MenuFouille()
             RageUI.ButtonWithStyle("Sortir du véhicule", nil, {RightLabel = "→"}, true, function(Hovered, Active, Selected)
                 if (Selected) then
                     local target, distance = ESX.Game.GetClosestPlayer()
-                    playerheading = GetEntityHeading(GetPlayerPed(-1))
+                    playerheading = GetEntityHeading(PlayerPedId())
                     playerlocation = GetEntityForwardVector(PlayerPedId())
-                    playerCoords = GetEntityCoords(GetPlayerPed(-1))
+                    playerCoords = GetEntityCoords(PlayerPedId())
                     local target_id = GetPlayerServerId(target)
                     if closestPlayer ~= -1 and closestDistance <= 3.0 then  
                 TriggerServerEvent('fellow:OutVehicle', GetPlayerServerId(closestPlayer))
@@ -310,7 +310,7 @@ RegisterNetEvent('fellow:handcuff')
 AddEventHandler('fellow:handcuff', function()
 
   IsHandcuffed    = not IsHandcuffed;
-  local playerPed = GetPlayerPed(-1)
+  local playerPed = PlayerPedId()
 
   CreateThread(function()
 
@@ -359,10 +359,10 @@ CreateThread(function()
     if IsHandcuffed then
       if IsDragged then
         local ped = GetPlayerPed(GetPlayerFromServerId(CopPed))
-        local myped = GetPlayerPed(-1)
+        local myped = PlayerPedId()
         AttachEntityToEntity(myped, ped, 11816, 0.54, 0.54, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
       else
-        DetachEntity(GetPlayerPed(-1), true, false)
+        DetachEntity(PlayerPedId(), true, false)
       end
     end
   end
@@ -371,7 +371,7 @@ end)
 RegisterNetEvent('fellow:putInVehicle')
 AddEventHandler('fellow:putInVehicle', function()
 
-  local playerPed = GetPlayerPed(-1)
+  local playerPed = PlayerPedId()
   local coords    = GetEntityCoords(playerPed)
 
   if IsAnyVehicleNearPoint(coords.x, coords.y, coords.z, 5.0) then
@@ -404,11 +404,11 @@ RegisterNetEvent('fellow:OutVehicle')
 AddEventHandler('fellow:OutVehicle', function(t)
   local ped = GetPlayerPed(t)
   ClearPedTasksImmediately(ped)
-  plyPos = GetEntityCoords(GetPlayerPed(-1),  true)
+  plyPos = GetEntityCoords(PlayerPedId(),  true)
   local xnew = plyPos.x+2
   local ynew = plyPos.y+2
 
-  SetEntityCoords(GetPlayerPed(-1), xnew, ynew, plyPos.z)
+  SetEntityCoords(PlayerPedId(), xnew, ynew, plyPos.z)
 end)
 
 -- Handcuff
@@ -427,9 +427,9 @@ RegisterNetEvent('fellow:MenuFouille')
 AddEventHandler('fellow:MenuFouille', function()
     local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
     local target, distance = ESX.Game.GetClosestPlayer()
-    playerheading = GetEntityHeading(GetPlayerPed(-1))
+    playerheading = GetEntityHeading(PlayerPedId())
     playerlocation = GetEntityForwardVector(PlayerPedId())
-    playerCoords = GetEntityCoords(GetPlayerPed(-1))
+    playerCoords = GetEntityCoords(PlayerPedId())
     local target_id = GetPlayerServerId(target)
     local searchPlayerPed = GetPlayerPed(target)
     if closestPlayer ~= -1 and closestDistance <= 3.0 then

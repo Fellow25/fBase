@@ -172,7 +172,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'motodealer' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, ConcessMoto.pos.coffre.position.x, ConcessMoto.pos.coffre.position.y, ConcessMoto.pos.coffre.position.z)
             if jobdist <= 10.0 and ConcessMoto.jeveuxmarker then
                 Timer = 0
@@ -406,7 +406,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'motodealer' or ESX.PlayerData.job2 and ESX.PlayerData.job2.name == 'motodealer' then  
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, ConcessMoto.pos.menu.position.x, ConcessMoto.pos.menu.position.y, ConcessMoto.pos.menu.position.z)
             if jobdist <= 10.0 and ConcessMoto.jeveuxmarker then
                 Timer = 0
@@ -459,7 +459,7 @@ end
 CreateThread(function()
         while true do
             local Timer = 500
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, ConcessMoto.pos.serrurier.position.x, ConcessMoto.pos.serrurier.position.y, ConcessMoto.pos.serrurier.position.z)
             if jobdist <= 10.0 and ConcessMoto.jeveuxmarker then
                 Timer = 0
@@ -507,7 +507,7 @@ function chargementmoto(modelHash)
 end
 
 function OpenCloseVehicle()
-	local playerPed = GetPlayerPed(-1)
+	local playerPed = PlayerPedId()
 	local coords    = GetEntityCoords(playerPed, true)
 
 	local vehicle = nil
@@ -559,8 +559,8 @@ CreateThread(function()
         Wait(0)
         if not ConcessMoto.voiture then
         if IsControlJustPressed(1, 303) then -- When you press "U"
-             if not IsPedInAnyVehicle(GetPlayerPed(-1), true) then 
-                TaskPlayAnim(GetPlayerPed(-1), dict, "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false, false)
+             if not IsPedInAnyVehicle(PlayerPedId(), true) then 
+                TaskPlayAnim(PlayerPedId(), dict, "fob_click_fp", 8.0, 8.0, -1, 48, 1, false, false, false)
 				StopAnimTask = true
               else
                 TriggerEvent("chatMessage", "", { 200, 200, 90 }, "Vous devez être sorti d'un véhicule pour l'utiliser les clés !") -- Shows this message when you are not in a vehicle in the chat

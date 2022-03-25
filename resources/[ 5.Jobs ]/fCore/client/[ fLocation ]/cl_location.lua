@@ -79,7 +79,7 @@ end)
     while true do
         local sleep = 500
             for k in pairs(position) do
-                local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+                local plyCoords = GetEntityCoords(PlayerPedId(), false)
                 local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, position[k].x, position[k].y, position[k].z)
                     if dist <= 1.0 then
                     sleep = 0
@@ -103,10 +103,10 @@ AddEventHandler('g:spawnCar', function(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, -286.77, -1022.85, 30.20, 248.43, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "fLocation"
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end)

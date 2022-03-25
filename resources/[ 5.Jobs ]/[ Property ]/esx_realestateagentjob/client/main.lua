@@ -611,7 +611,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), 151.0994, -1007.8073, -98.9999)	
+                                    SetEntityCoords(PlayerPedId(), 151.0994, -1007.8073, -98.9999)	
 
 	
                                 elseif Index == 2 then
@@ -621,7 +621,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), 265.6031, -1002.9244, -99.0086)	
+                                    SetEntityCoords(PlayerPedId(), 265.6031, -1002.9244, -99.0086)	
 
 		                          
                                 elseif Index == 3 then
@@ -631,7 +631,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), -616.8566, 59.3575, 98.2000)
+                                    SetEntityCoords(PlayerPedId(), -616.8566, 59.3575, 98.2000)
 
 
                                 elseif Index == 4 then
@@ -641,7 +641,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), -788.3881, 320.2430, 187.3132)
+                                    SetEntityCoords(PlayerPedId(), -788.3881, 320.2430, 187.3132)
 
                                
                                 elseif Index == 5 then
@@ -651,7 +651,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), -1459.1700, -520.5855, 56.9247) 
+                                    SetEntityCoords(PlayerPedId(), -1459.1700, -520.5855, 56.9247) 
 
                                 elseif Index == 6 then
                                     ipl = '[]'
@@ -660,7 +660,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), -674.4503, 595.6156, 145.3796)
+                                    SetEntityCoords(PlayerPedId(), -674.4503, 595.6156, 145.3796)
                                 elseif Index == 7 then
                                     ipl = '[]'
                                     inside = '{"x":1026.5056,"y":-3099.8320,"z":-38.9998}'
@@ -668,7 +668,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), 1026.8707, -3099.8710, -38.9998)	
+                                    SetEntityCoords(PlayerPedId(), 1026.8707, -3099.8710, -38.9998)	
                                 elseif Index == 8 then
                                     ipl = '[]'
                                     inside = '{"x":1048.5067,"y":-3097.0817,"z":-38.9999}'
@@ -676,7 +676,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), 1072.8447, -3100.0390, -38.9999)	
+                                    SetEntityCoords(PlayerPedId(), 1072.8447, -3100.0390, -38.9999)	
                                 elseif Index == 9 then
                                     ipl = '[]'
                                     inside = '{"x":1088.1834,"y":-3099.3547,"z":-38.9999}'
@@ -684,7 +684,7 @@ function aProperty()
                                     isSingle = 1
                                     isRoom = 1
                                     isGateway = 0
-                                    SetEntityCoords(GetPlayerPed(-1), 1104.7231, -3100.0690, -38.9999)	
+                                    SetEntityCoords(PlayerPedId(), 1104.7231, -3100.0690, -38.9999)	
 
                                 end
                             end

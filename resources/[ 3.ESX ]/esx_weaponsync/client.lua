@@ -55,7 +55,7 @@ function RebuildLoadout()
     Wait(200)
   end
   
-  local playerPed = GetPlayerPed(-1)
+  local playerPed = PlayerPedId()
 
   for weaponHash,v in pairs(Weapons) do
     local item = GetInventoryItem(v.item)
@@ -91,7 +91,7 @@ function RebuildLoadout()
 end
 
 function RemoveUsedAmmo()  
-  local playerPed = GetPlayerPed(-1)
+  local playerPed = PlayerPedId()
   local AmmoAfter = GetAmmoInPedWeapon(playerPed, CurrentWeapon)
   local ammoType = AmmoTypes[GetPedAmmoTypeFromWeapon(playerPed, CurrentWeapon)]
   
@@ -130,7 +130,7 @@ AddEventHandler('esx:addInventoryItem', function(name, count)
   PlayerData = ESX.GetPlayerData()
   RebuildLoadout()
   if CurrentWeapon then
-    AmmoBefore = GetAmmoInPedWeapon(GetPlayerPed(-1), CurrentWeapon)
+    AmmoBefore = GetAmmoInPedWeapon(PlayerPedId(), CurrentWeapon)
   end
 end)
 
@@ -140,7 +140,7 @@ AddEventHandler('esx:removeInventoryItem', function(name, count)
   PlayerData = ESX.GetPlayerData()
   RebuildLoadout()
   if CurrentWeapon then
-    AmmoBefore = GetAmmoInPedWeapon(GetPlayerPed(-1), CurrentWeapon)
+    AmmoBefore = GetAmmoInPedWeapon(PlayerPedId(), CurrentWeapon)
   end
 end)
 
@@ -148,7 +148,7 @@ CreateThread(function()
   while true do
     Wait(200)
     
-    local playerPed = GetPlayerPed(-1)
+    local playerPed = PlayerPedId()
 
     if CurrentWeapon ~= GetSelectedPedWeapon(playerPed) then
       IsShooting = false

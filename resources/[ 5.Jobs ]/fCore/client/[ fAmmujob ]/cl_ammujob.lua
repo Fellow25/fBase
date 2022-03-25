@@ -228,7 +228,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, Ammujob.pos.coffre.position.x, Ammujob.pos.coffre.position.y, Ammujob.pos.coffre.position.z)
             if jobdist <= 10.0 and Ammujob.jeveuxmarker then
                 Timer = 0
@@ -286,7 +286,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
-            local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
             local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Ammujob.pos.garage.position.x, Ammujob.pos.garage.position.y, Ammujob.pos.garage.position.z)
             if dist3 <= 10.0 and Ammujob.jeveuxmarker then
                 Timer = 0
@@ -313,12 +313,12 @@ function spawnuniCarAmmu(car)
         Wait(0)
     end
 
-    local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+    local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
     local vehicle = CreateVehicle(car, Ammujob.pos.garage.position.x, Ammujob.pos.garage.position.y, Ammujob.pos.garage.position.z, Ammujob.pos.garage.position.h, true, false)
     SetEntityAsMissionEntity(vehicle, true, true)
     local plaque = "Ammu-Nation"..math.random(1,9)
     SetVehicleNumberPlateText(vehicle, plaque) 
-    SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+    SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
 end
 
 
@@ -423,7 +423,7 @@ CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
-    local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
     local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Ammujob.pos.theorie.position.x, Ammujob.pos.theorie.position.y, Ammujob.pos.theorie.position.z)
     if dist3 <= 10.0 and Ammujob.jeveuxmarker then
         Timer = 0
@@ -624,7 +624,7 @@ CreateThread(function()
 while true do
     local Timer = 500
     if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
-    local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+    local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
     local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Ammujob.pos.craftmenu.position.x, Ammujob.pos.craftmenu.position.y, Ammujob.pos.craftmenu.position.z)
     if dist3 <= 10.0 and Ammujob.jeveuxmarker then
         Timer = 0
@@ -669,7 +669,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Ammujob.farm.metaux.position.x, Ammujob.farm.metaux.position.y, Ammujob.farm.metaux.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -703,7 +703,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Ammujob.farm.metaux.position.x, Ammujob.farm.metaux.position.y, Ammujob.farm.metaux.position.z)
         if dist3 <= 10.0 and Ammujob.jeveuxmarker then
             Timer = 0
@@ -748,7 +748,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Ammujob.farm.canon.position.x, Ammujob.farm.canon.position.y, Ammujob.farm.canon.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -782,7 +782,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Ammujob.farm.canon.position.x, Ammujob.farm.canon.position.y, Ammujob.farm.canon.position.z)
         if dist3 <= 10.0 and Ammujob.jeveuxmarker then
             Timer = 0
@@ -828,7 +828,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Ammujob.farm.meche.position.x, Ammujob.farm.meche.position.y, Ammujob.farm.meche.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -862,7 +862,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Ammujob.farm.meche.position.x, Ammujob.farm.meche.position.y, Ammujob.farm.meche.position.z)
         if dist3 <= 10.0 and Ammujob.jeveuxmarker then
             Timer = 0
@@ -908,7 +908,7 @@ CreateThread(function()
         local playerPed = PlayerPedId()
         while true do
             local Timer = 500
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local playerCoords = GetEntityCoords(PlayerPedId())
             zoneDistance = GetDistanceBetweenCoords(playerCoords, Ammujob.farm.levier.position.x, Ammujob.farm.levier.position.y, Ammujob.farm.levier.position.z)
                 if IsEntityAtCoord(PlayerPedId(), 0.0, -0.0, -0.0, 1.5, 1.5, 1.5, 0, 1, 0) then 
@@ -942,7 +942,7 @@ CreateThread(function()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'ammu' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, Ammujob.farm.levier.position.x, Ammujob.farm.levier.position.y, Ammujob.farm.levier.position.z)
         if dist3 <= 10.0 and Ammujob.jeveuxmarker then
             Timer = 0

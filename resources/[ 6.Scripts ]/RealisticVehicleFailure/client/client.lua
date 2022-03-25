@@ -39,7 +39,7 @@ local healthPetrolTankDelta = 0.0
 local healthPetrolTankDeltaScaled = 0.0
 
 local function isPedDrivingAVehicle()
-	local ped = GetPlayerPed(-1)
+	local ped = PlayerPedId()
 	vehicle = GetVehiclePedIsIn(ped, false)
 	if IsPedInAnyVehicle(ped, false) then
 		-- Check if ped is in driver seat
@@ -190,7 +190,7 @@ end
 CreateThread(function()
 	while true do
 		Wait(50)
-		local ped = GetPlayerPed(-1)
+		local ped = PlayerPedId()
 		if isPedDrivingAVehicle() then
 			vehicle = GetVehiclePedIsIn(ped, false)
 			vehicleClass = GetVehicleClass(vehicle)

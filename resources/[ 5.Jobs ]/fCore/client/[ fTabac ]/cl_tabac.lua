@@ -249,7 +249,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tabac' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, tabac.pos.coffre.position.x, tabac.pos.coffre.position.y, tabac.pos.coffre.position.z)
             if jobdist <= 10.0 and tabac.jeveuxmarker then
                 Timer = 0
@@ -305,7 +305,7 @@ function Garagetabac()
           while true do
               local Timer = 500
               if ESX.PlayerData.job and ESX.PlayerData.job.name == 'tabac' then
-              local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+              local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
               local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, tabac.pos.garage.position.x, tabac.pos.garage.position.y, tabac.pos.garage.position.z)
               if dist3 <= 10.0 and tabac.jeveuxmarker then
                   Timer = 0
@@ -332,12 +332,12 @@ function Garagetabac()
           Wait(0)
       end
   
-      local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+      local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
       local vehicle = CreateVehicle(car, tabac.pos.spawnvoiture.position.x, tabac.pos.spawnvoiture.position.y, tabac.pos.spawnvoiture.position.z, tabac.pos.spawnvoiture.position.h, true, false)
       SetEntityAsMissionEntity(vehicle, true, true)
       local plaque = "tabac"..math.random(1,9)
       SetVehicleNumberPlateText(vehicle, plaque) 
-      SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+      SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
   end
 
 
@@ -432,7 +432,7 @@ AddEventHandler('f:startSmoke', function(source)
 end)
 
 function SmokeAnimation()
-	local playerPed = GetPlayerPed(-1)
+	local playerPed = PlayerPedId()
 	
 	CreateThread(function()
         TaskStartScenarioInPlace(playerPed, "WORLD_HUMAN_SMOKING", 0, true)               

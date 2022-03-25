@@ -129,7 +129,7 @@ function Frigomcdonalds()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mcdonalds' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, mcdonalds.pos.frigo.position.x, mcdonalds.pos.frigo.position.y, mcdonalds.pos.frigo.position.z)
         if dist3 <= 10.0 and mcdonalds.jeveuxmarker then
             Timer = 0
@@ -221,7 +221,7 @@ function Cuisinemcdonalds()
     while true do
         local Timer = 500
         if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mcdonalds' then
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, mcdonalds.pos.cuisine.position.x, mcdonalds.pos.cuisine.position.y, mcdonalds.pos.cuisine.position.z)
         if dist3 <= 10.0 and mcdonalds.jeveuxmarker then
             Timer = 0
@@ -281,7 +281,7 @@ function Drivemcdonalds()
     while true do
         local Timer = 500
 
-        local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+        local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
         local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, mcdonalds.pos.drive.position.x, mcdonalds.pos.drive.position.y, mcdonalds.pos.drive.position.z)
         if dist3 <= 10.0 and mcdonalds.jeveuxmarkerdrive then
             Timer = 0
@@ -493,7 +493,7 @@ CreateThread(function()
         while true do
             local Timer = 500
             if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mcdonalds' then
-            local plycrdjob = GetEntityCoords(GetPlayerPed(-1), false)
+            local plycrdjob = GetEntityCoords(PlayerPedId(), false)
             local jobdist = Vdist(plycrdjob.x, plycrdjob.y, plycrdjob.z, mcdonalds.pos.coffre.position.x, mcdonalds.pos.coffre.position.y, mcdonalds.pos.coffre.position.z)
             if jobdist <= 10.0 and mcdonalds.jeveuxmarker then
                 Timer = 0
@@ -550,7 +550,7 @@ function Garagemcdonalds()
           while true do
               local Timer = 500
               if ESX.PlayerData.job and ESX.PlayerData.job.name == 'mcdonalds' then
-              local plyCoords3 = GetEntityCoords(GetPlayerPed(-1), false)
+              local plyCoords3 = GetEntityCoords(PlayerPedId(), false)
               local dist3 = Vdist(plyCoords3.x, plyCoords3.y, plyCoords3.z, mcdonalds.pos.garage.position.x, mcdonalds.pos.garage.position.y, mcdonalds.pos.garage.position.z)
               if dist3 <= 10.0 and mcdonalds.jeveuxmarker then
                   Timer = 0
@@ -577,12 +577,12 @@ function Garagemcdonalds()
           Wait(0)
       end
   
-      local x, y, z = table.unpack(GetEntityCoords(GetPlayerPed(-1), false))
+      local x, y, z = table.unpack(GetEntityCoords(PlayerPedId(), false))
       local vehicle = CreateVehicle(car, mcdonalds.pos.spawnvoiture.position.x, mcdonalds.pos.spawnvoiture.position.y, mcdonalds.pos.spawnvoiture.position.z, mcdonalds.pos.spawnvoiture.position.h, true, false)
       SetEntityAsMissionEntity(vehicle, true, true)
       local plaque = "mcdonalds"..math.random(1,9)
       SetVehicleNumberPlateText(vehicle, plaque) 
-      SetPedIntoVehicle(GetPlayerPed(-1),vehicle,-1)
+      SetPedIntoVehicle(PlayerPedId(),vehicle,-1)
   end
 
 
