@@ -1,5 +1,5 @@
-local HasAlreadyEnteredMarker, OnJob, IsNearCustomer, CustomerIsEnteringVehicle, CustomerEnteredVehicle, IsDead, CurrentActionData = false, false, false, false, false, false, {}
-local CurrentCustomer, CurrentCustomerBlip, DestinationBlip, targetCoords, LastZone, CurrentAction, CurrentActionMsg
+local OnJob, IsNearCustomer, CustomerIsEnteringVehicle, CustomerEnteredVehicle, IsDead  = false, false, false, false, {}
+local CurrentCustomer, CurrentCustomerBlip, DestinationBlip, targetCoords
 
 function DrawSub(msg, time)
 	ClearPrints()
